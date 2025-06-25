@@ -1,0 +1,267 @@
+{
+  "7446d72c-c474-4893-8ce9-a99f5076a8b5": {
+    "eligible": false,
+    "score": 0,
+    "criteria_met": [],
+    "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant's overall score is below the required threshold.\n\n**Criteria Assessment:**\n",
+    "high_priority_criteria_met": "0/0",
+    "evaluation_timestamp": "2025-06-25T14:50:16.068964",
+    "created_at": "2025-06-25T14:50:16.069078"
+  },
+  "d56a5017-755f-4265-9b19-867ca938ef6f": {
+    "eligible": true,
+    "score": 100.0,
+    "criteria_met": [
+      {
+        "meets_criteria": true,
+        "confidence": 0.8,
+        "reasoning": "Age 20 extracted from response",
+        "extracted_value": "20",
+        "criteria_id": "INC001",
+        "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+        "priority": "high",
+        "participant_response": "i am 20 years old."
+      }
+    ],
+    "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"i am 20 years old.\"\n   Assessment: Age 20 extracted from response\n\n",
+    "high_priority_criteria_met": "1/1",
+    "evaluation_timestamp": "2025-06-25T16:08:05.766409",
+    "created_at": "2025-06-25T16:08:05.767068"
+  },
+  "79611034-b354-430d-82c5-43d8e202c304": {
+    "eligible": false,
+    "score": 50.0,
+    "criteria_met": [
+      {
+        "meets_criteria": true,
+        "confidence": 0.8,
+        "reasoning": "Age 20 extracted from response",
+        "extracted_value": "20",
+        "criteria_id": "INC001",
+        "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+        "priority": "high",
+        "participant_response": "20 years old."
+      },
+      {
+        "meets_criteria": false,
+        "confidence": 0.3,
+        "reasoning": "Could not definitively evaluate response",
+        "extracted_value": "put it on universe and overlay aren't a granny",
+        "criteria_id": "INC002",
+        "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+        "priority": "high",
+        "participant_response": "put it on universe and overlay aren't a granny"
+      }
+    ],
+    "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"20 years old.\"\n   Assessment: Age 20 extracted from response\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"put it on universe and overlay aren't a granny\"\n   Assessment: Could not definitively evaluate response\n\n",
+    "high_priority_criteria_met": "1/2",
+    "evaluation_timestamp": "2025-06-25T16:27:35.062160",
+    "created_at": "2025-06-25T16:27:35.064286"
+  },
+  "79620944-9b70-42f0-b282-1ab41ea4a56d": {
+    "eligible": false,
+    "score": 0.0,
+    "criteria_met": [
+      {
+        "meets_criteria": false,
+        "confidence": 0.3,
+        "reasoning": "Could not definitively evaluate response",
+        "extracted_value": "you a",
+        "criteria_id": "INC001",
+        "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+        "priority": "high",
+        "participant_response": "you a"
+      },
+      {
+        "meets_criteria": false,
+        "confidence": 0.3,
+        "reasoning": "Could not definitively evaluate response",
+        "extracted_value": "lets have a look at the video",
+        "criteria_id": "INC002",
+        "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+        "priority": "high",
+        "participant_response": "lets have a look at the video"
+      }
+    ],
+    "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"you a\"\n   Assessment: Could not definitively evaluate response\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"lets have a look at the video\"\n   Assessment: Could not definitively evaluate response\n\n",
+    "high_priority_criteria_met": "0/2",
+    "evaluation_timestamp": "2025-06-25T16:44:58.076931",
+    "created_at": "2025-06-25T16:44:58.077935"
+  },
+  "f52f126b-002e-44ec-8066-5cca0bd88aea": {
+    "eligible": false,
+    "score": 0,
+    "criteria_met": [],
+    "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant's overall score is below the required threshold.\n\n**Criteria Assessment:**\n",
+    "high_priority_criteria_met": "0/0",
+    "evaluation_timestamp": "2025-06-25T17:10:19.618827",
+    "created_at": "2025-06-25T17:10:19.621634"
+  },
+  "029d2cd5-b27d-4efe-ae88-4234c4ad0a25": {
+    "eligible": false,
+    "score": 0.0,
+    "criteria_met": [
+      {
+        "meets_criteria": false,
+        "confidence": 0.3,
+        "reasoning": "Could not definitively evaluate response",
+        "extracted_value": "in der Verpackung.",
+        "criteria_id": "INC001",
+        "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+        "priority": "high",
+        "participant_response": "in der Verpackung."
+      },
+      {
+        "meets_criteria": false,
+        "confidence": 0.3,
+        "reasoning": "Could not definitively evaluate response",
+        "extracted_value": "20th and there.",
+        "criteria_id": "INC002",
+        "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+        "priority": "high",
+        "participant_response": "20th and there."
+      }
+    ],
+    "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"in der Verpackung.\"\n   Assessment: Could not definitively evaluate response\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"20th and there.\"\n   Assessment: Could not definitively evaluate response\n\n",
+    "high_priority_criteria_met": "0/2",
+    "evaluation_timestamp": "2025-06-25T17:12:47.484618",
+    "created_at": "2025-06-25T17:12:47.487999"
+  },
+  "P-8EEA35AC": {
+    "responses": {
+      "INC001": "25 years.",
+      "INC002": "to Worthy and Savniej's<|ta|><|en|>"
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 0.8,
+          "reasoning": "Age 25 extracted from response",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.3,
+          "reasoning": "Could not definitively evaluate response",
+          "extracted_value": "to Worthy and Savniej's<|ta|><|en|>",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "to Worthy and Savniej's<|ta|><|en|>"
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years.\"\n   Assessment: Age 25 extracted from response\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"to Worthy and Savniej's<|ta|><|en|>\"\n   Assessment: Could not definitively evaluate response\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-25T17:22:10.123786",
+      "participant_id": "P-8EEA35AC"
+    },
+    "created_at": "2025-06-25T17:22:10.126483"
+  },
+  "P-51B1969E": {
+    "responses": {
+      "INC001": "I'm going to be 25 there.",
+      "INC002": "Sony"
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 0.8,
+          "reasoning": "Age 25 extracted from response",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "I'm going to be 25 there."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.3,
+          "reasoning": "Could not definitively evaluate response",
+          "extracted_value": "Sony",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "Sony"
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I'm going to be 25 there.\"\n   Assessment: Age 25 extracted from response\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"Sony\"\n   Assessment: Could not definitively evaluate response\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-25T17:28:24.391337",
+      "participant_id": "P-51B1969E"
+    },
+    "created_at": "2025-06-25T17:28:24.393607"
+  },
+  "P-743F0B9A": {
+    "responses": {},
+    "eligibility": {
+      "eligible": false,
+      "score": 0,
+      "criteria_met": [],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant's overall score is below the required threshold.\n\n**Criteria Assessment:**\n",
+      "high_priority_criteria_met": "0/0",
+      "evaluation_timestamp": "2025-06-25T17:41:02.378914",
+      "participant_id": "P-743F0B9A"
+    },
+    "created_at": "2025-06-25T17:41:02.380391"
+  },
+  "P-DBA05CE2": {
+    "responses": {},
+    "eligibility": {
+      "eligible": false,
+      "score": 0,
+      "criteria_met": [],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant's overall score is below the required threshold.\n\n**Criteria Assessment:**\n",
+      "high_priority_criteria_met": "0/0",
+      "evaluation_timestamp": "2025-06-25T17:42:03.551052",
+      "participant_id": "P-DBA05CE2"
+    },
+    "created_at": "2025-06-25T17:42:03.554247"
+  },
+  "P-21AA938B": {
+    "responses": {
+      "INC001": "25",
+      "INC002": "3-1-1-1-1."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 0.8,
+          "reasoning": "Age 25 extracted from response",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25"
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.3,
+          "reasoning": "Could not definitively evaluate response",
+          "extracted_value": "3-1-1-1-1.",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "3-1-1-1-1."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25\"\n   Assessment: Age 25 extracted from response\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"3-1-1-1-1.\"\n   Assessment: Could not definitively evaluate response\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-25T18:07:21.905713",
+      "participant_id": "P-21AA938B"
+    },
+    "created_at": "2025-06-25T18:07:21.908066"
+  }
+}

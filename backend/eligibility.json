@@ -1,0 +1,41 @@
+{
+  "trial": {
+    "nct_id": "NCT00000000",
+    "title": "Phase II Randomized Study of ABC-123 in Adults With Type-2 Diabetes",
+    "protocol_version": "v0.4-mixed-responses",
+    "last_amended": "2025-06-24"
+  },
+  "overview": {
+    "purpose": "Test if new diabetes pill controls blood sugar in adults with type-2 diabetes",
+    "participant_commitment": "About 7 months and 8 clinic visits.",
+    "key_procedures": [
+      "Blood tests",
+      "Blood-pressure and weight checks",
+      "One ECG",
+      "Daily study pill"
+    ]
+  },
+  "criteria": [
+    {
+      "id": "INC001",
+      "text": "Age 18 – 75 years (inclusive)",
+      "question": "How old are you?",
+      "expected_response": "18-75 years",
+      "response": "",
+      "priority": "high"
+    },
+    {
+      "id": "INC002",
+      "text": "Diagnosis of type-2 diabetes for ≥ 6 months",
+      "question": "When were you first diagnosed with type-2 diabetes?",
+      "expected_response": "at least 6 months ago",
+      "response": "",
+      "priority": "high"
+    }
+  ],
+  "meta": {
+    "schema_version": "eligibility-json/1.1-voice-optimized",
+    "author": "sample-generator",
+    "generated_utc": "2025-06-24T10:05:00Z"
+  }
+}
