@@ -277,12 +277,12 @@ Do you consent to proceed with the screening questions?"""
             if intent in valid_intents:
                 return intent
             else:
-                logger.warning(f"LLM returned invalid intent '{intent}', defaulting to 'repeat_current'")
-                return "repeat_current"  # Default to repeat_current for unclear responses
+                logger.warning(f"LLM returned invalid intent '{intent}', defaulting to 'answer'")
+                return "answer"  # Default to answer to ensure responses are saved
                 
         except Exception as e:
             logger.error(f"Error classifying user intent: {e}")
-            return "repeat_current"  # Default to repeat_current instead of answer
+            return "answer"  # Default to answer to ensure responses are saved
     
     async def _handle_submission_request(self, user_message: str) -> Dict:
         """Handle submission or repeat request when awaiting final submission"""

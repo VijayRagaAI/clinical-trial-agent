@@ -186,6 +186,7 @@ export const useVoiceInterview = () => {
         break;
         
       case 'interview_complete':
+        console.log('Interview complete received:', data); // Debug log
         setInterviewCompleted(true);
         setEligibilityResult(data.eligibility);
         setWaitingForUser(false);

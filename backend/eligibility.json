@@ -26,11 +26,51 @@
     },
     {
       "id": "INC002",
-      "text": "Diagnosis of type-2 diabetes for ≥ 6 months",
-      "question": "When were you first diagnosed with type-2 diabetes?",
-      "expected_response": "at least 6 months ago",
+      "text": "Diagnosed with Type-2 diabetes for at least 6 months",
+      "question": "How long have you been diagnosed with Type-2 diabetes?",
+      "expected_response": "At least 6 months",
       "response": "",
       "priority": "high"
+    },
+    {
+      "id": "INC003",
+      "text": "Currently taking metformin or other diabetes medications",
+      "question": "What diabetes medications are you currently taking?",
+      "expected_response": "Metformin or other diabetes medications",
+      "response": "",
+      "priority": "high"
+    },
+    {
+      "id": "INC004",
+      "text": "HbA1c level between 7.0% and 10.5%",
+      "question": "What was your most recent HbA1c level? If you don't know the exact number, when was your last blood test?",
+      "expected_response": "HbA1c 7.0-10.5% or recent blood test within 3 months",
+      "response": "",
+      "priority": "medium"
+    },
+    {
+      "id": "INC005",
+      "text": "No history of heart attack, stroke, or major cardiovascular events",
+      "question": "Have you ever had a heart attack, stroke, or other major heart problems?",
+      "expected_response": "No major cardiovascular events",
+      "response": "",
+      "priority": "low"
+    },
+    {
+      "id": "INC006",
+      "text": "Available for all study visits over 7 months",
+      "question": "Are you able to commit to attending clinic visits regularly over the next 7 months?",
+      "expected_response": "Yes, available for all visits",
+      "response": "",
+      "priority": "medium"
+    },
+    {
+      "id": "INC007",
+      "text": "No participation in another clinical trial within the last 30 days",
+      "question": "Have you participated in any other clinical trials or research studies in the past month?",
+      "expected_response": "No recent clinical trial participation",
+      "response": "",
+      "priority": "low"
     }
   ],
   "meta": {

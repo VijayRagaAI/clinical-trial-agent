@@ -50,7 +50,7 @@ export interface EligibilityResult {
   evaluation_timestamp: string;
   criteria_met: Array<{
     meets_criteria: boolean;
-    priority: 'high' | 'medium';
+    priority: 'high' | 'medium'| 'low';
     criteria_text: string;
     participant_response: string;
     reasoning: string;

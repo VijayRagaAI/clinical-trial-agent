@@ -38,7 +38,7 @@ class EligibilityEvaluator:
                             high_priority_met += 1
                     
                     # Weighted scoring
-                    weight = 3 if criteria.priority == "high" else 1
+                    weight = 5 if criteria.priority == "high" else 2 if criteria.priority == "medium" else 1
                     max_score += weight
                     if evaluation["meets_criteria"]:
                         total_score += weight
@@ -50,7 +50,7 @@ class EligibilityEvaluator:
             high_priority_pass = (high_priority_met == high_priority_total) if high_priority_total > 0 else True
             
             # Overall eligibility decision
-            eligible = (overall_score >= 70) and high_priority_pass
+            eligible = (overall_score >= 60) and high_priority_pass
             
             # Generate summary
             summary = self._generate_eligibility_summary(
@@ -112,6 +112,7 @@ class EligibilityEvaluator:
             evaluation.update({
                 "criteria_id": criteria.id,
                 "criteria_text": criteria.text,
+                "criteria_question": criteria.question,
                 "priority": criteria.priority,
                 "participant_response": response
             })
@@ -123,6 +124,7 @@ class EligibilityEvaluator:
             return {
                 "criteria_id": criteria.id,
                 "criteria_text": criteria.text,
+                "criteria_question": criteria.question,
                 "priority": criteria.priority,
                 "participant_response": response,
                 "meets_criteria": False,
@@ -152,7 +154,7 @@ class EligibilityEvaluator:
             
             for result in criteria_results:
                 status = "✅" if result["meets_criteria"] else "❌"
-                priority = "🔴" if result["priority"] == "high" else "🟡"
+                priority = "🔴" if result["priority"] == "high" else "🟡" if result["priority"] == "medium" else "🟢"
                 
                 summary += f"{status} {priority} {result['criteria_text']}\n"
                 summary += f"   Response: \"{result['participant_response']}\"\n"

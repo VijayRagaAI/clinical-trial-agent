@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mic, MicOff, Volume2, RotateCcw, CheckCircle, RefreshCw, Play, Square, Send, Moon, Sun } from 'lucide-react';
+import { Mic, MicOff, Volume2, RotateCcw, CheckCircle, RefreshCw, Play, Square, Send, Moon, Sun, ChevronDown } from 'lucide-react';
 import { ButtonConfig, ButtonState } from '../types/interview';
 
 interface VoiceInterfaceProps {
@@ -19,6 +19,9 @@ interface VoiceInterfaceProps {
   awaitingSubmission: boolean;
   isEvaluating: boolean;
   isProcessing: boolean;
+  isDarkMode: boolean;
+  setIsDarkMode: (isDark: boolean) => void;
+  onRestart: () => void;
   
   // Actions
   startInterview: () => void;
@@ -52,6 +55,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   awaitingSubmission,
   isEvaluating,
   isProcessing,
+  isDarkMode,
+  setIsDarkMode,
+  onRestart,
   startInterview,
   stopAgentSpeaking,
   startRecording,
@@ -64,7 +70,6 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   getStatusText,
   canRepeatLastQuestion
 }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
   const [audioLevels, setAudioLevels] = useState<number[]>(Array(20).fill(0));
 
   // Animate audio levels
@@ -126,7 +131,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
           secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
           secondaryButtons.push({ action: hearInstructionAgain, icon: RotateCcw, text: "Hear Instruction Again", color: "amber" });
-        } else {
+      } else {
           if (currentQuestionNumber > 1) {
             secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
           }
@@ -137,11 +142,11 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
         secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
       }
       
-      return {
-        primary: { action: stopAgentSpeaking, icon: Square, text: "Skip Speaking", color: "amber" },
+        return {
+          primary: { action: stopAgentSpeaking, icon: Square, text: "Skip Speaking", color: "amber" },
         secondary: secondaryButtons,
-        disabled: false
-      };
+          disabled: false
+        };
     }
 
     // State 6: Recording
@@ -209,12 +214,22 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-    // State 9: Interview completed
+      // State 9: Interview completed - New Interview button with start animation
     if (conversationState === 'completed') {
       return {
-        primary: { action: () => {}, icon: CheckCircle, text: "Interview Complete", color: "green" },
-        secondary: [],
-        disabled: true
+      primary: { action: onRestart, icon: RotateCcw, text: "🔄 New Interview", color: "restart" },
+      secondary: [
+        { action: () => {
+          // Smooth scroll to results
+          setTimeout(() => {
+            const resultsElement = document.querySelector('[data-results-section]');
+            if (resultsElement) {
+              resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 300);
+        }, icon: ChevronDown, text: "View Results", color: "blue" }
+      ],
+      disabled: false
       };
     }
 
@@ -252,6 +267,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       purple: isPrimary 
         ? 'bg-gradient-to-br from-purple-400 via-purple-500 to-purple-600 hover:from-purple-500 hover:via-purple-600 hover:to-purple-700 shadow-purple-500/25 hover:shadow-purple-500/40'
         : 'bg-gradient-to-br from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 shadow-purple-500/20 hover:shadow-purple-500/30',
+      restart: isPrimary 
+        ? 'bg-gradient-to-br from-purple-400 via-pink-500 to-indigo-600 hover:from-purple-500 hover:via-pink-600 hover:to-indigo-700 shadow-purple-500/30 hover:shadow-purple-500/50 animate-breathing hover:animate-none' 
+        : 'bg-gradient-to-br from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 shadow-purple-500/20 hover:shadow-purple-500/30',
       gray: 'bg-gradient-to-br from-gray-400 to-gray-500 shadow-gray-400/20'
     };
     return colors[color as keyof typeof colors] || colors.gray;
@@ -289,7 +307,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             ? 'bg-gray-800/30 border-gray-700/50 shadow-black/20' 
             : 'bg-white/70 border-white/20 shadow-indigo-500/10'
         }`}>
-          <div className="text-center space-y-8">
+      <div className="text-center space-y-8">
             {/* Status with Beautiful Enhanced Typography */}
             <div className="space-y-4">
               <div className="relative">
@@ -319,9 +337,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   'bg-gradient-to-r from-gray-700 via-gray-600 to-gray-800 bg-clip-text text-transparent drop-shadow-lg'
                 } ${
                   (isRecording || isAgentSpeaking || conversationState === 'starting') ? 'animate-pulse' : ''
-                }`}>
-                  {getStatusText()}
-                </div>
+          }`}>
+            {getStatusText()}
+          </div>
                 
                 {/* Decorative elements for specific states */}
                                  {conversationState === 'not_started' && (
@@ -334,7 +352,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                    </div>
                  )}
                  
-                 {isRecording && (
+          {isRecording && (
                    <div className="flex justify-center mt-2">
                      <div className="flex space-x-1">
                        <div className="w-1 h-1 bg-red-400 rounded-full animate-ping" style={{animationDelay: '0ms'} as React.CSSProperties}></div>
@@ -373,13 +391,17 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                        <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-pulse" style={{animationDelay: '300ms'} as React.CSSProperties}></div>
                        <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-pulse" style={{animationDelay: '400ms'} as React.CSSProperties}></div>
                      </div>
-                   </div>
-                 )}
+            </div>
+          )}
                  
                  {conversationState === 'completed' && (
                   <div className="flex justify-center mt-2">
-                    <div className="text-emerald-400 animate-bounce">✨</div>
-                  </div>
+                    <div className="flex space-x-1">
+                      <div className="text-emerald-400 animate-bounce" style={{animationDelay: '0ms'} as React.CSSProperties}>🎉</div>
+                      <div className="text-emerald-400 animate-bounce" style={{animationDelay: '200ms'} as React.CSSProperties}>✨</div>
+                      <div className="text-emerald-400 animate-bounce" style={{animationDelay: '400ms'} as React.CSSProperties}>🎯</div>
+          </div>
+        </div>
                 )}
               </div>
               
@@ -462,14 +484,14 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               {/* Waveform Visualizer */}
               <div className="flex justify-center items-end space-x-1 h-32">
                 {audioLevels.map((level, i) => (
-                  <div
-                    key={i}
+            <div
+              key={i}
                     className={`w-3 rounded-full transition-all duration-200 relative ${
                       isRecording ? 'bg-gradient-to-t from-red-500 via-red-400 to-red-300' :
                       isAgentSpeaking ? 'bg-gradient-to-t from-blue-500 via-blue-400 to-blue-300' :
                       isDarkMode ? 'bg-gradient-to-t from-gray-600 to-gray-500' : 'bg-gradient-to-t from-gray-300 to-gray-200'
-                    }`}
-                    style={{
+              }`}
+              style={{
                       height: (isRecording || isAgentSpeaking) ? `${level * 0.8 + 20}px` : '20px',
                       animationDelay: `${i * 50}ms`,
                       filter: (isRecording || isAgentSpeaking) ? 'drop-shadow(0 0 4px currentColor)' : 'none'
@@ -480,9 +502,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                       <div className="absolute inset-0 rounded-full bg-current opacity-20 animate-pulse" />
                     )}
                   </div>
-                ))}
-              </div>
-              
+          ))}
+        </div>
+
               {/* Audio Activity Ring */}
               {(isRecording || isAgentSpeaking) && (
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
@@ -499,7 +521,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             {/* Enhanced Button System */}
             <div className="space-y-8">
               {/* Primary Button with Floating Effect */}
-              <div className="flex justify-center">
+          <div className="flex justify-center">
                 <div className="relative">
                   {/* Enhanced Button Glow Ring for Special States */}
                                      {(conversationState === 'not_started') && (
@@ -509,6 +531,14 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                        <div className="absolute inset-0 rounded-full animate-gentle-pulse bg-indigo-400/20" style={{ padding: '1rem', animationDelay: '2s' } as React.CSSProperties} />
                      </>
                    )}
+                  
+                  {(conversationState === 'completed') && (
+                    <>
+                      <div className="absolute inset-0 rounded-full animate-gentle-pulse bg-purple-400/30" style={{ padding: '2rem' }} />
+                      <div className="absolute inset-0 rounded-full animate-gentle-pulse bg-pink-400/20" style={{ padding: '1.5rem', animationDelay: '1s' } as React.CSSProperties} />
+                      <div className="absolute inset-0 rounded-full animate-gentle-pulse bg-indigo-400/20" style={{ padding: '1rem', animationDelay: '2s' } as React.CSSProperties} />
+                    </>
+                  )}
                   
                   {(conversationState === 'starting') && (
                     <>
@@ -533,9 +563,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                     }`} style={{ padding: '1rem' }} />
                   )}
                   
-                  <button
-                    onClick={buttonConfig.primary.action}
-                    disabled={buttonConfig.disabled}
+            <button
+              onClick={buttonConfig.primary.action}
+              disabled={buttonConfig.disabled}
                     className={`relative p-8 rounded-full transition-all duration-500 transform hover:scale-110 active:scale-95 text-white backdrop-blur-sm ${
                       getButtonColorClasses(buttonConfig.primary.color, true)
                     } disabled:opacity-50 disabled:transform-none disabled:cursor-not-allowed hover:shadow-2xl group`}
@@ -547,8 +577,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                     
                     {/* Button Inner Glow */}
                     <div className="absolute inset-0 rounded-full bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  </button>
-                </div>
+            </button>
+          </div>
               </div>
 
               {/* Primary Button Label with Enhanced Typography */}
@@ -581,33 +611,43 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   </>
                 )}
                 
+                {/* Special gradient text for completed state */}
+                {conversationState === 'completed' && (
+                  <>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 blur-lg opacity-30"></div>
+                    <div className="relative text-xl font-bold tracking-wide bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-lg">
+                      🔄 {buttonConfig.primary.text}
+                    </div>
+                  </>
+                )}
+                
                 {/* Standard text styling for other states */}
-                {conversationState !== 'not_started' && conversationState !== 'starting' && !isProcessing && (
+                {conversationState !== 'not_started' && conversationState !== 'starting' && !isProcessing && conversationState !== 'completed' && (
                   <div className={`text-xl font-semibold tracking-wide ${
                     isDarkMode ? 'text-gray-200' : 'text-gray-700'
                   }`}>
-                    {buttonConfig.primary.text}
+            {buttonConfig.primary.text}
                   </div>
                 )}
-              </div>
+          </div>
 
               {/* Floating Secondary Buttons */}
-              {buttonConfig.secondary.length > 0 && (
+          {buttonConfig.secondary.length > 0 && (
                 <div className="flex justify-center items-center space-x-6">
-                  {buttonConfig.secondary.map((btn, index) => (
+              {buttonConfig.secondary.map((btn, index) => (
                     <div key={index} className="group flex flex-col items-center space-y-2">
-                      <button
-                        onClick={btn.action}
+                <button
+                  onClick={btn.action}
                         className={`p-4 rounded-full transition-all duration-300 transform hover:scale-110 active:scale-95 text-white backdrop-blur-sm hover:shadow-xl ${
-                          getButtonColorClasses(btn.color)
+                    getButtonColorClasses(btn.color)
                         } group relative overflow-hidden`}
-                        title={btn.text}
-                      >
+                  title={btn.text}
+                >
                         <btn.icon className="h-6 w-6 relative z-10 transition-transform duration-300 group-hover:scale-110" />
                         
                         {/* Floating effect background */}
                         <div className="absolute inset-0 bg-white/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
-                      </button>
+                </button>
                       
                       {/* Floating Label */}
                       <div className={`text-sm font-medium opacity-70 group-hover:opacity-100 transition-all duration-300 ${
@@ -615,11 +655,11 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                       }`}>
                         {btn.text}
                       </div>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
+              ))}
+            </div>
+          )}
+        </div>
 
             {/* Enhanced Transcription Display */}
             {lastTranscription && showTranscriptionConfirm && !isEvaluating && !isProcessing && (
@@ -652,9 +692,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                     <CheckCircle className="h-4 w-4 animate-pulse" />
                     <span className="font-medium">✨ Is this correct? Use the above buttons or Start Speaking to correct it.</span>
                   </div>
-                </div>
-              </div>
-            )}
+            </div>
+          </div>
+        )}
           </div>
         </div>
       </div>

@@ -1,150 +1,101 @@
 {
-  "P-44E1F4FB": {
+  "P-00EDD973": {
     "responses": {
-      "INC001": "I'm 25 years old.",
-      "INC002": "I don't know."
+      "INC001": "25",
+      "INC002": "One ear.",
+      "INC003": "I don't know.",
+      "INC004": "My last blood test was one month earlier.",
+      "INC005": "No",
+      "INC006": "Yes.",
+      "INC007": "No."
     },
     "eligibility": {
       "eligible": false,
-      "score": 50.0,
+      "score": 52.4,
       "criteria_met": [
         {
           "meets_criteria": true,
           "confidence": 1.0,
-          "reasoning": "The participant is 25 years old, which is within the eligible age range of 18-75 years.",
+          "reasoning": "The participant's age is 25, which falls within the specified range of 18 to 75 years.",
           "extracted_value": "25",
           "criteria_id": "INC001",
           "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "criteria_question": "How old are you?",
           "priority": "high",
-          "participant_response": "I'm 25 years old."
+          "participant_response": "25"
         },
         {
           "meets_criteria": false,
-          "confidence": 0.9,
-          "reasoning": "The participant is uncertain about their diagnosis date, which prevents verification of whether it is at least 6 months old. Hence, they do not meet the eligibility criteria.",
+          "confidence": 1.0,
+          "reasoning": "The participant's response 'One ear' does not provide any information about the duration of their Type-2 diabetes diagnosis. It is irrelevant to the eligibility criteria.",
           "extracted_value": null,
           "criteria_id": "INC002",
-          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "criteria_text": "Diagnosed with Type-2 diabetes for at least 6 months",
+          "criteria_question": "How long have you been diagnosed with Type-2 diabetes?",
+          "priority": "high",
+          "participant_response": "One ear."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant's response indicates uncertainty about their diabetes medications, which does not satisfy the requirement of currently taking metformin or other diabetes medications.",
+          "extracted_value": null,
+          "criteria_id": "INC003",
+          "criteria_text": "Currently taking metformin or other diabetes medications",
+          "criteria_question": "What diabetes medications are you currently taking?",
           "priority": "high",
           "participant_response": "I don't know."
-        }
-      ],
-      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I'm 25 years old.\"\n   Assessment: The participant is 25 years old, which is within the eligible age range of 18-75 years.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"I don't know.\"\n   Assessment: The participant is uncertain about their diagnosis date, which prevents verification of whether it is at least 6 months old. Hence, they do not meet the eligibility criteria.\n\n",
-      "high_priority_criteria_met": "1/2",
-      "evaluation_timestamp": "2025-06-26T14:04:40.345078",
-      "participant_id": "P-44E1F4FB"
-    },
-    "created_at": "2025-06-26T14:04:40.345962"
-  },
-  "P-DC4E2209": {
-    "responses": {
-      "INC001": "I'm 25 years old.",
-      "INC002": "I don't know."
-    },
-    "eligibility": {
-      "eligible": false,
-      "score": 50.0,
-      "criteria_met": [
-        {
-          "meets_criteria": true,
-          "confidence": 1.0,
-          "reasoning": "The participant's age of 25 years falls within the eligible age range of 18 to 75 years.",
-          "extracted_value": "25",
-          "criteria_id": "INC001",
-          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
-          "priority": "high",
-          "participant_response": "I'm 25 years old."
-        },
-        {
-          "meets_criteria": false,
-          "confidence": 0.9,
-          "reasoning": "The participant stated 'I don't know,' which does not provide sufficient information to confirm that they have had a diagnosis of type-2 diabetes for at least 6 months. Without the necessary details, they do not meet the eligibility criteria.",
-          "extracted_value": null,
-          "criteria_id": "INC002",
-          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
-          "priority": "high",
-          "participant_response": "I don't know."
-        }
-      ],
-      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I'm 25 years old.\"\n   Assessment: The participant's age of 25 years falls within the eligible age range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"I don't know.\"\n   Assessment: The participant stated 'I don't know,' which does not provide sufficient information to confirm that they have had a diagnosis of type-2 diabetes for at least 6 months. Without the necessary details, they do not meet the eligibility criteria.\n\n",
-      "high_priority_criteria_met": "1/2",
-      "evaluation_timestamp": "2025-06-26T14:22:13.539882",
-      "participant_id": "P-DC4E2209"
-    },
-    "created_at": "2025-06-26T14:22:13.542477"
-  },
-  "P-12138E87": {
-    "responses": {
-      "INC001": "I'm 25 result.",
-      "INC002": "to \u044f coffee"
-    },
-    "eligibility": {
-      "eligible": false,
-      "score": 50.0,
-      "criteria_met": [
-        {
-          "meets_criteria": true,
-          "confidence": 1.0,
-          "reasoning": "The participant's response indicates being 25 years old, which falls within the eligibility age range of 18 to 75 years.",
-          "extracted_value": "25",
-          "criteria_id": "INC001",
-          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
-          "priority": "high",
-          "participant_response": "I'm 25 result."
-        },
-        {
-          "meets_criteria": false,
-          "confidence": 1.0,
-          "reasoning": "The participant's response does not provide any information regarding their diagnosis date for type-2 diabetes, making it impossible to determine if they meet the criteria of being diagnosed for at least 6 months.",
-          "extracted_value": null,
-          "criteria_id": "INC002",
-          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
-          "priority": "high",
-          "participant_response": "to \u044f coffee"
-        }
-      ],
-      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I'm 25 result.\"\n   Assessment: The participant's response indicates being 25 years old, which falls within the eligibility age range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"to \u044f coffee\"\n   Assessment: The participant's response does not provide any information regarding their diagnosis date for type-2 diabetes, making it impossible to determine if they meet the criteria of being diagnosed for at least 6 months.\n\n",
-      "high_priority_criteria_met": "1/2",
-      "evaluation_timestamp": "2025-06-26T14:24:26.070837",
-      "participant_id": "P-12138E87"
-    },
-    "created_at": "2025-06-26T14:24:26.071617"
-  },
-  "P-07F304CF": {
-    "responses": {
-      "INC001": "25 years old",
-      "INC002": "8 months earlier."
-    },
-    "eligibility": {
-      "eligible": true,
-      "score": 100.0,
-      "criteria_met": [
-        {
-          "meets_criteria": true,
-          "confidence": 1.0,
-          "reasoning": "The participant is 25 years old, which falls within the eligible age range of 18 to 75 years.",
-          "extracted_value": "25",
-          "criteria_id": "INC001",
-          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
-          "priority": "high",
-          "participant_response": "25 years old"
         },
         {
           "meets_criteria": true,
           "confidence": 1.0,
-          "reasoning": "The participant states they were diagnosed with type-2 diabetes 8 months ago, which is greater than the required 6 months.",
-          "extracted_value": "8 months",
-          "criteria_id": "INC002",
-          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
-          "priority": "high",
-          "participant_response": "8 months earlier."
+          "reasoning": "The participant mentioned their last blood test was one month ago, which is within the required 3-month timeframe. However, the specific HbA1c level is not provided, but the recent test suggests a possible qualification pending the results.",
+          "extracted_value": "last blood test one month earlier",
+          "criteria_id": "INC004",
+          "criteria_text": "HbA1c level between 7.0% and 10.5%",
+          "criteria_question": "What was your most recent HbA1c level? If you don't know the exact number, when was your last blood test?",
+          "priority": "medium",
+          "participant_response": "My last blood test was one month earlier."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant\u2019s response of 'No' indicates that they have not experienced a heart attack, stroke, or any major cardiovascular events, aligning with the eligibility criteria.",
+          "extracted_value": "No",
+          "criteria_id": "INC005",
+          "criteria_text": "No history of heart attack, stroke, or major cardiovascular events",
+          "criteria_question": "Have you ever had a heart attack, stroke, or other major heart problems?",
+          "priority": "low",
+          "participant_response": "No"
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response of 'Yes' indicates their commitment to attending clinic visits regularly over the next 7 months, which aligns with the expected answer.",
+          "extracted_value": "Yes",
+          "criteria_id": "INC006",
+          "criteria_text": "Available for all study visits over 7 months",
+          "criteria_question": "Are you able to commit to attending clinic visits regularly over the next 7 months?",
+          "priority": "medium",
+          "participant_response": "Yes."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response indicates that they have not participated in any clinical trials in the past month, which aligns with the eligibility criteria.",
+          "extracted_value": "No",
+          "criteria_id": "INC007",
+          "criteria_text": "No participation in another clinical trial within the last 30 days",
+          "criteria_question": "Have you participated in any other clinical trials or research studies in the past month?",
+          "priority": "low",
+          "participant_response": "No."
         }
       ],
-      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years old\"\n   Assessment: The participant is 25 years old, which falls within the eligible age range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"8 months earlier.\"\n   Assessment: The participant states they were diagnosed with type-2 diabetes 8 months ago, which is greater than the required 6 months.\n\n",
-      "high_priority_criteria_met": "2/2",
-      "evaluation_timestamp": "2025-06-26T14:57:00.642064",
-      "participant_id": "P-07F304CF"
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 52.4%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's age is 25, which falls within the specified range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Diagnosed with Type-2 diabetes for at least 6 months\n   Response: \"One ear.\"\n   Assessment: The participant's response 'One ear' does not provide any information about the duration of their Type-2 diabetes diagnosis. It is irrelevant to the eligibility criteria.\n\n\u274c \ud83d\udd34 Currently taking metformin or other diabetes medications\n   Response: \"I don't know.\"\n   Assessment: The participant's response indicates uncertainty about their diabetes medications, which does not satisfy the requirement of currently taking metformin or other diabetes medications.\n\n\u2705 \ud83d\udfe1 HbA1c level between 7.0% and 10.5%\n   Response: \"My last blood test was one month earlier.\"\n   Assessment: The participant mentioned their last blood test was one month ago, which is within the required 3-month timeframe. However, the specific HbA1c level is not provided, but the recent test suggests a possible qualification pending the results.\n\n\u2705 \ud83d\udfe2 No history of heart attack, stroke, or major cardiovascular events\n   Response: \"No\"\n   Assessment: The participant\u2019s response of 'No' indicates that they have not experienced a heart attack, stroke, or any major cardiovascular events, aligning with the eligibility criteria.\n\n\u2705 \ud83d\udfe1 Available for all study visits over 7 months\n   Response: \"Yes.\"\n   Assessment: The participant's response of 'Yes' indicates their commitment to attending clinic visits regularly over the next 7 months, which aligns with the expected answer.\n\n\u2705 \ud83d\udfe2 No participation in another clinical trial within the last 30 days\n   Response: \"No.\"\n   Assessment: The participant's response indicates that they have not participated in any clinical trials in the past month, which aligns with the eligibility criteria.\n\n",
+      "high_priority_criteria_met": "1/3",
+      "evaluation_timestamp": "2025-06-26T17:36:50.753859",
+      "participant_id": "P-00EDD973"
     },
-    "created_at": "2025-06-26T14:57:00.642940"
+    "created_at": "2025-06-26T17:36:50.754989"
   }
 }
