@@ -15,8 +15,10 @@ interface VoiceInterfaceProps {
   lastTranscription: string;
   connectionError: string | null;
   currentQuestionNumber: number;
-  justRepeatedLastQuestion: boolean;
+  totalQuestions: number;
   awaitingSubmission: boolean;
+  isEvaluating: boolean;
+  isProcessing: boolean;
   
   // Actions
   startInterview: () => void;
@@ -26,6 +28,7 @@ interface VoiceInterfaceProps {
   repeatCurrentQuestion: () => void;
   repeatLastQuestion: () => void;
   submitResponse: () => void;
+  hearInstructionAgain: () => void;
   
   // Helpers
   formatTime: (seconds: number) => string;
@@ -45,8 +48,10 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   lastTranscription,
   connectionError,
   currentQuestionNumber,
-  justRepeatedLastQuestion,
+  totalQuestions,
   awaitingSubmission,
+  isEvaluating,
+  isProcessing,
   startInterview,
   stopAgentSpeaking,
   startRecording,
@@ -54,13 +59,32 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   repeatCurrentQuestion,
   repeatLastQuestion,
   submitResponse,
+  hearInstructionAgain,
   formatTime,
   getStatusText,
   canRepeatLastQuestion
 }) => {
 
   const getButtonConfiguration = (): ButtonConfig => {
-    // State 1: Not started
+    // State 1: Evaluating responses (highest priority)
+    if (isEvaluating) {
+      return {
+        primary: { action: () => {}, icon: Volume2, text: "Evaluating...", color: "blue" },
+        secondary: [],
+        disabled: true
+      };
+    }
+
+    // State 2: Processing user response (high priority)
+    if (isProcessing) {
+      return {
+        primary: { action: () => {}, icon: Volume2, text: "Processing...", color: "gray" },
+        secondary: [],
+        disabled: true
+      };
+    }
+
+    // State 3: Not started
     if (conversationState === 'not_started') {
       return {
         primary: { action: startInterview, icon: Play, text: "Start Interview", color: "green" },
@@ -69,7 +93,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-    // State 2: Starting/Connecting
+    // State 4: Starting/Connecting
     if (conversationState === 'starting') {
       return {
         primary: { action: () => {}, icon: Volume2, text: "Connecting...", color: "gray" },
@@ -78,38 +102,32 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-    // State 3: Agent speaking (can be interrupted)
+    // State 5: Agent speaking (can be interrupted)
     if (isAgentSpeaking && canInterruptSpeech) {
-      // If transcription is showing (after user response), show additional buttons
-      if (showTranscriptionConfirm && canRepeatLastQuestion()) {
-        return {
-          primary: { action: stopAgentSpeaking, icon: Square, text: "Skip Speaking", color: "amber" },
-          secondary: [
-            { action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" },
-            { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
-          ],
-          disabled: false
-        };
-      } else if (showTranscriptionConfirm && !canRepeatLastQuestion()) {
-        // First question - no "Repeat Last Question" option
-        return {
-          primary: { action: stopAgentSpeaking, icon: Square, text: "Skip Speaking", color: "amber" },
-          secondary: [
-            { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
-          ],
-          disabled: false
-        };
-      } else {
-        // Just repeating a question - only skip button
-        return {
-          primary: { action: stopAgentSpeaking, icon: Square, text: "Skip Speaking", color: "amber" },
-          secondary: [],
-          disabled: false
-        };
+      const secondaryButtons = [];
+      
+      // For criteria questions, always show repeat buttons
+      if (conversationState === 'questioning') {
+        if (awaitingSubmission) {
+          secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
+          secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
+          secondaryButtons.push({ action: hearInstructionAgain, icon: RotateCcw, text: "Hear Instruction Again", color: "amber" });
+        } else {
+          if (currentQuestionNumber > 1) {
+            secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
+          }
+          secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
+        }
       }
+      
+      return {
+        primary: { action: stopAgentSpeaking, icon: Square, text: "Skip Speaking", color: "amber" },
+        secondary: secondaryButtons,
+        disabled: false
+      };
     }
 
-    // State 4: Recording
+    // State 6: Recording
     if (isRecording) {
       return {
         primary: { action: stopRecording, icon: MicOff, text: "Stop Recording", color: "red" },
@@ -118,29 +136,22 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-    // State 5: Transcription shown (agent finished speaking)
+    // State 7: Transcription shown (agent finished speaking)
     if (showTranscriptionConfirm && lastTranscription && !isAgentSpeaking) {
-      // If awaiting submission (last question), show Submit button as primary
-      if (awaitingSubmission) {
-        return {
-          primary: { action: submitResponse, icon: Send, text: "Submit Response", color: "green" },
-          secondary: [
-            { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
-          ],
-          disabled: false
-        };
-      }
+      const secondaryButtons = [];
       
-      // Normal question flow
-      const secondaryButtons = [
-        { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
-      ];
-      
-      // Only add "Repeat Last Question" if we're on question 2 or later
-      if (canRepeatLastQuestion()) {
-        secondaryButtons.unshift(
-          { action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" }
-        );
+      // For criteria questions, always show repeat buttons
+      if (conversationState === 'questioning') {
+        if (awaitingSubmission) {
+          secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
+          secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
+          secondaryButtons.push({ action: hearInstructionAgain, icon: RotateCcw, text: "Hear Instruction Again", color: "amber" });
+        } else {
+          if (currentQuestionNumber > 1) {
+            secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
+          }
+          secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
+        }
       }
       
       return {
@@ -150,29 +161,22 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-    // State 6: Ready to speak (after skip or initial)
+    // State 8: Ready to speak (after skip or initial)
     if (waitingForUser && !userHasResponded) {
-      // If awaiting submission, show different state
-      if (awaitingSubmission) {
-        return {
-          primary: { action: submitResponse, icon: Send, text: "Submit Response", color: "green" },
-          secondary: [
-            { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
-          ],
-          disabled: false
-        };
-      }
+      const secondaryButtons = [];
       
-      // Normal flow
-      const secondaryButtons = [
-        { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
-      ];
-      
-      // Only add "Repeat Last Question" if we're on question 2 or later
-      if (canRepeatLastQuestion()) {
-        secondaryButtons.unshift(
-          { action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" }
-        );
+      // For criteria questions, always show repeat buttons
+      if (conversationState === 'questioning') {
+        if (awaitingSubmission) {
+          secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
+          secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
+          secondaryButtons.push({ action: hearInstructionAgain, icon: RotateCcw, text: "Hear Instruction Again", color: "amber" });
+        } else {
+          if (currentQuestionNumber > 1) {
+            secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
+          }
+          secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
+        }
       }
       
       return {
@@ -182,7 +186,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-    // State 7: Interview completed
+    // State 9: Interview completed
     if (conversationState === 'completed') {
       return {
         primary: { action: () => {}, icon: CheckCircle, text: "Interview Complete", color: "green" },
@@ -233,10 +237,38 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               {formatTime(recordingTime)}
             </div>
           )}
-          {/* Debug info - remove in production */}
-          <div className="text-xs text-gray-400">
-            Q#{currentQuestionNumber} | Can repeat last: {canRepeatLastQuestion() ? 'Yes' : 'No'} | Just repeated: {justRepeatedLastQuestion ? 'Yes' : 'No'} | Awaiting submission: {awaitingSubmission ? 'Yes' : 'No'}
-          </div>
+          {/* Progress Bar */}
+          {totalQuestions > 0 && conversationState !== 'not_started' && (
+            <div className="w-full max-w-md mx-auto">
+              <div className="flex justify-between text-xs text-gray-500 mb-2">
+                <span>
+                  {conversationState === 'consent' ? 'Getting consent' : 
+                   isEvaluating ? 'Evaluating responses' :
+                   conversationState === 'completed' ? 'Complete!' :
+                   `Question ${currentQuestionNumber} of ${totalQuestions}`}
+                </span>
+                <span>
+                  {conversationState === 'consent' ? '0%' :
+                   (isEvaluating || conversationState === 'completed') ? '100%' :
+                   `${Math.round((currentQuestionNumber / totalQuestions) * 100)}%`}
+                </span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div 
+                  className={`h-2 rounded-full transition-all duration-500 ${
+                    conversationState === 'completed' ? 'bg-green-500' :
+                    isEvaluating ? 'bg-blue-500' :
+                    'bg-blue-400'
+                  }`}
+                  style={{ 
+                    width: conversationState === 'consent' ? '0%' :
+                           (isEvaluating || conversationState === 'completed') ? '100%' :
+                           `${Math.round((currentQuestionNumber / totalQuestions) * 100)}%`
+                  }}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Audio Visualizer */}
@@ -308,9 +340,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
         </div>
 
         {/* Transcription Display */}
-        {lastTranscription && showTranscriptionConfirm && (
+        {lastTranscription && showTranscriptionConfirm && !isEvaluating && !isProcessing && (
           <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 max-w-2xl mx-auto">
-            <h4 className="text-sm font-medium text-blue-800 mb-2">I heard you say:</h4>
+            <h4 className="text-sm font-medium text-blue-800 mb-2">Your last response was:</h4>
             <div className="text-gray-700 italic text-lg">"{lastTranscription}"</div>
             <div className="text-xs text-blue-600 mt-2">
               Is this correct? Use the buttons above to proceed or correct.

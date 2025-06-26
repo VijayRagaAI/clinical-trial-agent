@@ -129,13 +129,17 @@ Do you consent to proceed with the screening questions?"""
     async def _handle_criteria_questions(self, user_message: str) -> Dict:
         """Handle responses to eligibility criteria questions"""
         if self.current_criteria_index < len(self.trial_criteria):
-            # Check if this is a repeat current question request
-            if self._is_repeat_current_request(user_message):
+            # Get current question
+            current_criteria = self.trial_criteria[self.current_criteria_index]
+            
+            # Use LLM to classify user intent
+            intent = self._classify_user_intent(user_message)
+            
+            if intent == "repeat_current":
                 # Just repeat the current question without saving or advancing
                 return await self._ask_current_criteria_question()
             
-            # Check if this is a repeat previous question request
-            if self._is_repeat_previous_request(user_message):
+            elif intent == "repeat_previous":
                 # Go back to previous question if possible
                 if self.current_criteria_index > 0:
                     # Remove the previous answer from session
@@ -150,27 +154,44 @@ Do you consent to proceed with the screening questions?"""
                     # Can't go back further, just repeat current
                     return await self._ask_current_criteria_question()
             
-            current_criteria = self.trial_criteria[self.current_criteria_index]
+            elif intent == "answer":
+                # This is a normal answer - process it
+                self.session.responses[current_criteria.id] = user_message.strip()
+                
+                # Move to next question
+                self.current_criteria_index += 1
+                
+                if self.current_criteria_index < len(self.trial_criteria):
+                    return await self._ask_current_criteria_question()
+                else:
+                    # All questions answered - wait for user to submit
+                    self.conversation_state = "awaiting_submission"
+                    return {
+                        "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+                        "requires_response": False,
+                        "is_final": False,
+                        "awaiting_submission": True,
+                        "question_number": len(self.trial_criteria),
+                        "total_questions": len(self.trial_criteria)
+                    }
             
-            # Save the response to session
-            self.session.responses[current_criteria.id] = user_message.strip()
-            
-            # Move to next question
-            self.current_criteria_index += 1
-            
-            if self.current_criteria_index < len(self.trial_criteria):
-                return await self._ask_current_criteria_question()
-            else:
-                # All questions answered - wait for user to submit
-                self.conversation_state = "awaiting_submission"
-                return {
-                    "content": "Thank you for answering all the screening questions. Please review your final response above and click 'Submit' when you're ready to complete the interview, or 'Repeat Current Question' if you'd like to change your last answer.",
-                    "requires_response": False,
-                    "is_final": False,
-                    "awaiting_submission": True,
-                    "question_number": len(self.trial_criteria),
-                    "total_questions": len(self.trial_criteria)
-                }
+            else:  # intent == "submit"
+                # Unexpected submit during questioning phase, treat as answer
+                self.session.responses[current_criteria.id] = user_message.strip()
+                self.current_criteria_index += 1
+                
+                if self.current_criteria_index < len(self.trial_criteria):
+                    return await self._ask_current_criteria_question()
+                else:
+                    self.conversation_state = "awaiting_submission"
+                    return {
+                        "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+                        "requires_response": False,
+                        "is_final": False,
+                        "awaiting_submission": True,
+                        "question_number": len(self.trial_criteria),
+                        "total_questions": len(self.trial_criteria)
+                    }
         
         # Shouldn't reach here, but just in case
         return {
@@ -209,59 +230,89 @@ Do you consent to proceed with the screening questions?"""
         """Ask the next eligibility criteria question - wrapper for backward compatibility"""
         return await self._ask_current_criteria_question()
     
-    def _is_repeat_current_request(self, user_message: str) -> bool:
-        """Check if the user message is a request to repeat the current question"""
-        message_lower = user_message.lower().strip()
-        repeat_current_phrases = [
-            "could you please repeat that question",
-            "repeat that question",
-            "can you repeat the question",
-            "repeat the question",
-            "say that again",
-            "can you say that again",
-            "repeat please",
-            "could you repeat that"
-        ]
-        
-        return any(phrase in message_lower for phrase in repeat_current_phrases)
-    
-    def _is_repeat_previous_request(self, user_message: str) -> bool:
-        """Check if the user message is a request to repeat the previous question"""
-        message_lower = user_message.lower().strip()
-        repeat_previous_phrases = [
-            "could you please repeat the previous question",
-            "repeat the previous question",
-            "go back to the previous question",
-            "previous question",
-            "last question",
-            "want to try answering it again",
-            "previous",
-            "last"
-        ]
-        
-        return any(phrase in message_lower for phrase in repeat_previous_phrases)
-    
-    def _is_submit_request(self, user_message: str) -> bool:
-        """Check if the user message is a request to submit/complete the interview"""
-        message_lower = user_message.lower().strip()
-        submit_phrases = [
-            "submit",
-            "submit response",
-            "submit my response",
-            "finish",
-            "complete",
-            "done",
-            "i'm done",
-            "finish interview",
-            "complete interview"
-        ]
-        
-        return any(phrase in message_lower for phrase in submit_phrases)
+    def _classify_user_intent(self, user_message: str) -> str:
+        """Use LLM to classify user intent from their message"""
+        try:
+            client = openai.OpenAI()
+            
+            prompt = f"""
+            You are analyzing a user's response in a clinical trial interview to determine their intent.
+            
+            User's response: "{user_message}"
+            
+            Classify this response into ONE of these categories:
+            
+            1. "repeat_current" - User wants to repeat/hear the current question again
+               Examples: "repeat that question", "what?", "I don't understand", "repeat the current question" etc
+            
+            2. "repeat_previous" - User wants to go back to the previous question  
+               Examples: "go back", "previous question", "repeat the last question", "I want to answer the previous question again"
+            
+            3. "submit" - User wants to submit their final response and complete the interview
+               Examples: "submit", "I'm done", "finish", "complete the interview"
+            
+            4. "hear_instruction" - User wants to hear the instruction/options again (only in final submission phase)
+               Examples: "hear instruction again", "repeat these options", "what are my options"
+            
+            5. "answer" - User is providing a normal answer to an interview question
+               Examples: medical/health responses, personal information, yes/no answers to eligibility questions
+            
+            
+            Respond with ONLY the category name: repeat_current, repeat_previous, submit, hear_instruction, or answer
+
+            NOTE: You must response with ONLY one the category name, in case of doubt respond with 'answer' category
+            """
+            
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=10,
+                temperature=0
+            )
+            
+            intent = response.choices[0].message.content.strip().lower()
+            
+            # Validate the response
+            valid_intents = ["repeat_current", "repeat_previous", "submit", "hear_instruction", "answer"]
+            if intent in valid_intents:
+                return intent
+            else:
+                logger.warning(f"LLM returned invalid intent '{intent}', defaulting to 'repeat_current'")
+                return "repeat_current"  # Default to repeat_current for unclear responses
+                
+        except Exception as e:
+            logger.error(f"Error classifying user intent: {e}")
+            return "repeat_current"  # Default to repeat_current instead of answer
     
     async def _handle_submission_request(self, user_message: str) -> Dict:
         """Handle submission or repeat request when awaiting final submission"""
-        # Check if user wants to repeat the last question
-        if self._is_repeat_current_request(user_message):
+        # Use LLM to classify user intent
+        intent = self._classify_user_intent(user_message)
+        
+        if intent == "submit":
+            # Start evaluation process
+            self.conversation_state = "evaluating"
+            return {
+                "content": "Evaluating your responses...",
+                "requires_response": False,
+                "is_final": False,
+                "evaluating": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
+        
+        elif intent == "hear_instruction":
+            # Repeat the instruction message
+            return {
+                "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+                "requires_response": False,
+                "is_final": False,
+                "awaiting_submission": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
+        
+        else:  # repeat_current, repeat_previous, or answer - all treated as wanting to change last answer
             # Go back to the last question
             self.current_criteria_index = len(self.trial_criteria) - 1
             self.conversation_state = "asking_questions"
@@ -272,30 +323,18 @@ Do you consent to proceed with the screening questions?"""
                 del self.session.responses[last_criteria.id]
             
             return await self._ask_current_criteria_question()
-        
-        # Check if user wants to submit
-        elif self._is_submit_request(user_message):
-            # Complete the interview
-            self.conversation_state = "completed"
-            return {
-                "content": "Thank you for completing the screening interview! Your responses have been recorded and are being evaluated.",
-                "requires_response": False,
-                "is_final": True,
-                "question_number": len(self.trial_criteria),
-                "total_questions": len(self.trial_criteria)
-            }
-        
-        else:
-            # User said something else, ask for clarification
-            return {
-                "content": "Please either click 'Submit' to complete the interview or 'Repeat Current Question' to change your last answer.",
-                "requires_response": False,
-                "is_final": False,
-                "awaiting_submission": True,
-                "question_number": len(self.trial_criteria),
-                "total_questions": len(self.trial_criteria)
-            }
     
+    def complete_interview(self) -> Dict:
+        """Complete the interview after evaluation"""
+        self.conversation_state = "completed"
+        return {
+            "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+            "requires_response": False,
+            "is_final": True,
+            "question_number": len(self.trial_criteria),
+            "total_questions": len(self.trial_criteria)
+        }
+
     def get_progress(self) -> Dict:
         """Get current interview progress"""
         total_steps = len(self.trial_criteria) + 2  # consent + questions + final
@@ -305,6 +344,8 @@ Do you consent to proceed with the screening questions?"""
             current_step = 0
         elif self.conversation_state == "asking_questions":
             current_step = self.current_criteria_index + 1
+        elif self.conversation_state == "evaluating":
+            current_step = total_steps - 1
         elif self.conversation_state == "completed":
             current_step = total_steps
         

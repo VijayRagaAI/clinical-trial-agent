@@ -28,11 +28,12 @@ export const useVoiceInterview = () => {
   const [lastTranscription, setLastTranscription] = useState<string>('');
   const [canInterruptSpeech, setCanInterruptSpeech] = useState(false);
   const [awaitingSubmission, setAwaitingSubmission] = useState(false);
+  const [isEvaluating, setIsEvaluating] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [totalQuestions, setTotalQuestions] = useState(0);
 
-  // Question tracking for repeat last question functionality
+  // Question tracking
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
-  const [isSystemMessage, setIsSystemMessage] = useState(false);
-  const [justRepeatedLastQuestion, setJustRepeatedLastQuestion] = useState(false);
 
   // Refs for services
   const wsRef = useRef<WebSocket | null>(null);
@@ -82,36 +83,53 @@ export const useVoiceInterview = () => {
         setIsAgentSpeaking(true);
         setCanInterruptSpeech(true);
         
-        // Debug logging
-        console.log('Agent message received:', {
-          content: data.content.slice(0, 100) + '...',
-          requires_response: data.requires_response,
-          awaiting_submission: data.awaiting_submission,
-          question_number: data.question_number,
-          is_final: data.is_final
-        });
-
+        // Clear processing state when agent responds
+        setIsProcessing(false);
+        
         // Determine conversation state and question number from content
         if (data.content.toLowerCase().includes('consent') || data.content.toLowerCase().includes('proceed')) {
           setConversationState('consent');
           setCurrentQuestionNumber(0);
           setAwaitingSubmission(false);
+          setIsEvaluating(false);
+          if (data.total_questions !== undefined) {
+            setTotalQuestions(data.total_questions);
+          }
+        } else if (data.evaluating) {
+          setConversationState('questioning');
+          setAwaitingSubmission(false);
+          setIsEvaluating(true);
+          // Clear transcription during evaluation
+          setShowTranscriptionConfirm(false);
+          setUserHasResponded(false);
+          setLastTranscription('');
         } else if (data.content.toLowerCase().includes('thank you for completing') || data.is_final) {
           setConversationState('completed');
           setAwaitingSubmission(false);
+          setIsEvaluating(false);
+          setWaitingForUser(false);
+          setShowTranscriptionConfirm(false);
+          setUserHasResponded(false);
         } else if (data.awaiting_submission) {
-          console.log('Setting awaiting submission to true');
           setConversationState('questioning');
           setAwaitingSubmission(true);
+          setIsEvaluating(false);
           if (data.question_number !== undefined) {
             setCurrentQuestionNumber(data.question_number);
+          }
+          if (data.total_questions !== undefined) {
+            setTotalQuestions(data.total_questions);
           }
         } else if (data.requires_response) {
           setConversationState('questioning');
           setAwaitingSubmission(false);
+          setIsEvaluating(false);
           // Use question number from backend if provided (this is the source of truth)
           if (data.question_number !== undefined) {
             setCurrentQuestionNumber(data.question_number);
+          }
+          if (data.total_questions !== undefined) {
+            setTotalQuestions(data.total_questions);
           }
         }
         
@@ -154,25 +172,15 @@ export const useVoiceInterview = () => {
         };
         setMessages(prev => [...prev, userMessage]);
         
-        // Check if this is a repeat request message
-        const isRepeatRequest = data.content.toLowerCase().includes('repeat that question') || 
-                               data.content.toLowerCase().includes('repeat the question') ||
-                               data.content.toLowerCase().includes('could you please repeat') ||
-                               data.content.toLowerCase().includes('repeat the previous question') ||
-                               data.content.toLowerCase().includes('previous question') ||
-                               data.content.toLowerCase().includes('try answering it again');
-        
-        // Only show transcription if this is NOT a system message (repeat request)
-        if (!isSystemMessage && !isRepeatRequest) {
+        // Show transcription unless we're evaluating or processing
+        if (!isEvaluating && !isProcessing) {
           setLastTranscription(data.content);
           setUserHasResponded(true);
           setShowTranscriptionConfirm(true);
-          // Reset repeat last question mode when user provides a real answer
-          setJustRepeatedLastQuestion(false);
-        } else {
-          // Reset system message flag
-          setIsSystemMessage(false);
         }
+        
+        // Set processing state after user message
+        setIsProcessing(true);
         
         setWaitingForUser(false);
         break;
@@ -182,6 +190,7 @@ export const useVoiceInterview = () => {
         setEligibilityResult(data.eligibility);
         setWaitingForUser(false);
         setShowTranscriptionConfirm(false);
+        setIsEvaluating(false);
         setConversationState('completed');
         break;
         
@@ -280,6 +289,9 @@ export const useVoiceInterview = () => {
       const audioBase64 = await audioRecorderRef.current.stopRecording();
       setIsRecording(false);
       
+      // Set processing state immediately after recording stops
+      setIsProcessing(true);
+      
       wsRef.current.send(JSON.stringify({
         type: 'audio_data',
         audio: audioBase64
@@ -301,15 +313,11 @@ export const useVoiceInterview = () => {
         setCanInterruptSpeech(false);
       }
       
-      // Set conversation state to processing and clear all UI states
-      setConversationState('questioning');
+      // Clear UI states
       setShowTranscriptionConfirm(false);
       setUserHasResponded(false);
       setWaitingForUser(false);
       setLastTranscription('');
-      
-      // Mark this as a system message to avoid showing transcription
-      setIsSystemMessage(true);
       
       wsRef.current.send(JSON.stringify({
         type: 'text_message',
@@ -332,20 +340,11 @@ export const useVoiceInterview = () => {
         setMessages(prev => prev.slice(0, -1));
       }
       
-      // Set conversation state to processing and clear all UI states
-      setConversationState('questioning');
+      // Clear UI states
       setShowTranscriptionConfirm(false);
       setUserHasResponded(false);
       setWaitingForUser(false);
       setLastTranscription('');
-      
-      // Mark this as a system message to avoid showing transcription
-      setIsSystemMessage(true);
-      
-      // Mark that we just repeated last question (so only show repeat current afterward)
-      setJustRepeatedLastQuestion(true);
-      
-      // Don't manually adjust question number - let backend provide it
       
       // Send request to go back to previous question
       wsRef.current.send(JSON.stringify({
@@ -357,19 +356,46 @@ export const useVoiceInterview = () => {
 
   const submitResponse = () => {
     if (wsRef.current && awaitingSubmission) {
-      // Clear states
+      // Stop any ongoing audio first
+      if (isAgentSpeaking && audioPlayerRef.current) {
+        audioPlayerRef.current.stop();
+        setIsAgentSpeaking(false);
+        setCanInterruptSpeech(false);
+      }
+      
+      // Immediately set evaluation state for instant UI feedback
+      setIsEvaluating(true);
       setAwaitingSubmission(false);
       setShowTranscriptionConfirm(false);
       setUserHasResponded(false);
       setWaitingForUser(false);
       setLastTranscription('');
       
-      // Mark as system message to avoid transcription
-      setIsSystemMessage(true);
-      
       wsRef.current.send(JSON.stringify({
         type: 'text_message',
         content: 'Submit my response and complete the interview.'
+      }));
+    }
+  };
+
+  const hearInstructionAgain = () => {
+    if (wsRef.current) {
+      // Stop any ongoing audio first
+      if (isAgentSpeaking && audioPlayerRef.current) {
+        audioPlayerRef.current.stop();
+        setIsAgentSpeaking(false);
+        setCanInterruptSpeech(false);
+      }
+      
+      // Clear UI states
+      setShowTranscriptionConfirm(false);
+      setUserHasResponded(false);
+      setWaitingForUser(false);
+      setLastTranscription('');
+      
+      wsRef.current.send(JSON.stringify({
+        type: 'text_message',
+        content: 'Hear instruction again.'
       }));
     }
   };
@@ -384,18 +410,19 @@ export const useVoiceInterview = () => {
     if (connectionError) return "Connection error - please check your setup";
     if (conversationState === 'not_started') return "Ready to begin your clinical trial screening";
     if (conversationState === 'starting') return "Starting interview...";
-    if (isAgentSpeaking) return "MedBot is speaking... (click to skip)";
+    if (isEvaluating) return "Evaluating your responses...";
+    if (isProcessing) return "Processing...";
+    if (conversationState === 'completed') return "Interview completed successfully";
+    if (isAgentSpeaking) return "MedBot is speaking...";
     if (isRecording) return "Recording your response...";
     if (showTranscriptionConfirm) return "Please confirm your response";
     if (waitingForUser) return "Your turn to speak";
-    if (conversationState === 'completed') return "Interview completed successfully";
     return "Processing your response...";
   };
 
-  // Helper to determine if "Repeat Last Question" should be available
+  // Helper to determine if "Repeat Last Question" should be available  
   const canRepeatLastQuestion = () => {
-    // Only available from question 2 onwards AND not just after repeating last question AND not awaiting submission
-    return currentQuestionNumber > 1 && !justRepeatedLastQuestion && !awaitingSubmission;
+    return currentQuestionNumber > 1 && !awaitingSubmission;
   };
 
   return {
@@ -418,8 +445,10 @@ export const useVoiceInterview = () => {
     lastTranscription,
     canInterruptSpeech,
     currentQuestionNumber,
-    justRepeatedLastQuestion,
+    totalQuestions,
     awaitingSubmission,
+    isEvaluating,
+    isProcessing,
     
     // Actions
     startInterview,
@@ -429,6 +458,7 @@ export const useVoiceInterview = () => {
     repeatCurrentQuestion,
     repeatLastQuestion,
     submitResponse,
+    hearInstructionAgain,
     
     // Helpers
     formatTime,

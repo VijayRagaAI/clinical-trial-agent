@@ -248,10 +248,10 @@ async def handle_text_input(session_id: str, user_message: str):
                 "total_questions": agent_response.get("total_questions", len(agent.trial_criteria))
             })
             
-            # Check if interview is complete
-            if agent_response.get("is_final", False) and session:
-                # Additional delay before eligibility assessment
-                # await asyncio.sleep(0.5)
+            # Check if we need to start evaluation
+            if agent_response.get("evaluating", False) and session:
+                # Small delay before starting evaluation
+                await asyncio.sleep(1.0)
                 
                 # Evaluate eligibility
                 eligibility_result = eligibility_evaluator.evaluate_eligibility(session)
@@ -259,6 +259,25 @@ async def handle_text_input(session_id: str, user_message: str):
                 # Save to JSON with responses
                 save_eligibility_result(session.participant_id, session.responses, eligibility_result)
                 
+                # Complete the interview
+                completion_response = agent.complete_interview()
+                
+                # Generate audio for completion message
+                completion_audio = await audio_processor.text_to_speech(completion_response["content"])
+                
+                # Send completion message
+                await manager.send_message(session_id, {
+                    "type": "agent_message",
+                    "content": completion_response["content"],
+                    "audio": completion_audio,
+                    "timestamp": datetime.now().isoformat(),
+                    "requires_response": completion_response.get("requires_response", False),
+                    "is_final": completion_response.get("is_final", False),
+                    "question_number": completion_response.get("question_number", 0),
+                    "total_questions": completion_response.get("total_questions", len(agent.trial_criteria))
+                })
+                
+                # Send interview complete event
                 await manager.send_message(session_id, {
                     "type": "interview_complete",
                     "eligibility": eligibility_result,

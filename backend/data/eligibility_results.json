@@ -733,5 +733,449 @@
       "participant_id": "P-A96A95D4"
     },
     "created_at": "2025-06-26T09:52:51.671667"
+  },
+  "P-E80B35A8": {
+    "responses": {
+      "INC001": "I'm 25 years old.",
+      "INC002": "2 years earlier."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's age is 25 years, which falls within the specified range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "I'm 25 years old."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant stated they were diagnosed 2 years earlier, which exceeds the requirement of at least 6 months ago.",
+          "extracted_value": "2 years earlier",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "2 years earlier."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I'm 25 years old.\"\n   Assessment: The participant's age is 25 years, which falls within the specified range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"2 years earlier.\"\n   Assessment: The participant stated they were diagnosed 2 years earlier, which exceeds the requirement of at least 6 months ago.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T11:28:40.392381",
+      "participant_id": "P-E80B35A8"
+    },
+    "created_at": "2025-06-26T11:28:40.395431"
+  },
+  "P-B1A1C480": {
+    "responses": {
+      "INC001": "25 years old.",
+      "INC002": "8 months earlier"
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant is 25 years old, which falls within the specified age range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years old."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant stated they were diagnosed with type-2 diabetes 8 months earlier, which is more than 6 months ago, thus meeting the eligibility criteria.",
+          "extracted_value": "8 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "8 months earlier"
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years old.\"\n   Assessment: The participant is 25 years old, which falls within the specified age range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"8 months earlier\"\n   Assessment: The participant stated they were diagnosed with type-2 diabetes 8 months earlier, which is more than 6 months ago, thus meeting the eligibility criteria.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T11:42:03.384855",
+      "participant_id": "P-B1A1C480"
+    },
+    "created_at": "2025-06-26T11:42:03.386187"
+  },
+  "P-8AE4CD28": {
+    "responses": {
+      "INC001": "25 years of age.",
+      "INC002": "8 month, 8 months earlier."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant is 25 years old, which falls within the inclusion age range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years of age."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant indicates they were diagnosed 8 months ago, which meets the eligibility criterion of being diagnosed with type-2 diabetes for at least 6 months.",
+          "extracted_value": "8 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "8 month, 8 months earlier."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years of age.\"\n   Assessment: The participant is 25 years old, which falls within the inclusion age range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"8 month, 8 months earlier.\"\n   Assessment: The participant indicates they were diagnosed 8 months ago, which meets the eligibility criterion of being diagnosed with type-2 diabetes for at least 6 months.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T11:47:27.618612",
+      "participant_id": "P-8AE4CD28"
+    },
+    "created_at": "2025-06-26T11:47:27.620956"
+  },
+  "P-0865DD14": {
+    "responses": {
+      "INC001": "25 years old",
+      "INC002": "9 months"
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response of '25 years old' is within the age range of 18 to 75 years, and therefore meets the eligibility criteria.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years old"
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant has stated they were diagnosed 9 months ago, which is greater than the required 6 months for eligibility.",
+          "extracted_value": "9 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "9 months"
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years old\"\n   Assessment: The participant's response of '25 years old' is within the age range of 18 to 75 years, and therefore meets the eligibility criteria.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"9 months\"\n   Assessment: The participant has stated they were diagnosed 9 months ago, which is greater than the required 6 months for eligibility.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T12:03:11.908559",
+      "participant_id": "P-0865DD14"
+    },
+    "created_at": "2025-06-26T12:03:11.911053"
+  },
+  "P-CE5CCA7B": {
+    "responses": {
+      "INC001": "25%",
+      "INC002": "2 years earlier"
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant's response of '25%' does not provide a valid age and is not in the expected format. The response does not indicate a numeric age within the required range of 18-75 years.",
+          "extracted_value": null,
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25%"
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant stated they were diagnosed with type-2 diabetes '2 years earlier', which is more than 6 months ago, thus meeting the eligibility criteria.",
+          "extracted_value": "2 years",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "2 years earlier"
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25%\"\n   Assessment: The participant's response of '25%' does not provide a valid age and is not in the expected format. The response does not indicate a numeric age within the required range of 18-75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"2 years earlier\"\n   Assessment: The participant stated they were diagnosed with type-2 diabetes '2 years earlier', which is more than 6 months ago, thus meeting the eligibility criteria.\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-26T12:05:53.414300",
+      "participant_id": "P-CE5CCA7B"
+    },
+    "created_at": "2025-06-26T12:05:53.416653"
+  },
+  "P-46F4146B": {
+    "responses": {
+      "INC001": "25 years.",
+      "INC002": "18 years."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response of '25 years' falls within the age range of 18 to 75 years inclusive.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant has indicated they were diagnosed with type-2 diabetes 18 years ago, which is well over the required 6 months.",
+          "extracted_value": "18 years",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "18 years."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years.\"\n   Assessment: The participant's response of '25 years' falls within the age range of 18 to 75 years inclusive.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"18 years.\"\n   Assessment: The participant has indicated they were diagnosed with type-2 diabetes 18 years ago, which is well over the required 6 months.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T12:06:34.496163",
+      "participant_id": "P-46F4146B"
+    },
+    "created_at": "2025-06-26T12:06:34.497933"
+  },
+  "P-BC5B8805": {
+    "responses": {
+      "INC001": "I don't know.",
+      "INC002": "Why do you care?"
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 0.0,
+      "criteria_met": [
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant's response of 'I don't know' does not provide a valid age and therefore does not meet the eligibility criteria of being between 18 and 75 years.",
+          "extracted_value": null,
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "I don't know."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant's response does not provide any information regarding their diagnosis of type-2 diabetes, nor does it indicate that they have had the diagnosis for at least 6 months. Instead, the response is dismissive and non-informative.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "Why do you care?"
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a valid age and therefore does not meet the eligibility criteria of being between 18 and 75 years.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"Why do you care?\"\n   Assessment: The participant's response does not provide any information regarding their diagnosis of type-2 diabetes, nor does it indicate that they have had the diagnosis for at least 6 months. Instead, the response is dismissive and non-informative.\n\n",
+      "high_priority_criteria_met": "0/2",
+      "evaluation_timestamp": "2025-06-26T12:14:04.591103",
+      "participant_id": "P-BC5B8805"
+    },
+    "created_at": "2025-06-26T12:14:04.593791"
+  },
+  "P-10E6781B": {
+    "responses": {
+      "INC001": "25 years old",
+      "INC002": "10 month earlier"
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's age of 25 years falls within the specified age range of 18 to 75 years, thus meeting the eligibility criteria.",
+          "extracted_value": "25 years old",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years old"
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant stated they were diagnosed with type-2 diabetes 10 months ago, which is greater than the required 6 months.",
+          "extracted_value": "10 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "10 month earlier"
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years old\"\n   Assessment: The participant's age of 25 years falls within the specified age range of 18 to 75 years, thus meeting the eligibility criteria.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"10 month earlier\"\n   Assessment: The participant stated they were diagnosed with type-2 diabetes 10 months ago, which is greater than the required 6 months.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T12:21:52.364335",
+      "participant_id": "P-10E6781B"
+    },
+    "created_at": "2025-06-26T12:21:52.365494"
+  },
+  "P-DBE54BB9": {
+    "responses": {
+      "INC001": "25 years old.",
+      "INC002": "18 months earlier."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's age of 25 years falls within the specified eligibility range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years old."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant states that they were diagnosed 18 months ago, which is more than 6 months, thus meeting the diagnosis criterion for type-2 diabetes.",
+          "extracted_value": "18 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "18 months earlier."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years old.\"\n   Assessment: The participant's age of 25 years falls within the specified eligibility range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"18 months earlier.\"\n   Assessment: The participant states that they were diagnosed 18 months ago, which is more than 6 months, thus meeting the diagnosis criterion for type-2 diabetes.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T12:34:03.594172",
+      "participant_id": "P-DBE54BB9"
+    },
+    "created_at": "2025-06-26T12:34:03.596787"
+  },
+  "P-A1D79CD6": {
+    "responses": {
+      "INC001": "25 years.",
+      "INC002": "18 years earlier"
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response of '25 years' falls within the age range of 18 to 75 years, thus meeting the eligibility criteria.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant stated that they were diagnosed with type-2 diabetes 18 years earlier, which is clearly more than 6 months ago. Therefore, they meet the eligibility criteria.",
+          "extracted_value": "18 years",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "18 years earlier"
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years.\"\n   Assessment: The participant's response of '25 years' falls within the age range of 18 to 75 years, thus meeting the eligibility criteria.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"18 years earlier\"\n   Assessment: The participant stated that they were diagnosed with type-2 diabetes 18 years earlier, which is clearly more than 6 months ago. Therefore, they meet the eligibility criteria.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T12:37:38.028857",
+      "participant_id": "P-A1D79CD6"
+    },
+    "created_at": "2025-06-26T12:37:38.029432"
+  },
+  "P-1AFFC54A": {
+    "responses": {
+      "INC001": "25 years",
+      "INC002": "I don't know."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant is 25 years old, which falls within the age range of 18 to 75 years, thus meeting the eligibility criteria.",
+          "extracted_value": "25 years",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years"
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant's response indicates uncertainty about their diagnosis date, which does not provide the necessary information to confirm that they have been diagnosed with type-2 diabetes for at least 6 months.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "I don't know."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years\"\n   Assessment: The participant is 25 years old, which falls within the age range of 18 to 75 years, thus meeting the eligibility criteria.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"I don't know.\"\n   Assessment: The participant's response indicates uncertainty about their diagnosis date, which does not provide the necessary information to confirm that they have been diagnosed with type-2 diabetes for at least 6 months.\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-26T13:16:33.439263",
+      "participant_id": "P-1AFFC54A"
+    },
+    "created_at": "2025-06-26T13:16:33.441604"
+  },
+  "P-64EFF74C": {
+    "responses": {
+      "INC001": "25 years",
+      "INC002": "I don't know."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's age of 25 years falls within the eligible age range of 18 to 75 years.",
+          "extracted_value": "25 years",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years"
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.9,
+          "reasoning": "The participant's response indicates uncertainty regarding their diagnosis date, which does not confirm that they have been diagnosed with type-2 diabetes for at least 6 months.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "I don't know."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years\"\n   Assessment: The participant's age of 25 years falls within the eligible age range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"I don't know.\"\n   Assessment: The participant's response indicates uncertainty regarding their diagnosis date, which does not confirm that they have been diagnosed with type-2 diabetes for at least 6 months.\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-26T13:39:47.050065",
+      "participant_id": "P-64EFF74C"
+    },
+    "created_at": "2025-06-26T13:39:47.052681"
   }
 }
