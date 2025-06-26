@@ -4,8 +4,7 @@ import re
 from typing import Dict, List, Tuple
 from datetime import datetime, timedelta
 
-from langchain_openai import ChatOpenAI
-from langchain.schema import HumanMessage, SystemMessage
+from tools.llm_provider import get_llm_response
 
 from models import ParticipantSession, TrialCriteria, load_trial_criteria
 
@@ -13,11 +12,6 @@ logger = logging.getLogger(__name__)
 
 class EligibilityEvaluator:
     def __init__(self):
-        self.llm = ChatOpenAI(
-            temperature=0.1,  # Low temperature for consistent evaluation
-            model_name="gpt-4o-mini",
-            max_tokens=500
-        )
         self.trial_criteria = load_trial_criteria()
     
     def evaluate_eligibility(self, session: ParticipantSession) -> Dict:
@@ -94,39 +88,26 @@ class EligibilityEvaluator:
             You are evaluating a clinical trial participant's response against eligibility criteria.
             
             CRITERIA: {criteria.text}
+            QUESTION: {criteria.question}
             EXPECTED: {criteria.expected_response}
             PARTICIPANT'S RESPONSE: "{response}"
             
-            Evaluate if the participant's response meets the criteria. Consider:
-            1. Does the response align with the expected answer?
-            2. Are there any red flags or exclusions?
-            3. Is the response clear and definitive?
+            Evaluate if the participant's response meets the criteria and align with the expected answer.
             
             Respond with a JSON object:
             {{
                 "meets_criteria": true/false,
-                "confidence": 0.0-1.0,
-                "reasoning": "brief explanation",
+                "confidence": 0.0-1.0, # how confident are you in your meets_criteria answer. give 1 if you are 100% confident for either true or false, 0 if you are 0% confident for either true or false.
+                "reasoning": "brief explanation", # why you think the participant's response meets the criteria or not.
                 "extracted_value": "key value from response if applicable"
             }}
             """
             
-            messages = [
-                SystemMessage(content="You are a clinical trial eligibility evaluator. Provide accurate JSON responses."),
-                HumanMessage(content=evaluation_prompt)
-            ]
-            
-            # Get LLM evaluation
-            response_obj = self.llm.invoke(messages)
-            evaluation_text = response_obj.content.strip()
-            
+            evaluation_text = get_llm_response(system_prompt="You are a clinical trial eligibility evaluator. Provide accurate JSON responses.", user_prompt=evaluation_prompt)
+
             # Parse JSON response
-            try:
-                evaluation = json.loads(evaluation_text)
-            except json.JSONDecodeError:
-                # Fallback evaluation
-                evaluation = self._fallback_evaluation(criteria, response)
-            
+            evaluation = json.loads(evaluation_text)
+        
             # Add metadata
             evaluation.update({
                 "criteria_id": criteria.id,
@@ -150,40 +131,6 @@ class EligibilityEvaluator:
                 "extracted_value": None
             }
     
-    def _fallback_evaluation(self, criteria: TrialCriteria, response: str) -> Dict:
-        """Simple rule-based fallback evaluation"""
-        response_lower = response.lower().strip()
-        
-        # Age criteria
-        if "age" in criteria.text.lower():
-            age_match = re.search(r'\b(\d{1,3})\b', response)
-            if age_match:
-                age = int(age_match.group(1))
-                meets = 18 <= age <= 75
-                return {
-                    "meets_criteria": meets,
-                    "confidence": 0.8,
-                    "reasoning": f"Age {age} extracted from response",
-                    "extracted_value": str(age)
-                }
-        
-        # Yes/No questions
-        if "no" in criteria.expected_response.lower():
-            has_no = any(word in response_lower for word in ["no", "never", "not", "none"])
-            return {
-                "meets_criteria": has_no,
-                "confidence": 0.7,
-                "reasoning": "Looking for negative response",
-                "extracted_value": response_lower
-            }
-        
-        # Default conservative evaluation
-        return {
-            "meets_criteria": False,
-            "confidence": 0.3,
-            "reasoning": "Could not definitively evaluate response",
-            "extracted_value": response
-        }
     
     def _generate_eligibility_summary(self, eligible: bool, score: float, 
                                     criteria_results: List[Dict], high_priority_pass: bool) -> str:

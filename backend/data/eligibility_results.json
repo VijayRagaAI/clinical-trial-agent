@@ -263,5 +263,475 @@
       "participant_id": "P-21AA938B"
     },
     "created_at": "2025-06-25T18:07:21.908066"
+  },
+  "P-AD81C708": {
+    "responses": {
+      "INC001": "I am 25 years old.",
+      "INC002": "One year earlier."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 0.8,
+          "reasoning": "Age 25 extracted from response",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "I am 25 years old."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.3,
+          "reasoning": "Could not definitively evaluate response",
+          "extracted_value": "One year earlier.",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "One year earlier."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I am 25 years old.\"\n   Assessment: Age 25 extracted from response\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"One year earlier.\"\n   Assessment: Could not definitively evaluate response\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-26T06:56:30.500285",
+      "participant_id": "P-AD81C708"
+    },
+    "created_at": "2025-06-26T06:56:30.503106"
+  },
+  "P-E589F2CF": {
+    "responses": {},
+    "eligibility": {
+      "eligible": false,
+      "score": 0,
+      "criteria_met": [],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant's overall score is below the required threshold.\n\n**Criteria Assessment:**\n",
+      "high_priority_criteria_met": "0/0",
+      "evaluation_timestamp": "2025-06-26T07:35:04.668465",
+      "participant_id": "P-E589F2CF"
+    },
+    "created_at": "2025-06-26T07:35:04.672874"
+  },
+  "P-714B91DF": {
+    "responses": {
+      "INC001": "Could you please repeat that question?",
+      "INC002": "Could you please repeat the previous question? I want to try answering it again."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 0.0,
+      "criteria_met": [
+        {
+          "meets_criteria": false,
+          "confidence": 0.0,
+          "reasoning": "The participant did not provide a response regarding their age, thus they do not meet the eligibility criteria.",
+          "extracted_value": null,
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "Could you please repeat that question?"
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.0,
+          "reasoning": "The participant's response does not provide a diagnosis date; therefore, it cannot be assessed against the eligibility criteria.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "Could you please repeat the previous question? I want to try answering it again."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"Could you please repeat that question?\"\n   Assessment: The participant did not provide a response regarding their age, thus they do not meet the eligibility criteria.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"Could you please repeat the previous question? I want to try answering it again.\"\n   Assessment: The participant's response does not provide a diagnosis date; therefore, it cannot be assessed against the eligibility criteria.\n\n",
+      "high_priority_criteria_met": "0/2",
+      "evaluation_timestamp": "2025-06-26T07:37:31.227332",
+      "participant_id": "P-714B91DF"
+    },
+    "created_at": "2025-06-26T07:37:31.228686"
+  },
+  "P-44355B40": {
+    "responses": {
+      "INC001": "25 years",
+      "INC002": "8 months."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant is 25 years old, which falls within the specified age range of 18 to 75 years inclusive.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years"
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response indicates they were diagnosed with type-2 diabetes 8 months ago, which exceeds the required duration of 6 months.",
+          "extracted_value": "8 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "8 months."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years\"\n   Assessment: The participant is 25 years old, which falls within the specified age range of 18 to 75 years inclusive.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"8 months.\"\n   Assessment: The participant's response indicates they were diagnosed with type-2 diabetes 8 months ago, which exceeds the required duration of 6 months.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T08:01:36.110242",
+      "participant_id": "P-44355B40"
+    },
+    "created_at": "2025-06-26T08:01:36.111151"
+  },
+  "P-BB533026": {
+    "responses": {
+      "INC001": "Could you please repeat that question?",
+      "INC002": "Could you please repeat the previous question? I want to try answering it again."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 0.0,
+      "criteria_met": [
+        {
+          "meets_criteria": false,
+          "confidence": 0.9,
+          "reasoning": "The participant did not provide an age but instead requested clarification of the question, which does not allow for determination of eligibility based on age.",
+          "extracted_value": null,
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "Could you please repeat that question?"
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.9,
+          "reasoning": "The participant did not provide an answer regarding their diagnosis date and instead requested to repeat the question, indicating that they did not confirm their eligibility regarding the duration of their diagnosis.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "Could you please repeat the previous question? I want to try answering it again."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"Could you please repeat that question?\"\n   Assessment: The participant did not provide an age but instead requested clarification of the question, which does not allow for determination of eligibility based on age.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"Could you please repeat the previous question? I want to try answering it again.\"\n   Assessment: The participant did not provide an answer regarding their diagnosis date and instead requested to repeat the question, indicating that they did not confirm their eligibility regarding the duration of their diagnosis.\n\n",
+      "high_priority_criteria_met": "0/2",
+      "evaluation_timestamp": "2025-06-26T08:28:29.381956",
+      "participant_id": "P-BB533026"
+    },
+    "created_at": "2025-06-26T08:28:29.382783"
+  },
+  "P-A542C889": {
+    "responses": {
+      "INC001": "Could you please repeat the previous question? I want to try answering it again.",
+      "INC002": "Could you please repeat the previous question? I want to try answering it again."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 0.0,
+      "criteria_met": [
+        {
+          "meets_criteria": false,
+          "confidence": 0.9,
+          "reasoning": "The participant did not provide their age in response to the question, therefore they do not meet the eligibility criteria.",
+          "extracted_value": null,
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "Could you please repeat the previous question? I want to try answering it again."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant did not provide a response regarding their diagnosis date, and thus cannot confirm if they meet the criteria of being diagnosed for at least 6 months.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "Could you please repeat the previous question? I want to try answering it again."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"Could you please repeat the previous question? I want to try answering it again.\"\n   Assessment: The participant did not provide their age in response to the question, therefore they do not meet the eligibility criteria.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"Could you please repeat the previous question? I want to try answering it again.\"\n   Assessment: The participant did not provide a response regarding their diagnosis date, and thus cannot confirm if they meet the criteria of being diagnosed for at least 6 months.\n\n",
+      "high_priority_criteria_met": "0/2",
+      "evaluation_timestamp": "2025-06-26T08:42:51.310562",
+      "participant_id": "P-A542C889"
+    },
+    "created_at": "2025-06-26T08:42:51.314349"
+  },
+  "P-1A3EE5A4": {
+    "responses": {},
+    "eligibility": {
+      "eligible": false,
+      "score": 0,
+      "criteria_met": [],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant's overall score is below the required threshold.\n\n**Criteria Assessment:**\n",
+      "high_priority_criteria_met": "0/0",
+      "evaluation_timestamp": "2025-06-26T08:45:35.417293",
+      "participant_id": "P-1A3EE5A4"
+    },
+    "created_at": "2025-06-26T08:45:35.417789"
+  },
+  "P-44BAB291": {
+    "responses": {
+      "INC001": "Could you please repeat the previous question? I want to try answering it again.",
+      "INC002": "Could you please repeat the previous question? I want to try answering it again."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 0.0,
+      "criteria_met": [
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant did not provide their age in their response and instead requested clarification on the previous question, which does not fulfill the age criteria of 18-75 years.",
+          "extracted_value": null,
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "Could you please repeat the previous question? I want to try answering it again."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant did not provide a response to the question regarding the timeline of their diabetes diagnosis and instead asked for clarification. Therefore, there is insufficient information to confirm eligibility based on the criteria.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "Could you please repeat the previous question? I want to try answering it again."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"Could you please repeat the previous question? I want to try answering it again.\"\n   Assessment: The participant did not provide their age in their response and instead requested clarification on the previous question, which does not fulfill the age criteria of 18-75 years.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"Could you please repeat the previous question? I want to try answering it again.\"\n   Assessment: The participant did not provide a response to the question regarding the timeline of their diabetes diagnosis and instead asked for clarification. Therefore, there is insufficient information to confirm eligibility based on the criteria.\n\n",
+      "high_priority_criteria_met": "0/2",
+      "evaluation_timestamp": "2025-06-26T08:46:54.506491",
+      "participant_id": "P-44BAB291"
+    },
+    "created_at": "2025-06-26T08:46:54.507495"
+  },
+  "P-AA5F9D3A": {
+    "responses": {
+      "INC001": "25 years old.",
+      "INC002": "8 months earlier."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response indicates they are 25 years old, which falls within the age range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years old."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant states they were diagnosed with type-2 diabetes 8 months ago, which exceeds the required 6 months.",
+          "extracted_value": "8 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "8 months earlier."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years old.\"\n   Assessment: The participant's response indicates they are 25 years old, which falls within the age range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"8 months earlier.\"\n   Assessment: The participant states they were diagnosed with type-2 diabetes 8 months ago, which exceeds the required 6 months.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T08:55:28.034127",
+      "participant_id": "P-AA5F9D3A"
+    },
+    "created_at": "2025-06-26T08:55:28.036717"
+  },
+  "P-FE9C3ADC": {
+    "responses": {
+      "INC001": "25 years old.",
+      "INC002": "I don't know."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response indicates that they are 25 years old, which falls within the eligible age range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 years old."
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.9,
+          "reasoning": "The participant's response of 'I don't know' does not provide a definitive answer regarding the duration of their diagnosis with type-2 diabetes. Therefore, it's unclear if they have met the requirement of being diagnosed for at least 6 months.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "I don't know."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 years old.\"\n   Assessment: The participant's response indicates that they are 25 years old, which falls within the eligible age range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a definitive answer regarding the duration of their diagnosis with type-2 diabetes. Therefore, it's unclear if they have met the requirement of being diagnosed for at least 6 months.\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-26T09:01:59.739480",
+      "participant_id": "P-FE9C3ADC"
+    },
+    "created_at": "2025-06-26T09:01:59.742477"
+  },
+  "P-FE4343D0": {
+    "responses": {
+      "INC001": "I am 25 years old.",
+      "INC002": "about 9 months earlier."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's age of 25 years falls within the eligibility range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "I am 25 years old."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant stated they were diagnosed with type-2 diabetes about 9 months ago, which meets the eligibility criterion of being diagnosed for at least 6 months.",
+          "extracted_value": "9 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "about 9 months earlier."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I am 25 years old.\"\n   Assessment: The participant's age of 25 years falls within the eligibility range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"about 9 months earlier.\"\n   Assessment: The participant stated they were diagnosed with type-2 diabetes about 9 months ago, which meets the eligibility criterion of being diagnosed for at least 6 months.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T09:06:22.800338",
+      "participant_id": "P-FE4343D0"
+    },
+    "created_at": "2025-06-26T09:06:22.801765"
+  },
+  "P-A955BD34": {
+    "responses": {
+      "INC001": "25 viewers",
+      "INC002": "just one year available"
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 0.0,
+      "criteria_met": [
+        {
+          "meets_criteria": false,
+          "confidence": 1.0,
+          "reasoning": "The participant's response includes '25 viewers,' which does not directly answer the question about their age and is not a valid age format.",
+          "extracted_value": null,
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25 viewers"
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.9,
+          "reasoning": "The participant's response indicates they have been diagnosed for one year, which does meet the requirement of being diagnosed for at least 6 months. However, the phrasing 'just one year available' makes it somewhat ambiguous, leading to a reduced confidence level.",
+          "extracted_value": "1 year",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "just one year available"
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25 viewers\"\n   Assessment: The participant's response includes '25 viewers,' which does not directly answer the question about their age and is not a valid age format.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"just one year available\"\n   Assessment: The participant's response indicates they have been diagnosed for one year, which does meet the requirement of being diagnosed for at least 6 months. However, the phrasing 'just one year available' makes it somewhat ambiguous, leading to a reduced confidence level.\n\n",
+      "high_priority_criteria_met": "0/2",
+      "evaluation_timestamp": "2025-06-26T09:09:46.420360",
+      "participant_id": "P-A955BD34"
+    },
+    "created_at": "2025-06-26T09:09:46.422002"
+  },
+  "P-CEA179C3": {
+    "responses": {
+      "INC001": "I'm 25 years old.",
+      "INC002": "8 months earlier."
+    },
+    "eligibility": {
+      "eligible": true,
+      "score": 100.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's response indicates they are 25 years old, which falls within the required age range of 18 to 75 years.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "I'm 25 years old."
+        },
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant stated they were diagnosed with type-2 diabetes 8 months ago, which is greater than the required 6 months.",
+          "extracted_value": "8 months",
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "8 months earlier."
+        }
+      ],
+      "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I'm 25 years old.\"\n   Assessment: The participant's response indicates they are 25 years old, which falls within the required age range of 18 to 75 years.\n\n\u2705 \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"8 months earlier.\"\n   Assessment: The participant stated they were diagnosed with type-2 diabetes 8 months ago, which is greater than the required 6 months.\n\n",
+      "high_priority_criteria_met": "2/2",
+      "evaluation_timestamp": "2025-06-26T09:13:16.614114",
+      "participant_id": "P-CEA179C3"
+    },
+    "created_at": "2025-06-26T09:13:16.615767"
+  },
+  "P-A96A95D4": {
+    "responses": {
+      "INC001": "25",
+      "INC002": "I don't know."
+    },
+    "eligibility": {
+      "eligible": false,
+      "score": 50.0,
+      "criteria_met": [
+        {
+          "meets_criteria": true,
+          "confidence": 1.0,
+          "reasoning": "The participant's age of 25 falls within the specified age range of 18 to 75 years inclusive.",
+          "extracted_value": "25",
+          "criteria_id": "INC001",
+          "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+          "priority": "high",
+          "participant_response": "25"
+        },
+        {
+          "meets_criteria": false,
+          "confidence": 0.95,
+          "reasoning": "The participant's response indicates uncertainty about their diagnosis date, which does not provide the necessary information to confirm that they have had type-2 diabetes for at least 6 months.",
+          "extracted_value": null,
+          "criteria_id": "INC002",
+          "criteria_text": "Diagnosis of type-2 diabetes for \u2265 6 months",
+          "priority": "high",
+          "participant_response": "I don't know."
+        }
+      ],
+      "summary": "\u274c **NOT ELIGIBLE** - Overall score: 50.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's age of 25 falls within the specified age range of 18 to 75 years inclusive.\n\n\u274c \ud83d\udd34 Diagnosis of type-2 diabetes for \u2265 6 months\n   Response: \"I don't know.\"\n   Assessment: The participant's response indicates uncertainty about their diagnosis date, which does not provide the necessary information to confirm that they have had type-2 diabetes for at least 6 months.\n\n",
+      "high_priority_criteria_met": "1/2",
+      "evaluation_timestamp": "2025-06-26T09:52:51.668614",
+      "participant_id": "P-A96A95D4"
+    },
+    "created_at": "2025-06-26T09:52:51.671667"
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mic, MicOff, Volume2, RotateCcw, CheckCircle, RefreshCw, Play, Square } from 'lucide-react';
+import { Mic, MicOff, Volume2, RotateCcw, CheckCircle, RefreshCw, Play, Square, Send } from 'lucide-react';
 import { ButtonConfig, ButtonState } from '../types/interview';
 
 interface VoiceInterfaceProps {
@@ -15,6 +15,8 @@ interface VoiceInterfaceProps {
   lastTranscription: string;
   connectionError: string | null;
   currentQuestionNumber: number;
+  justRepeatedLastQuestion: boolean;
+  awaitingSubmission: boolean;
   
   // Actions
   startInterview: () => void;
@@ -23,6 +25,7 @@ interface VoiceInterfaceProps {
   stopRecording: () => void;
   repeatCurrentQuestion: () => void;
   repeatLastQuestion: () => void;
+  submitResponse: () => void;
   
   // Helpers
   formatTime: (seconds: number) => string;
@@ -42,12 +45,15 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   lastTranscription,
   connectionError,
   currentQuestionNumber,
+  justRepeatedLastQuestion,
+  awaitingSubmission,
   startInterview,
   stopAgentSpeaking,
   startRecording,
   stopRecording,
   repeatCurrentQuestion,
   repeatLastQuestion,
+  submitResponse,
   formatTime,
   getStatusText,
   canRepeatLastQuestion
@@ -114,6 +120,18 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
     // State 5: Transcription shown (agent finished speaking)
     if (showTranscriptionConfirm && lastTranscription && !isAgentSpeaking) {
+      // If awaiting submission (last question), show Submit button as primary
+      if (awaitingSubmission) {
+        return {
+          primary: { action: submitResponse, icon: Send, text: "Submit Response", color: "green" },
+          secondary: [
+            { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
+          ],
+          disabled: false
+        };
+      }
+      
+      // Normal question flow
       const secondaryButtons = [
         { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
       ];
@@ -134,6 +152,18 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
     // State 6: Ready to speak (after skip or initial)
     if (waitingForUser && !userHasResponded) {
+      // If awaiting submission, show different state
+      if (awaitingSubmission) {
+        return {
+          primary: { action: submitResponse, icon: Send, text: "Submit Response", color: "green" },
+          secondary: [
+            { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
+          ],
+          disabled: false
+        };
+      }
+      
+      // Normal flow
       const secondaryButtons = [
         { action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" }
       ];
@@ -205,7 +235,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           )}
           {/* Debug info - remove in production */}
           <div className="text-xs text-gray-400">
-            Question: {currentQuestionNumber} | Can repeat last: {canRepeatLastQuestion() ? 'Yes' : 'No'}
+            Q#{currentQuestionNumber} | Can repeat last: {canRepeatLastQuestion() ? 'Yes' : 'No'} | Just repeated: {justRepeatedLastQuestion ? 'Yes' : 'No'} | Awaiting submission: {awaitingSubmission ? 'Yes' : 'No'}
           </div>
         </div>
 

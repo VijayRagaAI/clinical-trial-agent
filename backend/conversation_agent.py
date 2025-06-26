@@ -40,46 +40,22 @@ Do you consent to proceed with the screening questions?"""
     
     async def process_user_response(self, user_message: str) -> Dict:
         """Process user response and generate appropriate follow-up"""
-        user_message_clean = user_message.strip().lower()
-        
-        # Check for repeat request first
-        if any(phrase in user_message_clean for phrase in ["repeat", "again", "say that again", "didn't hear", "can you repeat"]):
-            return await self._handle_repeat_request()
         
         if self.conversation_state == "waiting_consent":
             return await self._handle_consent_response(user_message)
         elif self.conversation_state == "asking_questions":
             return await self._handle_criteria_questions(user_message)
+        elif self.conversation_state == "awaiting_submission":
+            return await self._handle_submission_request(user_message)
         else:
             # Simple fallback
             return {
                 "content": "Interview completed. Thank you for your time!",
                 "requires_response": False,
-                "is_final": True
+                "is_final": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
             }
-    
-    async def _handle_repeat_request(self) -> Dict:
-        """Handle repeat request - don't advance question index"""
-        if self.conversation_state == "waiting_consent":
-            return {
-                "content": await self.get_initial_greeting(),
-                "requires_response": True,
-                "is_final": False
-            }
-        elif self.conversation_state == "asking_questions":
-            if self.current_criteria_index < len(self.trial_criteria):
-                criteria = self.trial_criteria[self.current_criteria_index]
-                return {
-                    "content": criteria.question,
-                    "requires_response": True,
-                    "is_final": False
-                }
-        
-        return {
-            "content": "I'm sorry, I can't repeat that right now.",
-            "requires_response": True,
-            "is_final": False
-        }
     
     async def _handle_consent_response(self, user_message: str) -> Dict:
         """Handle consent response using LLM to understand user intent"""
@@ -117,43 +93,63 @@ Do you consent to proceed with the screening questions?"""
                 return {
                     "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
                     "requires_response": False,
-                    "is_final": True
+                    "is_final": True,
+                    "question_number": 0,
+                    "total_questions": len(self.trial_criteria)
                 }
             else:  # CLARIFY
                 overview = self.trial_info.get("overview", {})
-                purpose = overview.get("purpose", "test a new medical treatment")
-                commitment = overview.get("commitment", "a brief screening interview")
-                
-                clarification = f"""Let me clarify: This is {commitment} for a study to {purpose.lower()}.
+                purpose = overview.get("purpose", "Test a new medical treatment")
+                clarification = f"""Let me clarify: I'm MedBot, your clinical trial assistant. 
 
-I'll ask you some basic questions about your health and background. This usually takes about 5-10 minutes. Your responses will help determine if you might be eligible for the full study.
+        This study aims to {purpose.lower()}.
 
-Would you like to proceed with these screening questions?"""
+        I'll ask you a few screening questions to see if you might be eligible.
+
+        Do you consent to proceed with the screening questions?"""
                 
                 return {
                     "content": clarification,
                     "requires_response": True,
-                    "is_final": False
+                    "is_final": False,
+                    "question_number": 0,  # Still in consent phase
+                    "total_questions": len(self.trial_criteria)
                 }
                 
         except Exception as e:
             logger.error(f"Error processing consent response: {e}")
-            # Fallback to simple keyword matching
-            user_message_lower = user_message.lower()
-            if any(word in user_message_lower for word in ["yes", "okay", "ok", "sure", "consent", "agree", "proceed"]):
-                self.conversation_state = "asking_questions"
-                self.current_criteria_index = 0
-                return await self._ask_next_criteria_question()
-            else:
-                return {
-                    "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
-                    "requires_response": False,
-                    "is_final": True
-                }
+            return {
+                "content": "Error processing consent response. Thank you for your time.",
+                "requires_response": False,
+                "is_final": True,
+                "question_number": 0,
+                "total_questions": len(self.trial_criteria)
+            }
     
     async def _handle_criteria_questions(self, user_message: str) -> Dict:
         """Handle responses to eligibility criteria questions"""
         if self.current_criteria_index < len(self.trial_criteria):
+            # Check if this is a repeat current question request
+            if self._is_repeat_current_request(user_message):
+                # Just repeat the current question without saving or advancing
+                return await self._ask_current_criteria_question()
+            
+            # Check if this is a repeat previous question request
+            if self._is_repeat_previous_request(user_message):
+                # Go back to previous question if possible
+                if self.current_criteria_index > 0:
+                    # Remove the previous answer from session
+                    prev_criteria = self.trial_criteria[self.current_criteria_index - 1]
+                    if prev_criteria.id in self.session.responses:
+                        del self.session.responses[prev_criteria.id]
+                    
+                    # Go back to previous question
+                    self.current_criteria_index -= 1
+                    return await self._ask_current_criteria_question()
+                else:
+                    # Can't go back further, just repeat current
+                    return await self._ask_current_criteria_question()
+            
             current_criteria = self.trial_criteria[self.current_criteria_index]
             
             # Save the response to session
@@ -163,25 +159,30 @@ Would you like to proceed with these screening questions?"""
             self.current_criteria_index += 1
             
             if self.current_criteria_index < len(self.trial_criteria):
-                return await self._ask_next_criteria_question()
+                return await self._ask_current_criteria_question()
             else:
-                # All questions completed - final message
-                self.conversation_state = "completed"
+                # All questions answered - wait for user to submit
+                self.conversation_state = "awaiting_submission"
                 return {
-                    "content": "Thank you for completing the screening interview! Your responses have been recorded.",
+                    "content": "Thank you for answering all the screening questions. Please review your final response above and click 'Submit' when you're ready to complete the interview, or 'Repeat Current Question' if you'd like to change your last answer.",
                     "requires_response": False,
-                    "is_final": True
+                    "is_final": False,
+                    "awaiting_submission": True,
+                    "question_number": len(self.trial_criteria),
+                    "total_questions": len(self.trial_criteria)
                 }
         
         # Shouldn't reach here, but just in case
         return {
             "content": "Interview completed. Thank you for your time!",
             "requires_response": False,
-            "is_final": True
+            "is_final": True,
+            "question_number": len(self.trial_criteria),
+            "total_questions": len(self.trial_criteria)
         }
     
-    async def _ask_next_criteria_question(self) -> Dict:
-        """Ask the next eligibility criteria question using the question field from JSON"""
+    async def _ask_current_criteria_question(self) -> Dict:
+        """Ask the current eligibility criteria question using the question field from JSON"""
         if self.current_criteria_index < len(self.trial_criteria):
             criteria = self.trial_criteria[self.current_criteria_index]
             
@@ -191,14 +192,109 @@ Would you like to proceed with these screening questions?"""
             return {
                 "content": question,
                 "requires_response": True,
-                "is_final": False
+                "is_final": False,
+                "question_number": self.current_criteria_index + 1,  # 1-based for frontend
+                "total_questions": len(self.trial_criteria)
             }
         
         return {
             "content": "We've completed all the screening questions.",
             "requires_response": False,
-            "is_final": False
+            "is_final": False,
+            "question_number": len(self.trial_criteria),
+            "total_questions": len(self.trial_criteria)
         }
+    
+    async def _ask_next_criteria_question(self) -> Dict:
+        """Ask the next eligibility criteria question - wrapper for backward compatibility"""
+        return await self._ask_current_criteria_question()
+    
+    def _is_repeat_current_request(self, user_message: str) -> bool:
+        """Check if the user message is a request to repeat the current question"""
+        message_lower = user_message.lower().strip()
+        repeat_current_phrases = [
+            "could you please repeat that question",
+            "repeat that question",
+            "can you repeat the question",
+            "repeat the question",
+            "say that again",
+            "can you say that again",
+            "repeat please",
+            "could you repeat that"
+        ]
+        
+        return any(phrase in message_lower for phrase in repeat_current_phrases)
+    
+    def _is_repeat_previous_request(self, user_message: str) -> bool:
+        """Check if the user message is a request to repeat the previous question"""
+        message_lower = user_message.lower().strip()
+        repeat_previous_phrases = [
+            "could you please repeat the previous question",
+            "repeat the previous question",
+            "go back to the previous question",
+            "previous question",
+            "last question",
+            "want to try answering it again",
+            "previous",
+            "last"
+        ]
+        
+        return any(phrase in message_lower for phrase in repeat_previous_phrases)
+    
+    def _is_submit_request(self, user_message: str) -> bool:
+        """Check if the user message is a request to submit/complete the interview"""
+        message_lower = user_message.lower().strip()
+        submit_phrases = [
+            "submit",
+            "submit response",
+            "submit my response",
+            "finish",
+            "complete",
+            "done",
+            "i'm done",
+            "finish interview",
+            "complete interview"
+        ]
+        
+        return any(phrase in message_lower for phrase in submit_phrases)
+    
+    async def _handle_submission_request(self, user_message: str) -> Dict:
+        """Handle submission or repeat request when awaiting final submission"""
+        # Check if user wants to repeat the last question
+        if self._is_repeat_current_request(user_message):
+            # Go back to the last question
+            self.current_criteria_index = len(self.trial_criteria) - 1
+            self.conversation_state = "asking_questions"
+            
+            # Remove the last answer so they can re-answer
+            last_criteria = self.trial_criteria[self.current_criteria_index]
+            if last_criteria.id in self.session.responses:
+                del self.session.responses[last_criteria.id]
+            
+            return await self._ask_current_criteria_question()
+        
+        # Check if user wants to submit
+        elif self._is_submit_request(user_message):
+            # Complete the interview
+            self.conversation_state = "completed"
+            return {
+                "content": "Thank you for completing the screening interview! Your responses have been recorded and are being evaluated.",
+                "requires_response": False,
+                "is_final": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
+        
+        else:
+            # User said something else, ask for clarification
+            return {
+                "content": "Please either click 'Submit' to complete the interview or 'Repeat Current Question' to change your last answer.",
+                "requires_response": False,
+                "is_final": False,
+                "awaiting_submission": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
     
     def get_progress(self) -> Dict:
         """Get current interview progress"""

@@ -27,10 +27,12 @@ export const useVoiceInterview = () => {
   const [showTranscriptionConfirm, setShowTranscriptionConfirm] = useState(false);
   const [lastTranscription, setLastTranscription] = useState<string>('');
   const [canInterruptSpeech, setCanInterruptSpeech] = useState(false);
+  const [awaitingSubmission, setAwaitingSubmission] = useState(false);
 
   // Question tracking for repeat last question functionality
   const [currentQuestionNumber, setCurrentQuestionNumber] = useState(0);
   const [isSystemMessage, setIsSystemMessage] = useState(false);
+  const [justRepeatedLastQuestion, setJustRepeatedLastQuestion] = useState(false);
 
   // Refs for services
   const wsRef = useRef<WebSocket | null>(null);
@@ -80,17 +82,36 @@ export const useVoiceInterview = () => {
         setIsAgentSpeaking(true);
         setCanInterruptSpeech(true);
         
+        // Debug logging
+        console.log('Agent message received:', {
+          content: data.content.slice(0, 100) + '...',
+          requires_response: data.requires_response,
+          awaiting_submission: data.awaiting_submission,
+          question_number: data.question_number,
+          is_final: data.is_final
+        });
+
         // Determine conversation state and question number from content
         if (data.content.toLowerCase().includes('consent') || data.content.toLowerCase().includes('proceed')) {
           setConversationState('consent');
           setCurrentQuestionNumber(0);
+          setAwaitingSubmission(false);
         } else if (data.content.toLowerCase().includes('thank you for completing') || data.is_final) {
           setConversationState('completed');
+          setAwaitingSubmission(false);
+        } else if (data.awaiting_submission) {
+          console.log('Setting awaiting submission to true');
+          setConversationState('questioning');
+          setAwaitingSubmission(true);
+          if (data.question_number !== undefined) {
+            setCurrentQuestionNumber(data.question_number);
+          }
         } else if (data.requires_response) {
           setConversationState('questioning');
-          // Increment question number only for new questions (not repeats)
-          if (!data.content.toLowerCase().includes('repeat') && !isSystemMessage) {
-            setCurrentQuestionNumber(prev => prev + 1);
+          setAwaitingSubmission(false);
+          // Use question number from backend if provided (this is the source of truth)
+          if (data.question_number !== undefined) {
+            setCurrentQuestionNumber(data.question_number);
           }
         }
         
@@ -105,7 +126,7 @@ export const useVoiceInterview = () => {
             setCanInterruptSpeech(false);
             
             // After agent finishes speaking, set appropriate state
-            if (data.requires_response) {
+            if (data.requires_response || data.awaiting_submission) {
               setWaitingForUser(true);
             }
           }
@@ -113,7 +134,7 @@ export const useVoiceInterview = () => {
           setIsAgentSpeaking(false);
           setCanInterruptSpeech(false);
           
-          if (data.requires_response) {
+          if (data.requires_response || data.awaiting_submission) {
             setWaitingForUser(true);
           }
         }
@@ -133,11 +154,21 @@ export const useVoiceInterview = () => {
         };
         setMessages(prev => [...prev, userMessage]);
         
+        // Check if this is a repeat request message
+        const isRepeatRequest = data.content.toLowerCase().includes('repeat that question') || 
+                               data.content.toLowerCase().includes('repeat the question') ||
+                               data.content.toLowerCase().includes('could you please repeat') ||
+                               data.content.toLowerCase().includes('repeat the previous question') ||
+                               data.content.toLowerCase().includes('previous question') ||
+                               data.content.toLowerCase().includes('try answering it again');
+        
         // Only show transcription if this is NOT a system message (repeat request)
-        if (!isSystemMessage) {
+        if (!isSystemMessage && !isRepeatRequest) {
           setLastTranscription(data.content);
           setUserHasResponded(true);
           setShowTranscriptionConfirm(true);
+          // Reset repeat last question mode when user provides a real answer
+          setJustRepeatedLastQuestion(false);
         } else {
           // Reset system message flag
           setIsSystemMessage(false);
@@ -270,18 +301,20 @@ export const useVoiceInterview = () => {
         setCanInterruptSpeech(false);
       }
       
-      // Mark this as a system message
+      // Set conversation state to processing and clear all UI states
+      setConversationState('questioning');
+      setShowTranscriptionConfirm(false);
+      setUserHasResponded(false);
+      setWaitingForUser(false);
+      setLastTranscription('');
+      
+      // Mark this as a system message to avoid showing transcription
       setIsSystemMessage(true);
       
       wsRef.current.send(JSON.stringify({
         type: 'text_message',
         content: 'Could you please repeat that question?'
       }));
-      
-      // Clear transcription state when repeating
-      setShowTranscriptionConfirm(false);
-      setUserHasResponded(false);
-      setWaitingForUser(false);
     }
   };
 
@@ -299,20 +332,44 @@ export const useVoiceInterview = () => {
         setMessages(prev => prev.slice(0, -1));
       }
       
-      // Mark this as a system message
-      setIsSystemMessage(true);
-      
+      // Set conversation state to processing and clear all UI states
+      setConversationState('questioning');
       setShowTranscriptionConfirm(false);
       setUserHasResponded(false);
       setWaitingForUser(false);
+      setLastTranscription('');
       
-      // Decrement question number as we're going back
-      setCurrentQuestionNumber(prev => Math.max(1, prev - 1));
+      // Mark this as a system message to avoid showing transcription
+      setIsSystemMessage(true);
+      
+      // Mark that we just repeated last question (so only show repeat current afterward)
+      setJustRepeatedLastQuestion(true);
+      
+      // Don't manually adjust question number - let backend provide it
       
       // Send request to go back to previous question
       wsRef.current.send(JSON.stringify({
         type: 'text_message',
         content: 'Could you please repeat the previous question? I want to try answering it again.'
+      }));
+    }
+  };
+
+  const submitResponse = () => {
+    if (wsRef.current && awaitingSubmission) {
+      // Clear states
+      setAwaitingSubmission(false);
+      setShowTranscriptionConfirm(false);
+      setUserHasResponded(false);
+      setWaitingForUser(false);
+      setLastTranscription('');
+      
+      // Mark as system message to avoid transcription
+      setIsSystemMessage(true);
+      
+      wsRef.current.send(JSON.stringify({
+        type: 'text_message',
+        content: 'Submit my response and complete the interview.'
       }));
     }
   };
@@ -337,7 +394,8 @@ export const useVoiceInterview = () => {
 
   // Helper to determine if "Repeat Last Question" should be available
   const canRepeatLastQuestion = () => {
-    return currentQuestionNumber > 1; // Only available from question 2 onwards
+    // Only available from question 2 onwards AND not just after repeating last question AND not awaiting submission
+    return currentQuestionNumber > 1 && !justRepeatedLastQuestion && !awaitingSubmission;
   };
 
   return {
@@ -360,6 +418,8 @@ export const useVoiceInterview = () => {
     lastTranscription,
     canInterruptSpeech,
     currentQuestionNumber,
+    justRepeatedLastQuestion,
+    awaitingSubmission,
     
     // Actions
     startInterview,
@@ -368,6 +428,7 @@ export const useVoiceInterview = () => {
     stopRecording,
     repeatCurrentQuestion,
     repeatLastQuestion,
+    submitResponse,
     
     // Helpers
     formatTime,

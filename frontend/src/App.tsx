@@ -48,12 +48,15 @@ function App() {
           lastTranscription={interview.lastTranscription}
           connectionError={interview.connectionError}
           currentQuestionNumber={interview.currentQuestionNumber}
+          justRepeatedLastQuestion={interview.justRepeatedLastQuestion}
+          awaitingSubmission={interview.awaitingSubmission}
           startInterview={interview.startInterview}
           stopAgentSpeaking={interview.stopAgentSpeaking}
           startRecording={interview.startRecording}
           stopRecording={interview.stopRecording}
           repeatCurrentQuestion={interview.repeatCurrentQuestion}
           repeatLastQuestion={interview.repeatLastQuestion}
+          submitResponse={interview.submitResponse}
           formatTime={interview.formatTime}
           getStatusText={interview.getStatusText}
           canRepeatLastQuestion={interview.canRepeatLastQuestion}

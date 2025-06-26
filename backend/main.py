@@ -144,7 +144,9 @@ async def websocket_endpoint(websocket: WebSocket, session_id: str):
                 "content": initial_message,
                 "audio": audio_data,
                 "timestamp": datetime.now().isoformat(),
-                "requires_response": True
+                "requires_response": True,
+                "question_number": 0,  # Consent phase
+                "total_questions": len(agent.trial_criteria)
             })
         
         while True:
@@ -240,13 +242,16 @@ async def handle_text_input(session_id: str, user_message: str):
                 "audio": audio_data,
                 "timestamp": datetime.now().isoformat(),
                 "requires_response": agent_response.get("requires_response", True),
-                "is_final": agent_response.get("is_final", False)
+                "is_final": agent_response.get("is_final", False),
+                "awaiting_submission": agent_response.get("awaiting_submission", False),
+                "question_number": agent_response.get("question_number", 0),
+                "total_questions": agent_response.get("total_questions", len(agent.trial_criteria))
             })
             
             # Check if interview is complete
             if agent_response.get("is_final", False) and session:
                 # Additional delay before eligibility assessment
-                await asyncio.sleep(0.5)
+                # await asyncio.sleep(0.5)
                 
                 # Evaluate eligibility
                 eligibility_result = eligibility_evaluator.evaluate_eligibility(session)
