@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import { Volume2, AlertCircle, MessageSquare, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useVoiceInterview } from './hooks/useVoiceInterview';
 import { VoiceInterface } from './components/VoiceInterface';
 import { ConversationChat } from './components/ConversationChat';
 import { EligibilityResults } from './components/EligibilityResults';
+import AdminDashboard from './components/AdminDashboard';
 import { Study } from './types/interview';
 import { getAvailableStudies } from './services/api';
 
-function App() {
+const InterviewPage: React.FC = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const interview = useVoiceInterview();
   const [showConversation, setShowConversation] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
+
+  // Get participant name from URL params
+  const participantName = searchParams.get('participant');
 
   // Load saved preferences (study and theme) on component mount
   useEffect(() => {
@@ -73,6 +80,14 @@ function App() {
 
     loadPreferences();
   }, []);
+
+  // Set participant name from URL parameter if provided
+  useEffect(() => {
+    if (participantName && interview.session && !interview.session.participant_id) {
+      // Update the session with the participant name from URL
+      interview.session.participant_id = participantName;
+    }
+  }, [participantName, interview.session]);
 
   // Save study preference when it changes
   const handleStudySelect = async (study: Study) => {
@@ -324,6 +339,8 @@ ${index + 1}. ${criterion.criteria_text}
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'}`}>
+
+
       {/* Error Message - Now floating overlay */}
       {interview.connectionError && (
         <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4">
@@ -341,7 +358,7 @@ ${index + 1}. ${criterion.criteria_text}
 
       <div className="flex h-screen">
         {/* Enhanced Conversation Sidebar */}
-        <div className={`transition-all duration-300 ${showConversation ? 'w-[28rem]' : 'w-0'} overflow-hidden`}>
+        <div className="w-[28rem]">
           <div className={`h-full backdrop-blur-xl border-r transition-all duration-500 shadow-2xl ${
             isDarkMode 
               ? 'bg-gray-800/30 border-gray-700/50 shadow-black/20' 
@@ -351,57 +368,43 @@ ${index + 1}. ${criterion.criteria_text}
             <div className={`p-4 border-b backdrop-blur-sm ${
               isDarkMode ? 'border-gray-700/50 bg-gray-800/20' : 'border-white/20 bg-white/20'
             }`}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-3 flex-1">
-                  {/* Compact Fancy Logo */}
-                  <div className={`relative p-2 rounded-xl backdrop-blur-md border transition-all duration-500 hover:scale-105 ${
-                    isDarkMode 
-                      ? 'bg-gradient-to-br from-blue-600/10 via-indigo-600/5 to-purple-600/10 border-blue-500/20' 
-                      : 'bg-gradient-to-br from-indigo-50/80 via-purple-50/60 to-pink-50/80 border-indigo-200/30'
-                  }`}>
-                    {/* Decorative micro circles */}
-                    <div className={`absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full ${
-                      isDarkMode ? 'bg-blue-400/40' : 'bg-indigo-400/40'
-                    }`} />
-                    <div className={`absolute bottom-0.5 left-0.5 w-1 h-1 rounded-full ${
-                      isDarkMode ? 'bg-purple-400/40' : 'bg-purple-400/40'
-                    }`} />
-                    
-                    <MessageSquare className={`h-5 w-5 ${
-                      isDarkMode ? 'text-blue-400/70' : 'text-indigo-500/70'
-                    }`} />
-                  </div>
+              <div className="flex items-center space-x-3">
+                {/* Compact Fancy Logo */}
+                <div className={`relative p-2 rounded-xl backdrop-blur-md border transition-all duration-500 hover:scale-105 ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-br from-blue-600/10 via-indigo-600/5 to-purple-600/10 border-blue-500/20' 
+                    : 'bg-gradient-to-br from-indigo-50/80 via-purple-50/60 to-pink-50/80 border-indigo-200/30'
+                }`}>
+                  {/* Decorative micro circles */}
+                  <div className={`absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full ${
+                    isDarkMode ? 'bg-blue-400/40' : 'bg-indigo-400/40'
+                  }`} />
+                  <div className={`absolute bottom-0.5 left-0.5 w-1 h-1 rounded-full ${
+                    isDarkMode ? 'bg-purple-400/40' : 'bg-purple-400/40'
+                  }`} />
                   
-                  <div className="flex flex-col space-y-1">
-                    <h3 className={`font-bold text-lg bg-gradient-to-r drop-shadow-lg transition-all duration-500 ${
-                      isDarkMode 
-                        ? 'from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent' 
-                        : 'from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent'
-                    }`}>
-                      Conversation
-                    </h3>
-                    
-                    {/* Inline blinking dots */}
-                    <div className="flex space-x-1">
-                      <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0ms'} as React.CSSProperties}></div>
-                      <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{animationDelay: '150ms'} as React.CSSProperties}></div>
-                      <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '300ms'} as React.CSSProperties}></div>
-                    </div>
+                  <MessageSquare className={`h-5 w-5 ${
+                    isDarkMode ? 'text-blue-400/70' : 'text-indigo-500/70'
+                  }`} />
+                </div>
+                
+                <div className="flex flex-col space-y-1">
+                  <h3 className={`font-bold text-lg bg-gradient-to-r drop-shadow-lg transition-all duration-500 ${
+                    isDarkMode 
+                      ? 'from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent' 
+                      : 'from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent'
+                  }`}>
+                    Conversation
+                  </h3>
+                  
+                  {/* Inline blinking dots */}
+                  <div className="flex space-x-1">
+                    <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0ms'} as React.CSSProperties}></div>
+                    <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{animationDelay: '150ms'} as React.CSSProperties}></div>
+                    <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '300ms'} as React.CSSProperties}></div>
                   </div>
                 </div>
-                <button
-                  onClick={() => setShowConversation(false)}
-                  className={`p-2 rounded-full transition-all duration-300 hover:scale-110 ${
-                    isDarkMode 
-                      ? 'hover:bg-gray-700/50 text-gray-400 hover:text-gray-300' 
-                      : 'hover:bg-gray-100 text-gray-500 hover:text-gray-600'
-                  }`}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </button>
               </div>
-              
-
             </div>
 
             {/* Enhanced Conversation Content */}
@@ -424,28 +427,78 @@ ${index + 1}. ${criterion.criteria_text}
           </div>
         </div>
 
-        {/* Conversation Toggle Button (when hidden) */}
-        {!showConversation && (
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 z-10">
+        {/* Back to Dashboard Card - Between Chat and Main Interface */}
+        <div className="flex-shrink-0 w-48 flex flex-col items-center justify-start pt-8 px-4">
+          {/* Beautiful Back to Dashboard Card */}
+          <div className="group relative w-full">
             <button
-              onClick={() => setShowConversation(true)}
-              className={`p-3 rounded-full backdrop-blur-md border transition-all duration-300 hover:scale-110 ${
+              onClick={() => navigate('/')}
+              className={`relative w-full p-6 rounded-3xl backdrop-blur-xl border shadow-2xl transition-all duration-500 hover:scale-105 hover:-translate-y-3 ${
                 isDarkMode 
-                  ? 'bg-gray-800/50 border-gray-700/50 text-blue-400 hover:bg-gray-700/50' 
-                  : 'bg-white/50 border-white/20 text-indigo-600 hover:bg-white/70'
+                  ? 'bg-gradient-to-br from-gray-800/90 via-gray-700/80 to-gray-800/90 border-gray-600/40 text-gray-200 hover:from-gray-700/90 hover:via-gray-600/80 hover:to-gray-700/90' 
+                  : 'bg-gradient-to-br from-white/90 via-indigo-50/80 to-white/90 border-white/40 text-gray-700 hover:from-white/95 hover:via-indigo-50/90 hover:to-white/95'
               }`}
             >
-              <ChevronRight className="h-5 w-5" />
+              {/* Magical background effects */}
+              <div className={`absolute inset-0 bg-gradient-to-br opacity-5 transition-opacity duration-500 group-hover:opacity-10 ${
+                isDarkMode ? 'from-blue-500 to-purple-600' : 'from-indigo-500 to-purple-600'
+              } rounded-3xl`}></div>
+              
+              {/* Decorative elements */}
+              <div className={`absolute top-2 right-2 w-3 h-3 rounded-full animate-pulse ${
+                isDarkMode ? 'bg-blue-400/50' : 'bg-indigo-400/50'
+              }`}></div>
+              <div className={`absolute top-4 right-6 w-2 h-2 rounded-full animate-pulse ${
+                isDarkMode ? 'bg-purple-400/40' : 'bg-purple-400/40'
+              }`} style={{animationDelay: '0.5s'}}></div>
+              <div className={`absolute bottom-3 left-3 w-2.5 h-2.5 rounded-full animate-pulse ${
+                isDarkMode ? 'bg-cyan-400/40' : 'bg-cyan-400/40'
+              }`} style={{animationDelay: '1s'}}></div>
+              
+              {/* Content */}
+              <div className="relative z-10 text-center">
+                <div className={`flex items-center justify-center space-x-2 mb-3 ${
+                  isDarkMode ? 'text-blue-400' : 'text-indigo-600'
+                }`}>
+                  <ChevronLeft className="w-5 h-5 group-hover:scale-110 group-hover:-translate-x-1 transition-all duration-300" />
+                  <div className={`w-8 h-0.5 rounded-full transition-all duration-300 group-hover:w-12 ${
+                    isDarkMode ? 'bg-blue-400/60' : 'bg-indigo-400/60'
+                  }`}></div>
+                </div>
+                
+                <h3 className={`font-bold text-lg mb-1 bg-gradient-to-r bg-clip-text text-transparent transition-all duration-300 group-hover:scale-105 ${
+                  isDarkMode 
+                    ? 'from-blue-400 via-indigo-400 to-purple-400' 
+                    : 'from-indigo-600 via-purple-600 to-pink-600'
+                }`}>
+                  Back to
+                </h3>
+                <p className={`text-sm font-semibold ${
+                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                }`}>
+                  Dashboard
+                </p>
+              </div>
+              
+              {/* Glow effect on hover */}
+              <div className={`absolute inset-0 rounded-3xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 ${
+                isDarkMode ? 'bg-blue-400/20' : 'bg-indigo-400/20'
+              }`}></div>
+              
+              {/* Shimmer effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-3xl"></div>
             </button>
           </div>
-        )}
+
+
+        </div>
 
         {/* Main Content Area - Single Scrollable Page */}
         <div className="flex-1 overflow-auto">
           <div className="min-h-full flex flex-col">
             {/* Voice Interface Section */}
             <div className="flex-shrink-0">
-                              <VoiceInterface
+              <VoiceInterface
                 conversationState={interview.conversationState}
                 isAgentSpeaking={interview.isAgentSpeaking}
                 canInterruptSpeech={interview.canInterruptSpeech}
@@ -461,6 +514,7 @@ ${index + 1}. ${criterion.criteria_text}
                 awaitingSubmission={interview.awaitingSubmission}
                 isEvaluating={interview.isEvaluating}
                 isProcessing={interview.isProcessing}
+                participantName={participantName || undefined}
                 selectedStudy={selectedStudy}
                 onStudySelect={handleStudySelect}
                 startInterview={interview.startInterview}
@@ -496,6 +550,17 @@ ${index + 1}. ${criterion.criteria_text}
         </div>
       </div>
     </div>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<AdminDashboard />} />
+        <Route path="/interview" element={<InterviewPage />} />
+      </Routes>
+    </Router>
   );
 }
 

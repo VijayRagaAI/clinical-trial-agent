@@ -96,4 +96,29 @@ export interface InterviewState {
   showTranscriptionConfirm: boolean;
   lastTranscription: string;
   canInterruptSpeech: boolean;
+}
+
+// Admin Dashboard Types
+export interface AdminInterview {
+  id: string;
+  participant_name: string;
+  participant_id: string;
+  session_id: string;
+  study_id: string;
+  study_name: string;
+  date: string;
+  status: 'Completed' | 'In Progress' | 'Abandoned';
+  total_messages: number;
+  eligibility_result?: {
+    eligible: boolean;
+    score: number;
+  } | null;
+}
+
+export interface AdminInterviewsResponse {
+  interviews: AdminInterview[];
+  total_count: number;
+  completed_count: number;
+  in_progress_count: number;
+  abandoned_count: number;
 } 

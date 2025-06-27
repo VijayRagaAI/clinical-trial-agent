@@ -36,13 +36,14 @@ interface VoiceInterfaceProps {
   isDarkMode: boolean;
   setIsDarkMode: (isDark: boolean) => void;
   onRestart: () => void;
+  participantName?: string;
   
   // Study selection
   selectedStudy: Study | null;
   onStudySelect: (study: Study) => void;
   
   // Actions
-  startInterview: (studyId: string) => void;
+  startInterview: (studyId: string, participantName?: string) => void;
   stopAgentSpeaking: () => void;
   startRecording: () => void;
   stopRecording: () => void;
@@ -76,6 +77,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   isDarkMode,
   setIsDarkMode,
   onRestart,
+  participantName,
   selectedStudy,
   onStudySelect,
   startInterview,
@@ -352,7 +354,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               alert('Please select a study first');
               return;
             }
-            startInterview(selectedStudy.id);
+            startInterview(selectedStudy.id, participantName);
           }, 
           icon: Play, 
           text: selectedStudy ? "Start Interview" : "Select Study First", 
@@ -673,47 +675,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               </button>
             </div>
 
-            {/* Theme Settings */}
-            <div className="group">
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className={`w-full p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${
-                  isDarkMode 
-                    ? 'bg-amber-600/10 border-amber-500/30 hover:bg-amber-600/20 hover:border-amber-400/50 hover:shadow-lg hover:shadow-amber-500/20' 
-                    : 'bg-orange-50/80 border-orange-200/60 hover:bg-orange-100/90 hover:border-orange-300/80 hover:shadow-lg hover:shadow-orange-200/50'
-                }`}
-              >
-                <div className="flex flex-col items-center space-y-3">
-                  <div className={`relative p-3 rounded-xl transition-all duration-300 group-hover:rotate-12 ${
-                    isDarkMode ? 'bg-amber-600/20' : 'bg-orange-500/20'
-                  }`}>
-                    <Palette className={`h-6 w-6 ${isDarkMode ? 'text-amber-400' : 'text-orange-600'}`} />
-                    
-                    {/* Floating Theme Badge */}
-                    <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-300 group-hover:scale-110 ${
-                      isDarkMode 
-                        ? 'bg-amber-500 text-amber-900 border-amber-400' 
-                        : 'bg-orange-500 text-orange-100 border-orange-500'
-                    }`}>
-                      {isDarkMode ? (
-                        <Moon className="h-4 w-4" />
-                      ) : (
-                        <Sun className="h-4 w-4" />
-                      )}
-                    </div>
-                  </div>
-                  
-                  <div className="text-center">
-                    <div className={`font-semibold text-sm ${isDarkMode ? 'text-amber-300' : 'text-orange-700'}`}>
-                      Theme Mode
-                    </div>
-                    <div className={`text-xs mt-1 ${isDarkMode ? 'text-amber-400/70' : 'text-orange-600/70'}`}>
-                      {isDarkMode ? 'Dark theme' : 'Light theme'}
-                    </div>
-                  </div>
-                </div>
-              </button>
-            </div>
+
           </div>
 
           {/* Decorative bottom element */}

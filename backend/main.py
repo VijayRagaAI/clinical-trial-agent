@@ -465,6 +465,124 @@ async def get_theme_preferences():
         logger.error(f"Error getting theme preferences: {e}")
         raise HTTPException(status_code=500, detail="Failed to get theme preferences")
 
+@app.get("/api/admin/interviews")
+async def get_all_interviews():
+    """Get list of all interviews for admin dashboard"""
+    try:
+        from models import get_saved_conversation, get_saved_evaluation
+        import json
+        import os
+        from pathlib import Path
+        
+        interviews = []
+        # Use current file directory to find data directory
+        current_dir = Path(__file__).parent
+        data_dir = current_dir / "data"
+        
+        # Get all conversation files
+        conversations_file = data_dir / "conversations.json"
+        evaluations_file = data_dir / "evaluations.json"
+        
+        conversations_data = {}
+        evaluations_data = {}
+        
+        # Load conversations
+        if conversations_file.exists():
+            try:
+                with open(conversations_file, 'r') as f:
+                    conversations_data = json.load(f)
+                logger.info(f"Loaded {len(conversations_data)} conversation entries from {conversations_file}")
+            except Exception as e:
+                logger.error(f"Error loading conversations: {e}")
+        else:
+            logger.warning(f"Conversations file not found: {conversations_file}")
+        
+        # Load evaluations  
+        if evaluations_file.exists():
+            try:
+                with open(evaluations_file, 'r') as f:
+                    evaluations_data = json.load(f)
+                logger.info(f"Loaded {len(evaluations_data)} evaluation entries from {evaluations_file}")
+            except Exception as e:
+                logger.error(f"Error loading evaluations: {e}")
+        else:
+            logger.warning(f"Evaluations file not found: {evaluations_file}")
+        
+        # Process conversations into interview list
+        for key, conversation_entry in conversations_data.items():
+            try:
+                conv_data = conversation_entry.get("data", {})
+                metadata = conv_data.get("metadata", {})
+                
+                participant_id = metadata.get("participant_id", "Unknown")
+                session_id = metadata.get("session_id", "")
+                study_id = metadata.get("study_id", "Unknown Study")
+                
+                # Check if there's a corresponding evaluation
+                evaluation = None
+                eligibility_result = None
+                status = "Abandoned"  # Default
+                
+                # Look for evaluation data
+                for eval_key, eval_entry in evaluations_data.items():
+                    eval_data = eval_entry.get("data", {})
+                    if (eval_data.get("session_id") == session_id or 
+                        eval_data.get("participant_id") == participant_id):
+                        evaluation = eval_data
+                        eligibility_result = evaluation.get("eligibility_result", {})
+                        status = "Completed"
+                        break
+                
+                # Determine interview status
+                conversation_state = metadata.get("conversation_state", "unknown")
+                if conversation_state == "completed" and evaluation:
+                    status = "Completed"
+                elif metadata.get("total_messages", 0) > 2:  # Has some conversation
+                    status = "In Progress" if conversation_state != "completed" else "Abandoned"
+                
+                interview = {
+                    "id": session_id or f"conv_{len(interviews)}",
+                    "participant_name": participant_id,  # Using participant_id as name for now
+                    "participant_id": participant_id,
+                    "session_id": session_id,
+                    "study_id": study_id,
+                    "study_name": study_id.replace("_", " ").title(),
+                    "date": metadata.get("export_timestamp", ""),
+                    "status": status,
+                    "total_messages": metadata.get("total_messages", 0),
+                    "eligibility_result": {
+                        "eligible": eligibility_result.get("eligible", False) if eligibility_result else None,
+                        "score": eligibility_result.get("score", 0) if eligibility_result else None
+                    } if eligibility_result else None
+                }
+                
+                interviews.append(interview)
+                
+            except Exception as e:
+                logger.error(f"Error processing conversation entry: {e}")
+                continue
+        
+        # Sort by date (newest first)
+        interviews.sort(key=lambda x: x.get("date", ""), reverse=True)
+        
+        completed_count = len([i for i in interviews if i["status"] == "Completed"])
+        in_progress_count = len([i for i in interviews if i["status"] == "In Progress"])
+        abandoned_count = len([i for i in interviews if i["status"] == "Abandoned"])
+        
+        logger.info(f"Admin dashboard: returning {len(interviews)} interviews (Completed: {completed_count}, In Progress: {in_progress_count}, Abandoned: {abandoned_count})")
+        
+        return {
+            "interviews": interviews,
+            "total_count": len(interviews),
+            "completed_count": completed_count,
+            "in_progress_count": in_progress_count,
+            "abandoned_count": abandoned_count
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting interviews: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get interviews")
+
 @app.get("/api/download/conversation/{session_id}/{participant_id}")
 async def download_conversation_data(session_id: str, participant_id: str):
     """Get saved conversation data for download"""

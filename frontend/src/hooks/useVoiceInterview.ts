@@ -205,13 +205,13 @@ export const useVoiceInterview = () => {
     }
   };
 
-  const startInterview = async (studyId: string) => {
+  const startInterview = async (studyId: string, participantName?: string) => {
     try {
       setConnectionError(null);
       setConversationState('starting');
       
       const newSession = await apiService.startSession({
-        participant_name: 'Anonymous',
+        participant_name: participantName || 'Anonymous',
         study_id: studyId,
       });
       
