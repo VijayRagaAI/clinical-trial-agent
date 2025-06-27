@@ -13,22 +13,66 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
 
-  // Load first available study on component mount
+  // Load saved study preference or first available study on component mount
   useEffect(() => {
-    const loadFirstStudy = async () => {
+    const loadStudyPreference = async () => {
       try {
+        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        
+        // Try to get saved study preference
+        const preferencesResponse = await fetch(`${API_BASE}/api/study/preferences`);
+        
+        if (preferencesResponse.ok) {
+          const preferencesData = await preferencesResponse.json();
+          
+          if (preferencesData.selected_study) {
+            // Use saved study preference
+            setSelectedStudy(preferencesData.selected_study);
+            console.log('✅ Loaded saved study preference:', preferencesData.selected_study.title);
+            return;
+          }
+        }
+        
+        // Fallback: Load first available study if no preference saved
         const response = await getAvailableStudies();
         if (response.studies && response.studies.length > 0) {
           setSelectedStudy(response.studies[0]);
+          console.log('📋 Loaded first available study:', response.studies[0].title);
         }
       } catch (error) {
-        console.error('Failed to load studies:', error);
+        console.error('Failed to load study preferences:', error);
         // No hardcoded fallback - let user select manually
       }
     };
 
-    loadFirstStudy();
+    loadStudyPreference();
   }, []);
+
+  // Save study preference when it changes
+  const handleStudySelect = async (study: Study) => {
+    setSelectedStudy(study);
+    
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      const response = await fetch(`${API_BASE}/api/study/preferences`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          study_id: study.id
+        })
+      });
+
+      if (response.ok) {
+        console.log('✅ Study preference saved:', study.title);
+      } else {
+        const errorText = await response.text();
+        console.error('Failed to save study preference:', errorText);
+      }
+    } catch (error) {
+      console.error('Failed to save study preference:', error);
+    }
+  };
 
   const downloadConversation = async () => {
     if (!interview.session) return;
@@ -392,7 +436,7 @@ ${index + 1}. ${criterion.criteria_text}
                 isEvaluating={interview.isEvaluating}
                 isProcessing={interview.isProcessing}
                 selectedStudy={selectedStudy}
-                onStudySelect={setSelectedStudy}
+                onStudySelect={handleStudySelect}
                 startInterview={interview.startInterview}
                 stopAgentSpeaking={interview.stopAgentSpeaking}
                 startRecording={interview.startRecording}

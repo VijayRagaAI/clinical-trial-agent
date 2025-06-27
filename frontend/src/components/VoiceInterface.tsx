@@ -101,6 +101,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   const [isLoadingVoices, setIsLoadingVoices] = useState(false);
   const [playingVoice, setPlayingVoice] = useState<string | null>(null);
 
+
   // Load available languages and voices on component mount
   useEffect(() => {
     loadLanguagesAndVoices();
@@ -309,6 +310,20 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
     }
   }, [isRecording, isAgentSpeaking]);
 
+  // Auto-scroll to results when interview completes
+  useEffect(() => {
+    if (conversationState === 'completed') {
+      const timer = setTimeout(() => {
+        const resultsElement = document.querySelector('[data-results-section]');
+        if (resultsElement) {
+          resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 800); // Slight delay to allow UI to settle
+
+      return () => clearTimeout(timer);
+    }
+  }, [conversationState]);
+
   const getButtonConfiguration = (): ButtonConfig => {
     // State 1: Evaluating responses (highest priority)
     if (isEvaluating) {
@@ -450,22 +465,23 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-      // State 9: Interview completed - New Interview button with start animation
+    // State 9: Interview completed - Beautiful View Results button only
     if (conversationState === 'completed') {
       return {
-      primary: { action: onRestart, icon: RotateCcw, text: "🔄 New Interview", color: "restart" },
-      secondary: [
-        { action: () => {
-          // Smooth scroll to results
-          setTimeout(() => {
+        primary: { 
+          action: () => {
+            // Smooth scroll to results when clicked
             const resultsElement = document.querySelector('[data-results-section]');
             if (resultsElement) {
               resultsElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-          }, 300);
-        }, icon: ChevronDown, text: "View Results", color: "blue" }
-      ],
-      disabled: false
+          }, 
+          icon: ChevronDown, 
+          text: "✨ View Results", 
+          color: "results" 
+        },
+        secondary: [],
+        disabled: false
       };
     }
 
@@ -506,6 +522,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       restart: isPrimary 
         ? 'bg-gradient-to-br from-purple-400 via-pink-500 to-indigo-600 hover:from-purple-500 hover:via-pink-600 hover:to-indigo-700 shadow-purple-500/30 hover:shadow-purple-500/50 animate-breathing hover:animate-none' 
         : 'bg-gradient-to-br from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 shadow-purple-500/20 hover:shadow-purple-500/30',
+      results: isPrimary 
+        ? 'bg-gradient-to-br from-emerald-400 via-teal-500 to-cyan-600 hover:from-emerald-500 hover:via-teal-600 hover:to-cyan-700 shadow-teal-500/30 hover:shadow-teal-500/50 animate-pulse hover:animate-breathing' 
+        : 'bg-gradient-to-br from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 shadow-teal-500/20 hover:shadow-teal-500/30',
       gray: 'bg-gradient-to-br from-gray-400 to-gray-500 shadow-gray-400/20'
     };
     return colors[color as keyof typeof colors] || colors.gray;
@@ -521,136 +540,196 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'}`}>
-      {/* Settings Panel - Top Controls */}
-      <div className="absolute top-6 right-6 z-10 flex space-x-3">
-        {/* Study Selection */}
-        <div className="relative group">
-          <button
-            onClick={() => setShowStudySelector(!showStudySelector)}
-            className={`relative px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 ${
+      
+      {/* Beautiful Settings Sidebar - Right Side */}
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-20">
+        <div className={`backdrop-blur-xl rounded-3xl shadow-2xl border p-6 transition-all duration-500 hover:scale-105 ${
+          isDarkMode 
+            ? 'bg-gray-800/40 border-gray-700/30 shadow-black/20' 
+            : 'bg-white/80 border-white/20 shadow-indigo-500/10'
+        }`}>
+          {/* Settings Header */}
+          <div className="text-center mb-6">
+            <div className={`inline-flex p-3 rounded-2xl backdrop-blur-sm transition-all duration-500 ${
               isDarkMode 
-                ? 'bg-gray-800/70 border-gray-600/70 text-emerald-400 hover:bg-gray-700/80 hover:border-emerald-400/60' 
-                : 'bg-white/70 border-white/40 text-emerald-600 hover:bg-white/90 hover:border-emerald-300/60'
-            } ${showStudySelector ? 'ring-2 ring-emerald-400 scale-105 shadow-lg shadow-emerald-500/20' : 'shadow-md'}`}
-          >
-            <div className="flex items-center space-x-2">
-              <FileText className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
-              <span className="text-sm font-semibold">Study</span>
-            </div>
-            
-            {/* Study Badge */}
-            <div className={`absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full text-xs font-bold border ${
-              isDarkMode 
-                ? 'bg-emerald-500 text-white border-emerald-400' 
-                : 'bg-emerald-600 text-white border-emerald-500'
-            } animate-pulse`}>
-              {selectedStudy ? (() => {
-                // Generate consistent icon based on category
-                const hash = selectedStudy.category.split('').reduce((a, b) => {
-                  a = ((a << 5) - a) + b.charCodeAt(0);
-                  return a & a;
-                }, 0);
-                const iconIndex = Math.abs(hash) % 8;
-                const icons = ['🧬', '🩺', '❤️', '🦴', '🧠', '👁️', '🫁', '💊'];
-                return icons[iconIndex];
-              })() : '🧬'}
-            </div>
-          </button>
-          
-          {/* Study Tooltip */}
-          <div className={`absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-xs font-medium whitespace-nowrap ${
-            isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
-          }`}>
-            Select Study
-          </div>
-        </div>
-
-        {/* Language & Voice Settings */}
-        <div className="relative group">
-          <button
-            onClick={() => setShowSettings(!showSettings)}
-            className={`relative px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 ${
-              isDarkMode 
-                ? 'bg-gray-800/70 border-gray-600/70 text-indigo-400 hover:bg-gray-700/80 hover:border-indigo-400/60' 
-                : 'bg-white/70 border-white/40 text-indigo-600 hover:bg-white/90 hover:border-indigo-300/60'
-            } ${showSettings ? 'ring-2 ring-indigo-400 scale-105 shadow-lg shadow-indigo-500/20' : 'shadow-md'}`}
-          >
-            <div className="flex items-center space-x-2">
-              <Settings className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
-              <span className="text-sm font-semibold">Settings</span>
-            </div>
-            
-            {/* Language Badge */}
-            <div className={`absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full text-xs font-bold border ${
-              isDarkMode 
-                ? 'bg-indigo-500 text-white border-indigo-400' 
-                : 'bg-indigo-600 text-white border-indigo-500'
-            } animate-pulse`}>
-              {selectedLanguage === 'english' ? 'EN' : 
-               selectedLanguage === 'hindi' ? 'HI' : 
-               selectedLanguage === 'spanish' ? 'ES' : 
-               selectedLanguage === 'french' ? 'FR' : 
-               selectedLanguage === 'mandarin' ? 'ZH' : 
-               selectedLanguage === 'arabic' ? 'AR' : 
-               selectedLanguage === 'japanese' ? 'JA' : 
-               selectedLanguage === 'korean' ? 'KO' : 
-               selectedLanguage === 'russian' ? 'RU' : 
-               selectedLanguage === 'german' ? 'DE' : 
-               selectedLanguage === 'tamil' ? 'TA' : 
-               selectedLanguage === 'bengali' ? 'BN' : 
-               selectedLanguage === 'telugu' ? 'TE' : 
-               selectedLanguage === 'urdu' ? 'UR' : 
-               selectedLanguage.slice(0, 2).toUpperCase()}
-            </div>
-          </button>
-          
-          {/* Settings Tooltip */}
-          <div className={`absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-xs font-medium whitespace-nowrap ${
-            isDarkMode ? 'text-indigo-400' : 'text-indigo-600'
-          }`}>
-            Language & Voice
-          </div>
-        </div>
-
-        {/* Theme Settings */}
-        <div className="relative group">
-          <button
-            onClick={() => setIsDarkMode(!isDarkMode)}
-            className={`relative px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 shadow-md ${
-              isDarkMode 
-                ? 'bg-gray-800/70 border-gray-600/70 text-amber-400 hover:bg-gray-700/80 hover:border-amber-400/60' 
-                : 'bg-white/70 border-white/40 text-orange-600 hover:bg-white/90 hover:border-orange-300/60'
-            }`}
-          >
-            <div className="flex items-center space-x-2">
-              <Palette className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
-              <span className="text-sm font-semibold">Theme</span>
-            </div>
-            
-            {/* Theme Mode Indicator */}
-            <div className={`absolute -top-1 -right-1 p-1 rounded-full ${
-              isDarkMode 
-                ? 'bg-amber-500 text-amber-900' 
-                : 'bg-orange-500 text-orange-100'
+                ? 'bg-gradient-to-br from-blue-600/20 via-indigo-600/10 to-purple-600/20 border border-blue-500/30' 
+                : 'bg-gradient-to-br from-indigo-50/80 via-purple-50/60 to-pink-50/80 border border-indigo-200/50'
             }`}>
-              {isDarkMode ? (
-                <Moon className="h-3 w-3" />
-              ) : (
-                <Sun className="h-3 w-3" />
-              )}
+              <Settings className={`h-7 w-7 ${isDarkMode ? 'text-blue-400' : 'text-indigo-600'}`} />
             </div>
-          </button>
-          
-          {/* Theme Tooltip */}
-          <div className={`absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-xs font-medium whitespace-nowrap ${
-            isDarkMode ? 'text-amber-400' : 'text-orange-600'
-          }`}>
-            {isDarkMode ? 'Switch to Light' : 'Switch to Dark'}
+            <h3 className={`text-lg font-bold mt-3 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent' 
+                : 'bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent'
+            }`}>
+              Settings
+            </h3>
+            <div className="flex justify-center mt-2">
+              <div className="flex space-x-1">
+                <div className="w-1.5 h-1.5 bg-blue-400 rounded-full animate-bounce" style={{animationDelay: '0ms'} as React.CSSProperties}></div>
+                <div className="w-1.5 h-1.5 bg-indigo-400 rounded-full animate-bounce" style={{animationDelay: '150ms'} as React.CSSProperties}></div>
+                <div className="w-1.5 h-1.5 bg-purple-400 rounded-full animate-bounce" style={{animationDelay: '300ms'} as React.CSSProperties}></div>
+              </div>
+            </div>
+          </div>
+
+          {/* Settings Buttons - Vertical Layout */}
+          <div className="space-y-4">
+            {/* Study Selection */}
+            <div className="group">
+              <button
+                onClick={() => setShowStudySelector(!showStudySelector)}
+                className={`w-full p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${
+                  isDarkMode 
+                    ? 'bg-emerald-600/10 border-emerald-500/30 hover:bg-emerald-600/20 hover:border-emerald-400/50 hover:shadow-lg hover:shadow-emerald-500/20' 
+                    : 'bg-emerald-50/80 border-emerald-200/60 hover:bg-emerald-100/90 hover:border-emerald-300/80 hover:shadow-lg hover:shadow-emerald-200/50'
+                } ${showStudySelector ? 'ring-2 ring-emerald-400 scale-105 shadow-lg shadow-emerald-500/20' : ''}`}
+              >
+                <div className="flex flex-col items-center space-y-3">
+                  <div className={`relative p-3 rounded-xl transition-all duration-300 group-hover:rotate-6 ${
+                    isDarkMode ? 'bg-emerald-600/20' : 'bg-emerald-500/20'
+                  }`}>
+                    <FileText className={`h-6 w-6 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`} />
+                    
+                    {/* Floating Study Badge */}
+                    <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all duration-300 group-hover:scale-110 ${
+                      isDarkMode 
+                        ? 'bg-emerald-500 text-white border-emerald-400' 
+                        : 'bg-emerald-600 text-white border-emerald-500'
+                    } animate-pulse`}>
+                      {selectedStudy ? (() => {
+                        const hash = selectedStudy.category.split('').reduce((a, b) => {
+                          a = ((a << 5) - a) + b.charCodeAt(0);
+                          return a & a;
+                        }, 0);
+                        const iconIndex = Math.abs(hash) % 8;
+                        const icons = ['🧬', '🩺', '❤️', '🦴', '🧠', '👁️', '🫁', '💊'];
+                        return icons[iconIndex];
+                      })() : '🧬'}
+                    </div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className={`font-semibold text-sm ${isDarkMode ? 'text-emerald-300' : 'text-emerald-700'}`}>
+                      Study Selection
+                    </div>
+                    <div className={`text-xs mt-1 ${isDarkMode ? 'text-emerald-400/70' : 'text-emerald-600/70'}`}>
+                      Choose your trial
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+
+            {/* Language & Voice Settings */}
+            <div className="group">
+              <button
+                onClick={() => setShowSettings(!showSettings)}
+                className={`w-full p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${
+                  isDarkMode 
+                    ? 'bg-indigo-600/10 border-indigo-500/30 hover:bg-indigo-600/20 hover:border-indigo-400/50 hover:shadow-lg hover:shadow-indigo-500/20' 
+                    : 'bg-indigo-50/80 border-indigo-200/60 hover:bg-indigo-100/90 hover:border-indigo-300/80 hover:shadow-lg hover:shadow-indigo-200/50'
+                } ${showSettings ? 'ring-2 ring-indigo-400 scale-105 shadow-lg shadow-indigo-500/20' : ''}`}
+              >
+                <div className="flex flex-col items-center space-y-3">
+                  <div className={`relative p-3 rounded-xl transition-all duration-300 group-hover:rotate-90 ${
+                    isDarkMode ? 'bg-indigo-600/20' : 'bg-indigo-500/20'
+                  }`}>
+                    <Settings className={`h-6 w-6 ${isDarkMode ? 'text-indigo-400' : 'text-indigo-600'}`} />
+                    
+                    {/* Floating Language Badge */}
+                    <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all duration-300 group-hover:scale-110 ${
+                      isDarkMode 
+                        ? 'bg-indigo-500 text-white border-indigo-400' 
+                        : 'bg-indigo-600 text-white border-indigo-500'
+                    } animate-pulse`}>
+                      {selectedLanguage === 'english' ? 'EN' : 
+                       selectedLanguage === 'hindi' ? 'HI' : 
+                       selectedLanguage === 'spanish' ? 'ES' : 
+                       selectedLanguage === 'french' ? 'FR' : 
+                       selectedLanguage === 'mandarin' ? 'ZH' : 
+                       selectedLanguage === 'arabic' ? 'AR' : 
+                       selectedLanguage === 'japanese' ? 'JA' : 
+                       selectedLanguage === 'korean' ? 'KO' : 
+                       selectedLanguage === 'russian' ? 'RU' : 
+                       selectedLanguage === 'german' ? 'DE' : 
+                       selectedLanguage === 'tamil' ? 'TA' : 
+                       selectedLanguage === 'bengali' ? 'BN' : 
+                       selectedLanguage === 'telugu' ? 'TE' : 
+                       selectedLanguage === 'urdu' ? 'UR' : 
+                       selectedLanguage.slice(0, 2).toUpperCase()}
+                    </div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className={`font-semibold text-sm ${isDarkMode ? 'text-indigo-300' : 'text-indigo-700'}`}>
+                      Voice & Language
+                    </div>
+                    <div className={`text-xs mt-1 ${isDarkMode ? 'text-indigo-400/70' : 'text-indigo-600/70'}`}>
+                      Audio preferences
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+
+            {/* Theme Settings */}
+            <div className="group">
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className={`w-full p-4 rounded-2xl backdrop-blur-sm border transition-all duration-300 hover:scale-105 hover:-translate-y-1 ${
+                  isDarkMode 
+                    ? 'bg-amber-600/10 border-amber-500/30 hover:bg-amber-600/20 hover:border-amber-400/50 hover:shadow-lg hover:shadow-amber-500/20' 
+                    : 'bg-orange-50/80 border-orange-200/60 hover:bg-orange-100/90 hover:border-orange-300/80 hover:shadow-lg hover:shadow-orange-200/50'
+                }`}
+              >
+                <div className="flex flex-col items-center space-y-3">
+                  <div className={`relative p-3 rounded-xl transition-all duration-300 group-hover:rotate-12 ${
+                    isDarkMode ? 'bg-amber-600/20' : 'bg-orange-500/20'
+                  }`}>
+                    <Palette className={`h-6 w-6 ${isDarkMode ? 'text-amber-400' : 'text-orange-600'}`} />
+                    
+                    {/* Floating Theme Badge */}
+                    <div className={`absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center border-2 transition-all duration-300 group-hover:scale-110 ${
+                      isDarkMode 
+                        ? 'bg-amber-500 text-amber-900 border-amber-400' 
+                        : 'bg-orange-500 text-orange-100 border-orange-500'
+                    }`}>
+                      {isDarkMode ? (
+                        <Moon className="h-4 w-4" />
+                      ) : (
+                        <Sun className="h-4 w-4" />
+                      )}
+                    </div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className={`font-semibold text-sm ${isDarkMode ? 'text-amber-300' : 'text-orange-700'}`}>
+                      Theme Mode
+                    </div>
+                    <div className={`text-xs mt-1 ${isDarkMode ? 'text-amber-400/70' : 'text-orange-600/70'}`}>
+                      {isDarkMode ? 'Dark theme' : 'Light theme'}
+                    </div>
+                  </div>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          {/* Decorative bottom element */}
+          <div className="mt-6 pt-4 border-t border-gray-200/20">
+            <div className="flex justify-center">
+              <div className={`w-12 h-1 rounded-full ${
+                isDarkMode 
+                  ? 'bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500' 
+                  : 'bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500'
+              }`} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Settings Panel Overlay */}
+      {/* Voice Settings Panel Overlay */}
       {showSettings && (
         <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 flex items-center justify-center p-4">
           <div className={`w-full max-w-md backdrop-blur-xl rounded-3xl shadow-2xl border p-6 transition-all duration-500 ${
@@ -978,8 +1057,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
         isDarkMode={isDarkMode}
       />
 
-      {/* Main Container */}
-      <div className="max-w-4xl mx-auto px-6 py-8">
+      {/* Main Container - Adjusted for right sidebar */}
+      <div className="max-w-4xl mx-auto px-6 py-8 mr-52">
         {/* Glass Morphism Card */}
         <div className={`backdrop-blur-xl rounded-3xl shadow-2xl border p-8 mb-8 transition-all duration-500 ${
           isDarkMode 

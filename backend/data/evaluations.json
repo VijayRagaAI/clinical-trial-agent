@@ -410,5 +410,165 @@
       },
       "export_timestamp": "2025-06-27T20:58:16.310568"
     }
+  },
+  "P-CBBD3E9B": {
+    "session_id": "0058dc0d-ff62-46c2-bbe8-3b2e8d25fbc0",
+    "participant_id": "P-CBBD3E9B",
+    "saved_at": "2025-06-27T21:10:53.673927",
+    "data": {
+      "participant_id": "P-CBBD3E9B",
+      "session_id": "0058dc0d-ff62-46c2-bbe8-3b2e8d25fbc0",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response of 'I don't know' does not provide a valid age within the required range of 18-75 years, thus failing to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a valid age within the required range of 18-75 years, thus failing to meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:10:51.225845",
+        "participant_id": "P-CBBD3E9B"
+      },
+      "export_timestamp": "2025-06-27T21:10:53.673448"
+    }
+  },
+  "P-255554A0": {
+    "session_id": "47ffe2f6-a7ef-46cd-9e98-6e2995bb8b36",
+    "participant_id": "P-255554A0",
+    "saved_at": "2025-06-27T21:27:05.428829",
+    "data": {
+      "participant_id": "P-255554A0",
+      "session_id": "47ffe2f6-a7ef-46cd-9e98-6e2995bb8b36",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'I don't know' does not provide an age within the required range of 18 to 75 years. Therefore, they do not meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know"
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I don't know\"\n   Assessment: The participant's response 'I don't know' does not provide an age within the required range of 18 to 75 years. Therefore, they do not meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:27:02.352360",
+        "participant_id": "P-255554A0"
+      },
+      "export_timestamp": "2025-06-27T21:27:05.428305"
+    }
+  },
+  "P-3B3ADDAE": {
+    "session_id": "77651c8d-f314-4e9a-af43-b381fbc5614e",
+    "participant_id": "P-3B3ADDAE",
+    "saved_at": "2025-06-27T21:35:55.686674",
+    "data": {
+      "participant_id": "P-3B3ADDAE",
+      "session_id": "77651c8d-f314-4e9a-af43-b381fbc5614e",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 falls within the specified age range of 18 to 75 years, making them eligible for the clinical trial.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25"
+          }
+        ],
+        "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's age of 25 falls within the specified age range of 18 to 75 years, making them eligible for the clinical trial.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T21:35:53.416780",
+        "participant_id": "P-3B3ADDAE"
+      },
+      "export_timestamp": "2025-06-27T21:35:55.686038"
+    }
+  },
+  "P-743DB21E": {
+    "session_id": "eee54dff-26bd-4316-9600-e95665a3cb42",
+    "participant_id": "P-743DB21E",
+    "saved_at": "2025-06-27T21:36:59.546184",
+    "data": {
+      "participant_id": "P-743DB21E",
+      "session_id": "eee54dff-26bd-4316-9600-e95665a3cb42",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'I don't know' does not provide any information about their age, and therefore, cannot be considered as meeting the age eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know"
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I don't know\"\n   Assessment: The participant's response 'I don't know' does not provide any information about their age, and therefore, cannot be considered as meeting the age eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:36:57.415119",
+        "participant_id": "P-743DB21E"
+      },
+      "export_timestamp": "2025-06-27T21:36:59.545573"
+    }
+  },
+  "P-8ABCF1B7": {
+    "session_id": "657aab3d-5169-47d1-8953-9183fe75871f",
+    "participant_id": "P-8ABCF1B7",
+    "saved_at": "2025-06-27T21:46:02.421984",
+    "data": {
+      "participant_id": "P-8ABCF1B7",
+      "session_id": "657aab3d-5169-47d1-8953-9183fe75871f",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response of 'I don't know' does not provide a concrete age value, and therefore does not meet the age eligibility criteria of 18-75 years.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a concrete age value, and therefore does not meet the age eligibility criteria of 18-75 years.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:46:00.483839",
+        "participant_id": "P-8ABCF1B7"
+      },
+      "export_timestamp": "2025-06-27T21:46:02.421435"
+    }
   }
 }

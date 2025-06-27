@@ -737,5 +737,355 @@
         "conversation_duration": "1 minutes"
       }
     }
+  },
+  "P-CBBD3E9B": {
+    "session_id": "0058dc0d-ff62-46c2-bbe8-3b2e8d25fbc0",
+    "participant_id": "P-CBBD3E9B",
+    "saved_at": "2025-06-27T21:10:53.672378",
+    "data": {
+      "metadata": {
+        "participant_id": "P-CBBD3E9B",
+        "session_id": "0058dc0d-ff62-46c2-bbe8-3b2e8d25fbc0",
+        "study_id": "oncology-immunocare",
+        "export_timestamp": "2025-06-27T21:10:53.671043",
+        "total_messages": 8,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate the safety and effectiveness of immunocare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-27T21:10:05.899610"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-27T21:10:18.959966"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-27T21:10:20.999616"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "I don't know.",
+          "timestamp": "2025-06-27T21:10:38.405120"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-27T21:10:42.242556"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-27T21:10:44.190178"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-27T21:10:46.649788"
+        },
+        {
+          "id": "agent-7",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-27T21:10:53.663200"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 3,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-255554A0": {
+    "session_id": "47ffe2f6-a7ef-46cd-9e98-6e2995bb8b36",
+    "participant_id": "P-255554A0",
+    "saved_at": "2025-06-27T21:27:05.427475",
+    "data": {
+      "metadata": {
+        "participant_id": "P-255554A0",
+        "session_id": "47ffe2f6-a7ef-46cd-9e98-6e2995bb8b36",
+        "study_id": "oncology-immunocare",
+        "export_timestamp": "2025-06-27T21:27:05.425811",
+        "total_messages": 8,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate the safety and effectiveness of immunocare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-27T21:26:27.549004"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-27T21:26:41.374457"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-27T21:26:44.575873"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "I don't know",
+          "timestamp": "2025-06-27T21:26:48.848594"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-27T21:26:53.876715"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-27T21:26:54.939653"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-27T21:26:58.731832"
+        },
+        {
+          "id": "agent-7",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-27T21:27:05.417304"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 3,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-3B3ADDAE": {
+    "session_id": "77651c8d-f314-4e9a-af43-b381fbc5614e",
+    "participant_id": "P-3B3ADDAE",
+    "saved_at": "2025-06-27T21:35:55.683829",
+    "data": {
+      "metadata": {
+        "participant_id": "P-3B3ADDAE",
+        "session_id": "77651c8d-f314-4e9a-af43-b381fbc5614e",
+        "study_id": "oncology-immunocare",
+        "export_timestamp": "2025-06-27T21:35:55.681138",
+        "total_messages": 8,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate the safety and effectiveness of immunocare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-27T21:35:12.779137"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-27T21:35:25.159999"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-27T21:35:27.815030"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "25",
+          "timestamp": "2025-06-27T21:35:32.937198"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-27T21:35:39.079770"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-27T21:35:44.478612"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-27T21:35:49.456695"
+        },
+        {
+          "id": "agent-7",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-27T21:35:55.667795"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 3,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-743DB21E": {
+    "session_id": "eee54dff-26bd-4316-9600-e95665a3cb42",
+    "participant_id": "P-743DB21E",
+    "saved_at": "2025-06-27T21:36:59.543832",
+    "data": {
+      "metadata": {
+        "participant_id": "P-743DB21E",
+        "session_id": "eee54dff-26bd-4316-9600-e95665a3cb42",
+        "study_id": "oncology-immunocare",
+        "export_timestamp": "2025-06-27T21:36:59.541964",
+        "total_messages": 8,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate the safety and effectiveness of immunocare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-27T21:36:28.537678"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-27T21:36:37.987825"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-27T21:36:40.094625"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "I don't know",
+          "timestamp": "2025-06-27T21:36:45.212243"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-27T21:36:50.379929"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-27T21:36:52.020929"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-27T21:36:54.933321"
+        },
+        {
+          "id": "agent-7",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-27T21:36:59.528359"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 3,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-8ABCF1B7": {
+    "session_id": "657aab3d-5169-47d1-8953-9183fe75871f",
+    "participant_id": "P-8ABCF1B7",
+    "saved_at": "2025-06-27T21:46:02.419486",
+    "data": {
+      "metadata": {
+        "participant_id": "P-8ABCF1B7",
+        "session_id": "657aab3d-5169-47d1-8953-9183fe75871f",
+        "study_id": "oncology-immunocare",
+        "export_timestamp": "2025-06-27T21:46:02.416909",
+        "total_messages": 8,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate the safety and effectiveness of immunocare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-27T21:45:32.941641"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes",
+          "timestamp": "2025-06-27T21:45:42.134540"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-27T21:45:44.489874"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "I don't know.",
+          "timestamp": "2025-06-27T21:45:50.108673"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-27T21:45:53.661451"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-27T21:45:55.231611"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-27T21:45:57.745402"
+        },
+        {
+          "id": "agent-7",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-27T21:46:02.403990"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 3,
+        "conversation_duration": "0 minutes"
+      }
+    }
   }
 }

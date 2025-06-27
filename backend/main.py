@@ -360,6 +360,67 @@ async def get_audio_settings():
         logger.error(f"Error getting audio settings: {e}")
         raise HTTPException(status_code=500, detail="Failed to get audio settings")
 
+@app.post("/api/study/preferences")
+async def update_study_preferences(request: Request):
+    """Update study selection preferences"""
+    try:
+        data = await request.json()
+        study_id = data.get("study_id")
+        
+        if not study_id:
+            raise HTTPException(status_code=400, detail="study_id is required")
+        
+        # Validate that the study exists
+        from models import get_available_studies
+        studies = get_available_studies()
+        valid_study_ids = [study["id"] for study in studies]
+        
+        if study_id not in valid_study_ids:
+            raise HTTPException(status_code=400, detail=f"Invalid study_id: {study_id}")
+        
+        # Store preference in environment variable
+        os.environ["SELECTED_STUDY_ID"] = study_id
+        
+        logger.info(f"Study preference updated: study_id={study_id}")
+        
+        return {
+            "status": "success",
+            "settings": {
+                "study_id": study_id
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating study preferences: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update study preferences")
+
+@app.get("/api/study/preferences")
+async def get_study_preferences():
+    """Get current study preferences"""
+    try:
+        selected_study_id = os.getenv("SELECTED_STUDY_ID")
+        
+        # Get available studies
+        from models import get_available_studies
+        studies = get_available_studies()
+        
+        # Find the selected study details if a preference exists
+        selected_study = None
+        if selected_study_id:
+            selected_study = next((study for study in studies if study["id"] == selected_study_id), None)
+        
+        return {
+            "selected_study_id": selected_study_id,
+            "selected_study": selected_study,
+            "available_studies": studies
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting study preferences: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get study preferences")
+
 @app.get("/api/download/conversation/{session_id}/{participant_id}")
 async def download_conversation_data(session_id: str, participant_id: str):
     """Get saved conversation data for download"""

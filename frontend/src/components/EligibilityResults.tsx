@@ -649,7 +649,7 @@ export const EligibilityResults: React.FC<EligibilityResultsProps> = ({
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
-                      <span>Checking <strong>clinicaltrials.gov</strong> for other studies</span>
+                      <span>Selecting a different clinical study</span>
                     </div>
                     <div className="flex items-center space-x-2">
                       <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
