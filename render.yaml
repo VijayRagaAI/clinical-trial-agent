@@ -1,0 +1,38 @@
+services:
+  # Backend Service
+  - type: web
+    name: clinical-trial-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "cd backend && pip install -r requirements.txt"
+    startCommand: "cd backend && python -m uvicorn main:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: ASSEMBLYAI_API_KEY
+        sync: false
+      - key: ELEVENLABS_API_KEY
+        sync: false
+      - key: ELEVENLABS_VOICE_ID
+        value: "21m00Tcm4TlvDq8ikWAM"
+      - key: CORS_ORIGINS
+        value: "https://clinical-trial-frontend.onrender.com,http://localhost:5173"
+      - key: LOG_LEVEL
+        value: "INFO"
+
+  # Frontend Service  
+  - type: web
+    name: clinical-trial-frontend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build"
+    startCommand: "cd frontend && npm run preview -- --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: clinical-trial-backend
+          property: host 
