@@ -16,3 +16,4 @@ wheel
 assemblyai
 elevenlabs
 requests
+gtts
