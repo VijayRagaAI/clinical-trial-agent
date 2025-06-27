@@ -86,7 +86,12 @@ class AudioProcessor:
                 logger.info("Falling back to Google TTS...")
         
         # Fallback to Google TTS
-        return await self._google_tts(text)
+        try:
+            return await self._google_tts(text)
+        except Exception as e:
+            logger.warning(f"Google TTS also failed: {e}")
+            logger.info("Operating in text-only mode - no audio will be generated")
+            return ""  # Return empty string - frontend will handle text-only mode
     
     async def _elevenlabs_tts(self, text: str) -> str:
         """Generate speech using ElevenLabs"""
