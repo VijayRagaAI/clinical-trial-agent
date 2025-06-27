@@ -421,6 +421,50 @@ async def get_study_preferences():
         logger.error(f"Error getting study preferences: {e}")
         raise HTTPException(status_code=500, detail="Failed to get study preferences")
 
+@app.post("/api/theme/preferences")
+async def update_theme_preferences(request: Request):
+    """Update theme preferences"""
+    try:
+        data = await request.json()
+        is_dark_mode = data.get("is_dark_mode", False)
+        
+        # Validate boolean value
+        if not isinstance(is_dark_mode, bool):
+            raise HTTPException(status_code=400, detail="is_dark_mode must be a boolean")
+        
+        # Store preference in environment variable
+        os.environ["SELECTED_THEME_DARK"] = str(is_dark_mode).lower()
+        
+        logger.info(f"Theme preference updated: dark_mode={is_dark_mode}")
+        
+        return {
+            "status": "success",
+            "settings": {
+                "is_dark_mode": is_dark_mode
+            }
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating theme preferences: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update theme preferences")
+
+@app.get("/api/theme/preferences")
+async def get_theme_preferences():
+    """Get current theme preferences"""
+    try:
+        selected_theme_dark = os.getenv("SELECTED_THEME_DARK", "false").lower()
+        is_dark_mode = selected_theme_dark == "true"
+        
+        return {
+            "is_dark_mode": is_dark_mode
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting theme preferences: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get theme preferences")
+
 @app.get("/api/download/conversation/{session_id}/{participant_id}")
 async def download_conversation_data(session_id: str, participant_id: str):
     """Get saved conversation data for download"""

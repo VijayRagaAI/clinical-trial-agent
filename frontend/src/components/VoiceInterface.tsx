@@ -539,10 +539,10 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   const buttonConfig = getButtonConfiguration();
 
   return (
-    <div className={`min-h-screen transition-all duration-500 ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'}`}>
+    <div className={`relative min-h-screen transition-all duration-500 ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'}`}>
       
       {/* Beautiful Settings Sidebar - Right Side */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-20">
+      <div className="absolute right-6 top-8 z-20">
         <div className={`backdrop-blur-xl rounded-3xl shadow-2xl border p-6 transition-all duration-500 hover:scale-105 ${
           isDarkMode 
             ? 'bg-gray-800/40 border-gray-700/30 shadow-black/20' 
@@ -759,10 +759,14 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
             {/* Language Selection */}
             <div className="space-y-4 mb-6">
-              <div className="flex items-center space-x-2">
-                <Globe className={`h-4 w-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
-                <label className={`text-sm font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
-                  Output Language
+              <div className="flex items-center space-x-3">
+                <div className={`p-2 rounded-lg transition-all duration-300 ${
+                  isDarkMode ? 'bg-blue-600/20' : 'bg-blue-100/70'
+                }`}>
+                  <Globe className={`h-5 w-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                </div>
+                <label className={`text-lg font-bold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                  Voice Language
                 </label>
               </div>
               <select
@@ -782,13 +786,17 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               </select>
             </div>
 
-            {/* Enhanced Speech Speed Control */}
+            {/* Enhanced Voice Speed Control */}
             <div className="space-y-4 mb-6">
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Volume2 className={`h-4 w-4 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
-                  <label className={`text-sm font-semibold ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
-                    Speech Speed
+                <div className="flex items-center space-x-3">
+                  <div className={`p-2 rounded-lg transition-all duration-300 ${
+                    isDarkMode ? 'bg-green-600/20' : 'bg-green-100/70'
+                  }`}>
+                    <Volume2 className={`h-5 w-5 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
+                  </div>
+                  <label className={`text-lg font-bold ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
+                    Voice Speed
                   </label>
                 </div>
                 <div className={`px-3 py-1.5 rounded-full border ${
@@ -844,9 +852,13 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
             {/* Voice Selection - Two Column Layout */}
             <div className="space-y-4 mb-6">
-              <div className="flex items-center space-x-2">
-                <Volume2 className={`h-4 w-4 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
-                <label className={`text-sm font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
+              <div className="flex items-center space-x-3">
+                <div className={`p-2 rounded-lg transition-all duration-300 ${
+                  isDarkMode ? 'bg-purple-600/20' : 'bg-purple-100/70'
+                }`}>
+                  <Mic className={`h-5 w-5 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
+                </div>
+                <label className={`text-lg font-bold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
                   Voice Selection
                 </label>
               </div>

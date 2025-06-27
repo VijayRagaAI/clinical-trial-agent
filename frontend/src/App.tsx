@@ -13,39 +13,65 @@ function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
 
-  // Load saved study preference or first available study on component mount
+  // Load saved preferences (study and theme) on component mount
   useEffect(() => {
-    const loadStudyPreference = async () => {
+    const loadPreferences = async () => {
       try {
         const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
         
-        // Try to get saved study preference
-        const preferencesResponse = await fetch(`${API_BASE}/api/study/preferences`);
+        // Load theme preference and study preference in parallel
+        const [themeResponse, studyResponse] = await Promise.all([
+          fetch(`${API_BASE}/api/theme/preferences`),
+          fetch(`${API_BASE}/api/study/preferences`)
+        ]);
         
-        if (preferencesResponse.ok) {
-          const preferencesData = await preferencesResponse.json();
+        // Load theme preference
+        if (themeResponse.ok) {
+          const themeData = await themeResponse.json();
+          setIsDarkMode(themeData.is_dark_mode);
+          console.log('✅ Loaded saved theme preference:', themeData.is_dark_mode ? 'Dark' : 'Light');
+        }
+        
+        // Load study preference
+        if (studyResponse.ok) {
+          const studyData = await studyResponse.json();
           
-          if (preferencesData.selected_study) {
-            // Use saved study preference
-            setSelectedStudy(preferencesData.selected_study);
-            console.log('✅ Loaded saved study preference:', preferencesData.selected_study.title);
-            return;
+          if (studyData.selected_study) {
+            setSelectedStudy(studyData.selected_study);
+            console.log('✅ Loaded saved study preference:', studyData.selected_study.title);
+          } else {
+            // Fallback: Load first available study
+            const availableStudies = await getAvailableStudies();
+            if (availableStudies.studies && availableStudies.studies.length > 0) {
+              setSelectedStudy(availableStudies.studies[0]);
+              console.log('📋 Loaded first available study:', availableStudies.studies[0].title);
+            }
+          }
+        } else {
+          // Fallback: Load first available study if API fails
+          const availableStudies = await getAvailableStudies();
+          if (availableStudies.studies && availableStudies.studies.length > 0) {
+            setSelectedStudy(availableStudies.studies[0]);
+            console.log('📋 Loaded first available study:', availableStudies.studies[0].title);
           }
         }
-        
-        // Fallback: Load first available study if no preference saved
-        const response = await getAvailableStudies();
-        if (response.studies && response.studies.length > 0) {
-          setSelectedStudy(response.studies[0]);
-          console.log('📋 Loaded first available study:', response.studies[0].title);
-        }
       } catch (error) {
-        console.error('Failed to load study preferences:', error);
-        // No hardcoded fallback - let user select manually
+        console.error('Failed to load preferences:', error);
+        
+        // Fallback for study selection
+        try {
+          const response = await getAvailableStudies();
+          if (response.studies && response.studies.length > 0) {
+            setSelectedStudy(response.studies[0]);
+            console.log('📋 Fallback: Loaded first available study');
+          }
+        } catch (studyError) {
+          console.error('Failed to load fallback study:', studyError);
+        }
       }
     };
 
-    loadStudyPreference();
+    loadPreferences();
   }, []);
 
   // Save study preference when it changes
@@ -74,103 +100,99 @@ function App() {
     }
   };
 
+  // Save theme preference when it changes
+  const handleThemeChange = async (newIsDarkMode: boolean) => {
+    setIsDarkMode(newIsDarkMode);
+    
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      const response = await fetch(`${API_BASE}/api/theme/preferences`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          is_dark_mode: newIsDarkMode
+        })
+      });
+
+      if (response.ok) {
+        console.log('✅ Theme preference saved:', newIsDarkMode ? 'Dark mode' : 'Light mode');
+      } else {
+        const errorText = await response.text();
+        console.error('Failed to save theme preference:', errorText);
+      }
+    } catch (error) {
+      console.error('Failed to save theme preference:', error);
+    }
+  };
+
   const downloadConversation = async () => {
     if (!interview.session) return;
     
     try {
-      // Try to get saved conversation data from backend
       const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-      const response = await fetch(
-        `${API_BASE}/api/download/conversation/${interview.session.session_id}/${interview.session.participant_id}`
-      );
       
-      if (response.ok) {
-        // Use saved data
-        const savedData = await response.json();
-        const jsonString = JSON.stringify(savedData, null, 2);
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `clinical-trial-conversation-${interview.session.participant_id}-${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      } else {
-        // Fallback to generating fresh data if saved data not found
-        console.warn('Saved conversation data not found, generating fresh data');
-        const conversationData = {
-          metadata: {
-            participant_id: interview.session?.participant_id || 'unknown',
-            export_timestamp: new Date().toISOString(),
-            export_date: new Date().toLocaleDateString(),
-            total_messages: interview.messages.length,
-            session_started: new Date().toISOString(),
-            conversation_state: interview.conversationState,
-            questions_answered: interview.currentQuestionNumber,
-            total_questions: interview.totalQuestions
-          },
-          conversation: interview.messages.map(msg => ({
-            id: msg.id,
-            timestamp: msg.timestamp,
-            time_formatted: new Date(msg.timestamp).toLocaleTimeString(),
-            speaker: msg.type === 'agent' ? 'MedBot' : 'User',
-            type: msg.type,
-            content: msg.content,
-            message_length: msg.content.length
-          })),
-          summary: {
-            conversation_duration_approx: interview.messages.length > 0 
-              ? `${Math.round((new Date(interview.messages[interview.messages.length - 1].timestamp).getTime() - 
-                   new Date(interview.messages[0].timestamp).getTime()) / 1000 / 60)} minutes`
-              : '0 minutes',
-            agent_messages: interview.messages.filter(m => m.type === 'agent').length,
-            user_messages: interview.messages.filter(m => m.type === 'user').length
-          }
-        };
+      // Check if evaluation is completed (data should be saved)
+      const isPostEvaluation = interview.conversationState === 'completed' && interview.eligibilityResult;
+      
+      if (isPostEvaluation) {
+        // Try to get saved conversation data (post-evaluation)
+        const response = await fetch(
+          `${API_BASE}/api/download/conversation/${interview.session.session_id}/${interview.session.participant_id}`
+        );
         
-        const jsonString = JSON.stringify(conversationData, null, 2);
-        const blob = new Blob([jsonString], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `clinical-trial-conversation-${new Date().toISOString().split('T')[0]}.json`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        if (response.ok) {
+          // Use saved data (backend structure)
+          const savedData = await response.json();
+          const jsonString = JSON.stringify(savedData, null, 2);
+          const blob = new Blob([jsonString], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `clinical-trial-conversation-${interview.session.participant_id}-${new Date().toISOString().split('T')[0]}.json`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          return;
+        } else {
+          console.warn('Expected saved data not found, using fallback');
+        }
       }
-    } catch (error) {
-      console.error('Error downloading conversation:', error);
-      // Fallback to current implementation if API fails
+      
+      // Generate fallback data with SAME STRUCTURE as backend saved data
+      console.log('Generating conversation data with backend structure');
+      
+      // Calculate conversation duration properly
+      const calculateDuration = (messages: any[]) => {
+        if (messages.length < 2) return "0 minutes";
+        
+        const startTime = new Date(messages[0].timestamp).getTime();
+        const endTime = new Date(messages[messages.length - 1].timestamp).getTime();
+        const durationMinutes = (endTime - startTime) / 1000 / 60;
+        return `${Math.round(durationMinutes)} minutes`;
+      };
+      
+      // Use EXACT same structure as backend saves
       const conversationData = {
         metadata: {
-          participant_id: interview.session?.participant_id || 'unknown',
+          participant_id: interview.session.participant_id,  // Consistent ID
+          session_id: interview.session.session_id,          // Add session_id
+          study_id: selectedStudy?.id || 'unknown',          // Add study_id  
           export_timestamp: new Date().toISOString(),
-          export_date: new Date().toLocaleDateString(),
           total_messages: interview.messages.length,
-          session_started: new Date().toISOString(),
-          conversation_state: interview.conversationState,
-          questions_answered: interview.currentQuestionNumber,
-          total_questions: interview.totalQuestions
+          conversation_state: interview.conversationState
         },
         conversation: interview.messages.map(msg => ({
           id: msg.id,
-          timestamp: msg.timestamp,
-          time_formatted: new Date(msg.timestamp).toLocaleTimeString(),
-          speaker: msg.type === 'agent' ? 'MedBot' : 'User',
           type: msg.type,
           content: msg.content,
-          message_length: msg.content.length
+          timestamp: msg.timestamp
         })),
         summary: {
-          conversation_duration_approx: interview.messages.length > 0 
-            ? `${Math.round((new Date(interview.messages[interview.messages.length - 1].timestamp).getTime() - 
-                 new Date(interview.messages[0].timestamp).getTime()) / 1000 / 60)} minutes`
-            : '0 minutes',
           agent_messages: interview.messages.filter(m => m.type === 'agent').length,
-          user_messages: interview.messages.filter(m => m.type === 'user').length
+          user_messages: interview.messages.filter(m => m.type === 'user').length,
+          conversation_duration: calculateDuration(interview.messages)
         }
       };
       
@@ -179,11 +201,15 @@ function App() {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `clinical-trial-conversation-${new Date().toISOString().split('T')[0]}.json`;
+      a.download = `clinical-trial-conversation-${interview.session.participant_id}-${new Date().toISOString().split('T')[0]}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+      
+    } catch (error) {
+      console.error('Error downloading conversation:', error);
+      alert('Failed to download conversation data. Please try again.');
     }
   };
 
@@ -449,7 +475,7 @@ ${index + 1}. ${criterion.criteria_text}
                 getStatusText={interview.getStatusText}
                 canRepeatLastQuestion={interview.canRepeatLastQuestion}
                 isDarkMode={isDarkMode}
-                setIsDarkMode={setIsDarkMode}
+                setIsDarkMode={handleThemeChange}
                 onRestart={restartInterview}
               />
             </div>
