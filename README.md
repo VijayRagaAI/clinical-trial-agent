@@ -46,39 +46,12 @@ npm install
 npm run dev
 ```
 
-🌐 **Access:** http://localhost:5173
-
-## 🏗️ Tech Stack
-
-| Component | Technology |
-|-----------|------------|
-| **Backend** | Python + FastAPI |
-| **Frontend** | React + TypeScript + Vite |
-| **Speech-to-Text** | AssemblyAI |
-| **Text-to-Speech** | ElevenLabs |
-| **AI Agent** | OpenAI GPT |
-| **Styling** | Tailwind CSS |
-
 ## 🎵 Audio Processing
 
 - **🎙️ AssemblyAI**: Fast, accurate speech transcription
 - **🔊 ElevenLabs**: High-quality voice synthesis
 - **🌐 Web-based**: No local audio dependencies needed
 
-## 📁 Project Structure
-
-```
-clinical-trial-agent/
-├── 🐍 backend/
-│   ├── main.py
-│   ├── conversation_agent.py
-│   ├── audio_processor.py
-│   └── data/
-└── ⚛️ frontend/
-    ├── src/components/
-    ├── src/hooks/
-    └── src/services/
-```
 
 ## 🔧 Development
 
@@ -86,12 +59,6 @@ clinical-trial-agent/
 2. **Frontend**: http://localhost:5173
 3. **API Docs**: http://localhost:8000/docs
 
-## 📋 Requirements
-
-- Python 3.8+
-- Node.js 16+
-- Modern browser with microphone access
-- API keys for OpenAI, AssemblyAI, and ElevenLabs
 
 ---
 
