@@ -33,28 +33,12 @@
       "priority": "high"
     },
     {
-      "id": "INC003",
-      "text": "Currently taking metformin or other diabetes medications",
-      "question": "What diabetes medications are you currently taking?",
-      "expected_response": "Metformin or other diabetes medications",
-      "response": "",
-      "priority": "high"
-    },
-    {
       "id": "INC004",
       "text": "HbA1c level between 7.0% and 10.5%",
       "question": "What was your most recent HbA1c level? If you don't know the exact number, when was your last blood test?",
       "expected_response": "HbA1c 7.0-10.5% or recent blood test within 3 months",
       "response": "",
       "priority": "medium"
-    },
-    {
-      "id": "INC005",
-      "text": "No history of heart attack, stroke, or major cardiovascular events",
-      "question": "Have you ever had a heart attack, stroke, or other major heart problems?",
-      "expected_response": "No major cardiovascular events",
-      "response": "",
-      "priority": "low"
     },
     {
       "id": "INC006",

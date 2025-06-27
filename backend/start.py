@@ -28,32 +28,41 @@ def init_json_storage():
         print(f"❌ JSON storage initialization failed: {e}")
         return False
 
-def check_audio_system():
-    """Check if audio system is working"""
-    print("🔊 Checking audio system...")
-    
-    try:
-        import pygame
-        pygame.mixer.init()
-        print("✅ Audio system ready")
-        return True
-    except Exception as e:
-        print(f"⚠️  Audio system warning: {e}")
-        print("   Audio features may not work properly")
-        return True  # Non-critical for basic functionality
-
 def check_api_keys():
     """Check if required API keys are available"""
     print("🔑 Checking API configuration...")
     
+    missing_keys = []
+    
+    # Check OpenAI API key for the main conversation agent
     openai_key = os.getenv("OPENAI_API_KEY")
     if not openai_key:
-        print("⚠️  OPENAI_API_KEY not found in environment")
-        print("   Set your OpenAI API key for voice features:")
-        print("   export OPENAI_API_KEY='your-api-key-here'")
+        missing_keys.append("OPENAI_API_KEY")
+    
+    # Check AssemblyAI API key for speech-to-text
+    assembly_key = os.getenv("ASSEMBLYAI_API_KEY")
+    if not assembly_key:
+        missing_keys.append("ASSEMBLYAI_API_KEY")
+    
+    # Check ElevenLabs API key for text-to-speech
+    elevenlabs_key = os.getenv("ELEVENLABS_API_KEY")
+    if not elevenlabs_key:
+        missing_keys.append("ELEVENLABS_API_KEY")
+    
+    if missing_keys:
+        print("⚠️  Missing API keys:")
+        for key in missing_keys:
+            print(f"   - {key}")
+        print("\n   Set your API keys:")
+        if "OPENAI_API_KEY" in missing_keys:
+            print("   export OPENAI_API_KEY='your-openai-api-key'")
+        if "ASSEMBLYAI_API_KEY" in missing_keys:
+            print("   export ASSEMBLYAI_API_KEY='your-assemblyai-api-key'")
+        if "ELEVENLABS_API_KEY" in missing_keys:
+            print("   export ELEVENLABS_API_KEY='your-elevenlabs-api-key'")
         return False
     
-    print("✅ API keys configured")
+    print("✅ All API keys configured")
     return True
 
 def start_server(host="0.0.0.0", port=8000, reload=True):
@@ -92,21 +101,21 @@ def main():
     if not init_json_storage():
         sys.exit(1)
     
-    # Check audio system
-    check_audio_system()
-    
-    # Check API keys (optional for basic functionality)
+    # Check API keys
     has_api_keys = check_api_keys()
     
     print("\n✅ Startup checks completed!")
     if not has_api_keys:
-        print("\n⚠️  Note: Voice features require OpenAI API key")
+        print("\n⚠️  Note: Voice features require all API keys to be configured")
     
     print("\n📋 Next steps:")
     print("   1. Server will start at http://localhost:8000")
     print("   2. API documentation: http://localhost:8000/docs") 
     print("   3. Start the frontend with: cd ../frontend && npm run dev")
     print("   4. Frontend will be at: http://localhost:5173")
+    print("\n💡 Audio Processing:")
+    print("   - Speech-to-Text: AssemblyAI")
+    print("   - Text-to-Speech: ElevenLabs")
     print("\n" + "=" * 60)
     
     # Start the server

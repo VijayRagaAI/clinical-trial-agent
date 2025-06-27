@@ -8,12 +8,11 @@ pydantic
 langchain
 langchain-openai
 langchain-community
-gtts
-pygame
-pyaudio
-numpy
 aiofiles
 python-json-logger
 httpx
 setuptools
 wheel
+assemblyai
+elevenlabs
+requests
