@@ -10,16 +10,18 @@ from models import ParticipantSession, TrialCriteria, load_trial_criteria
 logger = logging.getLogger(__name__)
 
 class ClinicalTrialAgent:
-    def __init__(self, session: ParticipantSession):
+    def __init__(self, session: ParticipantSession, study_id: str):
         self.session = session
-        self.trial_criteria = load_trial_criteria()
+        self.study_id = study_id
+        self.trial_criteria = load_trial_criteria(study_id)
         self.conversation_state = "greeting"
         self.current_criteria_index = 0
         
-        # Load trial information
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        with open(os.path.join(current_dir, "eligibility.json"), "r") as f:
-            self.trial_info = json.load(f)
+        # Load trial information for the specific study
+        from models import get_study_details
+        self.trial_info = get_study_details(study_id)
+        if not self.trial_info:
+            raise ValueError(f"Study {study_id} not found")
     
     async def get_initial_greeting(self) -> str:
         """Generate simple greeting with trial overview and consent request"""

@@ -1,6 +1,7 @@
 import json
 import logging
 import re
+import asyncio
 from typing import Dict, List, Tuple
 from datetime import datetime, timedelta
 
@@ -11,10 +12,11 @@ from models import ParticipantSession, TrialCriteria, load_trial_criteria
 logger = logging.getLogger(__name__)
 
 class EligibilityEvaluator:
-    def __init__(self):
-        self.trial_criteria = load_trial_criteria()
+    def __init__(self, study_id: str):
+        self.study_id = study_id
+        self.trial_criteria = load_trial_criteria(study_id)
     
-    def evaluate_eligibility(self, session: ParticipantSession) -> Dict:
+    async def evaluate_eligibility(self, session: ParticipantSession) -> Dict:
         """Evaluate participant eligibility based on their responses"""
         try:
             criteria_results = []
@@ -23,14 +25,35 @@ class EligibilityEvaluator:
             high_priority_met = 0
             high_priority_total = 0
             
+            # ⚡ Parallel evaluation for much faster processing
+            evaluation_tasks = []
+            criteria_with_responses = []
+            
             for criteria in self.trial_criteria:
                 response = session.responses.get(criteria.id, "")
-                
                 if response:
-                    # Evaluate this specific criteria
-                    evaluation = self._evaluate_single_criteria(criteria, response)
-                    criteria_results.append(evaluation)
-                    
+                    criteria_with_responses.append(criteria)
+                    evaluation_tasks.append(self._evaluate_single_criteria_async(criteria, response))
+            
+            # Execute all evaluations in parallel
+            if evaluation_tasks:
+                criteria_results = await asyncio.gather(*evaluation_tasks, return_exceptions=True)
+                
+                # Handle any exceptions in results
+                for i, result in enumerate(criteria_results):
+                    if isinstance(result, Exception):
+                        logger.error(f"Error evaluating criteria {criteria_with_responses[i].id}: {result}")
+                        # Fallback to synchronous evaluation for failed criteria
+                        criteria_results[i] = self._evaluate_single_criteria_sync(criteria_with_responses[i], session.responses.get(criteria_with_responses[i].id, ""))
+            else:
+                criteria_results = []
+            
+            # Calculate scores from all evaluated criteria
+            for evaluation in criteria_results:
+                criteria_id = evaluation.get("criteria_id")
+                # Find the corresponding criteria to get priority
+                criteria = next((c for c in self.trial_criteria if c.id == criteria_id), None)
+                if criteria:
                     # Calculate scores
                     if criteria.priority == "high":
                         high_priority_total += 1
@@ -80,7 +103,61 @@ class EligibilityEvaluator:
                 "participant_id": session.participant_id
             }
     
-    def _evaluate_single_criteria(self, criteria: TrialCriteria, response: str) -> Dict:
+    async def _evaluate_single_criteria_async(self, criteria: TrialCriteria, response: str) -> Dict:
+        """Evaluate a single criteria against the response (async version)"""
+        try:
+            # Use LLM to evaluate the response
+            evaluation_prompt = f"""
+            You are evaluating a clinical trial participant's response against eligibility criteria.
+            
+            CRITERIA: {criteria.text}
+            QUESTION: {criteria.question}
+            EXPECTED: {criteria.expected_response}
+            PARTICIPANT'S RESPONSE: "{response}"
+            
+            Evaluate if the participant's response meets the criteria and align with the expected answer.
+            
+            Respond with a JSON object:
+            {{
+                "meets_criteria": true/false,
+                "confidence": 0.0-1.0, # how confident are you in your meets_criteria answer. give 1 if you are 100% confident for either true or false, 0 if you are 0% confident for either true or false.
+                "reasoning": "brief explanation", # why you think the participant's response meets the criteria or not.
+                "extracted_value": "key value from response if applicable"
+            }}
+            """
+            
+            # Note: get_llm_response is synchronous, but we can run it in parallel
+            evaluation_text = get_llm_response(system_prompt="You are a clinical trial eligibility evaluator. Provide accurate JSON responses.", user_prompt=evaluation_prompt)
+
+            # Parse JSON response
+            evaluation = json.loads(evaluation_text)
+        
+            # Add metadata
+            evaluation.update({
+                "criteria_id": criteria.id,
+                "criteria_text": criteria.text,
+                "criteria_question": criteria.question,
+                "priority": criteria.priority,
+                "participant_response": response
+            })
+            
+            return evaluation
+            
+        except Exception as e:
+            logger.error(f"Error evaluating criteria {criteria.id}: {e}")
+            return {
+                "criteria_id": criteria.id,
+                "criteria_text": criteria.text,
+                "criteria_question": criteria.question,
+                "priority": criteria.priority,
+                "participant_response": response,
+                "meets_criteria": False,
+                "confidence": 0.0,
+                "reasoning": f"Evaluation error: {str(e)}",
+                "extracted_value": None
+            }
+
+    def _evaluate_single_criteria_sync(self, criteria: TrialCriteria, response: str) -> Dict:
         """Evaluate a single criteria against the response"""
         try:
             # Use LLM to evaluate the response
@@ -134,6 +211,7 @@ class EligibilityEvaluator:
             }
     
     
+
     def _generate_eligibility_summary(self, eligible: bool, score: float, 
                                     criteria_results: List[Dict], high_priority_pass: bool) -> str:
         """Generate a human-readable eligibility summary"""

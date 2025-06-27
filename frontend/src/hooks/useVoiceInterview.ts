@@ -205,19 +205,20 @@ export const useVoiceInterview = () => {
     }
   };
 
-  const startInterview = async () => {
+  const startInterview = async (studyId: string) => {
     try {
       setConnectionError(null);
       setConversationState('starting');
       
       const newSession = await apiService.startSession({
         participant_name: 'Anonymous',
+        study_id: studyId,
       });
       
       setSession(newSession);
       setInterviewStarted(true);
       
-      const ws = apiService.createWebSocketConnection(newSession.session_id);
+      const ws = apiService.createWebSocketConnection(newSession.session_id, studyId);
       wsRef.current = ws;
       
       ws.onopen = () => {

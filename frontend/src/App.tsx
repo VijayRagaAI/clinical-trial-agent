@@ -1,62 +1,197 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Volume2, AlertCircle, MessageSquare, Download, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useVoiceInterview } from './hooks/useVoiceInterview';
 import { VoiceInterface } from './components/VoiceInterface';
 import { ConversationChat } from './components/ConversationChat';
 import { EligibilityResults } from './components/EligibilityResults';
+import { Study } from './types/interview';
+import { getAvailableStudies } from './services/api';
 
 function App() {
   const interview = useVoiceInterview();
   const [showConversation, setShowConversation] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
 
-  const downloadConversation = () => {
-    const conversationData = {
-      metadata: {
-        participant_id: interview.session?.participant_id || 'unknown',
-        export_timestamp: new Date().toISOString(),
-        export_date: new Date().toLocaleDateString(),
-        total_messages: interview.messages.length,
-        session_started: new Date().toISOString(),
-        conversation_state: interview.conversationState,
-        questions_answered: interview.currentQuestionNumber,
-        total_questions: interview.totalQuestions
-      },
-      conversation: interview.messages.map(msg => ({
-        id: msg.id,
-        timestamp: msg.timestamp,
-        time_formatted: new Date(msg.timestamp).toLocaleTimeString(),
-        speaker: msg.type === 'agent' ? 'MedBot' : 'User',
-        type: msg.type,
-        content: msg.content,
-        message_length: msg.content.length
-      })),
-      summary: {
-        conversation_duration_approx: interview.messages.length > 0 
-          ? `${Math.round((new Date(interview.messages[interview.messages.length - 1].timestamp).getTime() - 
-               new Date(interview.messages[0].timestamp).getTime()) / 1000 / 60)} minutes`
-          : '0 minutes',
-        agent_messages: interview.messages.filter(m => m.type === 'agent').length,
-        user_messages: interview.messages.filter(m => m.type === 'user').length
+  // Load first available study on component mount
+  useEffect(() => {
+    const loadFirstStudy = async () => {
+      try {
+        const response = await getAvailableStudies();
+        if (response.studies && response.studies.length > 0) {
+          setSelectedStudy(response.studies[0]);
+        }
+      } catch (error) {
+        console.error('Failed to load studies:', error);
+        // No hardcoded fallback - let user select manually
       }
     };
+
+    loadFirstStudy();
+  }, []);
+
+  const downloadConversation = async () => {
+    if (!interview.session) return;
     
-    const jsonString = JSON.stringify(conversationData, null, 2);
-    const blob = new Blob([jsonString], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `clinical-trial-conversation-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    try {
+      // Try to get saved conversation data from backend
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(
+        `${API_BASE}/api/download/conversation/${interview.session.session_id}/${interview.session.participant_id}`
+      );
+      
+      if (response.ok) {
+        // Use saved data
+        const savedData = await response.json();
+        const jsonString = JSON.stringify(savedData, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `clinical-trial-conversation-${interview.session.participant_id}-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } else {
+        // Fallback to generating fresh data if saved data not found
+        console.warn('Saved conversation data not found, generating fresh data');
+        const conversationData = {
+          metadata: {
+            participant_id: interview.session?.participant_id || 'unknown',
+            export_timestamp: new Date().toISOString(),
+            export_date: new Date().toLocaleDateString(),
+            total_messages: interview.messages.length,
+            session_started: new Date().toISOString(),
+            conversation_state: interview.conversationState,
+            questions_answered: interview.currentQuestionNumber,
+            total_questions: interview.totalQuestions
+          },
+          conversation: interview.messages.map(msg => ({
+            id: msg.id,
+            timestamp: msg.timestamp,
+            time_formatted: new Date(msg.timestamp).toLocaleTimeString(),
+            speaker: msg.type === 'agent' ? 'MedBot' : 'User',
+            type: msg.type,
+            content: msg.content,
+            message_length: msg.content.length
+          })),
+          summary: {
+            conversation_duration_approx: interview.messages.length > 0 
+              ? `${Math.round((new Date(interview.messages[interview.messages.length - 1].timestamp).getTime() - 
+                   new Date(interview.messages[0].timestamp).getTime()) / 1000 / 60)} minutes`
+              : '0 minutes',
+            agent_messages: interview.messages.filter(m => m.type === 'agent').length,
+            user_messages: interview.messages.filter(m => m.type === 'user').length
+          }
+        };
+        
+        const jsonString = JSON.stringify(conversationData, null, 2);
+        const blob = new Blob([jsonString], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `clinical-trial-conversation-${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.error('Error downloading conversation:', error);
+      // Fallback to current implementation if API fails
+      const conversationData = {
+        metadata: {
+          participant_id: interview.session?.participant_id || 'unknown',
+          export_timestamp: new Date().toISOString(),
+          export_date: new Date().toLocaleDateString(),
+          total_messages: interview.messages.length,
+          session_started: new Date().toISOString(),
+          conversation_state: interview.conversationState,
+          questions_answered: interview.currentQuestionNumber,
+          total_questions: interview.totalQuestions
+        },
+        conversation: interview.messages.map(msg => ({
+          id: msg.id,
+          timestamp: msg.timestamp,
+          time_formatted: new Date(msg.timestamp).toLocaleTimeString(),
+          speaker: msg.type === 'agent' ? 'MedBot' : 'User',
+          type: msg.type,
+          content: msg.content,
+          message_length: msg.content.length
+        })),
+        summary: {
+          conversation_duration_approx: interview.messages.length > 0 
+            ? `${Math.round((new Date(interview.messages[interview.messages.length - 1].timestamp).getTime() - 
+                 new Date(interview.messages[0].timestamp).getTime()) / 1000 / 60)} minutes`
+            : '0 minutes',
+          agent_messages: interview.messages.filter(m => m.type === 'agent').length,
+          user_messages: interview.messages.filter(m => m.type === 'user').length
+        }
+      };
+      
+      const jsonString = JSON.stringify(conversationData, null, 2);
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `clinical-trial-conversation-${new Date().toISOString().split('T')[0]}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   };
 
-  const downloadResults = () => {
-    if (!interview.eligibilityResult) return;
+  const downloadResults = async () => {
+    if (!interview.eligibilityResult || !interview.session) return;
     
-    const resultText = `Clinical Trial Eligibility Assessment Results
+    try {
+      // Try to get saved evaluation data from backend
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(
+        `${API_BASE}/api/download/evaluation/${interview.session.session_id}/${interview.session.participant_id}`
+      );
+      
+      if (response.ok) {
+        // Use saved data
+        const savedData = await response.json();
+        const result = savedData.eligibility_result;
+        
+        const resultText = `Clinical Trial Eligibility Assessment Results
+
+Participant: ${result.participant_id}
+Evaluated: ${new Date(result.evaluation_timestamp).toLocaleString()}
+Overall Result: ${result.eligible ? 'ELIGIBLE' : 'NOT ELIGIBLE'}
+Score: ${result.score}%
+
+Detailed Criteria Assessment:
+${result.criteria_met.map((criterion: any, index: number) => `
+${index + 1}. ${criterion.criteria_text}
+   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
+   Your Response: "${criterion.participant_response}"
+   Assessment: ${criterion.reasoning}
+   Confidence: ${Math.round(criterion.confidence * 100)}%
+`).join('')}
+
+Study Information:
+Study ID: ${savedData.study_id}
+Session ID: ${savedData.session_id}
+Export Date: ${new Date(savedData.export_timestamp).toLocaleString()}`;
+        
+        const blob = new Blob([resultText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `clinical-trial-results-${result.participant_id}-${new Date().toISOString().split('T')[0]}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      } else {
+        // Fallback to current implementation if saved data not found
+        console.warn('Saved evaluation data not found, generating fresh data');
+        const resultText = `Clinical Trial Eligibility Assessment Results
     
 Participant: ${interview.eligibilityResult.participant_id}
 Evaluated: ${new Date(interview.eligibilityResult.evaluation_timestamp).toLocaleString()}
@@ -71,16 +206,46 @@ ${index + 1}. ${criterion.criteria_text}
    Assessment: ${criterion.reasoning}
    Confidence: ${Math.round(criterion.confidence * 100)}%
 `).join('')}`;
+        
+        const blob = new Blob([resultText], { type: 'text/plain' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `clinical-trial-results-${new Date().toISOString().split('T')[0]}.txt`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }
+    } catch (error) {
+      console.error('Error downloading results:', error);
+      // Fallback to current implementation if API fails
+      const resultText = `Clinical Trial Eligibility Assessment Results
     
-    const blob = new Blob([resultText], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `clinical-trial-results-${new Date().toISOString().split('T')[0]}.txt`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+Participant: ${interview.eligibilityResult.participant_id}
+Evaluated: ${new Date(interview.eligibilityResult.evaluation_timestamp).toLocaleString()}
+Overall Result: ${interview.eligibilityResult.eligible ? 'ELIGIBLE' : 'NOT ELIGIBLE'}
+Score: ${interview.eligibilityResult.score}%
+
+Detailed Criteria Assessment:
+${interview.eligibilityResult.criteria_met.map((criterion: any, index: number) => `
+${index + 1}. ${criterion.criteria_text}
+   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
+   Your Response: "${criterion.participant_response}"
+   Assessment: ${criterion.reasoning}
+   Confidence: ${Math.round(criterion.confidence * 100)}%
+`).join('')}`;
+      
+      const blob = new Blob([resultText], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `clinical-trial-results-${new Date().toISOString().split('T')[0]}.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
   };
 
   const restartInterview = () => {
@@ -210,7 +375,7 @@ ${index + 1}. ${criterion.criteria_text}
           <div className="min-h-full flex flex-col">
             {/* Voice Interface Section */}
             <div className="flex-shrink-0">
-              <VoiceInterface
+                              <VoiceInterface
                 conversationState={interview.conversationState}
                 isAgentSpeaking={interview.isAgentSpeaking}
                 canInterruptSpeech={interview.canInterruptSpeech}
@@ -226,6 +391,8 @@ ${index + 1}. ${criterion.criteria_text}
                 awaitingSubmission={interview.awaitingSubmission}
                 isEvaluating={interview.isEvaluating}
                 isProcessing={interview.isProcessing}
+                selectedStudy={selectedStudy}
+                onStudySelect={setSelectedStudy}
                 startInterview={interview.startInterview}
                 stopAgentSpeaking={interview.stopAgentSpeaking}
                 startRecording={interview.startRecording}
@@ -248,6 +415,7 @@ ${index + 1}. ${criterion.criteria_text}
               <div className="flex-shrink-0">
                 <EligibilityResults 
                   eligibilityResult={interview.eligibilityResult}
+                  session={interview.session}
                   isDarkMode={isDarkMode}
                   onDownload={downloadResults}
                   onRestart={restartInterview}

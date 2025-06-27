@@ -43,6 +43,19 @@ export interface ButtonConfig {
   disabled: boolean;
 }
 
+export interface Study {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  phase: string;
+  sponsor: string;
+  nct_id: string;
+  purpose: string;
+  commitment: string;
+  procedures: string[];
+}
+
 export interface EligibilityResult {
   participant_id: string;
   eligible: boolean;

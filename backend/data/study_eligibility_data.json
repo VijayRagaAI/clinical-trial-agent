@@ -1,0 +1,323 @@
+{
+  "studies": [
+    {
+      "id": "diabetes-abc123",
+      "trial": {
+        "nct_id": "NCT00000000",
+        "title": "Phase II Randomized Study of ABC-123 in Adults With Type-2 Diabetes",
+        "protocol_version": "v0.4-mixed-responses",
+        "last_amended": "2025-06-24",
+        "category": "Endocrinology",
+        "description": "Investigating a novel diabetes medication for blood sugar control",
+        "phase": "Phase II",
+        "sponsor": "DiabetesCare Research Institute"
+      },
+      "overview": {
+        "purpose": "Test if new diabetes pill controls blood sugar in adults with type-2 diabetes",
+        "participant_commitment": "About 7 months and 8 clinic visits.",
+        "key_procedures": [
+          "Blood tests",
+          "Blood-pressure and weight checks",
+          "One ECG",
+          "Daily study pill"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age 18 – 75 years (inclusive)",
+          "question": "How old are you?",
+          "expected_response": "18-75 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Diagnosed with Type-2 diabetes for at least 6 months",
+          "question": "How long have you been diagnosed with Type-2 diabetes?",
+          "expected_response": "At least 6 months",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC004",
+          "text": "HbA1c level between 7.0% and 10.5%",
+          "question": "What was your most recent HbA1c level? If you don't know the exact number, when was your last blood test?",
+          "expected_response": "HbA1c 7.0-10.5% or recent blood test within 3 months",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC006",
+          "text": "Available for all study visits over 7 months",
+          "question": "Are you able to commit to attending clinic visits regularly over the next 7 months?",
+          "expected_response": "Yes, available for all visits",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC007",
+          "text": "No participation in another clinical trial within the last 30 days",
+          "question": "Have you participated in any other clinical trials or research studies in the past month?",
+          "expected_response": "No recent clinical trial participation",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "cardio-heart-plus",
+      "trial": {
+        "nct_id": "NCT00000001",
+        "title": "Phase III Study of HeartPlus for Cardiovascular Disease Prevention",
+        "protocol_version": "v1.2-cardiovascular",
+        "last_amended": "2025-07-15",
+        "category": "Cardiology",
+        "description": "Evaluating a new medication for preventing heart disease in at-risk patients",
+        "phase": "Phase III",
+        "sponsor": "CardioVascular Solutions Inc"
+      },
+      "overview": {
+        "purpose": "Evaluate if HeartPlus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors",
+        "participant_commitment": "About 12 months and 6 clinic visits.",
+        "key_procedures": [
+          "Cardiovascular assessments",
+          "Blood lipid panels",
+          "ECG monitoring",
+          "Blood pressure monitoring",
+          "Daily study medication"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "CV001",
+          "text": "Age 45 – 80 years (inclusive)",
+          "question": "How old are you?",
+          "expected_response": "45-80 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "CV002",
+          "text": "History of high blood pressure or high cholesterol",
+          "question": "Do you have a history of high blood pressure or high cholesterol?",
+          "expected_response": "Yes, diagnosed with hypertension or hyperlipidemia",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "CV003",
+          "text": "No history of heart attack or stroke",
+          "question": "Have you ever had a heart attack or stroke?",
+          "expected_response": "No previous heart attack or stroke",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "CV004",
+          "text": "BMI between 25 and 40",
+          "question": "What is your current height and weight? (We'll calculate your BMI)",
+          "expected_response": "BMI 25-40 kg/m²",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "CV005",
+          "text": "Available for all study visits over 12 months",
+          "question": "Are you able to commit to attending clinic visits regularly over the next year?",
+          "expected_response": "Yes, available for all visits",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "CV006",
+          "text": "Not currently taking experimental medications",
+          "question": "Are you currently taking any experimental or investigational medications?",
+          "expected_response": "No experimental medications",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "arthritis-jointcare",
+      "trial": {
+        "nct_id": "NCT00000002",
+        "title": "Phase II Trial of JointCare for Rheumatoid Arthritis Management",
+        "protocol_version": "v2.1-rheumatology",
+        "last_amended": "2025-08-01",
+        "category": "Rheumatology",
+        "description": "Testing a novel treatment approach for reducing joint inflammation and pain in rheumatoid arthritis",
+        "phase": "Phase II",
+        "sponsor": "RheumaTherapeutics Research Group"
+      },
+      "overview": {
+        "purpose": "Test if JointCare treatment reduces joint pain and inflammation in patients with rheumatoid arthritis",
+        "participant_commitment": "About 6 months and 10 clinic visits.",
+        "key_procedures": [
+          "Joint examination and imaging",
+          "Blood inflammatory markers",
+          "Pain and mobility assessments",
+          "Weekly injections",
+          "Physical therapy evaluations"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "RA001",
+          "text": "Age 18 – 70 years (inclusive)",
+          "question": "How old are you?",
+          "expected_response": "18-70 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "RA002",
+          "text": "Diagnosed with rheumatoid arthritis for at least 1 year",
+          "question": "How long have you been diagnosed with rheumatoid arthritis?",
+          "expected_response": "At least 1 year",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "RA003",
+          "text": "Currently experiencing moderate to severe joint pain",
+          "question": "On a scale of 1-10, how would you rate your current joint pain on average?",
+          "expected_response": "Pain level 5-9 out of 10",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "RA004",
+          "text": "No use of biological medications in the past 6 months",
+          "question": "Have you used any biological medications (like Humira, Enbrel, or Remicade) in the past 6 months?",
+          "expected_response": "No biological medications in past 6 months",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "RA005",
+          "text": "Available for weekly clinic visits",
+          "question": "Are you able to visit the clinic weekly for treatments and assessments?",
+          "expected_response": "Yes, available for weekly visits",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "RA006",
+          "text": "No planned surgeries in the next 8 months",
+          "question": "Do you have any surgeries planned in the next 8 months?",
+          "expected_response": "No planned surgeries",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "oncology-immunocare",
+      "trial": {
+        "nct_id": "NCT00000003",
+        "title": "Phase I/II Study of ImmunoCare for Advanced Solid Tumors",
+        "protocol_version": "v1.5-oncology",
+        "last_amended": "2025-09-10",
+        "category": "Oncology",
+        "description": "Investigating an innovative immunotherapy approach for patients with advanced solid tumors",
+        "phase": "Phase I/II",
+        "sponsor": "OncologyBridge Research Consortium"
+      },
+      "overview": {
+        "purpose": "Evaluate the safety and effectiveness of ImmunoCare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments",
+        "participant_commitment": "About 8 months and 12 clinic visits.",
+        "key_procedures": [
+          "CT and MRI scans",
+          "Blood tumor markers",
+          "Immunotherapy infusions",
+          "Biopsy procedures",
+          "Quality of life assessments"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "ON001",
+          "text": "Age 18 – 75 years (inclusive)",
+          "question": "How old are you?",
+          "expected_response": "18-75 years",
+          "response": "",
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "id": "neurology-mindsharp",
+      "trial": {
+        "nct_id": "NCT00000004",
+        "title": "Phase III Trial of MindSharp for Mild Cognitive Impairment",
+        "protocol_version": "v3.0-neurology",
+        "last_amended": "2025-10-05",
+        "category": "Neurology",
+        "description": "Testing a novel cognitive enhancement therapy for individuals with mild cognitive impairment",
+        "phase": "Phase III",
+        "sponsor": "NeuroAdvancement Institute"
+      },
+      "overview": {
+        "purpose": "Determine if MindSharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment",
+        "participant_commitment": "About 18 months and 8 clinic visits.",
+        "key_procedures": [
+          "Cognitive assessment tests",
+          "Brain MRI scans",
+          "Memory evaluations",
+          "Daily cognitive training sessions",
+          "Caregiver interviews"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "NE001",
+          "text": "Age 55 – 85 years (inclusive)",
+          "question": "How old are you?",
+          "expected_response": "55-85 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "NE002",
+          "text": "Diagnosis of mild cognitive impairment (MCI)",
+          "question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+          "expected_response": "Yes, diagnosed with mild cognitive impairment",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "NE003",
+          "text": "Adequate hearing and vision for cognitive testing",
+          "question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+          "expected_response": "Yes, adequate hearing and vision for testing",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "NE004",
+          "text": "Stable on current medications for at least 3 months",
+          "question": "Have your current medications remained stable without major changes for at least 3 months?",
+          "expected_response": "Yes, stable medications for 3+ months",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "NE005",
+          "text": "Available study partner or caregiver",
+          "question": "Do you have a family member or caregiver who can attend some study visits with you?",
+          "expected_response": "Yes, available study partner or caregiver",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "schema_version": "eligibility-json/2.0-multi-study",
+    "author": "clinical-trial-agent",
+    "generated_utc": "2025-01-27T10:05:00Z",
+    "total_studies": 5
+  }
+} 

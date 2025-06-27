@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { AlertCircle, CheckCircle, FileText, TrendingUp, Download, Target, Brain, Zap } from 'lucide-react';
-import { EligibilityResult } from '../types/interview';
+import { EligibilityResult, SessionData } from '../types/interview';
 
 interface EligibilityResultsProps {
   eligibilityResult: EligibilityResult;
+  session: SessionData | null;
   isDarkMode: boolean;
   onDownload: () => void;
   onRestart: () => void;
@@ -11,6 +12,7 @@ interface EligibilityResultsProps {
 
 export const EligibilityResults: React.FC<EligibilityResultsProps> = ({ 
   eligibilityResult, 
+  session,
   isDarkMode, 
   onDownload, 
   onRestart 
@@ -225,18 +227,18 @@ export const EligibilityResults: React.FC<EligibilityResultsProps> = ({
             
             <div className={`p-6 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 shadow-lg ${
               isDarkMode 
-                ? 'bg-amber-600/20 border-amber-500/30 hover:bg-amber-600/25 shadow-amber-500/20' 
-                : 'bg-amber-50/80 border-amber-200/60 hover:bg-amber-100/90 shadow-amber-200/50'
+                ? 'bg-red-600/20 border-red-500/30 hover:bg-red-600/25 shadow-red-500/20' 
+                : 'bg-red-50/80 border-red-200/60 hover:bg-red-100/90 shadow-red-200/50'
             }`}>
               <div className={`text-3xl font-bold mb-2 ${
-                isDarkMode ? 'text-amber-400' : 'text-amber-600'
+                isDarkMode ? 'text-red-400' : 'text-red-600'
               }`}>
-                {eligibilityResult.criteria_met.filter((c: any) => c.priority === 'high' && !c.meets_criteria).length}
+                {eligibilityResult.criteria_met.filter((c: any) => !c.meets_criteria).length}
               </div>
               <div className={`font-medium ${
-                isDarkMode ? 'text-amber-300' : 'text-amber-700'
+                isDarkMode ? 'text-red-300' : 'text-red-700'
               }`}>
-                High Priority Gaps
+                Criteria UnMet
           </div>
           </div>
         </div>
@@ -351,50 +353,213 @@ export const EligibilityResults: React.FC<EligibilityResultsProps> = ({
               ))}
         </div>
 
+        {/* 📊 Priority Breakdown Card */}
+        <div className={`mt-8 p-6 rounded-2xl backdrop-blur-md border shadow-lg ${
+          isDarkMode 
+            ? 'bg-slate-800/40 border-slate-600/40' 
+            : 'bg-white/70 border-slate-200/50'
+        }`}>
+          <div className="flex items-center space-x-3 mb-6">
+            <div className={`p-2 rounded-xl ${
+              isDarkMode ? 'bg-blue-600/20' : 'bg-blue-100/70'
+            }`}>
+              <TrendingUp className={`h-5 w-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+            </div>
+            <h6 className={`text-xl font-bold ${
+              isDarkMode ? 'text-slate-200' : 'text-slate-800'
+            }`}>
+              Criteria by Priority Level
+            </h6>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* High Priority */}
+            {(() => {
+              const highCriteria = eligibilityResult.criteria_met.filter((c: any) => c.priority === 'high');
+              const highMet = highCriteria.filter((c: any) => c.meets_criteria).length;
+              const highUnmet = highCriteria.length - highMet;
+              
+              return (
+                <div className={`p-4 rounded-xl border backdrop-blur-sm ${
+                  isDarkMode 
+                    ? 'bg-red-600/10 border-red-500/30' 
+                    : 'bg-red-50/80 border-red-200/60'
+                }`}>
+                  <div className="flex items-center space-x-2 mb-3">
+                    <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                    <span className={`font-semibold ${
+                      isDarkMode ? 'text-red-300' : 'text-red-700'
+                    }`}>
+                      High Priority
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                        Met:
+                      </span>
+                      <span className={`font-bold ${
+                        isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
+                      }`}>
+                        {highMet}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                        UnMet:
+                      </span>
+                      <span className={`font-bold ${
+                        isDarkMode ? 'text-red-400' : 'text-red-600'
+                      }`}>
+                        {highUnmet}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Medium Priority */}
+            {(() => {
+              const mediumCriteria = eligibilityResult.criteria_met.filter((c: any) => c.priority === 'medium');
+              const mediumMet = mediumCriteria.filter((c: any) => c.meets_criteria).length;
+              const mediumUnmet = mediumCriteria.length - mediumMet;
+              
+              return (
+                <div className={`p-4 rounded-xl border backdrop-blur-sm ${
+                  isDarkMode 
+                    ? 'bg-yellow-600/10 border-yellow-500/30' 
+                    : 'bg-yellow-50/80 border-yellow-200/60'
+                }`}>
+                  <div className="flex items-center space-x-2 mb-3">
+                    <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                    <span className={`font-semibold ${
+                      isDarkMode ? 'text-yellow-300' : 'text-yellow-700'
+                    }`}>
+                      Medium Priority
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                        Met:
+                      </span>
+                      <span className={`font-bold ${
+                        isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
+                      }`}>
+                        {mediumMet}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                        UnMet:
+                      </span>
+                      <span className={`font-bold ${
+                        isDarkMode ? 'text-red-400' : 'text-red-600'
+                      }`}>
+                        {mediumUnmet}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+
+            {/* Low Priority */}
+            {(() => {
+              const lowCriteria = eligibilityResult.criteria_met.filter((c: any) => c.priority === 'low');
+              const lowMet = lowCriteria.filter((c: any) => c.meets_criteria).length;
+              const lowUnmet = lowCriteria.length - lowMet;
+              
+              return (
+                <div className={`p-4 rounded-xl border backdrop-blur-sm ${
+                  isDarkMode 
+                    ? 'bg-green-600/10 border-green-500/30' 
+                    : 'bg-green-50/80 border-green-200/60'
+                }`}>
+                  <div className="flex items-center space-x-2 mb-3">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span className={`font-semibold ${
+                      isDarkMode ? 'text-green-300' : 'text-green-700'
+                    }`}>
+                      Low Priority
+                    </span>
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex justify-between items-center">
+                      <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                        Met:
+                      </span>
+                      <span className={`font-bold ${
+                        isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
+                      }`}>
+                        {lowMet}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className={`text-sm ${isDarkMode ? 'text-slate-300' : 'text-slate-600'}`}>
+                        UnMet:
+                      </span>
+                      <span className={`font-bold ${
+                        isDarkMode ? 'text-red-400' : 'text-red-600'
+                      }`}>
+                        {lowUnmet}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+        </div>
+
                  {/* Enhanced Download Button with Glass Effect */}
          <div className="flex justify-center pt-8">
            <div className="relative group">
              <button
-               onClick={() => {
-                 const jsonData = {
-                   metadata: {
-                     participant_id: eligibilityResult.participant_id,
-                     evaluation_timestamp: eligibilityResult.evaluation_timestamp,
-                     export_timestamp: new Date().toISOString(),
-                     export_date: new Date().toLocaleDateString(),
-                     assessment_type: 'clinical_trial_eligibility'
-                   },
-                   results: {
-                     eligible: eligibilityResult.eligible,
-                     overall_score: eligibilityResult.score,
-                     eligibility_status: eligibilityResult.eligible ? 'ELIGIBLE' : 'NOT ELIGIBLE'
-                   },
-                   criteria_assessment: eligibilityResult.criteria_met.map((criterion: any) => ({
-                     criteria_text: criterion.criteria_text,
-                     meets_criteria: criterion.meets_criteria,
-                     participant_response: criterion.participant_response,
-                     assessment_reasoning: criterion.reasoning,
-                     confidence_score: Math.round(criterion.confidence * 100),
-                     priority: criterion.priority
-                   })),
-                   summary: {
-                     total_criteria: eligibilityResult.criteria_met.length,
-                     criteria_met: eligibilityResult.criteria_met.filter((c: any) => c.meets_criteria).length,
-                     critical_gaps: eligibilityResult.criteria_met.filter((c: any) => c.priority === 'high' && !c.meets_criteria).length,
-                     overall_assessment: `Clinical trial eligibility assessment for participant ${eligibilityResult.participant_id}. Overall result: ${eligibilityResult.eligible ? 'ELIGIBLE' : 'NOT ELIGIBLE'} with a score of ${eligibilityResult.score}%.`
+               onClick={async () => {
+                 try {
+                   // ✅ Fetch saved data directly from backend API (no transformation!)
+                                       const response = await fetch(`http://localhost:8000/api/download/evaluation/${session?.session_id || 'unknown'}/${eligibilityResult.participant_id}`);
+                   
+                   if (response.ok) {
+                     // Use exact backend data structure
+                     const backendData = await response.json();
+                     const jsonString = JSON.stringify(backendData, null, 2);
+                     const blob = new Blob([jsonString], { type: 'application/json' });
+                     const url = URL.createObjectURL(blob);
+                     const a = document.createElement('a');
+                     a.href = url;
+                     a.download = `evaluation-${eligibilityResult.participant_id}-${new Date().toISOString().split('T')[0]}.json`;
+                     document.body.appendChild(a);
+                     a.click();
+                     document.body.removeChild(a);
+                     URL.revokeObjectURL(url);
+                   } else {
+                     // Fallback: basic export if API fails
+                     const basicData = {
+                       participant_id: eligibilityResult.participant_id,
+                       eligible: eligibilityResult.eligible,
+                       score: eligibilityResult.score,
+                       evaluation_timestamp: eligibilityResult.evaluation_timestamp,
+                       criteria_met: eligibilityResult.criteria_met,
+                       note: "Downloaded from UI fallback - saved backend data not available"
+                     };
+                     const jsonString = JSON.stringify(basicData, null, 2);
+                     const blob = new Blob([jsonString], { type: 'application/json' });
+                     const url = URL.createObjectURL(blob);
+                     const a = document.createElement('a');
+                     a.href = url;
+                     a.download = `evaluation-fallback-${eligibilityResult.participant_id}-${new Date().toISOString().split('T')[0]}.json`;
+                     document.body.appendChild(a);
+                     a.click();
+                     document.body.removeChild(a);
+                     URL.revokeObjectURL(url);
                    }
-                 };
-                 
-                 const jsonString = JSON.stringify(jsonData, null, 2);
-                 const blob = new Blob([jsonString], { type: 'application/json' });
-                 const url = URL.createObjectURL(blob);
-                 const a = document.createElement('a');
-                 a.href = url;
-                 a.download = `clinical-trial-assessment-${new Date().toISOString().split('T')[0]}.json`;
-                 document.body.appendChild(a);
-                 a.click();
-                 document.body.removeChild(a);
-                 URL.revokeObjectURL(url);
+                 } catch (error) {
+                   console.error('Download failed:', error);
+                   alert('Download failed. Please try again.');
+                 }
                }}
                className={`group relative px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 border backdrop-blur-md shadow-lg ${
                  isDarkMode 

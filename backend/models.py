@@ -30,16 +30,21 @@ class JsonDataManager:
         self.data_dir = Path(data_dir)
         self.data_dir.mkdir(exist_ok=True)
         
-        # Only need eligibility results file
-        self.eligibility_file = self.data_dir / "eligibility_results.json"
+        # Centralized files with participant_id as keys
+        self.studies_file = self.data_dir / "study_eligibility_data.json"
+        self.conversations_file = self.data_dir / "conversations.json"
+        self.evaluations_file = self.data_dir / "evaluations.json"
         
-        # Initialize file if it doesn't exist
+        # Initialize files
         self._init_files()
     
     def _init_files(self):
         """Initialize JSON files if they don't exist"""
-        if not self.eligibility_file.exists():
-            self._save_json(self.eligibility_file, {})
+        if not self.conversations_file.exists():
+            self._save_json(self.conversations_file, {})
+        
+        if not self.evaluations_file.exists():
+            self._save_json(self.evaluations_file, {})
     
     def _load_json(self, file_path: Path) -> dict:
         """Load data from JSON file"""
@@ -54,37 +59,65 @@ class JsonDataManager:
         with open(file_path, 'w') as f:
             json.dump(data, f, indent=2, default=str)
     
-    def save_eligibility_result(self, participant_id: str, responses: dict, result: dict):
-        """Save eligibility result with responses"""
-        results = self._load_json(self.eligibility_file)
-        results[participant_id] = {
-            "responses": responses,
-            "eligibility": result,
-            "created_at": datetime.now().isoformat()
-        }
-        self._save_json(self.eligibility_file, results)
+    def save_conversation_data(self, session_id: str, participant_id: str, conversation_data: dict):
+        """Save conversation data to centralized conversations.json file"""
+        try:
+            conversations = self._load_json(self.conversations_file)
+            
+            # Save with participant_id as key
+            conversations[participant_id] = {
+                "session_id": session_id,
+                "participant_id": participant_id,
+                "saved_at": datetime.now().isoformat(),
+                "data": conversation_data
+            }
+            
+            self._save_json(self.conversations_file, conversations)
+            print(f"Conversation data saved for participant: {participant_id}")
+            return str(self.conversations_file)
+            
+        except Exception as e:
+            print(f"Error saving conversation data: {e}")
+            return None
     
-    def get_eligibility_statistics(self) -> dict:
-        """Get eligibility statistics"""
-        results = self._load_json(self.eligibility_file)
-        
-        if not results:
-            return {"total": 0, "eligible": 0, "not_eligible": 0, "average_score": 0.0}
-        
-        total = len(results)
-        eligible = sum(1 for r in results.values() if r.get("eligibility", {}).get("eligible", False))
-        not_eligible = total - eligible
-        
-        scores = [r.get("eligibility", {}).get("score", 0) for r in results.values()]
-        average_score = sum(scores) / len(scores) if scores else 0
-        
-        return {
-            "total": total,
-            "eligible": eligible,
-            "not_eligible": not_eligible,
-            "eligibility_rate": (eligible / total * 100) if total > 0 else 0,
-            "average_score": round(average_score, 1)
-        }
+    def save_evaluation_data(self, session_id: str, participant_id: str, evaluation_data: dict):
+        """Save evaluation data to centralized evaluations.json file"""
+        try:
+            evaluations = self._load_json(self.evaluations_file)
+            
+            # Save with participant_id as key
+            evaluations[participant_id] = {
+                "session_id": session_id,
+                "participant_id": participant_id,
+                "saved_at": datetime.now().isoformat(),
+                "data": evaluation_data
+            }
+            
+            self._save_json(self.evaluations_file, evaluations)
+            print(f"Evaluation data saved for participant: {participant_id}")
+            return str(self.evaluations_file)
+            
+        except Exception as e:
+            print(f"Error saving evaluation data: {e}")
+            return None
+    
+    def get_conversation_data(self, session_id: str, participant_id: str) -> Optional[dict]:
+        """Retrieve saved conversation data by participant_id"""
+        try:
+            conversations = self._load_json(self.conversations_file)
+            return conversations.get(participant_id, None)
+        except Exception as e:
+            print(f"Error loading conversation data: {e}")
+            return None
+    
+    def get_evaluation_data(self, session_id: str, participant_id: str) -> Optional[dict]:
+        """Retrieve saved evaluation data by participant_id"""
+        try:
+            evaluations = self._load_json(self.evaluations_file)
+            return evaluations.get(participant_id, None)
+        except Exception as e:
+            print(f"Error loading evaluation data: {e}")
+            return None
 
 # Simple session manager - just creates sessions, no tracking
 def create_session() -> ParticipantSession:
@@ -97,20 +130,46 @@ def create_session() -> ParticipantSession:
         participant_id=participant_id
     )
 
-def save_eligibility_result(participant_id: str, responses: dict, result: dict):
-    """Save eligibility result to JSON"""
+def save_conversation_data(session_id: str, participant_id: str, conversation_data: dict):
+    """Save conversation data to local file"""
     data_manager = JsonDataManager()
-    data_manager.save_eligibility_result(participant_id, responses, result)
+    return data_manager.save_conversation_data(session_id, participant_id, conversation_data)
 
-def load_trial_criteria() -> List[TrialCriteria]:
-    """Load trial criteria from eligibility.json"""
+def save_evaluation_data(session_id: str, participant_id: str, evaluation_data: dict):
+    """Save evaluation data to local file"""
+    data_manager = JsonDataManager()
+    return data_manager.save_evaluation_data(session_id, participant_id, evaluation_data)
+
+def get_saved_conversation(session_id: str, participant_id: str) -> Optional[dict]:
+    """Get saved conversation data"""
+    data_manager = JsonDataManager()
+    return data_manager.get_conversation_data(session_id, participant_id)
+
+def get_saved_evaluation(session_id: str, participant_id: str) -> Optional[dict]:
+    """Get saved evaluation data"""
+    data_manager = JsonDataManager()
+    return data_manager.get_evaluation_data(session_id, participant_id)
+
+def load_trial_criteria(study_id: str) -> List[TrialCriteria]:
+    """Load trial criteria from study_eligibility_data.json for a specific study"""
     try:
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        with open(os.path.join(current_dir, "eligibility.json"), "r") as f:
+        with open(os.path.join(current_dir, "data", "study_eligibility_data.json"), "r") as f:
             data = json.load(f)
         
+        # Find the specific study
+        study_data = None
+        for study in data.get("studies", []):
+            if study["id"] == study_id:
+                study_data = study
+                break
+        
+        if not study_data:
+            print(f"Study with ID {study_id} not found")
+            return []
+        
         criteria = []
-        for criterion in data.get("criteria", []):
+        for criterion in study_data.get("criteria", []):
             criteria.append(TrialCriteria(
                 id=criterion["id"],
                 text=criterion["text"],
@@ -122,4 +181,47 @@ def load_trial_criteria() -> List[TrialCriteria]:
         return criteria
     except Exception as e:
         print(f"Error loading trial criteria: {e}")
-        return [] 
+        return []
+
+def get_available_studies() -> List[Dict]:
+    """Get list of available clinical studies"""
+    try:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(current_dir, "data", "study_eligibility_data.json"), "r") as f:
+            data = json.load(f)
+        
+        studies = []
+        for study in data.get("studies", []):
+            studies.append({
+                "id": study["id"],
+                "title": study["trial"]["title"],
+                "category": study["trial"]["category"],
+                "description": study["trial"]["description"],
+                "phase": study["trial"]["phase"],
+                "sponsor": study["trial"]["sponsor"],
+                "nct_id": study["trial"]["nct_id"],
+                "purpose": study["overview"]["purpose"],
+                "commitment": study["overview"]["participant_commitment"],
+                "procedures": study["overview"]["key_procedures"]
+            })
+        
+        return studies
+    except Exception as e:
+        print(f"Error loading studies: {e}")
+        return []
+
+def get_study_details(study_id: str) -> Optional[Dict]:
+    """Get detailed information about a specific study"""
+    try:
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(current_dir, "data", "study_eligibility_data.json"), "r") as f:
+            data = json.load(f)
+        
+        for study in data.get("studies", []):
+            if study["id"] == study_id:
+                return study
+        
+        return None
+    except Exception as e:
+        print(f"Error loading study details: {e}")
+        return None 

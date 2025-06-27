@@ -2,33 +2,119 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Custom gentle animations for Start Interview button */
-@keyframes breathing {
-  0%, 100% {
+/* Custom animations for enhanced UI */
+@keyframes gentle-pulse {
+  0%, 100% { 
     transform: scale(1);
     opacity: 1;
   }
-  50% {
-    transform: scale(1.05);
-    opacity: 0.9;
+  50% { 
+    transform: scale(1.02);
+    opacity: 0.95;
   }
 }
 
-@keyframes gentle-pulse {
-  0%, 100% {
-    opacity: 0.3;
+@keyframes breathing {
+  0%, 100% { 
     transform: scale(1);
+    box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
   }
-  50% {
-    opacity: 0.6;
-    transform: scale(1.1);
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(168, 85, 247, 0.6);
   }
-}
-
-.animate-breathing {
-  animation: breathing 3s ease-in-out infinite;
 }
 
 .animate-gentle-pulse {
-  animation: gentle-pulse 4s ease-in-out infinite;
+  animation: gentle-pulse 3s ease-in-out infinite;
+}
+
+.animate-breathing {
+  animation: breathing 2s ease-in-out infinite;
+}
+
+/* Improved scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Dark mode scrollbar */
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(147, 197, 253, 0.3);
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: rgba(147, 197, 253, 0.5);
+}
+
+/* Custom slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 12px;
+  border-radius: 6px;
+  outline: none;
+}
+
+/* Slider thumb - Light mode */
+input[type="range"].slider-thumb-light::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #10b981, #059669);
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.4);
+  transition: all 0.2s ease;
+  border: 2px solid white;
+}
+
+input[type="range"].slider-thumb-light::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 5px 15px rgba(16, 185, 129, 0.6);
+}
+
+/* Slider thumb - Dark mode */
+input[type="range"].slider-thumb-dark::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #34d399, #10b981);
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(52, 211, 153, 0.4);
+  transition: all 0.2s ease;
+  border: 2px solid #1f2937;
+}
+
+input[type="range"].slider-thumb-dark::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 5px 15px rgba(52, 211, 153, 0.6);
+}
+
+/* Firefox slider styling */
+input[type="range"]::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #10b981, #059669);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 3px 8px rgba(16, 185, 129, 0.4);
 }

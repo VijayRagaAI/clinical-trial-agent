@@ -1,6 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Mic, MicOff, Volume2, RotateCcw, CheckCircle, RefreshCw, Play, Square, Send, Moon, Sun, ChevronDown } from 'lucide-react';
+import { Mic, MicOff, Volume2, RotateCcw, CheckCircle, RefreshCw, Play, Square, Send, Moon, Sun, ChevronDown, Settings, Globe, VolumeX, Palette, FileText } from 'lucide-react';
 import { ButtonConfig, ButtonState } from '../types/interview';
+import { Study } from '../types/interview';
+import { StudySelector } from './StudySelector';
+
+interface Language {
+  code: string;
+  name: string;
+}
+
+interface Voice {
+  id: string;
+  name: string;
+  category: string;
+  description: string;
+}
 
 interface VoiceInterfaceProps {
   // State
@@ -23,8 +37,12 @@ interface VoiceInterfaceProps {
   setIsDarkMode: (isDark: boolean) => void;
   onRestart: () => void;
   
+  // Study selection
+  selectedStudy: Study | null;
+  onStudySelect: (study: Study) => void;
+  
   // Actions
-  startInterview: () => void;
+  startInterview: (studyId: string) => void;
   stopAgentSpeaking: () => void;
   startRecording: () => void;
   stopRecording: () => void;
@@ -58,6 +76,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   isDarkMode,
   setIsDarkMode,
   onRestart,
+  selectedStudy,
+  onStudySelect,
   startInterview,
   stopAgentSpeaking,
   startRecording,
@@ -71,6 +91,211 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   canRepeatLastQuestion
 }) => {
   const [audioLevels, setAudioLevels] = useState<number[]>(Array(20).fill(0));
+  const [showSettings, setShowSettings] = useState(false);
+  const [showStudySelector, setShowStudySelector] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('english');
+  const [selectedVoice, setSelectedVoice] = useState('onyx');
+  const [selectedSpeed, setSelectedSpeed] = useState(1.0);
+  const [availableLanguages, setAvailableLanguages] = useState<Language[]>([]);
+  const [availableVoices, setAvailableVoices] = useState<Voice[]>([]);
+  const [isLoadingVoices, setIsLoadingVoices] = useState(false);
+  const [playingVoice, setPlayingVoice] = useState<string | null>(null);
+
+  // Load available languages and voices on component mount
+  useEffect(() => {
+    loadLanguagesAndVoices();
+  }, []);
+
+  const loadLanguagesAndVoices = async () => {
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      // Fetch from real backend APIs
+      const [languagesResponse, voicesResponse, settingsResponse] = await Promise.all([
+        fetch(`${API_BASE}/api/audio/languages`),
+        fetch(`${API_BASE}/api/audio/voices`),
+        fetch(`${API_BASE}/api/audio/settings`)
+      ]);
+
+      if (languagesResponse.ok && voicesResponse.ok) {
+        const languagesData = await languagesResponse.json();
+        const voicesData = await voicesResponse.json();
+        
+        setAvailableLanguages(languagesData.languages);
+        setAvailableVoices(voicesData.voices);
+
+        // Load current settings if available
+        if (settingsResponse.ok) {
+          const settingsData = await settingsResponse.json();
+          setSelectedLanguage(settingsData.output_language);
+          setSelectedVoice(settingsData.voice);
+          setSelectedSpeed(settingsData.speed || 1.0);
+        }
+      } else {
+        throw new Error('Failed to fetch languages and voices');
+      }
+    } catch (error) {
+      console.error('Failed to load languages and voices:', error);
+      
+      // Fallback to mock data if backend is unavailable
+      const mockLanguages: Language[] = [
+        // Indian languages
+        { code: 'english', name: 'English' },
+        { code: 'hindi', name: 'Hindi' },
+        { code: 'bhojpuri', name: 'Bhojpuri' },
+        { code: 'bengali', name: 'Bengali' },
+        { code: 'telugu', name: 'Telugu' },
+        { code: 'marathi', name: 'Marathi' },
+        { code: 'tamil', name: 'Tamil' },
+        { code: 'gujarati', name: 'Gujarati' },
+        { code: 'urdu', name: 'Urdu' },
+        { code: 'kannada', name: 'Kannada' },
+        // World languages
+        { code: 'mandarin', name: 'Chinese (Mandarin)' },
+        { code: 'spanish', name: 'Spanish' },
+        { code: 'french', name: 'French' },
+        { code: 'arabic', name: 'Arabic' },
+        { code: 'portuguese', name: 'Portuguese' },
+        { code: 'russian', name: 'Russian' },
+        { code: 'japanese', name: 'Japanese' },
+        { code: 'german', name: 'German' },
+        { code: 'korean', name: 'Korean' },
+        { code: 'italian', name: 'Italian' },
+        { code: 'turkish', name: 'Turkish' },
+        { code: 'vietnamese', name: 'Vietnamese' },
+        { code: 'thai', name: 'Thai' },
+        { code: 'indonesian', name: 'Indonesian' },
+        { code: 'dutch', name: 'Dutch' }
+      ];
+
+      const mockVoices: Voice[] = [
+        // Professional voices
+        { id: 'onyx', name: 'Onyx', category: 'professional', description: 'Deep, authoritative voice' },
+        { id: 'echo', name: 'Echo', category: 'professional', description: 'Clear, crisp voice' },
+        { id: 'alloy', name: 'Alloy', category: 'professional', description: 'Balanced, trustworthy voice' },
+        // Warm voices
+        { id: 'shimmer', name: 'Shimmer', category: 'warm', description: 'Soft, gentle voice' },
+        { id: 'nova', name: 'Nova', category: 'warm', description: 'Bright, friendly voice' },
+        { id: 'fable', name: 'Fable', category: 'warm', description: 'Expressive, engaging voice' }
+      ];
+
+      setAvailableLanguages(mockLanguages);
+      setAvailableVoices(mockVoices);
+    }
+  };
+
+  const playVoicePreview = async (voiceId: string) => {
+    if (playingVoice) return; // Don't allow multiple previews at once
+    
+    setPlayingVoice(voiceId);
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      // Sample text for voice preview
+      const previewText = selectedLanguage === 'english' 
+        ? "Hello, this is a preview of my voice. How does this sound to you?"
+        : "Hello, this is a preview of my voice. How does this sound to you?"; // Backend will translate this
+
+      // Call real backend API for voice preview
+      const response = await fetch(`${API_BASE}/api/audio/voice-preview`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          text: previewText,
+          voice: voiceId,
+          language: selectedLanguage,
+          speed: selectedSpeed
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        await playAudioBase64(data.audio);
+      } else {
+        const errorText = await response.text();
+        console.error('Voice preview failed:', errorText);
+        // Fallback: Simulate voice preview
+        console.log(`Playing preview for voice: ${voiceId} in ${selectedLanguage} at ${selectedSpeed}x speed`);
+        await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate audio playback
+      }
+    } catch (error) {
+      console.error('Voice preview failed:', error);
+      // Fallback: Simulate voice preview
+      await new Promise(resolve => setTimeout(resolve, 1500));
+    } finally {
+      setPlayingVoice(null);
+    }
+  };
+
+  const playAudioBase64 = async (audioBase64: string): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const audioBlob = base64ToBlob(audioBase64, 'audio/mpeg');
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
+        
+        audio.onended = () => {
+          URL.revokeObjectURL(audioUrl);
+          resolve();
+        };
+        audio.onerror = () => {
+          URL.revokeObjectURL(audioUrl);
+          reject(new Error('Audio playback failed'));
+        };
+        
+        audio.play();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  const base64ToBlob = (base64: string, mimeType: string): Blob => {
+    const byteCharacters = atob(base64);
+    const byteNumbers = new Array(byteCharacters.length);
+    
+    for (let i = 0; i < byteCharacters.length; i++) {
+      byteNumbers[i] = byteCharacters.charCodeAt(i);
+    }
+    
+    const byteArray = new Uint8Array(byteNumbers);
+    return new Blob([byteArray], { type: mimeType });
+  };
+
+  const saveSettings = async () => {
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      // Save to real backend
+      const response = await fetch(`${API_BASE}/api/audio/settings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          output_language: selectedLanguage,
+          voice: selectedVoice,
+          speed: selectedSpeed
+        })
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Settings saved successfully:', data);
+        setShowSettings(false);
+        
+        // Show success message (you could add a toast notification here)
+        console.log(`✅ Settings updated: ${selectedLanguage} language with ${selectedVoice} voice at ${selectedSpeed}x speed`);
+      } else {
+        const errorText = await response.text();
+        console.error('Failed to save settings:', errorText);
+        throw new Error(`Failed to save settings: ${errorText}`);
+      }
+    } catch (error) {
+      console.error('Failed to save settings:', error);
+      // You could show an error notification here
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to save settings: ${errorMessage}`);
+    }
+  };
 
   // Animate audio levels
   useEffect(() => {
@@ -106,9 +331,20 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
     // State 3: Not started
     if (conversationState === 'not_started') {
       return {
-        primary: { action: startInterview, icon: Play, text: "Start Interview", color: "start" },
+        primary: { 
+          action: () => {
+            if (!selectedStudy) {
+              alert('Please select a study first');
+              return;
+            }
+            startInterview(selectedStudy.id);
+          }, 
+          icon: Play, 
+          text: selectedStudy ? "Start Interview" : "Select Study First", 
+          color: "start" 
+        },
         secondary: [],
-        disabled: !!connectionError
+        disabled: !!connectionError || !selectedStudy
       };
     }
 
@@ -285,19 +521,462 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
   return (
     <div className={`min-h-screen transition-all duration-500 ${isDarkMode ? 'bg-gray-900' : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'}`}>
-      {/* Dark Mode Toggle */}
-      <div className="absolute top-6 right-6 z-10">
-        <button
-          onClick={() => setIsDarkMode(!isDarkMode)}
-          className={`p-3 rounded-full backdrop-blur-md border transition-all duration-300 hover:scale-110 ${
-            isDarkMode 
-              ? 'bg-gray-800/50 border-gray-700/50 text-yellow-400 hover:bg-gray-700/50' 
-              : 'bg-white/50 border-white/20 text-gray-700 hover:bg-white/70'
-          }`}
-        >
-          {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </button>
+      {/* Settings Panel - Top Controls */}
+      <div className="absolute top-6 right-6 z-10 flex space-x-3">
+        {/* Study Selection */}
+        <div className="relative group">
+          <button
+            onClick={() => setShowStudySelector(!showStudySelector)}
+            className={`relative px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 ${
+              isDarkMode 
+                ? 'bg-gray-800/70 border-gray-600/70 text-emerald-400 hover:bg-gray-700/80 hover:border-emerald-400/60' 
+                : 'bg-white/70 border-white/40 text-emerald-600 hover:bg-white/90 hover:border-emerald-300/60'
+            } ${showStudySelector ? 'ring-2 ring-emerald-400 scale-105 shadow-lg shadow-emerald-500/20' : 'shadow-md'}`}
+          >
+            <div className="flex items-center space-x-2">
+              <FileText className="h-5 w-5 transition-transform duration-300 group-hover:scale-110" />
+              <span className="text-sm font-semibold">Study</span>
+            </div>
+            
+            {/* Study Badge */}
+            <div className={`absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full text-xs font-bold border ${
+              isDarkMode 
+                ? 'bg-emerald-500 text-white border-emerald-400' 
+                : 'bg-emerald-600 text-white border-emerald-500'
+            } animate-pulse`}>
+              {selectedStudy ? (() => {
+                // Generate consistent icon based on category
+                const hash = selectedStudy.category.split('').reduce((a, b) => {
+                  a = ((a << 5) - a) + b.charCodeAt(0);
+                  return a & a;
+                }, 0);
+                const iconIndex = Math.abs(hash) % 8;
+                const icons = ['🧬', '🩺', '❤️', '🦴', '🧠', '👁️', '🫁', '💊'];
+                return icons[iconIndex];
+              })() : '🧬'}
+            </div>
+          </button>
+          
+          {/* Study Tooltip */}
+          <div className={`absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-xs font-medium whitespace-nowrap ${
+            isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
+          }`}>
+            Select Study
+          </div>
+        </div>
+
+        {/* Language & Voice Settings */}
+        <div className="relative group">
+          <button
+            onClick={() => setShowSettings(!showSettings)}
+            className={`relative px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 ${
+              isDarkMode 
+                ? 'bg-gray-800/70 border-gray-600/70 text-indigo-400 hover:bg-gray-700/80 hover:border-indigo-400/60' 
+                : 'bg-white/70 border-white/40 text-indigo-600 hover:bg-white/90 hover:border-indigo-300/60'
+            } ${showSettings ? 'ring-2 ring-indigo-400 scale-105 shadow-lg shadow-indigo-500/20' : 'shadow-md'}`}
+          >
+            <div className="flex items-center space-x-2">
+              <Settings className="h-5 w-5 transition-transform duration-300 group-hover:rotate-90" />
+              <span className="text-sm font-semibold">Settings</span>
+            </div>
+            
+            {/* Language Badge */}
+            <div className={`absolute -top-1 -right-1 px-1.5 py-0.5 rounded-full text-xs font-bold border ${
+              isDarkMode 
+                ? 'bg-indigo-500 text-white border-indigo-400' 
+                : 'bg-indigo-600 text-white border-indigo-500'
+            } animate-pulse`}>
+              {selectedLanguage === 'english' ? 'EN' : 
+               selectedLanguage === 'hindi' ? 'HI' : 
+               selectedLanguage === 'spanish' ? 'ES' : 
+               selectedLanguage === 'french' ? 'FR' : 
+               selectedLanguage === 'mandarin' ? 'ZH' : 
+               selectedLanguage === 'arabic' ? 'AR' : 
+               selectedLanguage === 'japanese' ? 'JA' : 
+               selectedLanguage === 'korean' ? 'KO' : 
+               selectedLanguage === 'russian' ? 'RU' : 
+               selectedLanguage === 'german' ? 'DE' : 
+               selectedLanguage === 'tamil' ? 'TA' : 
+               selectedLanguage === 'bengali' ? 'BN' : 
+               selectedLanguage === 'telugu' ? 'TE' : 
+               selectedLanguage === 'urdu' ? 'UR' : 
+               selectedLanguage.slice(0, 2).toUpperCase()}
+            </div>
+          </button>
+          
+          {/* Settings Tooltip */}
+          <div className={`absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-xs font-medium whitespace-nowrap ${
+            isDarkMode ? 'text-indigo-400' : 'text-indigo-600'
+          }`}>
+            Language & Voice
+          </div>
+        </div>
+
+        {/* Theme Settings */}
+        <div className="relative group">
+          <button
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className={`relative px-4 py-3 rounded-xl backdrop-blur-md border transition-all duration-300 hover:scale-105 shadow-md ${
+              isDarkMode 
+                ? 'bg-gray-800/70 border-gray-600/70 text-amber-400 hover:bg-gray-700/80 hover:border-amber-400/60' 
+                : 'bg-white/70 border-white/40 text-orange-600 hover:bg-white/90 hover:border-orange-300/60'
+            }`}
+          >
+            <div className="flex items-center space-x-2">
+              <Palette className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+              <span className="text-sm font-semibold">Theme</span>
+            </div>
+            
+            {/* Theme Mode Indicator */}
+            <div className={`absolute -top-1 -right-1 p-1 rounded-full ${
+              isDarkMode 
+                ? 'bg-amber-500 text-amber-900' 
+                : 'bg-orange-500 text-orange-100'
+            }`}>
+              {isDarkMode ? (
+                <Moon className="h-3 w-3" />
+              ) : (
+                <Sun className="h-3 w-3" />
+              )}
+            </div>
+          </button>
+          
+          {/* Theme Tooltip */}
+          <div className={`absolute top-full mt-2 left-1/2 transform -translate-x-1/2 text-xs font-medium whitespace-nowrap ${
+            isDarkMode ? 'text-amber-400' : 'text-orange-600'
+          }`}>
+            {isDarkMode ? 'Switch to Light' : 'Switch to Dark'}
+          </div>
+        </div>
       </div>
+
+      {/* Settings Panel Overlay */}
+      {showSettings && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 flex items-center justify-center p-4">
+          <div className={`w-full max-w-md backdrop-blur-xl rounded-3xl shadow-2xl border p-6 transition-all duration-500 ${
+            isDarkMode 
+              ? 'bg-gray-800/90 border-gray-700/50' 
+              : 'bg-white/90 border-white/20'
+          }`}>
+            {/* Settings Header */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center space-x-3">
+                <div className={`p-2 rounded-xl ${isDarkMode ? 'bg-purple-900/30' : 'bg-purple-100'}`}>
+                  <Settings className={`h-5 w-5 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
+                </div>
+                <h3 className={`text-xl font-bold ${isDarkMode ? 'text-white' : 'text-gray-900'}`}>
+                  Voice Settings
+                </h3>
+              </div>
+              <button
+                onClick={() => setShowSettings(false)}
+                className={`p-2 rounded-full transition-colors ${
+                  isDarkMode ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-600'
+                }`}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Language Selection */}
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center space-x-2">
+                <Globe className={`h-4 w-4 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
+                <label className={`text-sm font-semibold ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`}>
+                  Output Language
+                </label>
+              </div>
+              <select
+                value={selectedLanguage}
+                onChange={(e) => setSelectedLanguage(e.target.value)}
+                className={`w-full p-3 rounded-xl border transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-gray-700/50 border-gray-600 text-white focus:ring-2 focus:ring-blue-400' 
+                    : 'bg-white/70 border-gray-200 text-gray-900 focus:ring-2 focus:ring-blue-500'
+                } focus:outline-none`}
+              >
+                {availableLanguages.map((lang) => (
+                  <option key={lang.code} value={lang.code}>
+                    {lang.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Enhanced Speech Speed Control */}
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2">
+                  <Volume2 className={`h-4 w-4 ${isDarkMode ? 'text-green-400' : 'text-green-600'}`} />
+                  <label className={`text-sm font-semibold ${isDarkMode ? 'text-green-400' : 'text-green-600'}`}>
+                    Speech Speed
+                  </label>
+                </div>
+                <div className={`px-3 py-1.5 rounded-full border ${
+                  isDarkMode 
+                    ? 'bg-green-900/30 border-green-700 text-green-300' 
+                    : 'bg-green-100 border-green-300 text-green-700'
+                } font-mono font-bold`}>
+                  {selectedSpeed}x
+                </div>
+              </div>
+              
+              {/* Enhanced Slider */}
+              <div className="space-y-3">
+                <div className="relative">
+                  <input
+                    type="range"
+                    min="0.25"
+                    max="2.0"
+                    step="0.25"
+                    value={selectedSpeed}
+                    onChange={(e) => setSelectedSpeed(parseFloat(e.target.value))}
+                    className={`w-full h-3 rounded-lg appearance-none cursor-pointer transition-all duration-200 ${
+                      isDarkMode 
+                        ? 'bg-gray-600 slider-thumb-dark' 
+                        : 'bg-gray-200 slider-thumb-light'
+                    }`}
+                    style={{
+                      background: `linear-gradient(to right, ${
+                        isDarkMode ? '#10b981' : '#059669'
+                      } 0%, ${
+                        isDarkMode ? '#10b981' : '#059669'
+                      } ${((selectedSpeed - 0.25) / (2.0 - 0.25)) * 100}%, ${
+                        isDarkMode ? '#4b5563' : '#e5e7eb'
+                      } ${((selectedSpeed - 0.25) / (2.0 - 0.25)) * 100}%, ${
+                        isDarkMode ? '#4b5563' : '#e5e7eb'
+                      } 100%)`
+                    }}
+                  />
+                  
+                  {/* Speed Indicator Line */}
+                  <div 
+                    className={`absolute top-1/2 w-0.5 h-6 -translate-y-1/2 transition-all duration-300 ${
+                      isDarkMode ? 'bg-green-400' : 'bg-green-600'
+                    }`}
+                    style={{
+                      left: `${((selectedSpeed - 0.25) / (2.0 - 0.25)) * 100}%`,
+                      transform: 'translateX(-50%) translateY(-50%)'
+                    }}
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Voice Selection - Two Column Layout */}
+            <div className="space-y-4 mb-6">
+              <div className="flex items-center space-x-2">
+                <Volume2 className={`h-4 w-4 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
+                <label className={`text-sm font-semibold ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`}>
+                  Voice Selection
+                </label>
+              </div>
+              
+              {/* Two Column Voice Layout */}
+              <div className="grid grid-cols-2 gap-4">
+                {/* Professional Voices Column */}
+                <div className={`p-4 rounded-xl border ${
+                  isDarkMode 
+                    ? 'bg-gray-700/20 border-gray-600/50' 
+                    : 'bg-gray-50/50 border-gray-200/50'
+                }`}>
+                  <div className="flex items-center space-x-2 mb-3">
+                    <span className="text-lg">🏢</span>
+                    <h4 className={`font-semibold text-sm ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      Professional
+                    </h4>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {availableVoices
+                      .filter(voice => voice.category === 'professional')
+                      .map((voice) => (
+                      <div
+                        key={voice.id}
+                        className={`p-3 rounded-lg border transition-all duration-300 cursor-pointer ${
+                          selectedVoice === voice.id
+                            ? isDarkMode
+                              ? 'bg-purple-900/40 border-purple-500 ring-1 ring-purple-400'
+                              : 'bg-purple-50 border-purple-300 ring-1 ring-purple-500'
+                            : isDarkMode
+                            ? 'bg-gray-800/30 border-gray-600 hover:bg-gray-700/30'
+                            : 'bg-white/70 border-gray-200 hover:bg-white/90'
+                        }`}
+                        onClick={() => setSelectedVoice(voice.id)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className={`font-medium text-sm ${
+                              selectedVoice === voice.id
+                                ? isDarkMode ? 'text-purple-300' : 'text-purple-700'
+                                : isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                            }`}>
+                              {voice.name}
+                            </div>
+                            <div className={`text-xs mt-1 ${
+                              selectedVoice === voice.id
+                                ? isDarkMode ? 'text-purple-400' : 'text-purple-600'
+                                : isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                            }`}>
+                              {voice.description}
+                            </div>
+                          </div>
+                          
+                          {/* Voice Preview Button */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              playVoicePreview(voice.id);
+                            }}
+                            disabled={playingVoice !== null}
+                            className={`p-1.5 rounded-full transition-all duration-200 ml-2 ${
+                              playingVoice === voice.id
+                                ? 'bg-green-500 text-white animate-pulse'
+                                : playingVoice !== null
+                                ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                                : isDarkMode
+                                ? 'bg-gray-600 text-gray-300 hover:bg-gray-500'
+                                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                            }`}
+                          >
+                            {playingVoice === voice.id ? (
+                              <VolumeX className="h-3 w-3" />
+                            ) : (
+                              <Play className="h-3 w-3" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Warm Voices Column */}
+                <div className={`p-4 rounded-xl border ${
+                  isDarkMode 
+                    ? 'bg-gray-700/20 border-gray-600/50' 
+                    : 'bg-gray-50/50 border-gray-200/50'
+                }`}>
+                  <div className="flex items-center space-x-2 mb-3">
+                    <span className="text-lg">💫</span>
+                    <h4 className={`font-semibold text-sm ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                    }`}>
+                      Warm
+                    </h4>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {availableVoices
+                      .filter(voice => voice.category === 'warm')
+                      .map((voice) => (
+                      <div
+                        key={voice.id}
+                        className={`p-3 rounded-lg border transition-all duration-300 cursor-pointer ${
+                          selectedVoice === voice.id
+                            ? isDarkMode
+                              ? 'bg-purple-900/40 border-purple-500 ring-1 ring-purple-400'
+                              : 'bg-purple-50 border-purple-300 ring-1 ring-purple-500'
+                            : isDarkMode
+                            ? 'bg-gray-800/30 border-gray-600 hover:bg-gray-700/30'
+                            : 'bg-white/70 border-gray-200 hover:bg-white/90'
+                        }`}
+                        onClick={() => setSelectedVoice(voice.id)}
+                      >
+                        <div className="flex items-center justify-between">
+                          <div className="flex-1">
+                            <div className={`font-medium text-sm ${
+                              selectedVoice === voice.id
+                                ? isDarkMode ? 'text-purple-300' : 'text-purple-700'
+                                : isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                            }`}>
+                              {voice.name}
+                            </div>
+                            <div className={`text-xs mt-1 ${
+                              selectedVoice === voice.id
+                                ? isDarkMode ? 'text-purple-400' : 'text-purple-600'
+                                : isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                            }`}>
+                              {voice.description}
+                            </div>
+                          </div>
+                          
+                          {/* Voice Preview Button */}
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              playVoicePreview(voice.id);
+                            }}
+                            disabled={playingVoice !== null}
+                            className={`p-1.5 rounded-full transition-all duration-200 ml-2 ${
+                              playingVoice === voice.id
+                                ? 'bg-green-500 text-white animate-pulse'
+                                : playingVoice !== null
+                                ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
+                                : isDarkMode
+                                ? 'bg-gray-600 text-gray-300 hover:bg-gray-500'
+                                : 'bg-gray-200 text-gray-600 hover:bg-gray-300'
+                            }`}
+                          >
+                            {playingVoice === voice.id ? (
+                              <VolumeX className="h-3 w-3" />
+                            ) : (
+                              <Play className="h-3 w-3" />
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Voice Preview Status */}
+              {playingVoice && (
+                <div className={`text-xs text-center ${isDarkMode ? 'text-green-400' : 'text-green-600'} animate-pulse`}>
+                  🎵 Playing preview for {availableVoices.find(v => v.id === playingVoice)?.name} at {selectedSpeed}x speed...
+                </div>
+              )}
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex space-x-3">
+              <button
+                onClick={() => setShowSettings(false)}
+                className={`flex-1 p-3 rounded-xl transition-all duration-300 ${
+                  isDarkMode 
+                    ? 'bg-gray-700 text-gray-300 hover:bg-gray-600' 
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={saveSettings}
+                className="flex-1 p-3 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-600 text-white font-semibold hover:from-purple-600 hover:to-indigo-700 transition-all duration-300 hover:scale-105"
+              >
+                Save Settings
+              </button>
+            </div>
+
+            {/* Settings Info */}
+            <div className={`mt-4 text-xs text-center ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+              💡 Changes will apply to future conversations
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Study Selector */}
+      <StudySelector
+        isOpen={showStudySelector}
+        onClose={() => setShowStudySelector(false)}
+        selectedStudy={selectedStudy}
+        onStudySelect={onStudySelect}
+        isDarkMode={isDarkMode}
+      />
 
       {/* Main Container */}
       <div className="max-w-4xl mx-auto px-6 py-8">
