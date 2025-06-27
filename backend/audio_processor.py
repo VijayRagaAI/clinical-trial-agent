@@ -10,7 +10,6 @@ import assemblyai as aai
 from elevenlabs import VoiceSettings
 from elevenlabs.client import ElevenLabs
 import requests
-from gtts import gTTS
 
 logger = logging.getLogger(__name__)
 
@@ -76,25 +75,11 @@ class AudioProcessor:
             return ""
     
     async def text_to_speech(self, text: str) -> str:
-        """Convert text to speech using ElevenLabs (primary) or Google TTS (fallback)"""
-        # Try ElevenLabs first
-        if self.elevenlabs_client:
-            try:
-                return await self._elevenlabs_tts(text)
-            except Exception as e:
-                logger.warning(f"ElevenLabs TTS failed: {e}")
-                logger.info("Falling back to Google TTS...")
-        
-        # Fallback to Google TTS
-        try:
-            return await self._google_tts(text)
-        except Exception as e:
-            logger.warning(f"Google TTS also failed: {e}")
-            logger.info("Operating in text-only mode - no audio will be generated")
-            return ""  # Return empty string - frontend will handle text-only mode
-    
-    async def _elevenlabs_tts(self, text: str) -> str:
-        """Generate speech using ElevenLabs"""
+        """Convert text to speech using ElevenLabs and return base64 encoded audio"""
+        if not self.elevenlabs_client:
+            logger.error("ElevenLabs not configured - missing API key")
+            return ""
+            
         try:
             # Generate speech using ElevenLabs
             response = self.elevenlabs_client.text_to_speech.convert(
@@ -119,28 +104,7 @@ class AudioProcessor:
             return audio_base64
             
         except Exception as e:
-            logger.error(f"ElevenLabs TTS error: {e}")
-            raise
-    
-    async def _google_tts(self, text: str) -> str:
-        """Generate speech using Google TTS (fallback)"""
-        try:
-            # Create gTTS object
-            tts = gTTS(text=text, lang="en", slow=False)
-            
-            # Save to bytes buffer
-            audio_buffer = io.BytesIO()
-            tts.write_to_fp(audio_buffer)
-            audio_buffer.seek(0)
-            
-            # Convert to base64
-            audio_base64 = base64.b64encode(audio_buffer.read()).decode('utf-8')
-            
-            logger.info(f"Generated Google TTS for: {text[:50]}...")
-            return audio_base64
-            
-        except Exception as e:
-            logger.error(f"Google TTS error: {e}")
+            logger.error(f"Text-to-speech error: {e}")
             return ""
     
     def validate_audio_format(self, audio_data: str) -> bool:
