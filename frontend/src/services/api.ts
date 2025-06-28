@@ -116,6 +116,29 @@ class ApiService {
     return ws;
   }
 
+  // ClinicalTrials.gov API integration
+  async searchClinicalTrials(query: string, maxResults: number = 20): Promise<any> {
+    const response = await fetch(
+      `${this.baseUrl}/api/clinicaltrials/search?query=${encodeURIComponent(query)}&max_results=${maxResults}`
+    );
+    
+    if (!response.ok) {
+      throw new Error('Failed to search clinical trials');
+    }
+
+    return response.json();
+  }
+
+  async getClinicalTrialDetails(nctId: string): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/clinicaltrials/study/${nctId}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get clinical trial details');
+    }
+
+    return response.json();
+  }
+
   // Health check
   async healthCheck(): Promise<any> {
     const response = await fetch(`${this.baseUrl}/health`);

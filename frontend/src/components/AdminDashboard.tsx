@@ -24,6 +24,18 @@ const AdminDashboard: React.FC = () => {
   const [selectedStudyForView, setSelectedStudyForView] = useState<Study | null>(null);
   const [showStudyModal, setShowStudyModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importQuery, setImportQuery] = useState('');
+  const [importResults, setImportResults] = useState<any[]>([]);
+  const [importLoading, setImportLoading] = useState(false);
+  const [importError, setImportError] = useState<string | null>(null);
+  const [importingStudyId, setImportingStudyId] = useState<string | null>(null);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [importedStudyInfo, setImportedStudyInfo] = useState<any>(null);
+  const [showDeleteStudyModal, setShowDeleteStudyModal] = useState(false);
+  const [studyToDelete, setStudyToDelete] = useState<any>(null);
+  const [showDeleteInterviewModal, setShowDeleteInterviewModal] = useState(false);
+  const [interviewToDelete, setInterviewToDelete] = useState<any>(null);
 
   useEffect(() => {
     fetchInterviews();
@@ -343,32 +355,39 @@ const AdminDashboard: React.FC = () => {
     navigate('/interview');
   };
 
-  const handleDeleteInterview = async (participantId: string, participantName: string) => {
-    if (window.confirm(`Are you sure you want to delete the interview for ${participantName}? This action cannot be undone.`)) {
-      try {
-        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-        const response = await fetch(`${API_BASE}/api/admin/interviews/${participantId}`, {
-          method: 'DELETE',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
+  const handleDeleteInterview = (participantId: string, participantName: string) => {
+    setInterviewToDelete({ participantId, participantName });
+    setShowDeleteInterviewModal(true);
+  };
 
-        if (response.ok) {
-          const result = await response.json();
-          console.log('✅ Interview deleted successfully:', result.message);
-          
-          // Refresh the interviews list to update counts and UI
-          await fetchInterviews();
-        } else {
-          const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
-          console.error('Failed to delete interview:', errorData);
-          alert(`Failed to delete interview: ${errorData.detail || 'Unknown error'}`);
-        }
-      } catch (error) {
-        console.error('Error deleting interview:', error);
-        alert('Failed to delete interview. Please check your connection and try again.');
+  const confirmDeleteInterview = async () => {
+    if (!interviewToDelete) return;
+
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_BASE}/api/admin/interviews/${interviewToDelete.participantId}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('✅ Interview deleted successfully:', result.message);
+        
+        // Close modal and refresh the interviews list
+        setShowDeleteInterviewModal(false);
+        setInterviewToDelete(null);
+        await fetchInterviews();
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        console.error('Failed to delete interview:', errorData);
+        alert(`Failed to delete interview: ${errorData.detail || 'Unknown error'}`);
       }
+    } catch (error) {
+      console.error('Error deleting interview:', error);
+      alert('Failed to delete interview. Please check your connection and try again.');
     }
   };
 
@@ -428,6 +447,185 @@ const AdminDashboard: React.FC = () => {
   const closeStudyModal = () => {
     setShowStudyModal(false);
     setSelectedStudyForView(null);
+  };
+
+  const handleDeleteStudy = (studyId: string, studyTitle: string) => {
+    setStudyToDelete({ id: studyId, title: studyTitle });
+    setShowDeleteStudyModal(true);
+  };
+
+  const confirmDeleteStudy = async () => {
+    if (!studyToDelete) return;
+
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_BASE}/api/admin/studies/${studyToDelete.id}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        console.log(`✅ Study ${studyToDelete.id} deleted successfully`);
+        
+        // Close modals and refresh studies list
+        setShowDeleteStudyModal(false);
+        setStudyToDelete(null);
+        closeStudyModal();
+        await loadAvailableStudies();
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        console.error('❌ Failed to delete study:', errorData);
+        alert(`Failed to delete study: ${errorData.detail || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('❌ Error deleting study:', error);
+      alert('Failed to delete study. Please try again.');
+    }
+  };
+
+  const handleSearchClinicalTrials = async () => {
+    if (!importQuery.trim()) {
+      setImportError('Please enter a search term');
+      return;
+    }
+
+    setImportLoading(true);
+    setImportError(null);
+    setImportResults([]);
+
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(
+        `${API_BASE}/api/clinicaltrials/search?query=${encodeURIComponent(importQuery)}&max_results=20`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setImportResults(data.studies || []);
+        console.log(`✅ Found ${data.total_count} clinical trials for "${importQuery}"`);
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        setImportError(errorData.detail || 'Failed to search clinical trials');
+      }
+    } catch (error) {
+      console.error('Error searching clinical trials:', error);
+      setImportError('Failed to connect to ClinicalTrials.gov. Please try again.');
+    } finally {
+      setImportLoading(false);
+    }
+  };
+
+  const performSearchWithValidation = async () => {
+    await handleSearchClinicalTrials();
+  };
+
+  const performSearchWithoutValidation = async () => {
+    setImportLoading(true);
+    setImportError(null);
+    setImportResults([]);
+
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(
+        `${API_BASE}/api/clinicaltrials/search?query=${encodeURIComponent(importQuery)}&max_results=20`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setImportResults(data.studies || []);
+        console.log(`✅ Found ${data.total_count} clinical trials for "${importQuery}"`);
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        setImportError(errorData.detail || 'Failed to search clinical trials');
+      }
+    } catch (error) {
+      console.error('Error searching clinical trials:', error);
+      setImportError('Failed to connect to ClinicalTrials.gov. Please try again.');
+    } finally {
+      setImportLoading(false);
+    }
+  };
+
+  const performDirectSearch = async (searchQuery: string) => {
+    setImportLoading(true);
+    setImportError(null);
+    setImportResults([]);
+
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(
+        `${API_BASE}/api/clinicaltrials/search?query=${encodeURIComponent(searchQuery)}&max_results=20`
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setImportResults(data.studies || []);
+        console.log(`✅ Found ${data.total_count} clinical trials for "${searchQuery}"`);
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        setImportError(errorData.detail || 'Failed to search clinical trials');
+      }
+    } catch (error) {
+      console.error('Error searching clinical trials:', error);
+      setImportError('Failed to connect to ClinicalTrials.gov. Please try again.');
+    } finally {
+      setImportLoading(false);
+    }
+  };
+
+  const handleImportStudy = async (study: any) => {
+    try {
+      setImportingStudyId(study.nct_id);
+      setImportError(null);
+      
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_BASE}/api/clinicaltrials/import`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ study }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('✅ Study imported successfully:', result);
+        
+        // Show success message
+        setImportedStudyInfo({
+          title: study.title,
+          nct_id: study.nct_id,
+          study_id: result.study_id
+        });
+        setShowSuccessModal(true);
+        
+        // Refresh available studies to show the newly imported study
+        await loadAvailableStudies();
+        
+        // Close the import modal
+        closeImportModal();
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        setImportError(errorData.detail || 'Failed to import study');
+      }
+    } catch (error) {
+      console.error('Error importing study:', error);
+      setImportError('Failed to import study. Please check your connection and try again.');
+    } finally {
+      setImportingStudyId(null);
+    }
+  };
+
+  const resetImportModal = () => {
+    setImportQuery('');
+    setImportResults([]);
+    setImportError(null);
+    setImportLoading(false);
+    setImportingStudyId(null);
+  };
+
+  const closeImportModal = () => {
+    setShowImportModal(false);
+    resetImportModal();
   };
 
   const StatCard = ({ icon: Icon, title, subtitle, value, color }: {
@@ -1006,31 +1204,54 @@ const AdminDashboard: React.FC = () => {
         <div className="mb-12">
           {/* Section Header */}
           <div className="mb-8">
-            <div className="flex items-center space-x-3 mb-4">
-              <div className={`relative p-3 rounded-xl backdrop-blur-md border shadow-lg transition-all duration-500 hover:scale-105 hover:rotate-3 ${
-                isDarkMode 
-                  ? 'bg-gradient-to-br from-emerald-600/20 via-teal-600/10 to-emerald-600/20 border-emerald-500/30' 
-                  : 'bg-gradient-to-br from-emerald-50/80 via-teal-50/60 to-emerald-50/80 border-emerald-200/30'
-              }`}>
-                <div className={`absolute top-1 right-1 w-2 h-2 rounded-full animate-pulse ${
-                  isDarkMode ? 'bg-emerald-400/50' : 'bg-emerald-400/50'
-                }`}></div>
-                <FileText className={`h-6 w-6 ${isDarkMode ? 'text-emerald-400/70' : 'text-emerald-500/70'}`} />
-              </div>
-              
-              <div>
-                <h2 className={`text-3xl font-bold bg-gradient-to-r bg-clip-text text-transparent transition-all duration-500 ${
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <div className={`relative p-3 rounded-xl backdrop-blur-md border shadow-lg transition-all duration-500 hover:scale-105 hover:rotate-3 ${
                   isDarkMode 
-                    ? 'from-emerald-400 via-teal-400 to-emerald-400' 
-                    : 'from-emerald-600 via-teal-600 to-emerald-600'
+                    ? 'bg-gradient-to-br from-emerald-600/20 via-teal-600/10 to-emerald-600/20 border-emerald-500/30' 
+                    : 'bg-gradient-to-br from-emerald-50/80 via-teal-50/60 to-emerald-50/80 border-emerald-200/30'
                 }`}>
-                  Available Studies
-                </h2>
-                <p className={`text-base mt-1 transition-all duration-500 ${
-                  isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                }`}>
-                  {availableStudies.length} clinical trials available for interviews
-                </p>
+                  <div className={`absolute top-1 right-1 w-2 h-2 rounded-full animate-pulse ${
+                    isDarkMode ? 'bg-emerald-400/50' : 'bg-emerald-400/50'
+                  }`}></div>
+                  <FileText className={`h-6 w-6 ${isDarkMode ? 'text-emerald-400/70' : 'text-emerald-500/70'}`} />
+                </div>
+                
+                <div>
+                  <h2 className={`text-3xl font-bold bg-gradient-to-r bg-clip-text text-transparent transition-all duration-500 ${
+                    isDarkMode 
+                      ? 'from-emerald-400 via-teal-400 to-emerald-400' 
+                      : 'from-emerald-600 via-teal-600 to-emerald-600'
+                  }`}>
+                    Available Studies
+                  </h2>
+                  <p className={`text-base mt-1 transition-all duration-500 ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    {availableStudies.length} clinical trials available for interviews
+                  </p>
+                </div>
+              </div>
+
+              {/* Import from ClinicalTrials.gov Button - Simple & Elegant */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowImportModal(true)}
+                  className={`group relative flex items-center space-x-3 px-6 py-4 rounded-3xl font-bold text-sm transition-all duration-500 hover:scale-105 backdrop-blur-md border shadow-lg ${
+                    isDarkMode 
+                      ? 'bg-gradient-to-br from-emerald-900/40 via-teal-900/30 to-emerald-900/40 hover:from-emerald-800/50 hover:via-teal-800/40 hover:to-emerald-800/50 border-emerald-700/30 text-emerald-400 hover:shadow-emerald-400/30' 
+                      : 'bg-gradient-to-br from-emerald-100 via-teal-100 to-emerald-100 hover:from-emerald-200 hover:via-teal-200 hover:to-emerald-200 border-emerald-200/50 text-emerald-600 hover:shadow-emerald-400/30'
+                  } hover:shadow-xl`}
+                >
+                  <Plus className="h-4 w-4 group-hover:scale-110 group-hover:rotate-90 transition-all duration-300" />
+                  <span className="relative z-10">Import from ClinicalTrials.gov</span>
+                  
+                  {/* Simple glow effect */}
+                  <div className="absolute inset-0 bg-emerald-400/0 group-hover:bg-emerald-400/15 rounded-3xl transition-all duration-500"></div>
+                  
+                  {/* Subtle sparkle */}
+                  <div className="absolute top-1 right-1 w-1 h-1 bg-white/60 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300"></div>
+                </button>
               </div>
             </div>
             
@@ -1644,6 +1865,468 @@ const AdminDashboard: React.FC = () => {
         </div>
       </div>
 
+      {/* Import from ClinicalTrials.gov Modal - Redesigned */}
+      {showImportModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Overlay */}
+          <div 
+            className={`absolute inset-0 backdrop-blur-xl transition-all duration-500 ${
+              isDarkMode 
+                ? 'bg-black/60' 
+                : 'bg-black/40'
+            }`}
+            onClick={closeImportModal}
+          />
+          
+          {/* Modal Content */}
+          <div 
+            className={`relative w-full max-w-6xl max-h-[90vh] m-4 overflow-hidden rounded-3xl backdrop-blur-2xl border shadow-2xl transform transition-all duration-700 scale-100 animate-in fade-in-0 zoom-in-95 ${
+              isDarkMode 
+                ? 'bg-gradient-to-br from-gray-800/80 via-gray-700/60 to-gray-800/80 border-gray-600/40' 
+                : 'bg-gradient-to-br from-white/90 via-white/80 to-white/90 border-white/40'
+            }`}
+          >
+            {/* Enhanced magical background effects - Emerald theme */}
+            <div className={`absolute inset-0 bg-gradient-to-br opacity-20 transition-all duration-700 rounded-3xl ${
+              isDarkMode ? 'from-emerald-500/30 to-teal-500/25' : 'from-emerald-400/25 to-teal-400/20'
+            }`}></div>
+            <div className={`absolute inset-0 bg-gradient-to-tr opacity-15 transition-all duration-700 rounded-3xl ${
+              isDarkMode ? 'from-teal-500/25 to-emerald-500/30' : 'from-teal-400/20 to-emerald-400/25'
+            }`}></div>
+            
+            {/* Floating sparkles - Emerald theme */}
+            <div className="absolute top-8 right-12 w-3 h-3 bg-emerald-400/50 rounded-full animate-bounce shadow-lg" style={{animationDelay: '0s'}}></div>
+            <div className="absolute top-16 right-20 w-2 h-2 bg-teal-400/40 rounded-full animate-bounce shadow-md" style={{animationDelay: '0.3s'}}></div>
+            <div className="absolute bottom-16 left-12 w-3.5 h-3.5 bg-emerald-300/35 rounded-full animate-bounce shadow-lg" style={{animationDelay: '0.6s'}}></div>
+            <div className="absolute bottom-8 right-16 w-1.5 h-1.5 bg-teal-300/30 rounded-full animate-bounce" style={{animationDelay: '0.9s'}}></div>
+            
+            {/* Header - Emerald theme */}
+            <div className={`relative px-8 py-6 border-b backdrop-blur-sm ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-emerald-600/20 via-teal-600/15 to-emerald-600/20 border-emerald-700/30' 
+                : 'bg-gradient-to-r from-emerald-50/80 via-teal-50/60 to-emerald-50/80 border-emerald-200/30'
+            }`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-4">
+                  <div className={`relative p-3 rounded-xl backdrop-blur-md border shadow-lg transition-all duration-500 ${
+                    isDarkMode 
+                      ? 'bg-gradient-to-br from-emerald-600/30 via-teal-600/20 to-emerald-600/30 border-emerald-500/40' 
+                      : 'bg-gradient-to-br from-emerald-100/90 via-teal-100/70 to-emerald-100/90 border-emerald-300/40'
+                  }`}>
+                    <div className={`absolute top-1 right-1 w-2 h-2 rounded-full animate-pulse ${
+                      isDarkMode ? 'bg-emerald-400/60' : 'bg-emerald-500/60'
+                    }`}></div>
+                    <Plus className={`h-6 w-6 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`} />
+                  </div>
+                  
+                  <div>
+                    <h2 className={`text-2xl font-black bg-gradient-to-r bg-clip-text text-transparent transition-all duration-500 ${
+                      isDarkMode 
+                        ? 'from-emerald-400 via-teal-400 to-emerald-400' 
+                        : 'from-emerald-600 via-teal-600 to-emerald-600'
+                    } drop-shadow-lg`}>
+                      Import from ClinicalTrials.gov
+                    </h2>
+                    <p className={`text-sm mt-1 transition-all duration-500 ${
+                      isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                    }`}>
+                      Search and import clinical trials from ClinicalTrials.gov
+                    </p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={closeImportModal}
+                  className={`group relative p-3 rounded-2xl transition-all duration-500 hover:scale-110 hover:rotate-90 backdrop-blur-md border ${
+                    isDarkMode 
+                      ? 'bg-gray-700/50 hover:bg-red-600/30 border-gray-600/50 hover:border-red-500/50' 
+                      : 'bg-white/70 hover:bg-red-100/70 border-gray-300/50 hover:border-red-300/50'
+                  } hover:shadow-2xl hover:shadow-red-500/30`}
+                >
+                  <X className={`h-6 w-6 transition-all duration-300 ${
+                    isDarkMode ? 'text-gray-300 group-hover:text-red-300' : 'text-gray-600 group-hover:text-red-600'
+                  }`} />
+                </button>
+              </div>
+            </div>
+            
+            {/* Content */}
+            <div className="relative overflow-y-auto max-h-[70vh] custom-scrollbar">
+              <div className="p-8 space-y-8">
+                {/* Default Visible Search Section */}
+                <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg ${
+                  isDarkMode 
+                    ? 'bg-emerald-600/10 border-emerald-700/30' 
+                    : 'bg-emerald-50/80 border-emerald-200/30'
+                }`}>
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className={`p-2 rounded-lg ${
+                      isDarkMode ? 'bg-emerald-600/20' : 'bg-emerald-200'
+                    }`}>
+                      <Search className={`h-5 w-5 ${
+                        isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
+                      }`} />
+                    </div>
+                    <h3 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
+                      isDarkMode 
+                        ? 'from-emerald-400 to-teal-400' 
+                        : 'from-emerald-600 to-teal-600'
+                    }`}>
+                      Search Clinical Trials
+                    </h3>
+                  </div>
+                  
+                  <div className="flex space-x-4">
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={importQuery}
+                        onChange={(e) => setImportQuery(e.target.value)}
+                        onKeyPress={(e) => e.key === 'Enter' && performSearchWithValidation()}
+                        placeholder="Enter condition or keyword (e.g., diabetes, cancer, heart disease)"
+                        className={`w-full px-4 py-3 rounded-xl text-sm font-medium border transition-all duration-300 focus:outline-none focus:ring-2 ${
+                          isDarkMode 
+                            ? 'bg-gray-800/50 border-gray-600/50 text-gray-200 placeholder-gray-400 focus:ring-emerald-500/50' 
+                            : 'bg-white/80 border-emerald-300/50 text-gray-800 placeholder-gray-500 focus:ring-emerald-500/50'
+                        }`}
+                        disabled={importLoading}
+                      />
+                    </div>
+                    <button
+                                                                        onClick={performSearchWithValidation}
+                        disabled={importLoading}
+                        className={`px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 disabled:scale-100 disabled:opacity-50 disabled:cursor-not-allowed ${
+                        isDarkMode 
+                          ? 'bg-gradient-to-br from-emerald-900/60 via-teal-900/50 to-emerald-900/60 hover:from-emerald-800/70 hover:via-teal-800/60 hover:to-emerald-800/70 text-emerald-400 border border-emerald-700/40 disabled:bg-gray-600/50 hover:shadow-emerald-400/30' 
+                          : 'bg-gradient-to-br from-emerald-100/90 via-teal-100/80 to-emerald-100/90 hover:from-emerald-200 hover:via-teal-200 hover:to-emerald-200 text-emerald-600 border border-emerald-200/60 disabled:bg-gray-400/50 hover:shadow-emerald-400/30'
+                      } shadow-lg hover:shadow-xl disabled:shadow-none`}
+                    >
+                      {importLoading ? (
+                        <div className="flex items-center space-x-2">
+                          <div className="w-4 h-4 border-2 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin"></div>
+                          <span>Searching...</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center space-x-2">
+                          <Search className="h-4 w-4" />
+                          <span>Search</span>
+                        </div>
+                      )}
+                    </button>
+                  </div>
+                  
+                  {/* Quick search suggestions */}
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    <span className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
+                      Popular searches:
+                    </span>
+                    {['diabetes', 'cancer', 'heart disease', 'alzheimer'].map((suggestion) => (
+                      <button
+                        key={suggestion}
+                        onClick={() => {
+                          setImportQuery(suggestion);
+                          // Directly search with the suggestion instead of relying on state update
+                          performDirectSearch(suggestion);
+                        }}
+                        className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 hover:scale-105 shadow-md hover:shadow-lg border ${
+                          isDarkMode 
+                            ? 'bg-gradient-to-br from-emerald-900/50 via-teal-900/40 to-emerald-900/50 hover:from-emerald-800/60 hover:via-teal-800/50 hover:to-emerald-800/60 text-emerald-400 border-emerald-700/30 hover:shadow-emerald-400/30' 
+                            : 'bg-gradient-to-br from-emerald-100/80 via-teal-100/70 to-emerald-100/80 hover:from-emerald-200/90 hover:via-teal-200/80 hover:to-emerald-200/90 text-emerald-600 border-emerald-200/40 hover:shadow-emerald-400/30'
+                        }`}
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                                {/* Results Section - Emerald Theme */}
+                <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg ${
+                  isDarkMode 
+                    ? 'bg-emerald-600/10 border-emerald-700/30' 
+                    : 'bg-emerald-50/80 border-emerald-200/30'
+                }`}>
+                  {importError && (
+                    <div className={`mb-6 p-4 rounded-xl border ${
+                      isDarkMode 
+                        ? 'bg-red-900/30 border-red-700/50 text-red-300' 
+                        : 'bg-red-50 border-red-200 text-red-700'
+                    }`}>
+                      <div className="flex items-center space-x-2">
+                        <AlertCircle className="h-5 w-5" />
+                        <span className="font-medium">{importError}</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {importResults.length === 0 && !importLoading && !importError && (
+                    <div className="text-center py-12">
+                      <div className={`p-6 rounded-3xl bg-gradient-to-br mb-6 shadow-lg transition-all duration-500 mx-auto w-fit ${
+                        isDarkMode 
+                          ? 'from-emerald-900/40 via-teal-900/30 to-emerald-900/40' 
+                          : 'from-emerald-100 via-teal-100 to-emerald-100'
+                      }`}>
+                        <Search className="h-12 w-12 text-emerald-400" />
+                      </div>
+                      <p className={`text-xl font-bold mb-3 transition-all duration-500 ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        Ready to Search
+                      </p>
+                      <p className={`text-sm transition-all duration-500 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                      }`}>
+                        Enter a condition above or try one of the popular searches to find clinical trials
+                      </p>
+                    </div>
+                  )}
+
+                  {importLoading && (
+                    <div className="text-center py-12">
+                      <div className={`p-6 rounded-3xl bg-gradient-to-br mb-6 shadow-lg transition-all duration-500 mx-auto w-fit ${
+                        isDarkMode 
+                          ? 'from-emerald-900/40 via-teal-900/30 to-emerald-900/40' 
+                          : 'from-emerald-100 via-teal-100 to-emerald-100'
+                      }`}>
+                        <div className="w-12 h-12 border-4 border-emerald-400/30 border-t-emerald-400 rounded-full animate-spin"></div>
+                      </div>
+                      <p className={`text-xl font-bold mb-3 transition-all duration-500 ${
+                        isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                      }`}>
+                        Searching ClinicalTrials.gov...
+                      </p>
+                      <p className={`text-sm transition-all duration-500 ${
+                        isDarkMode ? 'text-gray-400' : 'text-gray-500'
+                      }`}>
+                        Finding studies related to "{importQuery}"
+                      </p>
+                    </div>
+                  )}
+
+                  {importResults.length > 0 && (
+                    <div>
+                      <div className="flex items-center space-x-3 mb-6">
+                        <div className={`p-2 rounded-lg ${
+                          isDarkMode ? 'bg-emerald-600/20' : 'bg-emerald-200'
+                        }`}>
+                          <FileText className={`h-5 w-5 ${
+                            isDarkMode ? 'text-emerald-400' : 'text-emerald-600'
+                          }`} />
+                        </div>
+                        <h3 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
+                          isDarkMode 
+                            ? 'from-emerald-400 to-teal-400' 
+                            : 'from-emerald-600 to-teal-600'
+                        }`}>
+                          Found {importResults.length} Clinical Trials
+                        </h3>
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto custom-scrollbar">
+                        {importResults.map((study, index) => (
+                          <div 
+                            key={study.nct_id || index}
+                            className={`group relative p-4 rounded-xl border transition-all duration-300 hover:scale-[1.01] hover:shadow-md ${
+                              isDarkMode 
+                                ? 'bg-gray-800/30 border-gray-600/30 hover:border-emerald-500/50' 
+                                : 'bg-white/60 border-emerald-200/30 hover:border-emerald-300/50'
+                            }`}
+                          >
+                            {/* Simple sparkle */}
+                            <div className="absolute top-2 right-2 w-1 h-1 bg-emerald-400/40 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300"></div>
+                            
+                            <div className="flex justify-between items-start mb-3">
+                              <div className="flex-1">
+                                <h4 className={`font-bold text-sm mb-2 line-clamp-2 ${
+                                  isDarkMode ? 'text-gray-200' : 'text-gray-800'
+                                }`}>
+                                  {study.title || study.official_title || 'No title available'}
+                                </h4>
+                                
+                                <div className="flex flex-wrap gap-2 mb-2">
+                                  {study.nct_id && (
+                                    <span className={`px-2 py-1 rounded-lg text-xs font-mono font-bold ${
+                                      isDarkMode 
+                                        ? 'bg-emerald-600/20 text-emerald-300 border border-emerald-500/30' 
+                                        : 'bg-emerald-100 text-emerald-700 border border-emerald-200'
+                                    }`}>
+                                      {study.nct_id}
+                                    </span>
+                                  )}
+                                  
+                                  {study.phase && study.phase !== 'N/A' && (
+                                    <span className={`px-2 py-1 rounded-lg text-xs font-bold ${
+                                      isDarkMode 
+                                        ? 'bg-teal-600/20 text-teal-300 border border-teal-500/30' 
+                                        : 'bg-teal-100 text-teal-700 border border-teal-200'
+                                    }`}>
+                                      {study.phase}
+                                    </span>
+                                  )}
+                                  
+                                  {study.status && (
+                                    <span className={`px-2 py-1 rounded-lg text-xs font-bold ${
+                                      isDarkMode 
+                                        ? 'bg-blue-600/20 text-blue-300 border border-blue-500/30' 
+                                        : 'bg-blue-100 text-blue-700 border border-blue-200'
+                                    }`}>
+                                      {study.status}
+                                    </span>
+                                  )}
+                                </div>
+                                
+                                {study.conditions && study.conditions.length > 0 && (
+                                  <p className={`text-xs mb-2 ${
+                                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                                  }`}>
+                                    <span className="font-semibold">Conditions:</span> {study.conditions.slice(0, 3).join(', ')}
+                                    {study.conditions.length > 3 && '...'}
+                                  </p>
+                                )}
+                                
+                                {study.brief_summary && (
+                                  <p className={`text-xs line-clamp-2 ${
+                                    isDarkMode ? 'text-gray-400' : 'text-gray-600'
+                                  }`}>
+                                    {study.brief_summary}
+                                  </p>
+                                )}
+                              </div>
+                              
+                              <button
+                                onClick={() => handleImportStudy(study)}
+                                disabled={importingStudyId === study.nct_id}
+                                className={`ml-4 px-3 py-2 rounded-lg text-xs font-bold transition-all duration-300 hover:scale-105 disabled:scale-100 disabled:opacity-50 disabled:cursor-not-allowed border ${
+                                  isDarkMode 
+                                    ? 'bg-gradient-to-br from-emerald-800/70 via-teal-800/60 to-emerald-800/70 hover:from-emerald-700/80 hover:via-teal-700/70 hover:to-emerald-700/80 text-emerald-300 border-emerald-600/40 disabled:bg-gray-600/50 hover:shadow-emerald-400/30' 
+                                    : 'bg-gradient-to-br from-emerald-200/90 via-teal-200/80 to-emerald-200/90 hover:from-emerald-300 hover:via-teal-300 hover:to-emerald-300 text-emerald-700 border-emerald-300/50 disabled:bg-gray-400/50 hover:shadow-emerald-400/30'
+                                } shadow-md hover:shadow-lg disabled:shadow-none`}
+                              >
+                                {importingStudyId === study.nct_id ? (
+                                  <div className="flex items-center space-x-1">
+                                    <div className="w-3 h-3 border-2 border-emerald-300/30 border-t-emerald-300 rounded-full animate-spin"></div>
+                                    <span>Importing...</span>
+                                  </div>
+                                ) : (
+                                  <div className="flex items-center space-x-1">
+                                    <Download className="h-3 w-3" />
+                                    <span>Import</span>
+                                  </div>
+                                )}
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Success Modal */}
+      {showSuccessModal && importedStudyInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Overlay */}
+          <div 
+            className={`absolute inset-0 backdrop-blur-xl transition-all duration-500 ${
+              isDarkMode 
+                ? 'bg-black/60' 
+                : 'bg-black/40'
+            }`}
+            onClick={() => setShowSuccessModal(false)}
+          />
+          
+          {/* Modal Content */}
+          <div 
+            className={`relative w-full max-w-md m-4 overflow-hidden rounded-3xl backdrop-blur-2xl border shadow-2xl transform transition-all duration-700 scale-100 animate-in fade-in-0 zoom-in-95 ${
+              isDarkMode 
+                ? 'bg-gradient-to-br from-gray-800/80 via-gray-700/60 to-gray-800/80 border-gray-600/40' 
+                : 'bg-gradient-to-br from-white/90 via-white/80 to-white/90 border-white/40'
+            }`}
+          >
+            {/* Success background effects */}
+            <div className={`absolute inset-0 bg-gradient-to-br opacity-20 transition-all duration-700 rounded-3xl ${
+              isDarkMode ? 'from-emerald-500/30 to-teal-500/25' : 'from-emerald-400/25 to-teal-400/20'
+            }`}></div>
+            
+            {/* Floating sparkles */}
+            <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400/50 rounded-full animate-bounce shadow-lg"></div>
+            <div className="absolute top-8 right-12 w-1.5 h-1.5 bg-teal-400/40 rounded-full animate-bounce shadow-md" style={{animationDelay: '0.3s'}}></div>
+            <div className="absolute bottom-4 left-4 w-2.5 h-2.5 bg-emerald-300/35 rounded-full animate-bounce shadow-lg" style={{animationDelay: '0.6s'}}></div>
+            
+            {/* Content */}
+            <div className="relative p-8">
+              {/* Success Icon */}
+              <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
+                isDarkMode 
+                  ? 'bg-gradient-to-br from-emerald-600/30 via-teal-600/20 to-emerald-600/30' 
+                  : 'bg-gradient-to-br from-emerald-100 via-teal-100 to-emerald-100'
+              }`}>
+                <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+              </div>
+              
+              {/* Title */}
+              <h3 className={`text-xl font-black text-center mb-2 bg-gradient-to-r bg-clip-text text-transparent ${
+                isDarkMode 
+                  ? 'from-emerald-400 via-teal-400 to-emerald-400' 
+                  : 'from-emerald-600 via-teal-600 to-emerald-600'
+              }`}>
+                Successfully Imported!
+              </h3>
+              
+              {/* Study Info */}
+              <div className={`p-4 rounded-xl mb-6 ${
+                isDarkMode 
+                  ? 'bg-gray-700/30 border border-emerald-700/30' 
+                  : 'bg-emerald-50/50 border border-emerald-200/30'
+              }`}>
+                <p className={`font-bold text-sm mb-1 ${
+                  isDarkMode ? 'text-gray-200' : 'text-gray-800'
+                }`}>
+                  {importedStudyInfo.title}
+                </p>
+                <p className={`text-xs mb-1 ${
+                  isDarkMode ? 'text-emerald-300' : 'text-emerald-600'
+                }`}>
+                  <span className="font-semibold">NCT ID:</span> {importedStudyInfo.nct_id}
+                </p>
+                <p className={`text-xs ${
+                  isDarkMode ? 'text-teal-300' : 'text-teal-600'
+                }`}>
+                  <span className="font-semibold">Local ID:</span> {importedStudyInfo.study_id}
+                </p>
+              </div>
+              
+              <p className={`text-sm text-center mb-6 ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                The study is now available in your Available Studies list.
+              </p>
+              
+              {/* Close Button */}
+              <button
+                onClick={() => setShowSuccessModal(false)}
+                className={`w-full px-4 py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-br from-emerald-600/80 via-teal-600/70 to-emerald-600/80 hover:from-emerald-500/90 hover:via-teal-500/80 hover:to-emerald-500/90 text-white' 
+                    : 'bg-gradient-to-br from-emerald-500/90 via-teal-500/80 to-emerald-500/90 hover:from-emerald-600/95 hover:via-teal-600/85 hover:to-emerald-600/95 text-white'
+                } shadow-lg hover:shadow-xl`}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Study Details Modal */}
       {showStudyModal && selectedStudyForView && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
@@ -2078,8 +2761,28 @@ const AdminDashboard: React.FC = () => {
                   </div>
                 )}
                 
-                {/* Action Button */}
-                <div className="flex justify-center pt-4">
+                {/* Action Buttons */}
+                <div className="flex justify-center space-x-4 pt-4">
+                  {/* Delete Button */}
+                  <button
+                    onClick={() => handleDeleteStudy(selectedStudyForView.id, selectedStudyForView.title)}
+                    className={`group relative px-6 py-4 rounded-2xl font-bold text-lg transition-all duration-500 hover:scale-110 hover:-translate-y-2 backdrop-blur-md border shadow-2xl ${
+                      isDarkMode 
+                        ? 'bg-gradient-to-r from-red-600/80 via-rose-600/70 to-red-600/80 hover:from-red-500/90 hover:via-rose-500/80 hover:to-red-500/90 border-red-500/50 text-white' 
+                        : 'bg-gradient-to-r from-red-500/90 via-rose-500/80 to-red-500/90 hover:from-red-600/95 hover:via-rose-600/85 hover:to-red-600/95 border-red-400/50 text-white'
+                    } hover:shadow-2xl hover:shadow-red-500/40`}
+                  >
+                    <span className="relative z-10 flex items-center space-x-3">
+                      <Trash2 className="h-5 w-5 group-hover:scale-125 transition-transform duration-300" />
+                      <span>Delete Study</span>
+                    </span>
+                    
+                    {/* Button effects */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-400/0 via-red-400/20 to-red-400/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                    <div className="absolute inset-0 bg-red-400/0 group-hover:bg-red-400/15 rounded-2xl blur-sm transition-all duration-500"></div>
+                  </button>
+
+                  {/* Start Interview Button */}
                   <button
                     onClick={() => {
                       closeStudyModal();
@@ -2106,6 +2809,220 @@ const AdminDashboard: React.FC = () => {
                     <div className="absolute bottom-2 left-2 w-1 h-1 bg-white/40 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300" style={{animationDelay: '0.3s'}}></div>
                   </button>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Study Modal */}
+      {showDeleteStudyModal && studyToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Overlay */}
+          <div 
+            className={`absolute inset-0 backdrop-blur-xl transition-all duration-500 ${
+              isDarkMode 
+                ? 'bg-black/60' 
+                : 'bg-black/40'
+            }`}
+            onClick={() => setShowDeleteStudyModal(false)}
+          />
+          
+          {/* Modal Content */}
+          <div 
+            className={`relative w-full max-w-md m-4 overflow-hidden rounded-3xl backdrop-blur-2xl border shadow-2xl transform transition-all duration-700 scale-100 animate-in fade-in-0 zoom-in-95 ${
+              isDarkMode 
+                ? 'bg-gradient-to-br from-gray-800/80 via-gray-700/60 to-gray-800/80 border-gray-600/40' 
+                : 'bg-gradient-to-br from-white/90 via-white/80 to-white/90 border-white/40'
+            }`}
+          >
+            {/* Delete background effects - Emerald theme */}
+            <div className={`absolute inset-0 bg-gradient-to-br opacity-20 transition-all duration-700 rounded-3xl ${
+              isDarkMode ? 'from-red-500/30 to-rose-500/25' : 'from-red-400/25 to-rose-400/20'
+            }`}></div>
+            
+            {/* Floating sparkles */}
+            <div className="absolute top-4 right-4 w-2 h-2 bg-red-400/50 rounded-full animate-bounce shadow-lg"></div>
+            <div className="absolute top-8 right-12 w-1.5 h-1.5 bg-rose-400/40 rounded-full animate-bounce shadow-md" style={{animationDelay: '0.3s'}}></div>
+            <div className="absolute bottom-4 left-4 w-2.5 h-2.5 bg-red-300/35 rounded-full animate-bounce shadow-lg" style={{animationDelay: '0.6s'}}></div>
+            
+            {/* Content */}
+            <div className="relative p-8">
+              {/* Warning Icon */}
+              <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
+                isDarkMode 
+                  ? 'bg-gradient-to-br from-red-600/30 via-rose-600/20 to-red-600/30' 
+                  : 'bg-gradient-to-br from-red-100 via-rose-100 to-red-100'
+              }`}>
+                <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+              </div>
+              
+              {/* Title */}
+              <h3 className={`text-xl font-black text-center mb-2 bg-gradient-to-r bg-clip-text text-transparent ${
+                isDarkMode 
+                  ? 'from-red-400 via-rose-400 to-red-400' 
+                  : 'from-red-600 via-rose-600 to-red-600'
+              }`}>
+                Delete Study?
+              </h3>
+              
+              {/* Study Info */}
+              <div className={`p-4 rounded-xl mb-6 ${
+                isDarkMode 
+                  ? 'bg-gray-700/30 border border-red-700/30' 
+                  : 'bg-red-50/50 border border-red-200/30'
+              }`}>
+                <p className={`font-bold text-sm mb-1 ${
+                  isDarkMode ? 'text-gray-200' : 'text-gray-800'
+                }`}>
+                  {studyToDelete.title}
+                </p>
+                <p className={`text-xs ${
+                  isDarkMode ? 'text-red-300' : 'text-red-600'
+                }`}>
+                  <span className="font-semibold">Study ID:</span> {studyToDelete.id}
+                </p>
+              </div>
+              
+              <p className={`text-sm text-center mb-6 ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                This action cannot be undone. All study data will be permanently deleted.
+              </p>
+              
+              {/* Action Buttons */}
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowDeleteStudyModal(false)}
+                  className={`flex-1 px-4 py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 ${
+                    isDarkMode 
+                      ? 'bg-gray-600/50 hover:bg-gray-500/60 text-gray-300 border border-gray-500/30' 
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200'
+                  } shadow-lg hover:shadow-xl`}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDeleteStudy}
+                  className={`flex-1 px-4 py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 ${
+                    isDarkMode 
+                      ? 'bg-gradient-to-br from-red-600/80 via-rose-600/70 to-red-600/80 hover:from-red-500/90 hover:via-rose-500/80 hover:to-red-500/90 text-white' 
+                      : 'bg-gradient-to-br from-red-500/90 via-rose-500/80 to-red-500/90 hover:from-red-600/95 hover:via-rose-600/85 hover:to-red-600/95 text-white'
+                  } shadow-lg hover:shadow-xl`}
+                >
+                  Delete Study
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Interview Modal - Purple theme like Interview Sessions */}
+      {showDeleteInterviewModal && interviewToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Overlay */}
+          <div 
+            className={`absolute inset-0 backdrop-blur-xl transition-all duration-500 ${
+              isDarkMode 
+                ? 'bg-black/60' 
+                : 'bg-black/40'
+            }`}
+            onClick={() => setShowDeleteInterviewModal(false)}
+          />
+          
+          {/* Modal Content */}
+          <div 
+            className={`relative w-full max-w-md m-4 overflow-hidden rounded-3xl backdrop-blur-2xl border shadow-2xl transform transition-all duration-700 scale-100 animate-in fade-in-0 zoom-in-95 ${
+              isDarkMode 
+                ? 'bg-gradient-to-br from-gray-800/80 via-gray-700/60 to-gray-800/80 border-gray-600/40' 
+                : 'bg-gradient-to-br from-white/90 via-white/80 to-white/90 border-white/40'
+            }`}
+          >
+            {/* Delete background effects - Purple theme */}
+            <div className={`absolute inset-0 bg-gradient-to-br opacity-20 transition-all duration-700 rounded-3xl ${
+              isDarkMode ? 'from-purple-500/30 to-indigo-500/25' : 'from-purple-400/25 to-indigo-400/20'
+            }`}></div>
+            
+            {/* Floating sparkles */}
+            <div className="absolute top-4 right-4 w-2 h-2 bg-purple-400/50 rounded-full animate-bounce shadow-lg"></div>
+            <div className="absolute top-8 right-12 w-1.5 h-1.5 bg-indigo-400/40 rounded-full animate-bounce shadow-md" style={{animationDelay: '0.3s'}}></div>
+            <div className="absolute bottom-4 left-4 w-2.5 h-2.5 bg-purple-300/35 rounded-full animate-bounce shadow-lg" style={{animationDelay: '0.6s'}}></div>
+            
+            {/* Content */}
+            <div className="relative p-8">
+              {/* Warning Icon */}
+              <div className={`mx-auto w-16 h-16 rounded-full flex items-center justify-center mb-4 ${
+                isDarkMode 
+                  ? 'bg-gradient-to-br from-purple-600/30 via-indigo-600/20 to-purple-600/30' 
+                  : 'bg-gradient-to-br from-purple-100 via-indigo-100 to-purple-100'
+              }`}>
+                <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center">
+                  <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.464 0L4.35 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                  </svg>
+                </div>
+              </div>
+              
+              {/* Title */}
+              <h3 className={`text-xl font-black text-center mb-2 bg-gradient-to-r bg-clip-text text-transparent ${
+                isDarkMode 
+                  ? 'from-purple-400 via-indigo-400 to-purple-400' 
+                  : 'from-purple-600 via-indigo-600 to-purple-600'
+              }`}>
+                Delete Interview?
+              </h3>
+              
+              {/* Interview Info */}
+              <div className={`p-4 rounded-xl mb-6 ${
+                isDarkMode 
+                  ? 'bg-gray-700/30 border border-purple-700/30' 
+                  : 'bg-purple-50/50 border border-purple-200/30'
+              }`}>
+                <p className={`font-bold text-sm mb-1 ${
+                  isDarkMode ? 'text-gray-200' : 'text-gray-800'
+                }`}>
+                  {interviewToDelete.participantName}
+                </p>
+                <p className={`text-xs ${
+                  isDarkMode ? 'text-purple-300' : 'text-purple-600'
+                }`}>
+                  <span className="font-semibold">Participant ID:</span> {interviewToDelete.participantId}
+                </p>
+              </div>
+              
+              <p className={`text-sm text-center mb-6 ${
+                isDarkMode ? 'text-gray-400' : 'text-gray-600'
+              }`}>
+                This action cannot be undone. All interview data will be permanently deleted.
+              </p>
+              
+              {/* Action Buttons */}
+              <div className="flex space-x-3">
+                <button
+                  onClick={() => setShowDeleteInterviewModal(false)}
+                  className={`flex-1 px-4 py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 ${
+                    isDarkMode 
+                      ? 'bg-gray-600/50 hover:bg-gray-500/60 text-gray-300 border border-gray-500/30' 
+                      : 'bg-gray-100 hover:bg-gray-200 text-gray-700 border border-gray-200'
+                  } shadow-lg hover:shadow-xl`}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={confirmDeleteInterview}
+                  className={`flex-1 px-4 py-3 rounded-xl font-bold text-sm transition-all duration-300 hover:scale-105 ${
+                    isDarkMode 
+                      ? 'bg-gradient-to-br from-purple-600/80 via-indigo-600/70 to-purple-600/80 hover:from-purple-500/90 hover:via-indigo-500/80 hover:to-purple-500/90 text-white' 
+                      : 'bg-gradient-to-br from-purple-500/90 via-indigo-500/80 to-purple-500/90 hover:from-purple-600/95 hover:via-indigo-600/85 hover:to-purple-600/95 text-white'
+                  } shadow-lg hover:shadow-xl`}
+                >
+                  Delete Interview
+                </button>
               </div>
             </div>
           </div>

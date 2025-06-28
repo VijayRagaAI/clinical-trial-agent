@@ -192,17 +192,21 @@ def get_available_studies() -> List[Dict]:
         
         studies = []
         for study in data.get("studies", []):
+            # Safely extract fields with defaults for missing values
+            trial = study.get("trial", {})
+            overview = study.get("overview", {})
+            
             studies.append({
-                "id": study["id"],
-                "title": study["trial"]["title"],
-                "category": study["trial"]["category"],
-                "description": study["trial"]["description"],
-                "phase": study["trial"]["phase"],
-                "sponsor": study["trial"]["sponsor"],
-                "nct_id": study["trial"]["nct_id"],
-                "purpose": study["overview"]["purpose"],
-                "commitment": study["overview"]["participant_commitment"],
-                "procedures": study["overview"]["key_procedures"]
+                "id": study.get("id", "unknown"),
+                "title": trial.get("title", "Untitled Study"),
+                "category": trial.get("category", "General Medicine"),
+                "description": trial.get("description", "No description available"),
+                "phase": trial.get("phase", "N/A"),
+                "sponsor": trial.get("sponsor", "Not specified"),
+                "nct_id": trial.get("nct_id", "N/A"),
+                "purpose": overview.get("purpose", "No purpose specified"),
+                "commitment": overview.get("participant_commitment", "Time commitment not specified"),
+                "procedures": overview.get("key_procedures", ["Standard procedures"])
             })
         
         return studies
