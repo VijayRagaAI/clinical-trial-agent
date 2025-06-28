@@ -1330,7 +1330,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   <div className="flex items-center justify-center space-x-2">
                     <span className="text-lg">🎵</span>
                     <span className="font-semibold">
-                      Playing preview for {availableVoices.find(v => v.id === playingVoice)?.name} at {selectedSpeed}x speed...
+                      Playing preview for {availableVoices.find(v => v.id === playingVoice)?.name} at {selectedSpeed}x speed, may take a few seconds to speak please wait...
                     </span>
                   </div>
                 </div>
@@ -1404,15 +1404,29 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       {/* Main Container - Adjusted for right sidebar */}
       <div className="max-w-4xl mx-auto px-6 py-8 mr-52">
         {/* Glass Morphism Card */}
-        <div className={`backdrop-blur-xl rounded-3xl shadow-2xl border p-8 mb-8 transition-all duration-500 ${
+        <div className={`relative backdrop-blur-xl rounded-3xl shadow-2xl border p-8 mb-8 transition-all duration-500 hover:scale-[1.02] group/main overflow-hidden ${
           isDarkMode 
             ? 'bg-gray-800/30 border-gray-700/50 shadow-black/20' 
             : 'bg-white/70 border-white/20 shadow-indigo-500/10'
         }`}>
-      <div className="text-center space-y-8">
+          
+          {/* Floating Sparkles */}
+          <div className="absolute top-6 right-8 w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-70 animate-bounce" style={{animationDelay: '0s'}}></div>
+          <div className="absolute top-12 left-8 w-1.5 h-1.5 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-full opacity-80 animate-bounce" style={{animationDelay: '0.7s'}}></div>
+          <div className="absolute bottom-8 right-12 w-1 h-1 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-full opacity-90 animate-bounce" style={{animationDelay: '1.4s'}}></div>
+          <div className="absolute bottom-16 left-16 w-1.5 h-1.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full opacity-75 animate-bounce" style={{animationDelay: '2.1s'}}></div>
+          
+          {/* Floating Decorative Rings */}
+          <div className="absolute top-4 left-4 w-24 h-24 border border-purple-400/20 rounded-full opacity-0 group-hover/main:opacity-60 group-hover/main:scale-110 transition-all duration-700"></div>
+          <div className="absolute bottom-4 right-4 w-32 h-32 border border-indigo-400/15 rounded-full opacity-0 group-hover/main:opacity-50 group-hover/main:scale-125 transition-all duration-1000" style={{animationDelay: '0.3s'}}></div>
+          
+          {/* Shimmer Effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent transform -skew-x-12 -translate-x-full group-hover/main:translate-x-full transition-transform duration-1000 rounded-3xl"></div>
+
+      <div className="text-center space-y-8 relative z-10">
             {/* Status with Beautiful Enhanced Typography */}
             <div className="space-y-4">
-              <div className="relative">
+              <div className="relative group/status">
                 {/* Background glow effect */}
                 <div className={`absolute inset-0 blur-xl opacity-20 ${
                   connectionError ? 'bg-red-500' :
@@ -1423,6 +1437,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                   showTranscriptionConfirm ? 'bg-purple-500' :
                   'bg-blue-500'
                 }`} />
+                
+
                 
                 <div className={`relative text-2xl font-bold tracking-tight transition-all duration-500 ${
                   connectionError ? 'text-red-500 drop-shadow-lg' :
@@ -1520,7 +1536,12 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               {/* Circular Progress */}
               {totalQuestions > 0 && conversationState !== 'not_started' && (
                 <div className="flex flex-col items-center space-y-4">
-                  <div className="relative w-32 h-32">
+                  <div className="relative w-32 h-32 group/progress">
+
+                    
+                    {/* Progress Decorative Ring */}
+                    <div className="absolute inset-0 w-full h-full border border-purple-400/20 rounded-full opacity-0 group-hover/progress:opacity-60 group-hover/progress:scale-110 transition-all duration-500"></div>
+                    
                     {/* Background Circle */}
                     <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
                       <circle
@@ -1582,7 +1603,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             </div>
 
             {/* Enhanced Audio Visualizer */}
-            <div className="relative">
+            <div className="relative group/visualizer">
+
+              
               {/* Waveform Visualizer */}
               <div className="flex justify-center items-end space-x-1 h-32">
                 {audioLevels.map((level, i) => (
@@ -1624,7 +1647,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
             <div className="space-y-8">
               {/* Primary Button with Floating Effect */}
           <div className="flex justify-center">
-                <div className="relative">
+                <div className="relative group/primary">
+
+                  
                   {/* Enhanced Button Glow Ring for Special States */}
                                      {(conversationState === 'not_started') && (
                      <>
@@ -1738,17 +1763,22 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <div className="flex justify-center items-center space-x-6">
               {buttonConfig.secondary.map((btn, index) => (
                     <div key={index} className="group flex flex-col items-center space-y-2">
+
+                      
                 <button
                   onClick={btn.action}
-                        className={`p-4 rounded-full transition-all duration-300 transform hover:scale-110 active:scale-95 text-white backdrop-blur-sm hover:shadow-xl ${
+                        className={`relative p-4 rounded-full transition-all duration-300 transform hover:scale-110 active:scale-95 text-white backdrop-blur-sm hover:shadow-xl ${
                     getButtonColorClasses(btn.color)
-                        } group relative overflow-hidden`}
+                        } group/secondary relative overflow-hidden`}
                   title={btn.text}
                 >
-                        <btn.icon className="h-6 w-6 relative z-10 transition-transform duration-300 group-hover:scale-110" />
+                        <btn.icon className="h-6 w-6 relative z-10 transition-transform duration-300 group-hover/secondary:scale-110" />
                         
                         {/* Floating effect background */}
-                        <div className="absolute inset-0 bg-white/10 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
+                        <div className="absolute inset-0 bg-white/10 rounded-full scale-0 group-hover/secondary:scale-100 transition-transform duration-300" />
+                        
+                        {/* Button shimmer effect */}
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent transform -skew-x-12 -translate-x-full group-hover/secondary:translate-x-full transition-transform duration-500 rounded-full"></div>
                 </button>
                       
                       {/* Floating Label */}
@@ -1765,12 +1795,20 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
 
             {/* Enhanced Transcription Display */}
             {lastTranscription && showTranscriptionConfirm && !isEvaluating && !isProcessing && (
-              <div className={`backdrop-blur-md rounded-2xl p-6 max-w-2xl mx-auto border transition-all duration-500 hover:scale-[1.02] ${
+              <div className={`relative backdrop-blur-md rounded-2xl p-6 max-w-2xl mx-auto border transition-all duration-500 hover:scale-[1.02] group/transcription overflow-hidden ${
                 isDarkMode 
                   ? 'bg-blue-900/30 border-blue-700/50 shadow-blue-500/10' 
                   : 'bg-blue-50/70 border-blue-200/50 shadow-blue-500/10'
               }`}>
-                <div className="space-y-3">
+
+                
+                {/* Transcription Decorative Ring */}
+                <div className="absolute top-2 left-2 w-16 h-16 border border-blue-400/20 rounded-full opacity-0 group-hover/transcription:opacity-60 group-hover/transcription:scale-110 transition-all duration-500"></div>
+                
+                {/* Transcription Shimmer Effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-300/5 to-transparent transform -skew-x-12 -translate-x-full group-hover/transcription:translate-x-full transition-transform duration-1000 rounded-2xl"></div>
+
+                <div className="space-y-3 relative z-10">
                   <div className="flex items-center space-x-2">
                     <Volume2 className={`h-5 w-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} animate-pulse`} />
                     <h4 className={`text-sm font-bold tracking-wide bg-gradient-to-r ${

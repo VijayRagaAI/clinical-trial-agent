@@ -1861,5 +1861,123 @@
         "conversation_duration": "2 minutes"
       }
     }
+  },
+  "P-65C0903F": {
+    "session_id": "82dec998-7a87-4e18-b4d0-4d3f4a0eee5a",
+    "participant_id": "P-65C0903F",
+    "saved_at": "2025-06-28T07:08:23.869814",
+    "data": {
+      "metadata": {
+        "participant_id": "P-65C0903F",
+        "session_id": "82dec998-7a87-4e18-b4d0-4d3f4a0eee5a",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T07:08:23.867731",
+        "total_messages": 16,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T07:06:17.872022"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-28T07:06:36.979520"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T07:06:40.084859"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "I am 25 years old.",
+          "timestamp": "2025-06-28T07:06:50.407667"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+          "timestamp": "2025-06-28T07:06:53.269546"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Oh, I don't know",
+          "timestamp": "2025-06-28T07:07:06.924417"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+          "timestamp": "2025-06-28T07:07:09.460514"
+        },
+        {
+          "id": "user-7",
+          "type": "user",
+          "content": "\ub290\ub08c\uc73c\ub85c\uc694",
+          "timestamp": "2025-06-28T07:07:22.414476"
+        },
+        {
+          "id": "agent-8",
+          "type": "agent",
+          "content": "Have your current medications remained stable without major changes for at least 3 months?",
+          "timestamp": "2025-06-28T07:07:25.489485"
+        },
+        {
+          "id": "user-9",
+          "type": "user",
+          "content": "Yeah, maybe",
+          "timestamp": "2025-06-28T07:07:35.214210"
+        },
+        {
+          "id": "agent-10",
+          "type": "agent",
+          "content": "Do you have a family member or caregiver who can attend some study visits with you?",
+          "timestamp": "2025-06-28T07:07:37.361859"
+        },
+        {
+          "id": "user-11",
+          "type": "user",
+          "content": "Okay.",
+          "timestamp": "2025-06-28T07:07:52.163986"
+        },
+        {
+          "id": "agent-12",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-28T07:07:57.520425"
+        },
+        {
+          "id": "user-13",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-28T07:08:08.578630"
+        },
+        {
+          "id": "agent-14",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-28T07:08:11.650671"
+        },
+        {
+          "id": "agent-15",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-28T07:08:23.854745"
+        }
+      ],
+      "summary": {
+        "agent_messages": 9,
+        "user_messages": 7,
+        "conversation_duration": "2 minutes"
+      }
+    }
   }
 }
