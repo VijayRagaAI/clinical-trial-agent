@@ -140,6 +140,26 @@ const AdminDashboard: React.FC = () => {
           In Progress
         </span>
       ),
+      'Paused': (
+        <span className={`inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-300 hover:scale-105 ${
+          isDarkMode 
+            ? 'bg-yellow-900/40 text-yellow-300 border border-yellow-700/50' 
+            : 'bg-yellow-100 text-yellow-800 border border-yellow-200/50'
+        }`}>
+          <Clock className="w-3 h-3 mr-1.5" />
+          Paused
+        </span>
+      ),
+      'Interrupted': (
+        <span className={`inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-300 hover:scale-105 ${
+          isDarkMode 
+            ? 'bg-purple-900/40 text-purple-300 border border-purple-700/50' 
+            : 'bg-purple-100 text-purple-800 border border-purple-200/50'
+        }`}>
+          <AlertCircle className="w-3 h-3 mr-1.5" />
+          Interrupted
+        </span>
+      ),
       'Abandoned': (
         <span className={`inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-300 hover:scale-105 ${
           isDarkMode 
@@ -151,7 +171,15 @@ const AdminDashboard: React.FC = () => {
         </span>
       )
     };
-    return badges[status as keyof typeof badges] || null;
+    return badges[status as keyof typeof badges] || (
+      <span className={`inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-medium border transition-all duration-300 hover:scale-105 ${
+        isDarkMode 
+          ? 'bg-gray-800 text-gray-400 border-gray-700/50' 
+          : 'bg-gray-100 text-gray-600 border-gray-200/50'
+      }`}>
+        {status}
+      </span>
+    );
   };
 
   const getCategoryIcon = (category: string) => {
@@ -193,7 +221,7 @@ const AdminDashboard: React.FC = () => {
             ? 'bg-gray-800 text-gray-400 border-gray-700/50' 
             : 'bg-gray-100 text-gray-600 border-gray-200/50'
         }`}>
-          No Result
+          N/A
         </span>
       );
     }

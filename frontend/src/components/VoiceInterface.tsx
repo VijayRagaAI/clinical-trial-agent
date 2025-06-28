@@ -56,6 +56,9 @@ interface VoiceInterfaceProps {
   formatTime: (seconds: number) => string;
   getStatusText: () => string;
   canRepeatLastQuestion: () => boolean;
+
+  // Navigation with confirmation
+  onSettingsChange?: (reason: string) => void;
 }
 
 export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
@@ -90,7 +93,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   hearInstructionAgain,
   formatTime,
   getStatusText,
-  canRepeatLastQuestion
+  canRepeatLastQuestion,
+  onSettingsChange
 }) => {
   const [audioLevels, setAudioLevels] = useState<number[]>(Array(20).fill(0));
   const [showSettings, setShowSettings] = useState(false);
@@ -263,6 +267,11 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
     
     const byteArray = new Uint8Array(byteNumbers);
     return new Blob([byteArray], { type: mimeType });
+  };
+
+  // Check if interview has meaningful progress
+  const hasInterviewStarted = () => {
+    return conversationState !== 'not_started' && conversationState !== 'completed';
   };
 
   const saveSettings = async () => {
@@ -1384,6 +1393,15 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
                 <div className="absolute top-2 right-2 w-8 h-8 border border-white/20 rounded-full opacity-0 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500"></div>
                 <div className="absolute bottom-2 left-2 w-6 h-6 border border-pink-300/30 rounded-full opacity-0 group-hover:opacity-50 group-hover:scale-125 transition-all duration-700" style={{animationDelay: '0.2s'}}></div>
               </button>
+            </div>
+
+            {/* Simple Informational Text */}
+            <div className={`mt-4 p-3 rounded-lg text-center text-sm ${
+              isDarkMode 
+                ? 'bg-gray-700/50 text-gray-300' 
+                : 'bg-gray-100/80 text-gray-600'
+            }`}>
+              Changes will be applied from the next conversation onward
             </div>
 
 

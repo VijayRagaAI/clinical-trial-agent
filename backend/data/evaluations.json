@@ -1066,5 +1066,37 @@
       },
       "export_timestamp": "2025-06-28T07:08:23.872343"
     }
+  },
+  "P-B1D488E9": {
+    "session_id": "2a3590b6-34d6-4d97-b3f4-ea72eea09aae",
+    "participant_id": "P-B1D488E9",
+    "saved_at": "2025-06-28T08:47:41.777936",
+    "data": {
+      "participant_id": "P-B1D488E9",
+      "session_id": "2a3590b6-34d6-4d97-b3f4-ea72eea09aae",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 is within the specified range of 18 to 75 years, thus meeting the eligibility criteria.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25"
+          }
+        ],
+        "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's age of 25 is within the specified range of 18 to 75 years, thus meeting the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-28T08:47:39.921293",
+        "participant_id": "P-B1D488E9"
+      },
+      "export_timestamp": "2025-06-28T08:47:41.777471"
+    }
   }
 }

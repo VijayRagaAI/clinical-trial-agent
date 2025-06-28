@@ -119,7 +119,7 @@ export interface AdminInterview {
   study_id: string;
   study_name: string;
   date: string;
-  status: 'Completed' | 'In Progress' | 'Abandoned';
+  status: 'Completed' | 'In Progress' | 'Abandoned' | 'Paused' | 'Interrupted';
   total_messages: number;
   eligibility_result?: {
     eligible: boolean;

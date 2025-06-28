@@ -1979,5 +1979,1102 @@
         "conversation_duration": "2 minutes"
       }
     }
+  },
+  "P-B5E82888": {
+    "session_id": "9d816688-9dda-4da1-8f81-b5bcc580f792",
+    "participant_id": "P-B5E82888",
+    "saved_at": "2025-06-28T08:19:18.900680",
+    "data": {
+      "metadata": {
+        "participant_id": "P-B5E82888",
+        "session_id": "9d816688-9dda-4da1-8f81-b5bcc580f792",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T08:19:18.899503",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751078866247",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T08:17:46.217955"
+        },
+        {
+          "id": "user-1751078888341",
+          "type": "user",
+          "content": "Yes",
+          "timestamp": "2025-06-28T08:18:08.341152"
+        },
+        {
+          "id": "agent-1751078890899",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T08:18:10.895514"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-B7A84C9B": {
+    "session_id": "e8d64bce-c151-48a8-ae68-ad5997ac3124",
+    "participant_id": "P-B7A84C9B",
+    "saved_at": "2025-06-28T08:25:52.184703",
+    "data": {
+      "metadata": {
+        "participant_id": "P-B7A84C9B",
+        "session_id": "e8d64bce-c151-48a8-ae68-ad5997ac3124",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T08:25:52.184193",
+        "total_messages": 2,
+        "conversation_state": "consent",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751079081718",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T08:21:21.683225"
+        },
+        {
+          "id": "user-1751079089050",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T08:21:29.049203"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-D0531CDD": {
+    "session_id": "016142e1-58a8-400e-b9cc-d4961ded789f",
+    "participant_id": "P-D0531CDD",
+    "saved_at": "2025-06-28T08:44:22.939522",
+    "data": {
+      "metadata": {
+        "participant_id": "P-D0531CDD",
+        "session_id": "016142e1-58a8-400e-b9cc-d4961ded789f",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T08:44:22.938375",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751080282521",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T08:41:22.494851"
+        },
+        {
+          "id": "user-1751080287522",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-28T08:41:27.521788"
+        },
+        {
+          "id": "agent-1751080290730",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T08:41:30.726351"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-45CB312E": {
+    "session_id": "a9b9f6b0-5c16-4514-b478-84d82de11652",
+    "participant_id": "P-45CB312E",
+    "saved_at": "2025-06-28T08:46:42.436392",
+    "data": {
+      "metadata": {
+        "participant_id": "P-45CB312E",
+        "session_id": "a9b9f6b0-5c16-4514-b478-84d82de11652",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T08:46:42.435267",
+        "total_messages": 4,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751080568929",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T08:46:08.909767"
+        },
+        {
+          "id": "user-1751080574331",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T08:46:14.331410"
+        },
+        {
+          "id": "agent-1751080578748",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T08:46:18.744161"
+        },
+        {
+          "id": "user-1751080584780",
+          "type": "user",
+          "content": "25 years old",
+          "timestamp": "2025-06-28T08:46:24.779707"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 2,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-B1D488E9": {
+    "session_id": "2a3590b6-34d6-4d97-b3f4-ea72eea09aae",
+    "participant_id": "P-B1D488E9",
+    "saved_at": "2025-06-28T08:47:41.775600",
+    "data": {
+      "metadata": {
+        "participant_id": "P-B1D488E9",
+        "session_id": "2a3590b6-34d6-4d97-b3f4-ea72eea09aae",
+        "study_id": "oncology-immunocare",
+        "export_timestamp": "2025-06-28T08:47:41.775085",
+        "total_messages": 8,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate the safety and effectiveness of immunocare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T08:47:07.810337"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T08:47:16.972297"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T08:47:19.130220"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "25",
+          "timestamp": "2025-06-28T08:47:23.923259"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-28T08:47:27.919103"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-28T08:47:34.848750"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-28T08:47:37.558387"
+        },
+        {
+          "id": "agent-7",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-28T08:47:41.766808"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 3,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-2E16E89C": {
+    "session_id": "617d8d1e-fe07-44a7-b35f-72c6eb2b7eb4",
+    "participant_id": "P-2E16E89C",
+    "saved_at": "2025-06-28T09:06:03.786867",
+    "data": {
+      "metadata": {
+        "participant_id": "P-2E16E89C",
+        "session_id": "617d8d1e-fe07-44a7-b35f-72c6eb2b7eb4",
+        "study_id": "cardio-heart-plus",
+        "export_timestamp": "2025-06-28T09:06:03.783244",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751081314616",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T08:58:34.572535"
+        },
+        {
+          "id": "user-1751081322525",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T08:58:42.525416"
+        },
+        {
+          "id": "agent-1751081325592",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T08:58:45.589696"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-381C7FD2": {
+    "session_id": "fab5beb3-fa8e-446b-93ac-a82a0f530b21",
+    "participant_id": "P-381C7FD2",
+    "saved_at": "2025-06-28T09:09:39.347350",
+    "data": {
+      "metadata": {
+        "participant_id": "P-381C7FD2",
+        "session_id": "fab5beb3-fa8e-446b-93ac-a82a0f530b21",
+        "study_id": "cardio-heart-plus",
+        "export_timestamp": "2025-06-28T09:09:39.346232",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751081807513",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:06:47.482625"
+        },
+        {
+          "id": "user-1751081812238",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T09:06:52.237792"
+        },
+        {
+          "id": "agent-1751081815210",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:06:55.206604"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-A0F3434D": {
+    "session_id": "df4a1234-340e-4844-bb3b-1afbaa6fdeed",
+    "participant_id": "P-A0F3434D",
+    "saved_at": "2025-06-28T09:14:14.676649",
+    "data": {
+      "metadata": {
+        "participant_id": "P-A0F3434D",
+        "session_id": "df4a1234-340e-4844-bb3b-1afbaa6fdeed",
+        "study_id": "cardio-heart-plus",
+        "export_timestamp": "2025-06-28T09:14:14.674579",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751081987684",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:09:47.662533"
+        },
+        {
+          "id": "user-1751081996250",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T09:09:56.250112"
+        },
+        {
+          "id": "agent-1751081998077",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:09:58.072356"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-F80969A7": {
+    "session_id": "4509cd34-f574-43a5-9e84-28872aab6004",
+    "participant_id": "P-F80969A7",
+    "saved_at": "2025-06-28T09:15:17.843542",
+    "data": {
+      "metadata": {
+        "participant_id": "P-F80969A7",
+        "session_id": "4509cd34-f574-43a5-9e84-28872aab6004",
+        "study_id": "cardio-heart-plus",
+        "export_timestamp": "2025-06-28T09:15:17.841611",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751082308079",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:15:08.051493"
+        },
+        {
+          "id": "user-1751082313509",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T09:15:13.509076"
+        },
+        {
+          "id": "agent-1751082316449",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:15:16.446823"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-382DA81E": {
+    "session_id": "71a88e8d-992e-4986-b386-e5e7f7acae64",
+    "participant_id": "P-382DA81E",
+    "saved_at": "2025-06-28T09:17:21.461709",
+    "data": {
+      "metadata": {
+        "participant_id": "P-382DA81E",
+        "session_id": "71a88e8d-992e-4986-b386-e5e7f7acae64",
+        "study_id": "cardio-heart-plus",
+        "export_timestamp": "2025-06-28T09:17:21.460054",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751082414159",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:16:54.130775"
+        },
+        {
+          "id": "user-1751082420817",
+          "type": "user",
+          "content": "The end.",
+          "timestamp": "2025-06-28T09:17:00.817284"
+        },
+        {
+          "id": "agent-1751082424180",
+          "type": "agent",
+          "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
+          "timestamp": "2025-06-28T09:17:04.171307"
+        },
+        {
+          "id": "user-1751082436645",
+          "type": "user",
+          "content": "Yes, please start the interview.",
+          "timestamp": "2025-06-28T09:17:16.644570"
+        },
+        {
+          "id": "agent-1751082438644",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:17:18.642300"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-9E226AC1": {
+    "session_id": "3ea822b3-5155-4433-9939-85822ecadf2c",
+    "participant_id": "P-9E226AC1",
+    "saved_at": "2025-06-28T09:18:02.044771",
+    "data": {
+      "metadata": {
+        "participant_id": "P-9E226AC1",
+        "session_id": "3ea822b3-5155-4433-9939-85822ecadf2c",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T09:18:02.035776",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751082474621",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:17:54.590213"
+        },
+        {
+          "id": "user-1751082479298",
+          "type": "user",
+          "content": "Yes, please proceed.",
+          "timestamp": "2025-06-28T09:17:59.297331"
+        },
+        {
+          "id": "agent-1751082481919",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:18:01.917863"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-87D443B0": {
+    "session_id": "c7ea5eb8-567f-437b-a7e9-7a7b3d5b4866",
+    "participant_id": "P-87D443B0",
+    "saved_at": "2025-06-28T09:19:33.506108",
+    "data": {
+      "metadata": {
+        "participant_id": "P-87D443B0",
+        "session_id": "c7ea5eb8-567f-437b-a7e9-7a7b3d5b4866",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T09:19:33.504783",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751082517427",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:18:37.399809"
+        },
+        {
+          "id": "user-1751082522098",
+          "type": "user",
+          "content": "Yes, please proceed.",
+          "timestamp": "2025-06-28T09:18:42.097235"
+        },
+        {
+          "id": "agent-1751082524511",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:18:44.508720"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-034AC747": {
+    "session_id": "5a47912a-13de-4d7e-b23f-b916e6e51fa4",
+    "participant_id": "P-034AC747",
+    "saved_at": "2025-06-28T09:21:59.633430",
+    "data": {
+      "metadata": {
+        "participant_id": "P-034AC747",
+        "session_id": "5a47912a-13de-4d7e-b23f-b916e6e51fa4",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T09:21:59.632023",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751082709950",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:21:49.923030"
+        },
+        {
+          "id": "user-1751082714404",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-28T09:21:54.404037"
+        },
+        {
+          "id": "agent-1751082716354",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:21:56.350211"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-5A6962C7": {
+    "session_id": "561deb04-fb0e-4686-b3a8-040340c72321",
+    "participant_id": "P-5A6962C7",
+    "saved_at": "2025-06-28T09:31:13.373499",
+    "data": {
+      "metadata": {
+        "participant_id": "P-5A6962C7",
+        "session_id": "561deb04-fb0e-4686-b3a8-040340c72321",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T09:31:13.370968",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751083231384",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:30:31.352512"
+        },
+        {
+          "id": "user-1751083236339",
+          "type": "user",
+          "content": "Thank you.",
+          "timestamp": "2025-06-28T09:30:36.339341"
+        },
+        {
+          "id": "agent-1751083242129",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:30:42.100466"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-85A6981D": {
+    "session_id": "d201823f-5e2a-41dd-9fa2-4f0104506dbd",
+    "participant_id": "P-85A6981D",
+    "saved_at": "2025-06-28T09:40:53.397186",
+    "data": {
+      "metadata": {
+        "participant_id": "P-85A6981D",
+        "session_id": "d201823f-5e2a-41dd-9fa2-4f0104506dbd",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T09:40:53.387857",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751083673051",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:37:53.021796"
+        },
+        {
+          "id": "user-1751083678598",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T09:37:58.597972"
+        },
+        {
+          "id": "agent-1751083681587",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T09:38:01.585651"
+        },
+        {
+          "id": "user-1751083685670",
+          "type": "user",
+          "content": "I'll see you soon.",
+          "timestamp": "2025-06-28T09:38:05.669764"
+        },
+        {
+          "id": "agent-1751083689382",
+          "type": "agent",
+          "content": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+          "timestamp": "2025-06-28T09:38:09.365296"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-C6D5261B": {
+    "session_id": "a1aa4d0e-c8d1-4b63-ba7f-f3b29ab7e9f5",
+    "participant_id": "P-C6D5261B",
+    "saved_at": "2025-06-28T10:07:09.279936",
+    "data": {
+      "metadata": {
+        "participant_id": "P-C6D5261B",
+        "session_id": "a1aa4d0e-c8d1-4b63-ba7f-f3b29ab7e9f5",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T10:07:09.278601",
+        "total_messages": 11,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751084795487",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T09:56:35.465878"
+        },
+        {
+          "id": "user-1751085226654",
+          "type": "user",
+          "content": "Yes, I think.",
+          "timestamp": "2025-06-28T10:03:46.653845"
+        },
+        {
+          "id": "agent-1751085231818",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:03:51.790752"
+        },
+        {
+          "id": "user-1751085319753",
+          "type": "user",
+          "content": "Yeah.",
+          "timestamp": "2025-06-28T10:05:19.752931"
+        },
+        {
+          "id": "agent-1751085322021",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:05:22.018520"
+        },
+        {
+          "id": "user-1751085331236",
+          "type": "user",
+          "content": "Can you repeat the previous questions?",
+          "timestamp": "2025-06-28T10:05:31.235855"
+        },
+        {
+          "id": "agent-1751085333701",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:05:33.697620"
+        },
+        {
+          "id": "user-1751085340158",
+          "type": "user",
+          "content": "I'm 25 years old",
+          "timestamp": "2025-06-28T10:05:40.039290"
+        },
+        {
+          "id": "agent-1751085343172",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:05:43.164817"
+        },
+        {
+          "id": "user-1751085368816",
+          "type": "user",
+          "content": "Repeat the quotient.",
+          "timestamp": "2025-06-28T10:06:08.816137"
+        },
+        {
+          "id": "agent-1751085372171",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:06:12.164494"
+        }
+      ],
+      "summary": {
+        "agent_messages": 6,
+        "user_messages": 5,
+        "conversation_duration": "10 minutes"
+      }
+    }
+  },
+  "P-8F6185E5": {
+    "session_id": "5a334a68-724e-49e7-88ee-e31a486787ee",
+    "participant_id": "P-8F6185E5",
+    "saved_at": "2025-06-28T10:10:22.510703",
+    "data": {
+      "metadata": {
+        "participant_id": "P-8F6185E5",
+        "session_id": "5a334a68-724e-49e7-88ee-e31a486787ee",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T10:10:22.508901",
+        "total_messages": 6,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751085587584",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:09:47.568697"
+        },
+        {
+          "id": "user-1751085594794",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-28T10:09:54.794410"
+        },
+        {
+          "id": "agent-1751085596579",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:09:56.577145"
+        },
+        {
+          "id": "user-1751085610988",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-28T10:10:10.987759"
+        },
+        {
+          "id": "user-1751085617332",
+          "type": "user",
+          "content": "Could you please repeat the previous question? I want to try answering it again.",
+          "timestamp": "2025-06-28T10:10:17.328112"
+        },
+        {
+          "id": "agent-1751085620026",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:10:20.020342"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 3,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-33127718": {
+    "session_id": "4c5c78ad-08e4-4eda-ae61-83ed08874088",
+    "participant_id": "P-33127718",
+    "saved_at": "2025-06-28T10:18:41.246872",
+    "data": {
+      "metadata": {
+        "participant_id": "P-33127718",
+        "session_id": "4c5c78ad-08e4-4eda-ae61-83ed08874088",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T10:18:41.237089",
+        "total_messages": 9,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751085632086",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:10:32.064778"
+        },
+        {
+          "id": "user-1751085653278",
+          "type": "user",
+          "content": "Yes",
+          "timestamp": "2025-06-28T10:10:53.277685"
+        },
+        {
+          "id": "agent-1751085655579",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:10:55.576659"
+        },
+        {
+          "id": "user-1751085791007",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T10:13:11.006592"
+        },
+        {
+          "id": "agent-1751085793722",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:13:13.719131"
+        },
+        {
+          "id": "user-1751085810666",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:13:30.660294"
+        },
+        {
+          "id": "agent-1751085813046",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:13:33.040575"
+        },
+        {
+          "id": "user-1751085888390",
+          "type": "user",
+          "content": "No.",
+          "timestamp": "2025-06-28T10:14:48.390347"
+        },
+        {
+          "id": "agent-1751085891837",
+          "type": "agent",
+          "content": "What was your most recent HbA1c level? If you don't know the exact number, when was your last blood test?",
+          "timestamp": "2025-06-28T10:14:51.830266"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 4,
+        "conversation_duration": "4 minutes"
+      }
+    }
+  },
+  "P-3A0A63B4": {
+    "session_id": "f27dd7b4-4ac6-4bfe-8ee3-04da20957ddf",
+    "participant_id": "P-3A0A63B4",
+    "saved_at": "2025-06-28T10:23:00.679104",
+    "data": {
+      "metadata": {
+        "participant_id": "P-3A0A63B4",
+        "session_id": "f27dd7b4-4ac6-4bfe-8ee3-04da20957ddf",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T10:23:00.677708",
+        "total_messages": 11,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751086127441",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:18:47.423410"
+        },
+        {
+          "id": "user-1751086145412",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T10:19:05.412189"
+        },
+        {
+          "id": "agent-1751086147806",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:19:07.801888"
+        },
+        {
+          "id": "user-1751086161801",
+          "type": "user",
+          "content": "25 years",
+          "timestamp": "2025-06-28T10:19:21.800136"
+        },
+        {
+          "id": "agent-1751086164237",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:19:24.228381"
+        },
+        {
+          "id": "user-1751086180905",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:19:40.901584"
+        },
+        {
+          "id": "agent-1751086183306",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:19:43.301962"
+        },
+        {
+          "id": "user-1751086319968",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:21:59.964065"
+        },
+        {
+          "id": "agent-1751086323521",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:22:03.515300"
+        },
+        {
+          "id": "user-1751086335080",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:22:15.072567"
+        },
+        {
+          "id": "agent-1751086337881",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type-2 diabetes?",
+          "timestamp": "2025-06-28T10:22:17.874319"
+        }
+      ],
+      "summary": {
+        "agent_messages": 6,
+        "user_messages": 5,
+        "conversation_duration": "4 minutes"
+      }
+    }
+  },
+  "P-C4F854F1": {
+    "session_id": "470eefb1-2ee9-4456-b2ed-cd44d5ec29b0",
+    "participant_id": "P-C4F854F1",
+    "saved_at": "2025-06-28T10:44:53.581862",
+    "data": {
+      "metadata": {
+        "participant_id": "P-C4F854F1",
+        "session_id": "470eefb1-2ee9-4456-b2ed-cd44d5ec29b0",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T10:44:53.580270",
+        "total_messages": 9,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751086400404",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:23:20.377430"
+        },
+        {
+          "id": "user-1751086416876",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-28T10:23:36.876137"
+        },
+        {
+          "id": "agent-1751086419818",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:23:39.816406"
+        },
+        {
+          "id": "user-1751086429337",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:23:49.334234"
+        },
+        {
+          "id": "agent-1751086432731",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:23:52.728068"
+        },
+        {
+          "id": "user-1751086445250",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:24:05.242460"
+        },
+        {
+          "id": "agent-1751086447393",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:24:07.391317"
+        },
+        {
+          "id": "user-1751086454239",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:24:14.231541"
+        },
+        {
+          "id": "agent-1751086456273",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T10:24:16.271800"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 4,
+        "conversation_duration": "1 minutes"
+      }
+    }
   }
 }

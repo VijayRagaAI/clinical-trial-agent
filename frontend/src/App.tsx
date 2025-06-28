@@ -16,6 +16,7 @@ import { EligibilityResults } from './components/EligibilityResults';
 import AdminDashboard from './components/AdminDashboard';
 import { Study } from './types/interview';
 import { getAvailableStudies } from './services/api';
+import { ConfirmationModal } from './components/ConfirmationModal';
 
 const InterviewPage: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -24,81 +25,251 @@ const InterviewPage: React.FC = () => {
   const [showConversation, setShowConversation] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [selectedStudy, setSelectedStudy] = useState<Study | null>(null);
+  const [participantName, setParticipantName] = useState<string>('');
+  
+  // Confirmation modal state
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [confirmationConfig, setConfirmationConfig] = useState<{
+    title: string;
+    message: string;
+    confirmText?: string;
+    cancelText?: string;
+    type?: 'warning' | 'danger' | 'info';
+    onConfirm: () => void;
+    participantInfo?: {
+      name: string;
+      messageCount: number;
+      studyName: string;
+      timeElapsed: string;
+      interviewStatus: string;
+    };
+  } | null>(null);
 
-  // Get participant name from URL params
-  const participantName = searchParams.get('participant');
+  // Check if interview has meaningful progress (user has spoken)
+  const hasInterviewStarted = () => {
+    return interview.messages.filter(msg => msg.type === 'user').length > 0;
+  };
 
-  // Load saved preferences (study and theme) on component mount
+  // Calculate time elapsed since first message
+  const calculateTimeElapsed = () => {
+    if (interview.messages.length === 0) return "0 minutes";
+    
+    const firstMessage = interview.messages[0];
+    const startTime = new Date(firstMessage.timestamp).getTime();
+    const now = Date.now();
+    const durationMinutes = (now - startTime) / 1000 / 60;
+    return `${Math.round(durationMinutes)} minutes`;
+  };
+
+  // Save interview progress before navigation
+  const saveInterviewProgress = async (exitReason: string) => {
+    if (!interview.session || !selectedStudy || !hasInterviewStarted()) {
+      return;
+    }
+
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      const progressData = {
+        session_id: interview.session.session_id,
+        participant_id: interview.session.participant_id,
+        study_id: selectedStudy.id,
+        exit_reason: exitReason,
+        conversation_state: interview.conversationState,
+        messages: interview.messages.map(msg => ({
+          id: msg.id,
+          type: msg.type,
+          content: msg.content,
+          timestamp: msg.timestamp
+        }))
+      };
+
+      const response = await fetch(`${API_BASE}/api/interviews/save-progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(progressData)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('✅ Interview progress saved:', result.interview_status);
+      } else {
+        console.error('Failed to save interview progress:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error saving interview progress:', error);
+    }
+  };
+
+  // Show confirmation modal for navigation
+  const showNavigationConfirmation = (exitReason: string, destination: () => void) => {
+    if (!hasInterviewStarted() || interview.conversationState === 'completed') {
+      destination();
+      return;
+    }
+
+         const configs = {
+       back_to_dashboard: {
+         title: "Leave Interview?",
+         message: "Your interview is currently in progress. If you leave now, your responses will be saved and you can resume from where you left off later.",
+         confirmText: "Save & Go to Dashboard",
+         cancelText: "Stay in Interview",
+         type: 'warning' as const
+       },
+       study_change: {
+         title: "Change Study?",
+         message: "Changing the study will end your current interview. All progress will be saved, but you'll need to start over with the new study.",
+         confirmText: "Change Study",
+         cancelText: "Keep Current Study",
+         type: 'danger' as const
+       },
+       page_refresh: {
+         title: "Refresh Page?",
+         message: "Refreshing the page will interrupt your current interview. Your progress will be saved automatically.",
+         confirmText: "Refresh Page",
+         cancelText: "Continue Interview",
+         type: 'warning' as const
+       }
+     };
+
+    const config = configs[exitReason as keyof typeof configs] || configs.back_to_dashboard;
+
+    // Determine what status the interview will have based on exit reason
+    const getStatusByReason = (reason: string) => {
+      const statusMap = {
+        'back_to_dashboard': 'Paused',
+        'user_initiated': 'Paused',
+        'study_change': 'Abandoned',
+        'settings_change': 'Paused',
+        'page_refresh': 'Interrupted',
+        'browser_refresh': 'Interrupted',
+        'connection_lost': 'Interrupted',
+        'browser_close': 'Interrupted',
+        'navigation': 'Interrupted'
+      };
+      return statusMap[reason as keyof typeof statusMap] || 'Abandoned';
+    };
+
+    setConfirmationConfig({
+      ...config,
+      onConfirm: async () => {
+        await saveInterviewProgress(exitReason);
+        setShowConfirmation(false);
+        destination();
+      },
+      participantInfo: {
+        name: interview.session?.participant_id || participantName || 'Anonymous',
+        messageCount: interview.messages.length,
+        studyName: selectedStudy?.title || 'Unknown Study',
+        timeElapsed: calculateTimeElapsed(),
+        interviewStatus: getStatusByReason(exitReason)
+      }
+    });
+
+    setShowConfirmation(true);
+  };
+
+  // Handle back to dashboard navigation
+  const handleBackToDashboard = () => {
+    showNavigationConfirmation('back_to_dashboard', () => navigate('/'));
+  };
+
+  // Handle study selection with confirmation
+  const handleStudySelect = async (study: Study) => {
+    if (hasInterviewStarted() && selectedStudy?.id !== study.id) {
+      showNavigationConfirmation('study_change', () => {
+        setSelectedStudy(study);
+        saveStudyPreference(study);
+      });
+    } else {
+      setSelectedStudy(study);
+      await saveStudyPreference(study);
+    }
+  };
+
+  // Browser refresh/close detection
   useEffect(() => {
-    const loadPreferences = async () => {
-      try {
-        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      if (hasInterviewStarted() && interview.conversationState !== 'completed') {
+        e.preventDefault();
+        e.returnValue = 'Your interview progress will be automatically saved, but you may lose connection state.';
         
-        // Load theme preference and study preference in parallel
-        const [themeResponse, studyResponse] = await Promise.all([
-          fetch(`${API_BASE}/api/theme/preferences`),
-          fetch(`${API_BASE}/api/study/preferences`)
-        ]);
+        // Try to save progress (may not complete due to browser limitations)
+        saveInterviewProgress('page_refresh').catch(console.error);
         
-        // Load theme preference
-        if (themeResponse.ok) {
-          const themeData = await themeResponse.json();
-          setIsDarkMode(themeData.is_dark_mode);
-          console.log('✅ Loaded saved theme preference:', themeData.is_dark_mode ? 'Dark' : 'Light');
-        }
-        
-        // Load study preference
-        if (studyResponse.ok) {
-          const studyData = await studyResponse.json();
-          
-          if (studyData.selected_study) {
-            setSelectedStudy(studyData.selected_study);
-            console.log('✅ Loaded saved study preference:', studyData.selected_study.title);
-          } else {
-            // Fallback: Load first available study
-            const availableStudies = await getAvailableStudies();
-            if (availableStudies.studies && availableStudies.studies.length > 0) {
-              setSelectedStudy(availableStudies.studies[0]);
-              console.log('📋 Loaded first available study:', availableStudies.studies[0].title);
-            }
-          }
-        } else {
-          // Fallback: Load first available study if API fails
-          const availableStudies = await getAvailableStudies();
-          if (availableStudies.studies && availableStudies.studies.length > 0) {
-            setSelectedStudy(availableStudies.studies[0]);
-            console.log('📋 Loaded first available study:', availableStudies.studies[0].title);
-          }
-        }
-      } catch (error) {
-        console.error('Failed to load preferences:', error);
-        
-        // Fallback for study selection
-      try {
-        const response = await getAvailableStudies();
-        if (response.studies && response.studies.length > 0) {
-          setSelectedStudy(response.studies[0]);
-            console.log('📋 Fallback: Loaded first available study');
-          }
-        } catch (studyError) {
-          console.error('Failed to load fallback study:', studyError);
-        }
+        return e.returnValue;
       }
     };
 
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [interview.conversationState, interview.messages.length, selectedStudy]);
+
+  useEffect(() => {
     loadPreferences();
   }, []);
 
-  // Set participant name from URL parameter if provided
+  // Initialize from URL parameters
   useEffect(() => {
-    if (participantName && interview.session && !interview.session.participant_id) {
-      // Update the session with the participant name from URL
-      interview.session.participant_id = participantName;
+    const studyId = searchParams.get('study');
+    const participantNameParam = searchParams.get('participant');
+    
+    if (participantNameParam) {
+      setParticipantName(participantNameParam);
     }
-  }, [participantName, interview.session]);
+    
+         if (studyId) {
+       // Load study from available studies
+       getAvailableStudies().then(response => {
+         const study = response.studies.find((s: Study) => s.id === studyId);
+         if (study) {
+           setSelectedStudy(study);
+         }
+       });
+     }
+  }, [searchParams]);
 
-  // Save study preference when it changes
-  const handleStudySelect = async (study: Study) => {
+  const loadPreferences = async () => {
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      // Load theme preference
+      const themeResponse = await fetch(`${API_BASE}/api/theme/preferences`);
+      if (themeResponse.ok) {
+        const themeData = await themeResponse.json();
+        setIsDarkMode(themeData.is_dark_mode);
+      }
+      
+      // Load study preference
+      const studyResponse = await fetch(`${API_BASE}/api/study/preferences`);
+      if (studyResponse.ok) {
+        const studyData = await studyResponse.json();
+        if (studyData.selected_study && !selectedStudy) {
+          setSelectedStudy(studyData.selected_study);
+          return; // Exit early if we found a saved preference
+        }
+      }
+      
+      // If no saved study preference, auto-select the first available study
+      if (!selectedStudy) {
+        try {
+          const studiesResponse = await getAvailableStudies();
+          if (studiesResponse.studies && studiesResponse.studies.length > 0) {
+            const firstStudy = studiesResponse.studies[0];
+            setSelectedStudy(firstStudy);
+            await saveStudyPreference(firstStudy);
+            console.log('✅ Auto-selected first available study:', firstStudy.title);
+          }
+        } catch (error) {
+          console.error('Failed to auto-select study:', error);
+        }
+      }
+    } catch (error) {
+      console.error('Failed to load preferences:', error);
+    }
+  };
+
+  const saveStudyPreference = async (study: Study) => {
     setSelectedStudy(study);
     
     try {
@@ -492,7 +663,7 @@ ${index + 1}. ${criterion.criteria_text}
             }`}></div>
             
             <button
-              onClick={() => navigate('/')}
+              onClick={handleBackToDashboard}
               className="relative w-full p-6 rounded-3xl transition-all duration-700"
             >
               {/* Content */}
@@ -578,6 +749,7 @@ ${index + 1}. ${criterion.criteria_text}
                 isDarkMode={isDarkMode}
                 setIsDarkMode={handleThemeChange}
                 onRestart={restartInterview}
+
               />
             </div>
             
@@ -596,6 +768,23 @@ ${index + 1}. ${criterion.criteria_text}
           </div>
         </div>
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && confirmationConfig && (
+        <ConfirmationModal
+          isOpen={showConfirmation}
+          onClose={() => setShowConfirmation(false)}
+          onConfirm={confirmationConfig.onConfirm}
+          title={confirmationConfig.title}
+          message=""
+          detailsMessage={confirmationConfig.message}
+          confirmText={confirmationConfig.confirmText}
+          cancelText={confirmationConfig.cancelText}
+          isDarkMode={isDarkMode}
+          type={confirmationConfig.type}
+          participantInfo={confirmationConfig.participantInfo}
+        />
+      )}
     </div>
   );
 };
