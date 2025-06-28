@@ -56,6 +56,12 @@ const InterviewPage: React.FC = () => {
     return interview.messages.filter(msg => msg.type === 'user').length > 0;
   };
 
+  // Check if user has moved past consent phase into actual questions
+  const hasMovedPastConsent = () => {
+    // If conversation state is 'questioning', user has moved past consent
+    return interview.conversationState === 'questioning';
+  };
+
   // Calculate time elapsed since first message
   const calculateTimeElapsed = () => {
     if (interview.messages.length === 0) return "0 minutes";
@@ -167,8 +173,34 @@ const InterviewPage: React.FC = () => {
       return;
     }
 
+    // Determine the actual exit reason based on interview state
+    const getActualExitReason = (originalReason: string) => {
+      const movedPastConsent = hasMovedPastConsent();
+      
+      // If back to dashboard during consent phase (even if user has replied to consent questions), mark as incomplete
+      if (originalReason === 'back_to_dashboard' && !movedPastConsent) {
+        return 'consent_abandoned';
+      }
+      
+      // If page refresh during consent phase (even if user has replied to consent questions), mark as incomplete  
+      if (originalReason === 'page_refresh' && !movedPastConsent) {
+        return 'consent_abandoned';
+      }
+      
+      return originalReason;
+    };
+
+    const actualExitReason = getActualExitReason(exitReason);
+
          const configs = {
        back_to_dashboard: {
+         title: "Leave Interview?",
+         message: "Your interview is currently in progress. If you leave now, your responses will be saved and you can resume from where you left off later.",
+         confirmText: "Save & Go to Dashboard",
+         cancelText: "Stay in Interview",
+         type: 'warning' as const
+       },
+       consent_abandoned: {
          title: "Leave Interview?",
          message: "Your interview is currently in progress. If you leave now, your responses will be saved and you can resume from where you left off later.",
          confirmText: "Save & Go to Dashboard",
@@ -184,23 +216,24 @@ const InterviewPage: React.FC = () => {
        }
      };
 
-    const config = configs[exitReason as keyof typeof configs] || configs.back_to_dashboard;
+    const config = configs[actualExitReason as keyof typeof configs] || configs.back_to_dashboard;
 
     // Determine what status the interview will have based on exit reason
     const getStatusByReason = (reason: string) => {
       const statusMap = {
         'interview_started': 'In Progress',
-        'back_to_dashboard': 'Paused',
-        'user_initiated': 'Paused',
-        'study_change': 'Abandoned',
-        'consent_rejected': 'Incomplete',
+        'interview_completed': 'Completed',
         'consent_abandoned': 'Incomplete',
+        'consent_rejected': 'Incomplete',
+        'user_initiated': 'Paused',
+        'back_to_dashboard': 'Paused',
+        'study_change': 'Abandoned',
+        'settings_change': 'Paused',
         'page_refresh': 'Interrupted',
         'browser_refresh': 'Interrupted',
         'connection_lost': 'Interrupted',
         'browser_close': 'Interrupted',
-        'navigation': 'Interrupted',
-        'interview_completed': 'Completed'
+        'navigation': 'Interrupted'
       };
       return statusMap[reason as keyof typeof statusMap] || 'Interrupted';
     };
@@ -208,7 +241,7 @@ const InterviewPage: React.FC = () => {
     setConfirmationConfig({
       ...config,
       onConfirm: async () => {
-        await saveInterviewProgress(exitReason);
+        await saveInterviewProgress(actualExitReason);
         setShowConfirmation(false);
         destination();
       },
@@ -217,7 +250,7 @@ const InterviewPage: React.FC = () => {
         messageCount: interview.messages.length,
         studyName: selectedStudy?.title || 'Unknown Study',
         timeElapsed: calculateTimeElapsed(),
-        interviewStatus: getStatusByReason(exitReason)
+        interviewStatus: getStatusByReason(actualExitReason)
       }
     });
 
@@ -237,11 +270,11 @@ const InterviewPage: React.FC = () => {
     }
 
     const interviewStarted = hasInterviewStarted();
-    const userHasReplied = hasUserResponded();
+    const movedPastConsent = hasMovedPastConsent();
 
     console.log('🔍 Study selection debug:', {
       interviewStarted,
-      userHasReplied,
+      movedPastConsent,
       conversationState: interview.conversationState,
       sessionExists: !!interview.session
     });
@@ -254,28 +287,46 @@ const InterviewPage: React.FC = () => {
       return;
     }
 
-    // Case 2: After starting but before replying → save as Incomplete and restart
-    if (interviewStarted && !userHasReplied) {
-      console.log('🔄 Case 2: Interview started but no replies - saving as Incomplete and restarting');
+    // Case 2: After starting but still in consent phase → show modal and save as Incomplete
+    if (interviewStarted && !movedPastConsent) {
+      console.log('🔄 Case 2: Interview started but still in consent phase - showing modal and saving as Incomplete');
       
-      // Set flag to prevent browser warning
-      setIsReloading(true);
-      
-      // Save current interview as Incomplete (abandoned during consent)
-      await saveInterviewProgress('consent_abandoned');
-      
-      // Update study and reload
+      setConfirmationConfig({
+        title: "Study Changed",
+        message: "Your interview progress has been saved as incomplete. The page will restart with the new study.",
+        confirmText: "Close",
+        cancelText: "",
+        type: 'info' as const,
+        onConfirm: async () => {
+          // Set flag to prevent browser warning
+          setIsReloading(true);
+          
+          await saveInterviewProgress('consent_abandoned');
+          console.log('🔄 Interview abandoned during consent - progress saved as Incomplete');
+          setShowConfirmation(false);
+          
+          setTimeout(() => {
+            window.location.reload();
+          }, 100);
+        },
+        participantInfo: {
+          name: interview.session?.participant_id || participantName || 'Anonymous',
+          messageCount: interview.messages.length,
+          studyName: selectedStudy?.title || 'Unknown Study',
+          timeElapsed: calculateTimeElapsed(),
+          interviewStatus: 'Incomplete'
+        }
+      });
+
+      // Update study selection immediately (for UI feedback)
       setSelectedStudy(study);
       await saveStudyPreference(study);
-      
-      setTimeout(() => {
-        window.location.reload();
-      }, 100);
+      setShowConfirmation(true);
       return;
     }
 
-    // Case 3: After replying → show modal + save data when closed
-    console.log('💬 Case 3: User has replied - showing modal');
+    // Case 3: After moving past consent phase → show modal + save data when closed
+    console.log('💬 Case 3: User has moved past consent phase - showing modal');
     setConfirmationConfig({
       title: "Study Changed",
       message: "Your interview progress has been saved. The page will restart with the new study.",
@@ -321,17 +372,18 @@ const InterviewPage: React.FC = () => {
     }
   }, [interview.session, selectedStudy, interview.conversationState]);
 
-  // Auto-save interview completion when interview completes
+  // Auto-save interview completion when interview completes (but only for edge cases)
   useEffect(() => {
     if (interview.conversationState === 'completed' && interview.session && selectedStudy) {
-      // Add small delay to ensure completion is fully processed
-      const timer = setTimeout(() => {
-        handleInterviewCompletion();
-      }, 1000);
-      
-      return () => clearTimeout(timer);
+      // Skip auto-save for normal completions - backend already handles these
+      // Only auto-save in edge cases where backend didn't get to save
+      if (interview.eligibilityResult !== null) {
+        console.log('🚫 Skipping frontend auto-save for normal completion - backend already saved conversation + evaluation');
+      } else {
+        console.log('🚫 Skipping auto-save for consent rejection - already saved as Incomplete');
+      }
     }
-  }, [interview.conversationState, interview.session, selectedStudy]);
+  }, [interview.conversationState, interview.session, selectedStudy, interview.eligibilityResult]);
 
   // Browser refresh/close detection
   useEffect(() => {
@@ -347,7 +399,7 @@ const InterviewPage: React.FC = () => {
         e.returnValue = 'Your interview progress will be automatically saved, but you may lose connection state.';
         
         // Determine appropriate exit reason based on current state
-        const exitReason = hasUserResponded() ? 'page_refresh' : 'consent_abandoned';
+        const exitReason = hasMovedPastConsent() ? 'page_refresh' : 'consent_abandoned';
         
         // Try to save progress (may not complete due to browser limitations)
         saveInterviewProgress(exitReason).catch(console.error);
@@ -676,11 +728,12 @@ ${index + 1}. ${criterion.criteria_text}
     window.location.reload();
   };
 
-  // Handle interview completion
+  // Handle interview completion (legacy function - now only used for edge cases)
+  // Normal interview completions are handled by the backend automatically
   const handleInterviewCompletion = async () => {
     if (interview.session && selectedStudy) {
       await saveInterviewProgress('interview_completed');
-      console.log('🎉 Interview completed successfully');
+      console.log('🎉 Interview completed successfully (manual save)');
     }
   };
 

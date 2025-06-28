@@ -96,6 +96,7 @@ Do you consent to proceed with the screening questions?"""
                     "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
                     "requires_response": False,
                     "is_final": True,
+                    "consent_rejected": True,  # Flag to indicate consent rejection
                     "question_number": 0,
                     "total_questions": len(self.trial_criteria)
                 }

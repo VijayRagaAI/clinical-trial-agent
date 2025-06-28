@@ -45,6 +45,9 @@ app.add_middleware(
 audio_processor = AudioProcessor()
 # Note: EligibilityEvaluator instances are created per-session with specific study_id
 
+# Session registry to store sessions created by REST API
+session_registry = {}
+
 # Pydantic models for API
 class StartSessionRequest(BaseModel):
     participant_name: Optional[str] = None
@@ -67,17 +70,24 @@ class EligibilityResponse(BaseModel):
 class ConnectionManager:
     def __init__(self):
         self.active_connections: Dict[str, WebSocket] = {}
+        self.active_sessions: Dict[str, ParticipantSession] = {}
         self.session_agents: Dict[str, ClinicalTrialAgent] = {}
-        self.active_sessions: Dict[str, any] = {}
-        self.session_studies: Dict[str, str] = {}  # Track study ID for each session
-        self.session_messages: Dict[str, List] = {}  # Track messages for each session
+        self.session_studies: Dict[str, str] = {}
+        self.session_messages: Dict[str, List[Dict]] = {}
 
     async def connect(self, websocket: WebSocket, session_id: str, study_id: str):
         await websocket.accept()
         self.active_connections[session_id] = websocket
         
-        # Create a new session for this connection
-        session = create_session()
+        # Try to get existing session from registry first
+        session = session_registry.get(session_id)
+        if session:
+            logger.info(f"Reusing existing session for {session_id}: {session.participant_id}")
+        else:
+            # Create a new session only if one doesn't exist
+            session = create_session()
+            logger.info(f"Created new session for {session_id}: {session.participant_id}")
+        
         self.active_sessions[session_id] = session
         self.session_studies[session_id] = study_id
         self.session_messages[session_id] = []  # Initialize message tracking
@@ -98,6 +108,9 @@ class ConnectionManager:
             del self.session_studies[session_id]
         if session_id in self.session_messages:
             del self.session_messages[session_id]
+        # Clean up session registry
+        if session_id in session_registry:
+            del session_registry[session_id]
         logger.info(f"WebSocket disconnected for session {session_id}")
     
     def add_message(self, session_id: str, message_type: str, content: str):
@@ -178,7 +191,10 @@ async def start_session(request: StartSessionRequest):
     try:
         session = create_session()
         
-        logger.info(f"New session started: {session.session_id}")
+        logger.info(f"New session started: {session.session_id} with participant_id: {session.participant_id}")
+        
+        # Add session to registry so WebSocket can reuse it
+        session_registry[session.session_id] = session
         
         return SessionResponse(
             session_id=session.session_id,
@@ -650,19 +666,34 @@ async def save_interview_progress(request: Request):
             if conversation_state == 'completed':
                 return 'Completed'
             
-            if message_count <= 1:
-                return None  # Don't save, no meaningful progress
+            # Count user messages specifically to detect consent phase
+            user_message_count = len([m for m in messages if m.get("type") == "user"])
             
+            # Allow saving even with minimal messages if interview was started
+            if exit_reason == 'interview_started':
+                return 'In Progress'
+            
+            # If no user responses yet but interview started, it's incomplete consent
+            if user_message_count == 0 and message_count > 0:
+                consent_exit_reasons = ['consent_abandoned', 'consent_rejected', 'back_to_dashboard', 'page_refresh', 'browser_refresh', 'study_change', 'navigation']
+                if exit_reason in consent_exit_reasons:
+                    return 'Incomplete'
+            
+            # Standard exit reason mapping
             exit_reason_to_status = {
-                'user_initiated': 'Paused',          # User clicked "Back to Dashboard"
-                'back_to_dashboard': 'Paused',       # User clicked "Back to Dashboard"  
-                'study_change': 'Abandoned',         # User changed study selection
-                'settings_change': 'Paused',         # User changed voice/language settings
-                'page_refresh': 'Interrupted',       # Browser refresh/close
-                'browser_refresh': 'Interrupted',    # Browser refresh/close
-                'connection_lost': 'Interrupted',    # WebSocket disconnect
-                'browser_close': 'Interrupted',      # Browser close
-                'navigation': 'Interrupted'          # Other navigation
+                'interview_started': 'In Progress',     # Interview just started
+                'interview_completed': 'Completed',     # Interview finished successfully
+                'consent_abandoned': 'Incomplete',      # Left during consent phase
+                'consent_rejected': 'Incomplete',       # Explicitly rejected consent
+                'user_initiated': 'Paused',            # User clicked "Back to Dashboard"
+                'back_to_dashboard': 'Paused',         # User clicked "Back to Dashboard"  
+                'study_change': 'Abandoned',           # User changed study selection
+                'settings_change': 'Paused',           # User changed voice/language settings
+                'page_refresh': 'Interrupted',         # Browser refresh/close
+                'browser_refresh': 'Interrupted',      # Browser refresh/close
+                'connection_lost': 'Interrupted',      # WebSocket disconnect
+                'browser_close': 'Interrupted',        # Browser close
+                'navigation': 'Interrupted'            # Other navigation
             }
             
             return exit_reason_to_status.get(exit_reason, 'Abandoned')
@@ -909,7 +940,53 @@ async def handle_text_input(session_id: str, user_message: str):
                 await manager.send_message(session_id, {
                     "type": "interview_complete",
                     "eligibility": eligibility_result,  # ← Same data we just saved
-                    "participant_id": session.participant_id,
+                    "participant_id": session.participant_id,  # ← Same participant_id used for saving
+                    "session_id": session_id,  # ← Include session_id for reference
+                    "already_saved": True,  # ← Indicate backend already saved data
+                    "timestamp": datetime.now().isoformat()
+                })
+            
+            # Check if this is a consent rejection that should be saved as incomplete
+            elif agent_response.get("consent_rejected", False):
+                # This is a consent rejection - save as incomplete
+                session = manager.active_sessions.get(session_id)
+                if session:
+                    # Build conversation data for consent rejection
+                    messages = manager.session_messages.get(session_id, [])
+                    
+                    conversation_data = {
+                        "metadata": {
+                            "participant_id": session.participant_id,
+                            "session_id": session_id,
+                            "study_id": manager.session_studies.get(session_id, "unknown"),
+                            "export_timestamp": datetime.now().isoformat(),
+                            "total_messages": len(messages),
+                            "conversation_state": "completed",  # Agent finished speaking
+                            "exit_reason": "consent_rejected",
+                            "interview_status": "Incomplete",
+                            "saved_incomplete": True
+                        },
+                        "conversation": messages,
+                        "summary": {
+                            "agent_messages": len([m for m in messages if m.get("type") == "agent"]),
+                            "user_messages": len([m for m in messages if m.get("type") == "user"]),
+                            "conversation_duration": "0 minutes"
+                        }
+                    }
+                    
+                    # Save conversation data
+                    from models import save_conversation_data
+                    save_conversation_data(session_id, session.participant_id, conversation_data)
+                    
+                    logger.info(f"Saved consent rejection as incomplete: {session.participant_id}")
+                
+                # Send interview complete event for consent rejection
+                await manager.send_message(session_id, {
+                    "type": "interview_complete",
+                    "consent_rejected": True,
+                    "participant_id": session.participant_id,  # ← Same participant_id used for saving
+                    "session_id": session_id,  # ← Include session_id for reference  
+                    "already_saved": True,  # ← Indicate backend already saved data
                     "timestamp": datetime.now().isoformat()
                 })
         
