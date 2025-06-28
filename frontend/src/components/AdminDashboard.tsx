@@ -283,16 +283,31 @@ const AdminDashboard: React.FC = () => {
     navigate('/interview');
   };
 
-  const handleDeleteInterview = async (interviewId: string, participantName: string) => {
+  const handleDeleteInterview = async (participantId: string, participantName: string) => {
     if (window.confirm(`Are you sure you want to delete the interview for ${participantName}? This action cannot be undone.`)) {
       try {
-        // TODO: Implement delete API call
-        console.log(`Delete interview ${interviewId} for ${participantName}`);
-        // For now, just refresh the data
-        await fetchInterviews();
+        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const response = await fetch(`${API_BASE}/api/admin/interviews/${participantId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log('✅ Interview deleted successfully:', result.message);
+          
+          // Refresh the interviews list to update counts and UI
+          await fetchInterviews();
+        } else {
+          const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+          console.error('Failed to delete interview:', errorData);
+          alert(`Failed to delete interview: ${errorData.detail || 'Unknown error'}`);
+        }
       } catch (error) {
         console.error('Error deleting interview:', error);
-        alert('Failed to delete interview. Please try again.');
+        alert('Failed to delete interview. Please check your connection and try again.');
       }
     }
   };
@@ -1362,7 +1377,7 @@ const AdminDashboard: React.FC = () => {
                         </button>
                         
                         <button
-                          onClick={() => handleDeleteInterview(interview.id, interview.participant_name)}
+                          onClick={() => handleDeleteInterview(interview.participant_id, interview.participant_name)}
                           className="group/btn relative p-3.5 rounded-2xl bg-gradient-to-br from-red-500/20 to-rose-500/20 hover:from-red-500/35 hover:to-rose-500/35 border border-red-500/40 hover:border-red-400/70 transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-red-500/40 hover:-translate-y-2 backdrop-blur-sm"
                           title="Delete Interview"
                         >

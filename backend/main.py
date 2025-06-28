@@ -481,6 +481,70 @@ async def get_theme_preferences():
         logger.error(f"Error getting theme preferences: {e}")
         raise HTTPException(status_code=500, detail="Failed to get theme preferences")
 
+@app.delete("/api/admin/interviews/{participant_id}")
+async def delete_interview(participant_id: str):
+    """Delete an interview by participant ID"""
+    try:
+        import json
+        import os
+        from pathlib import Path
+        
+        # Use current file directory to find data directory
+        current_dir = Path(__file__).parent
+        data_dir = current_dir / "data"
+        
+        conversations_file = data_dir / "conversations.json"
+        evaluations_file = data_dir / "evaluations.json"
+        
+        deleted_conversation = False
+        deleted_evaluation = False
+        
+        # Delete from conversations.json
+        if conversations_file.exists():
+            with open(conversations_file, 'r', encoding='utf-8') as f:
+                conversations_data = json.load(f)
+            
+            if participant_id in conversations_data:
+                del conversations_data[participant_id]
+                deleted_conversation = True
+                
+                # Write back to file
+                with open(conversations_file, 'w', encoding='utf-8') as f:
+                    json.dump(conversations_data, f, indent=2, ensure_ascii=False)
+                
+                logger.info(f"Deleted conversation data for participant {participant_id}")
+        
+        # Delete from evaluations.json
+        if evaluations_file.exists():
+            with open(evaluations_file, 'r', encoding='utf-8') as f:
+                evaluations_data = json.load(f)
+            
+            if participant_id in evaluations_data:
+                del evaluations_data[participant_id]
+                deleted_evaluation = True
+                
+                # Write back to file
+                with open(evaluations_file, 'w', encoding='utf-8') as f:
+                    json.dump(evaluations_data, f, indent=2, ensure_ascii=False)
+                
+                logger.info(f"Deleted evaluation data for participant {participant_id}")
+        
+        if not deleted_conversation and not deleted_evaluation:
+            raise HTTPException(status_code=404, detail=f"Interview data for participant {participant_id} not found")
+        
+        return {
+            "status": "success",
+            "message": f"Interview data for participant {participant_id} has been deleted",
+            "deleted_conversation": deleted_conversation,
+            "deleted_evaluation": deleted_evaluation
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error deleting interview for participant {participant_id}: {e}")
+        raise HTTPException(status_code=500, detail="Failed to delete interview data")
+
 @app.get("/api/admin/interviews")
 async def get_all_interviews():
     """Get list of all interviews for admin dashboard"""
