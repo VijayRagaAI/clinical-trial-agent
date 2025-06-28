@@ -352,7 +352,12 @@ const AdminDashboard: React.FC = () => {
         : isDarkMode 
           ? 'bg-gradient-to-br from-gray-800/60 via-gray-700/40 to-gray-800/60 border-gray-600/40 hover:shadow-orange-500/30' 
           : 'bg-gradient-to-br from-white/80 via-white/70 to-white/80 border-white/40 hover:shadow-orange-500/25'
-    } p-4 shadow-2xl`}>
+    } p-4 shadow-2xl`}
+      style={{
+        animation: 'breathe 4s ease-in-out infinite',
+        animationDelay: `${Math.random() * 2}s`
+      }}
+    >
       {/* Enhanced magical background effects */}
       <div className={`absolute inset-0 bg-gradient-to-br opacity-8 transition-all duration-700 group-hover:opacity-20 rounded-3xl ${
         color === 'blue' 
@@ -489,11 +494,18 @@ const AdminDashboard: React.FC = () => {
   );
 
   return (
-    <div className={`min-h-screen transition-all duration-500 ${
-      isDarkMode 
-        ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
-        : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'
-    }`}>
+    <>
+      <style>{`
+        @keyframes breathe {
+          0%, 100% { transform: scale(1); }
+          50% { transform: scale(1.02); }
+        }
+      `}</style>
+      <div className={`min-h-screen transition-all duration-500 ${
+        isDarkMode 
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900' 
+          : 'bg-gradient-to-br from-indigo-50 via-white to-purple-50'
+      }`}>
       {/* Enhanced Background decorative elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className={`absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl transform translate-x-32 -translate-y-32 transition-all duration-500 ${
@@ -1839,6 +1851,7 @@ const AdminDashboard: React.FC = () => {
       )}
 
     </div>
+    </>
   );
 };
 
