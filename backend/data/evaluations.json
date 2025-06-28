@@ -1,1 +1,1102 @@
-{}
+{
+  "test123": {
+    "session_id": "session123",
+    "participant_id": "test123",
+    "saved_at": "2025-06-27T19:11:01.626303",
+    "data": {
+      "participant_id": "test123",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 85.5
+      }
+    }
+  },
+  "P-9FC03BB7": {
+    "session_id": "57ddc5d6-bc29-4d60-bd9c-68e42a332ea9",
+    "participant_id": "P-9FC03BB7",
+    "saved_at": "2025-06-27T19:14:19.191837",
+    "data": {
+      "participant_id": "P-9FC03BB7",
+      "session_id": "57ddc5d6-bc29-4d60-bd9c-68e42a332ea9",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 58.8,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of '25 years' falls within the eligible age range of 18 to 75 years.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates they do not have an advanced solid tumor that has progressed on standard therapy, which directly contradicts the eligibility criteria.",
+            "extracted_value": "No",
+            "criteria_id": "ON002",
+            "criteria_text": "Diagnosed with advanced solid tumor that has progressed on standard therapy",
+            "criteria_question": "Do you have an advanced solid tumor that has not responded to or progressed after standard cancer treatments?",
+            "priority": "high",
+            "participant_response": "No."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'Yes' indicates that they are able to carry out normal daily activities, aligning with the expected answer and meeting the ECOG performance status criteria of 0-2.",
+            "extracted_value": "Yes",
+            "criteria_id": "ON003",
+            "criteria_text": "ECOG performance status of 0-2",
+            "criteria_question": "How would you describe your current activity level? Are you able to carry out normal daily activities?",
+            "priority": "high",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response of 'Yes' is vague and does not provide specific details or evidence (e.g., recent lab results) confirming adequate organ function for the liver, kidney, and bone marrow. Therefore, it does not fully meet the expected criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON004",
+            "criteria_text": "Adequate organ function based on recent lab results",
+            "criteria_question": "Have you had recent blood tests showing that your liver, kidney, and bone marrow are functioning well?",
+            "priority": "medium",
+            "participant_response": "Yes."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 58.8%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25 years.\"\n   Assessment: The participant's response of '25 years' falls within the eligible age range of 18 to 75 years.\n\n❌ 🔴 Diagnosed with advanced solid tumor that has progressed on standard therapy\n   Response: \"No.\"\n   Assessment: The participant's response indicates they do not have an advanced solid tumor that has progressed on standard therapy, which directly contradicts the eligibility criteria.\n\n✅ 🔴 ECOG performance status of 0-2\n   Response: \"Yes.\"\n   Assessment: The participant's response 'Yes' indicates that they are able to carry out normal daily activities, aligning with the expected answer and meeting the ECOG performance status criteria of 0-2.\n\n❌ 🟡 Adequate organ function based on recent lab results\n   Response: \"Yes.\"\n   Assessment: The participant's response of 'Yes' is vague and does not provide specific details or evidence (e.g., recent lab results) confirming adequate organ function for the liver, kidney, and bone marrow. Therefore, it does not fully meet the expected criteria.\n\n",
+        "high_priority_criteria_met": "2/3",
+        "evaluation_timestamp": "2025-06-27T19:14:17.345582",
+        "participant_id": "P-9FC03BB7"
+      },
+      "export_timestamp": "2025-06-27T19:14:19.191765"
+    }
+  },
+  "P-A95CA41C": {
+    "session_id": "27f45a69-2f5e-4998-907b-651c4171c81b",
+    "participant_id": "P-A95CA41C",
+    "saved_at": "2025-06-27T19:27:30.646818",
+    "data": {
+      "participant_id": "P-A95CA41C",
+      "session_id": "27f45a69-2f5e-4998-907b-651c4171c81b",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 41.2,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant stated they are 'Twenty-five', which is within the age range of 18 - 75 years.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "Twenty-five."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates they do not have an advanced solid tumor that has progressed on standard therapy, which directly contradicts the eligibility criteria.",
+            "extracted_value": "No",
+            "criteria_id": "ON002",
+            "criteria_text": "Diagnosed with advanced solid tumor that has progressed on standard therapy",
+            "criteria_question": "Do you have an advanced solid tumor that has not responded to or progressed after standard cancer treatments?",
+            "priority": "high",
+            "participant_response": "No."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response 'Good.' is vague and does not explicitly indicate an ability to perform normal or near-normal daily activities. More specific information is needed to assess their ECOG performance status.",
+            "extracted_value": "Good",
+            "criteria_id": "ON003",
+            "criteria_text": "ECOG performance status of 0-2",
+            "criteria_question": "How would you describe your current activity level? Are you able to carry out normal daily activities?",
+            "priority": "high",
+            "participant_response": "Good."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The participant confirmed having recent blood tests, which suggests they likely meet the organ function criteria, though details on the specific lab results are not provided.",
+            "extracted_value": null,
+            "criteria_id": "ON004",
+            "criteria_text": "Adequate organ function based on recent lab results",
+            "criteria_question": "Have you had recent blood tests showing that your liver, kidney, and bone marrow are functioning well?",
+            "priority": "medium",
+            "participant_response": "Yes."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 41.2%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"Twenty-five.\"\n   Assessment: The participant stated they are 'Twenty-five', which is within the age range of 18 - 75 years.\n\n❌ 🔴 Diagnosed with advanced solid tumor that has progressed on standard therapy\n   Response: \"No.\"\n   Assessment: The participant's response indicates they do not have an advanced solid tumor that has progressed on standard therapy, which directly contradicts the eligibility criteria.\n\n❌ 🔴 ECOG performance status of 0-2\n   Response: \"Good.\"\n   Assessment: The participant's response 'Good.' is vague and does not explicitly indicate an ability to perform normal or near-normal daily activities. More specific information is needed to assess their ECOG performance status.\n\n✅ 🟡 Adequate organ function based on recent lab results\n   Response: \"Yes.\"\n   Assessment: The participant confirmed having recent blood tests, which suggests they likely meet the organ function criteria, though details on the specific lab results are not provided.\n\n",
+        "high_priority_criteria_met": "1/3",
+        "evaluation_timestamp": "2025-06-27T19:27:28.698621",
+        "participant_id": "P-A95CA41C"
+      },
+      "export_timestamp": "2025-06-27T19:27:30.646768"
+    }
+  },
+  "P-559FDC09": {
+    "session_id": "9238e088-07e4-4f1c-bf6c-8ebf6b8849d8",
+    "participant_id": "P-559FDC09",
+    "saved_at": "2025-06-27T19:45:08.258887",
+    "data": {
+      "participant_id": "P-559FDC09",
+      "session_id": "9238e088-07e4-4f1c-bf6c-8ebf6b8849d8",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 58.8,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates they are 25 years old, which is within the accepted age range of 18 to 75 years.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "Twenty-five."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates they do not have an advanced solid tumor that has progressed after standard therapy. Therefore, they do not meet the eligibility criteria.",
+            "extracted_value": "No",
+            "criteria_id": "ON002",
+            "criteria_text": "Diagnosed with advanced solid tumor that has progressed on standard therapy",
+            "criteria_question": "Do you have an advanced solid tumor that has not responded to or progressed after standard cancer treatments?",
+            "priority": "high",
+            "participant_response": "No."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of 'Yes' indicates that they are able to carry out normal daily activities, which aligns with the expected answer of being able to perform normal or near-normal activities, satisfying the ECOG performance status criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "ON003",
+            "criteria_text": "ECOG performance status of 0-2",
+            "criteria_question": "How would you describe your current activity level? Are you able to carry out normal daily activities?",
+            "priority": "high",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response of 'Yeah' is vague and does not provide specific information about the recent lab tests or the results that indicate adequate organ function. More detailed confirmation is needed to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON004",
+            "criteria_text": "Adequate organ function based on recent lab results",
+            "criteria_question": "Have you had recent blood tests showing that your liver, kidney, and bone marrow are functioning well?",
+            "priority": "medium",
+            "participant_response": "Yeah."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 58.8%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"Twenty-five.\"\n   Assessment: The participant's response indicates they are 25 years old, which is within the accepted age range of 18 to 75 years.\n\n❌ 🔴 Diagnosed with advanced solid tumor that has progressed on standard therapy\n   Response: \"No.\"\n   Assessment: The participant's response indicates they do not have an advanced solid tumor that has progressed after standard therapy. Therefore, they do not meet the eligibility criteria.\n\n✅ 🔴 ECOG performance status of 0-2\n   Response: \"Yes.\"\n   Assessment: The participant's response of 'Yes' indicates that they are able to carry out normal daily activities, which aligns with the expected answer of being able to perform normal or near-normal activities, satisfying the ECOG performance status criteria.\n\n❌ 🟡 Adequate organ function based on recent lab results\n   Response: \"Yeah.\"\n   Assessment: The participant's response of 'Yeah' is vague and does not provide specific information about the recent lab tests or the results that indicate adequate organ function. More detailed confirmation is needed to meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "2/3",
+        "evaluation_timestamp": "2025-06-27T19:45:06.722008",
+        "participant_id": "P-559FDC09"
+      },
+      "export_timestamp": "2025-06-27T19:45:08.258507"
+    }
+  },
+  "P-ABE2E10F": {
+    "session_id": "72559507-170f-4907-8284-aa99e6624628",
+    "participant_id": "P-ABE2E10F",
+    "saved_at": "2025-06-27T20:04:21.063798",
+    "data": {
+      "participant_id": "P-ABE2E10F",
+      "session_id": "72559507-170f-4907-8284-aa99e6624628",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of 'Twenty-five' indicates an age of 25, which falls within the specified age range of 18 to 75 years.",
+            "extracted_value": 25,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "Twenty-five."
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"Twenty-five.\"\n   Assessment: The participant's response of 'Twenty-five' indicates an age of 25, which falls within the specified age range of 18 to 75 years.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T20:04:19.428415",
+        "participant_id": "P-ABE2E10F"
+      },
+      "export_timestamp": "2025-06-27T20:04:21.063460"
+    }
+  },
+  "P-A6C95401": {
+    "session_id": "5bd290c1-4358-4aff-b42e-828fbdd7f496",
+    "participant_id": "P-A6C95401",
+    "saved_at": "2025-06-27T20:19:02.085782",
+    "data": {
+      "participant_id": "P-A6C95401",
+      "session_id": "5bd290c1-4358-4aff-b42e-828fbdd7f496",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'Bye.' does not provide any information regarding their age and therefore does not meet the eligibility criteria of being between 18 and 75 years old.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "Bye."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"Bye.\"\n   Assessment: The participant's response 'Bye.' does not provide any information regarding their age and therefore does not meet the eligibility criteria of being between 18 and 75 years old.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T20:18:59.185666",
+        "participant_id": "P-A6C95401"
+      },
+      "export_timestamp": "2025-06-27T20:19:02.085546"
+    }
+  },
+  "P-73851A27": {
+    "session_id": "e6408408-5438-4043-ba3e-9a392c88d003",
+    "participant_id": "P-73851A27",
+    "saved_at": "2025-06-27T20:24:32.160468",
+    "data": {
+      "participant_id": "P-73851A27",
+      "session_id": "e6408408-5438-4043-ba3e-9a392c88d003",
+      "study_id": "diabetes-abc123",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 66.7,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates that they are 35 years old, which falls within the 18-75 years age range specified in the criteria.",
+            "extracted_value": "35",
+            "criteria_id": "INC001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I'm 35 years old"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant indicates that they have been diagnosed with Type-2 diabetes for two years, which exceeds the minimum requirement of 6 months.",
+            "extracted_value": "two years",
+            "criteria_id": "INC002",
+            "criteria_text": "Diagnosed with Type-2 diabetes for at least 6 months",
+            "criteria_question": "How long have you been diagnosed with Type-2 diabetes?",
+            "priority": "high",
+            "participant_response": "I'm diagnosed with, I'm diagnosed for, I'm diagnosed since two years."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response does not provide a specific HbA1c level and states that they don't know. Without knowing the HbA1c level and no indication of a recent blood test, the response does not meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "INC004",
+            "criteria_text": "HbA1c level between 7.0% and 10.5%",
+            "criteria_question": "What was your most recent HbA1c level? If you don't know the exact number, when was your last blood test?",
+            "priority": "medium",
+            "participant_response": "I have, I don't know."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant expressed uncertainty about their availability for clinic visits over the next 7 months. This does not meet the eligibility criteria of being certain about attending all visits.",
+            "extracted_value": "Not sure about this",
+            "criteria_id": "INC006",
+            "criteria_text": "Available for all study visits over 7 months",
+            "criteria_question": "Are you able to commit to attending clinic visits regularly over the next 7 months?",
+            "priority": "medium",
+            "participant_response": "Not sure about this"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant explicitly states they have participated in other clinical trials in the last month, which disqualifies them from meeting the eligibility criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "INC007",
+            "criteria_text": "No participation in another clinical trial within the last 30 days",
+            "criteria_question": "Have you participated in any other clinical trials or research studies in the past month?",
+            "priority": "low",
+            "participant_response": "Yeah, definitely."
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 66.7%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I'm 35 years old\"\n   Assessment: The participant's response indicates that they are 35 years old, which falls within the 18-75 years age range specified in the criteria.\n\n✅ 🔴 Diagnosed with Type-2 diabetes for at least 6 months\n   Response: \"I'm diagnosed with, I'm diagnosed for, I'm diagnosed since two years.\"\n   Assessment: The participant indicates that they have been diagnosed with Type-2 diabetes for two years, which exceeds the minimum requirement of 6 months.\n\n❌ 🟡 HbA1c level between 7.0% and 10.5%\n   Response: \"I have, I don't know.\"\n   Assessment: The participant's response does not provide a specific HbA1c level and states that they don't know. Without knowing the HbA1c level and no indication of a recent blood test, the response does not meet the eligibility criteria.\n\n❌ 🟡 Available for all study visits over 7 months\n   Response: \"Not sure about this\"\n   Assessment: The participant expressed uncertainty about their availability for clinic visits over the next 7 months. This does not meet the eligibility criteria of being certain about attending all visits.\n\n❌ 🟢 No participation in another clinical trial within the last 30 days\n   Response: \"Yeah, definitely.\"\n   Assessment: The participant explicitly states they have participated in other clinical trials in the last month, which disqualifies them from meeting the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "2/2",
+        "evaluation_timestamp": "2025-06-27T20:24:30.528627",
+        "participant_id": "P-73851A27"
+      },
+      "export_timestamp": "2025-06-27T20:24:32.160291"
+    }
+  },
+  "P-3A1001B4": {
+    "session_id": "fddb569f-cf7d-45d1-bc52-1e5a52a4fe64",
+    "participant_id": "P-3A1001B4",
+    "saved_at": "2025-06-27T20:40:03.948422",
+    "data": {
+      "participant_id": "P-3A1001B4",
+      "session_id": "fddb569f-cf7d-45d1-bc52-1e5a52a4fe64",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates an age of 25, which falls within the specified age range of 18 to 75 years.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25"
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's response indicates an age of 25, which falls within the specified age range of 18 to 75 years.\n\n",
+        "llm_overview": "Thank you for completing our screening process. Based on your responses, you appear to meet the eligibility criteria for this study. Our research team will be in touch with you soon to discuss the next steps.",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T20:40:01.299753",
+        "participant_id": "P-3A1001B4"
+      },
+      "export_timestamp": "2025-06-27T20:40:03.947736"
+    }
+  },
+  "P-A1707E4A": {
+    "session_id": "c2611dd5-89d3-425a-bab8-1dba7f764be6",
+    "participant_id": "P-A1707E4A",
+    "saved_at": "2025-06-27T20:58:16.311100",
+    "data": {
+      "participant_id": "P-A1707E4A",
+      "session_id": "c2611dd5-89d3-425a-bab8-1dba7f764be6",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates an age of 25, which is within the required age range of 18 to 75 years. Therefore, they meet the eligibility criteria.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25"
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's response indicates an age of 25, which is within the required age range of 18 to 75 years. Therefore, they meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T20:58:14.071881",
+        "participant_id": "P-A1707E4A"
+      },
+      "export_timestamp": "2025-06-27T20:58:16.310568"
+    }
+  },
+  "P-CBBD3E9B": {
+    "session_id": "0058dc0d-ff62-46c2-bbe8-3b2e8d25fbc0",
+    "participant_id": "P-CBBD3E9B",
+    "saved_at": "2025-06-27T21:10:53.673927",
+    "data": {
+      "participant_id": "P-CBBD3E9B",
+      "session_id": "0058dc0d-ff62-46c2-bbe8-3b2e8d25fbc0",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response of 'I don't know' does not provide a valid age within the required range of 18-75 years, thus failing to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a valid age within the required range of 18-75 years, thus failing to meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:10:51.225845",
+        "participant_id": "P-CBBD3E9B"
+      },
+      "export_timestamp": "2025-06-27T21:10:53.673448"
+    }
+  },
+  "P-255554A0": {
+    "session_id": "47ffe2f6-a7ef-46cd-9e98-6e2995bb8b36",
+    "participant_id": "P-255554A0",
+    "saved_at": "2025-06-27T21:27:05.428829",
+    "data": {
+      "participant_id": "P-255554A0",
+      "session_id": "47ffe2f6-a7ef-46cd-9e98-6e2995bb8b36",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'I don't know' does not provide an age within the required range of 18 to 75 years. Therefore, they do not meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know"
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I don't know\"\n   Assessment: The participant's response 'I don't know' does not provide an age within the required range of 18 to 75 years. Therefore, they do not meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:27:02.352360",
+        "participant_id": "P-255554A0"
+      },
+      "export_timestamp": "2025-06-27T21:27:05.428305"
+    }
+  },
+  "P-3B3ADDAE": {
+    "session_id": "77651c8d-f314-4e9a-af43-b381fbc5614e",
+    "participant_id": "P-3B3ADDAE",
+    "saved_at": "2025-06-27T21:35:55.686674",
+    "data": {
+      "participant_id": "P-3B3ADDAE",
+      "session_id": "77651c8d-f314-4e9a-af43-b381fbc5614e",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 falls within the specified age range of 18 to 75 years, making them eligible for the clinical trial.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25"
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's age of 25 falls within the specified age range of 18 to 75 years, making them eligible for the clinical trial.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T21:35:53.416780",
+        "participant_id": "P-3B3ADDAE"
+      },
+      "export_timestamp": "2025-06-27T21:35:55.686038"
+    }
+  },
+  "P-743DB21E": {
+    "session_id": "eee54dff-26bd-4316-9600-e95665a3cb42",
+    "participant_id": "P-743DB21E",
+    "saved_at": "2025-06-27T21:36:59.546184",
+    "data": {
+      "participant_id": "P-743DB21E",
+      "session_id": "eee54dff-26bd-4316-9600-e95665a3cb42",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'I don't know' does not provide any information about their age, and therefore, cannot be considered as meeting the age eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know"
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I don't know\"\n   Assessment: The participant's response 'I don't know' does not provide any information about their age, and therefore, cannot be considered as meeting the age eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:36:57.415119",
+        "participant_id": "P-743DB21E"
+      },
+      "export_timestamp": "2025-06-27T21:36:59.545573"
+    }
+  },
+  "P-8ABCF1B7": {
+    "session_id": "657aab3d-5169-47d1-8953-9183fe75871f",
+    "participant_id": "P-8ABCF1B7",
+    "saved_at": "2025-06-27T21:46:02.421984",
+    "data": {
+      "participant_id": "P-8ABCF1B7",
+      "session_id": "657aab3d-5169-47d1-8953-9183fe75871f",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response of 'I don't know' does not provide a concrete age value, and therefore does not meet the age eligibility criteria of 18-75 years.",
+            "extracted_value": null,
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I don't know."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a concrete age value, and therefore does not meet the age eligibility criteria of 18-75 years.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-27T21:46:00.483839",
+        "participant_id": "P-8ABCF1B7"
+      },
+      "export_timestamp": "2025-06-27T21:46:02.421435"
+    }
+  },
+  "P-58C43A39": {
+    "session_id": "25db884d-a5f2-47ac-90b8-2a575602307d",
+    "participant_id": "P-58C43A39",
+    "saved_at": "2025-06-27T23:17:04.275216",
+    "data": {
+      "participant_id": "P-58C43A39",
+      "session_id": "25db884d-a5f2-47ac-90b8-2a575602307d",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant is 25 years old, which is within the required age range of 18 to 75 years inclusive.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years old."
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25 years old.\"\n   Assessment: The participant is 25 years old, which is within the required age range of 18 to 75 years inclusive.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T23:17:02.373638",
+        "participant_id": "P-58C43A39"
+      },
+      "export_timestamp": "2025-06-27T23:17:04.274974"
+    }
+  },
+  "P-5104127B": {
+    "session_id": "12587351-c518-4e52-84ed-96a083675904",
+    "participant_id": "P-5104127B",
+    "saved_at": "2025-06-27T23:29:36.183025",
+    "data": {
+      "participant_id": "P-5104127B",
+      "session_id": "12587351-c518-4e52-84ed-96a083675904",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 years falls within the specified eligibility range of 18 to 75 years.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years old"
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25 years old\"\n   Assessment: The participant's age of 25 years falls within the specified eligibility range of 18 to 75 years.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T23:29:34.472441",
+        "participant_id": "P-5104127B"
+      },
+      "export_timestamp": "2025-06-27T23:29:36.182679"
+    }
+  },
+  "P-9BA1C2C2": {
+    "session_id": "1abcd6a7-e444-4c3c-84f0-91c9262364d4",
+    "participant_id": "P-9BA1C2C2",
+    "saved_at": "2025-06-27T23:37:44.010869",
+    "data": {
+      "participant_id": "P-9BA1C2C2",
+      "session_id": "1abcd6a7-e444-4c3c-84f0-91c9262364d4",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 years falls within the specified range of 18 to 75 years, thus meeting the eligibility criteria.",
+            "extracted_value": "25 years",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years"
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25 years\"\n   Assessment: The participant's age of 25 years falls within the specified range of 18 to 75 years, thus meeting the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T23:37:41.668542",
+        "participant_id": "P-9BA1C2C2"
+      },
+      "export_timestamp": "2025-06-27T23:37:44.010559"
+    }
+  },
+  "P-28E4CFA2": {
+    "session_id": "18030bbd-7e6f-40f1-9784-07ed98a73890",
+    "participant_id": "P-28E4CFA2",
+    "saved_at": "2025-06-27T23:54:36.077177",
+    "data": {
+      "participant_id": "P-28E4CFA2",
+      "session_id": "18030bbd-7e6f-40f1-9784-07ed98a73890",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 is within the specified range of 18 to 75 years, which meets the eligibility criteria.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25"
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's age of 25 is within the specified range of 18 to 75 years, which meets the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-27T23:54:33.591508",
+        "participant_id": "P-28E4CFA2"
+      },
+      "export_timestamp": "2025-06-27T23:54:36.076462"
+    }
+  },
+  "P-7E557BBC": {
+    "session_id": "f954f1d5-6dd8-4b17-9717-996e1cf0a8ea",
+    "participant_id": "P-7E557BBC",
+    "saved_at": "2025-06-28T00:10:39.356769",
+    "data": {
+      "participant_id": "P-7E557BBC",
+      "session_id": "f954f1d5-6dd8-4b17-9717-996e1cf0a8ea",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates they are 25 years old, which is within the eligible age range of 18 to 75 years inclusive.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I'm 25 years old."
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I'm 25 years old.\"\n   Assessment: The participant's response indicates they are 25 years old, which is within the eligible age range of 18 to 75 years inclusive.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-28T00:10:37.416513",
+        "participant_id": "P-7E557BBC"
+      },
+      "export_timestamp": "2025-06-28T00:10:39.356437"
+    }
+  },
+  "P-0B3185F9": {
+    "session_id": "2ae61426-f6f2-48a1-a03b-3f0edfa2a31a",
+    "participant_id": "P-0B3185F9",
+    "saved_at": "2025-06-28T00:55:20.329963",
+    "data": {
+      "participant_id": "P-0B3185F9",
+      "session_id": "2ae61426-f6f2-48a1-a03b-3f0edfa2a31a",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of '25 years' is within the age range of 18 to 75 years, thus meeting the eligibility criteria.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years."
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25 years.\"\n   Assessment: The participant's response of '25 years' is within the age range of 18 to 75 years, thus meeting the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-28T00:55:18.267472",
+        "participant_id": "P-0B3185F9"
+      },
+      "export_timestamp": "2025-06-28T00:55:20.329004"
+    }
+  },
+  "P-71B911C0": {
+    "session_id": "278b2ffe-557e-40d7-85c6-542ac9e1747e",
+    "participant_id": "P-71B911C0",
+    "saved_at": "2025-06-28T05:28:36.537415",
+    "data": {
+      "participant_id": "P-71B911C0",
+      "session_id": "278b2ffe-557e-40d7-85c6-542ac9e1747e",
+      "study_id": "neurology-mindsharp",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 13.3,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates they are 25 years old, which is outside the required age range of 55 to 85 years.",
+            "extracted_value": "25",
+            "criteria_id": "NE001",
+            "criteria_text": "Age 55 – 85 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years old"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.85,
+            "reasoning": "The participant answered 'Yes,' but did not specify that they have been diagnosed with mild cognitive impairment specifically. The response is vague and does not align with the expected phrasing of having been diagnosed with mild cognitive impairment.",
+            "extracted_value": null,
+            "criteria_id": "NE002",
+            "criteria_text": "Diagnosis of mild cognitive impairment (MCI)",
+            "criteria_question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+            "priority": "high",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'Yes.' clearly indicates that they believe they have adequate hearing and vision to participate in the cognitive tests as required by the eligibility criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "NE003",
+            "criteria_text": "Adequate hearing and vision for cognitive testing",
+            "criteria_question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+            "priority": "medium",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response does not provide any information about their medication stability, indicating a lack of engagement with the question.",
+            "extracted_value": null,
+            "criteria_id": "NE004",
+            "criteria_text": "Stable on current medications for at least 3 months",
+            "criteria_question": "Have your current medications remained stable without major changes for at least 3 months?",
+            "priority": "medium",
+            "participant_response": "I don't care."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates uncertainty and lack of a family member or caregiver who can attend study visits, which does not meet the eligibility criteria requiring an available study partner or caregiver.",
+            "extracted_value": null,
+            "criteria_id": "NE005",
+            "criteria_text": "Available study partner or caregiver",
+            "criteria_question": "Do you have a family member or caregiver who can attend some study visits with you?",
+            "priority": "low",
+            "participant_response": "No, I don't know. I don't have any."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 13.3%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 55 – 85 years (inclusive)\n   Response: \"25 years old\"\n   Assessment: The participant's response indicates they are 25 years old, which is outside the required age range of 55 to 85 years.\n\n❌ 🔴 Diagnosis of mild cognitive impairment (MCI)\n   Response: \"Yes.\"\n   Assessment: The participant answered 'Yes,' but did not specify that they have been diagnosed with mild cognitive impairment specifically. The response is vague and does not align with the expected phrasing of having been diagnosed with mild cognitive impairment.\n\n✅ 🟡 Adequate hearing and vision for cognitive testing\n   Response: \"Yes.\"\n   Assessment: The participant's response 'Yes.' clearly indicates that they believe they have adequate hearing and vision to participate in the cognitive tests as required by the eligibility criteria.\n\n❌ 🟡 Stable on current medications for at least 3 months\n   Response: \"I don't care.\"\n   Assessment: The participant's response does not provide any information about their medication stability, indicating a lack of engagement with the question.\n\n❌ 🟢 Available study partner or caregiver\n   Response: \"No, I don't know. I don't have any.\"\n   Assessment: The participant's response indicates uncertainty and lack of a family member or caregiver who can attend study visits, which does not meet the eligibility criteria requiring an available study partner or caregiver.\n\n",
+        "high_priority_criteria_met": "0/2",
+        "evaluation_timestamp": "2025-06-28T05:28:34.277798",
+        "participant_id": "P-71B911C0"
+      },
+      "export_timestamp": "2025-06-28T05:28:36.537166"
+    }
+  },
+  "P-CF4E5970": {
+    "session_id": "0a532cbb-8493-4d55-8d5f-4b5137acea5b",
+    "participant_id": "P-CF4E5970",
+    "saved_at": "2025-06-28T05:39:21.591755",
+    "data": {
+      "participant_id": "P-CF4E5970",
+      "session_id": "0a532cbb-8493-4d55-8d5f-4b5137acea5b",
+      "study_id": "neurology-mindsharp",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 13.3,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of '25 years' does not fall within the required age range of 55-85 years.",
+            "extracted_value": "25",
+            "criteria_id": "NE001",
+            "criteria_text": "Age 55 – 85 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates 'Non', which suggests they have not been diagnosed with mild cognitive impairment or mild memory problems. This does not align with the eligibility criteria.",
+            "extracted_value": "Non",
+            "criteria_id": "NE002",
+            "criteria_text": "Diagnosis of mild cognitive impairment (MCI)",
+            "criteria_question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+            "priority": "high",
+            "participant_response": "Non."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of 'Yes' indicates that they have adequate hearing and vision to participate in the computer-based cognitive tests, aligning with the eligibility criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "NE003",
+            "criteria_text": "Adequate hearing and vision for cognitive testing",
+            "criteria_question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+            "priority": "medium",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.8,
+            "reasoning": "The participant's response of 'I don't know' does not explicitly confirm that their medications have been stable for at least 3 months, which is required to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "NE004",
+            "criteria_text": "Stable on current medications for at least 3 months",
+            "criteria_question": "Have your current medications remained stable without major changes for at least 3 months?",
+            "priority": "medium",
+            "participant_response": "I don't know"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response does not indicate that they have a family member or caregiver available to attend study visits, as it expresses indifference ('I don't care').",
+            "extracted_value": null,
+            "criteria_id": "NE005",
+            "criteria_text": "Available study partner or caregiver",
+            "criteria_question": "Do you have a family member or caregiver who can attend some study visits with you?",
+            "priority": "low",
+            "participant_response": "I don't care."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 13.3%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 55 – 85 years (inclusive)\n   Response: \"25 years\"\n   Assessment: The participant's response of '25 years' does not fall within the required age range of 55-85 years.\n\n❌ 🔴 Diagnosis of mild cognitive impairment (MCI)\n   Response: \"Non.\"\n   Assessment: The participant's response indicates 'Non', which suggests they have not been diagnosed with mild cognitive impairment or mild memory problems. This does not align with the eligibility criteria.\n\n✅ 🟡 Adequate hearing and vision for cognitive testing\n   Response: \"Yes.\"\n   Assessment: The participant's response of 'Yes' indicates that they have adequate hearing and vision to participate in the computer-based cognitive tests, aligning with the eligibility criteria.\n\n❌ 🟡 Stable on current medications for at least 3 months\n   Response: \"I don't know\"\n   Assessment: The participant's response of 'I don't know' does not explicitly confirm that their medications have been stable for at least 3 months, which is required to meet the eligibility criteria.\n\n❌ 🟢 Available study partner or caregiver\n   Response: \"I don't care.\"\n   Assessment: The participant's response does not indicate that they have a family member or caregiver available to attend study visits, as it expresses indifference ('I don't care').\n\n",
+        "high_priority_criteria_met": "0/2",
+        "evaluation_timestamp": "2025-06-28T05:39:19.102501",
+        "participant_id": "P-CF4E5970"
+      },
+      "export_timestamp": "2025-06-28T05:39:21.591455"
+    }
+  },
+  "P-60C941AF": {
+    "session_id": "bccd6d4b-7d4a-41a3-8cdc-abe3a15b9cd0",
+    "participant_id": "P-60C941AF",
+    "saved_at": "2025-06-28T06:24:53.632122",
+    "data": {
+      "participant_id": "P-60C941AF",
+      "session_id": "bccd6d4b-7d4a-41a3-8cdc-abe3a15b9cd0",
+      "study_id": "neurology-mindsharp",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 years does not fall within the specified age range of 55 to 85 years.",
+            "extracted_value": "25",
+            "criteria_id": "NE001",
+            "criteria_text": "Age 55 – 85 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years old."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant explicitly states that they have not been diagnosed with mild cognitive impairment, which directly contradicts the eligibility criterion of having a diagnosis.",
+            "extracted_value": "No",
+            "criteria_id": "NE002",
+            "criteria_text": "Diagnosis of mild cognitive impairment (MCI)",
+            "criteria_question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+            "priority": "high",
+            "participant_response": "No."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response of 'I don't know' suggests uncertainty about their hearing and vision capabilities, which does not align with the expected answer of having adequate hearing and vision.",
+            "extracted_value": "I don't know",
+            "criteria_id": "NE003",
+            "criteria_text": "Adequate hearing and vision for cognitive testing",
+            "criteria_question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+            "priority": "medium",
+            "participant_response": "I don't know."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response 'Yes, I think.' indicates uncertainty, which does not provide clear evidence that their medications have been stable for at least 3 months as required by the criteria.",
+            "extracted_value": "Yes, I think.",
+            "criteria_id": "NE004",
+            "criteria_text": "Stable on current medications for at least 3 months",
+            "criteria_question": "Have your current medications remained stable without major changes for at least 3 months?",
+            "priority": "medium",
+            "participant_response": "Yes, I think."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'I don't know' does not affirm the availability of a study partner or caregiver, thus failing to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "NE005",
+            "criteria_text": "Available study partner or caregiver",
+            "criteria_question": "Do you have a family member or caregiver who can attend some study visits with you?",
+            "priority": "low",
+            "participant_response": "I don't know"
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 55 – 85 years (inclusive)\n   Response: \"25 years old.\"\n   Assessment: The participant's age of 25 years does not fall within the specified age range of 55 to 85 years.\n\n❌ 🔴 Diagnosis of mild cognitive impairment (MCI)\n   Response: \"No.\"\n   Assessment: The participant explicitly states that they have not been diagnosed with mild cognitive impairment, which directly contradicts the eligibility criterion of having a diagnosis.\n\n❌ 🟡 Adequate hearing and vision for cognitive testing\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' suggests uncertainty about their hearing and vision capabilities, which does not align with the expected answer of having adequate hearing and vision.\n\n❌ 🟡 Stable on current medications for at least 3 months\n   Response: \"Yes, I think.\"\n   Assessment: The participant's response 'Yes, I think.' indicates uncertainty, which does not provide clear evidence that their medications have been stable for at least 3 months as required by the criteria.\n\n❌ 🟢 Available study partner or caregiver\n   Response: \"I don't know\"\n   Assessment: The participant's response 'I don't know' does not affirm the availability of a study partner or caregiver, thus failing to meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/2",
+        "evaluation_timestamp": "2025-06-28T06:24:50.974072",
+        "participant_id": "P-60C941AF"
+      },
+      "export_timestamp": "2025-06-28T06:24:53.631495"
+    }
+  },
+  "P-65C0903F": {
+    "session_id": "82dec998-7a87-4e18-b4d0-4d3f4a0eee5a",
+    "participant_id": "P-65C0903F",
+    "saved_at": "2025-06-28T07:08:23.873267",
+    "data": {
+      "participant_id": "P-65C0903F",
+      "session_id": "82dec998-7a87-4e18-b4d0-4d3f4a0eee5a",
+      "study_id": "neurology-mindsharp",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 is outside the specified age range of 55 to 85 years, therefore they do not meet the eligibility criteria.",
+            "extracted_value": "25",
+            "criteria_id": "NE001",
+            "criteria_text": "Age 55 – 85 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I am 25 years old."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response indicates uncertainty about their diagnosis, which does not satisfy the requirement of having a clear diagnosis of mild cognitive impairment.",
+            "extracted_value": null,
+            "criteria_id": "NE002",
+            "criteria_text": "Diagnosis of mild cognitive impairment (MCI)",
+            "criteria_question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+            "priority": "high",
+            "participant_response": "Oh, I don't know"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response '느낌으로요' translates to 'I feel like it', which does not explicitly confirm adequate hearing and vision for testing. The vague nature of the response does not provide sufficient evidence to meet the criteria.",
+            "extracted_value": null,
+            "criteria_id": "NE003",
+            "criteria_text": "Adequate hearing and vision for cognitive testing",
+            "criteria_question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+            "priority": "medium",
+            "participant_response": "느낌으로요"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.6,
+            "reasoning": "The participant's response 'Yeah, maybe' indicates uncertainty about the stability of their medications, which does not clearly affirm that their medications have remained stable for the required time frame.",
+            "extracted_value": null,
+            "criteria_id": "NE004",
+            "criteria_text": "Stable on current medications for at least 3 months",
+            "criteria_question": "Have your current medications remained stable without major changes for at least 3 months?",
+            "priority": "medium",
+            "participant_response": "Yeah, maybe"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.8,
+            "reasoning": "The participant's response 'Okay.' does not clearly indicate that they have a family member or caregiver available to attend study visits, as it does not answer the question directly.",
+            "extracted_value": null,
+            "criteria_id": "NE005",
+            "criteria_text": "Available study partner or caregiver",
+            "criteria_question": "Do you have a family member or caregiver who can attend some study visits with you?",
+            "priority": "low",
+            "participant_response": "Okay."
+          }
+        ],
+        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 55 – 85 years (inclusive)\n   Response: \"I am 25 years old.\"\n   Assessment: The participant's age of 25 is outside the specified age range of 55 to 85 years, therefore they do not meet the eligibility criteria.\n\n❌ 🔴 Diagnosis of mild cognitive impairment (MCI)\n   Response: \"Oh, I don't know\"\n   Assessment: The participant's response indicates uncertainty about their diagnosis, which does not satisfy the requirement of having a clear diagnosis of mild cognitive impairment.\n\n❌ 🟡 Adequate hearing and vision for cognitive testing\n   Response: \"느낌으로요\"\n   Assessment: The participant's response '느낌으로요' translates to 'I feel like it', which does not explicitly confirm adequate hearing and vision for testing. The vague nature of the response does not provide sufficient evidence to meet the criteria.\n\n❌ 🟡 Stable on current medications for at least 3 months\n   Response: \"Yeah, maybe\"\n   Assessment: The participant's response 'Yeah, maybe' indicates uncertainty about the stability of their medications, which does not clearly affirm that their medications have remained stable for the required time frame.\n\n❌ 🟢 Available study partner or caregiver\n   Response: \"Okay.\"\n   Assessment: The participant's response 'Okay.' does not clearly indicate that they have a family member or caregiver available to attend study visits, as it does not answer the question directly.\n\n",
+        "high_priority_criteria_met": "0/2",
+        "evaluation_timestamp": "2025-06-28T07:08:20.839729",
+        "participant_id": "P-65C0903F"
+      },
+      "export_timestamp": "2025-06-28T07:08:23.872343"
+    }
+  },
+  "P-B1D488E9": {
+    "session_id": "2a3590b6-34d6-4d97-b3f4-ea72eea09aae",
+    "participant_id": "P-B1D488E9",
+    "saved_at": "2025-06-28T08:47:41.777936",
+    "data": {
+      "participant_id": "P-B1D488E9",
+      "session_id": "2a3590b6-34d6-4d97-b3f4-ea72eea09aae",
+      "study_id": "oncology-immunocare",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 is within the specified range of 18 to 75 years, thus meeting the eligibility criteria.",
+            "extracted_value": "25",
+            "criteria_id": "ON001",
+            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25"
+          }
+        ],
+        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25\"\n   Assessment: The participant's age of 25 is within the specified range of 18 to 75 years, thus meeting the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "1/1",
+        "evaluation_timestamp": "2025-06-28T08:47:39.921293",
+        "participant_id": "P-B1D488E9"
+      },
+      "export_timestamp": "2025-06-28T08:47:41.777471"
+    }
+  }
+}
