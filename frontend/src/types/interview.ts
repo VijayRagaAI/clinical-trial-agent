@@ -54,6 +54,18 @@ export interface Study {
   purpose: string;
   commitment: string;
   procedures: string[];
+  // Additional properties from JSON data
+  protocol_version?: string;
+  last_amended?: string;
+  key_procedures?: string[];
+  criteria?: Array<{
+    id: string;
+    text: string;
+    question: string;
+    expected_response: string;
+    response: string;
+    priority: 'high' | 'medium' | 'low';
+  }>;
 }
 
 export interface EligibilityResult {

@@ -254,7 +254,7 @@ async def generate_voice_preview(request: Request):
     try:
         data = await request.json()
         text = data.get("text", "Hello, this is a preview of my voice.")
-        voice = data.get("voice", "onyx")
+        voice = data.get("voice", "nova")
         language = data.get("language", "english")
         speed = float(data.get("speed", 1.0))
         
@@ -300,7 +300,7 @@ async def update_audio_settings(request: Request):
     try:
         data = await request.json()
         output_language = data.get("output_language", "english")
-        voice = data.get("voice", "onyx")
+        voice = data.get("voice", "nova")
         speed = float(data.get("speed", 1.0))
         
         # Clamp speed to valid range
@@ -345,7 +345,7 @@ async def get_audio_settings():
     """Get current audio settings"""
     try:
         current_language = audio_processor.output_language
-        current_voice = os.getenv("SELECTED_VOICE", "onyx")
+        current_voice = os.getenv("SELECTED_VOICE", "nova")
         current_speed = float(os.getenv("SELECTED_SPEED", "1.0"))
         
         return {

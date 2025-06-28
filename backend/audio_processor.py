@@ -216,7 +216,7 @@ class AudioProcessor:
                 logger.info(f"Using original text (English): {text[:50]}...")
             
             # Get selected voice from environment or use default
-            selected_voice = os.getenv("SELECTED_VOICE", "onyx")
+            selected_voice = os.getenv("SELECTED_VOICE", "nova")
             
             # Get selected speed from environment or use provided speed
             selected_speed = float(os.getenv("SELECTED_SPEED", str(speed)))

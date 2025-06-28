@@ -762,5 +762,233 @@
       },
       "export_timestamp": "2025-06-28T00:55:20.329004"
     }
+  },
+  "P-71B911C0": {
+    "session_id": "278b2ffe-557e-40d7-85c6-542ac9e1747e",
+    "participant_id": "P-71B911C0",
+    "saved_at": "2025-06-28T05:28:36.537415",
+    "data": {
+      "participant_id": "P-71B911C0",
+      "session_id": "278b2ffe-557e-40d7-85c6-542ac9e1747e",
+      "study_id": "neurology-mindsharp",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 13.3,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates they are 25 years old, which is outside the required age range of 55 to 85 years.",
+            "extracted_value": "25",
+            "criteria_id": "NE001",
+            "criteria_text": "Age 55 \u2013 85 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years old"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.85,
+            "reasoning": "The participant answered 'Yes,' but did not specify that they have been diagnosed with mild cognitive impairment specifically. The response is vague and does not align with the expected phrasing of having been diagnosed with mild cognitive impairment.",
+            "extracted_value": null,
+            "criteria_id": "NE002",
+            "criteria_text": "Diagnosis of mild cognitive impairment (MCI)",
+            "criteria_question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+            "priority": "high",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response 'Yes.' clearly indicates that they believe they have adequate hearing and vision to participate in the cognitive tests as required by the eligibility criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "NE003",
+            "criteria_text": "Adequate hearing and vision for cognitive testing",
+            "criteria_question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+            "priority": "medium",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response does not provide any information about their medication stability, indicating a lack of engagement with the question.",
+            "extracted_value": null,
+            "criteria_id": "NE004",
+            "criteria_text": "Stable on current medications for at least 3 months",
+            "criteria_question": "Have your current medications remained stable without major changes for at least 3 months?",
+            "priority": "medium",
+            "participant_response": "I don't care."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates uncertainty and lack of a family member or caregiver who can attend study visits, which does not meet the eligibility criteria requiring an available study partner or caregiver.",
+            "extracted_value": null,
+            "criteria_id": "NE005",
+            "criteria_text": "Available study partner or caregiver",
+            "criteria_question": "Do you have a family member or caregiver who can attend some study visits with you?",
+            "priority": "low",
+            "participant_response": "No, I don't know. I don't have any."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 13.3%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 55 \u2013 85 years (inclusive)\n   Response: \"25 years old\"\n   Assessment: The participant's response indicates they are 25 years old, which is outside the required age range of 55 to 85 years.\n\n\u274c \ud83d\udd34 Diagnosis of mild cognitive impairment (MCI)\n   Response: \"Yes.\"\n   Assessment: The participant answered 'Yes,' but did not specify that they have been diagnosed with mild cognitive impairment specifically. The response is vague and does not align with the expected phrasing of having been diagnosed with mild cognitive impairment.\n\n\u2705 \ud83d\udfe1 Adequate hearing and vision for cognitive testing\n   Response: \"Yes.\"\n   Assessment: The participant's response 'Yes.' clearly indicates that they believe they have adequate hearing and vision to participate in the cognitive tests as required by the eligibility criteria.\n\n\u274c \ud83d\udfe1 Stable on current medications for at least 3 months\n   Response: \"I don't care.\"\n   Assessment: The participant's response does not provide any information about their medication stability, indicating a lack of engagement with the question.\n\n\u274c \ud83d\udfe2 Available study partner or caregiver\n   Response: \"No, I don't know. I don't have any.\"\n   Assessment: The participant's response indicates uncertainty and lack of a family member or caregiver who can attend study visits, which does not meet the eligibility criteria requiring an available study partner or caregiver.\n\n",
+        "high_priority_criteria_met": "0/2",
+        "evaluation_timestamp": "2025-06-28T05:28:34.277798",
+        "participant_id": "P-71B911C0"
+      },
+      "export_timestamp": "2025-06-28T05:28:36.537166"
+    }
+  },
+  "P-CF4E5970": {
+    "session_id": "0a532cbb-8493-4d55-8d5f-4b5137acea5b",
+    "participant_id": "P-CF4E5970",
+    "saved_at": "2025-06-28T05:39:21.591755",
+    "data": {
+      "participant_id": "P-CF4E5970",
+      "session_id": "0a532cbb-8493-4d55-8d5f-4b5137acea5b",
+      "study_id": "neurology-mindsharp",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 13.3,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of '25 years' does not fall within the required age range of 55-85 years.",
+            "extracted_value": "25",
+            "criteria_id": "NE001",
+            "criteria_text": "Age 55 \u2013 85 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates 'Non', which suggests they have not been diagnosed with mild cognitive impairment or mild memory problems. This does not align with the eligibility criteria.",
+            "extracted_value": "Non",
+            "criteria_id": "NE002",
+            "criteria_text": "Diagnosis of mild cognitive impairment (MCI)",
+            "criteria_question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+            "priority": "high",
+            "participant_response": "Non."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of 'Yes' indicates that they have adequate hearing and vision to participate in the computer-based cognitive tests, aligning with the eligibility criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "NE003",
+            "criteria_text": "Adequate hearing and vision for cognitive testing",
+            "criteria_question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+            "priority": "medium",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.8,
+            "reasoning": "The participant's response of 'I don't know' does not explicitly confirm that their medications have been stable for at least 3 months, which is required to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "NE004",
+            "criteria_text": "Stable on current medications for at least 3 months",
+            "criteria_question": "Have your current medications remained stable without major changes for at least 3 months?",
+            "priority": "medium",
+            "participant_response": "I don't know"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response does not indicate that they have a family member or caregiver available to attend study visits, as it expresses indifference ('I don't care').",
+            "extracted_value": null,
+            "criteria_id": "NE005",
+            "criteria_text": "Available study partner or caregiver",
+            "criteria_question": "Do you have a family member or caregiver who can attend some study visits with you?",
+            "priority": "low",
+            "participant_response": "I don't care."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 13.3%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 55 \u2013 85 years (inclusive)\n   Response: \"25 years\"\n   Assessment: The participant's response of '25 years' does not fall within the required age range of 55-85 years.\n\n\u274c \ud83d\udd34 Diagnosis of mild cognitive impairment (MCI)\n   Response: \"Non.\"\n   Assessment: The participant's response indicates 'Non', which suggests they have not been diagnosed with mild cognitive impairment or mild memory problems. This does not align with the eligibility criteria.\n\n\u2705 \ud83d\udfe1 Adequate hearing and vision for cognitive testing\n   Response: \"Yes.\"\n   Assessment: The participant's response of 'Yes' indicates that they have adequate hearing and vision to participate in the computer-based cognitive tests, aligning with the eligibility criteria.\n\n\u274c \ud83d\udfe1 Stable on current medications for at least 3 months\n   Response: \"I don't know\"\n   Assessment: The participant's response of 'I don't know' does not explicitly confirm that their medications have been stable for at least 3 months, which is required to meet the eligibility criteria.\n\n\u274c \ud83d\udfe2 Available study partner or caregiver\n   Response: \"I don't care.\"\n   Assessment: The participant's response does not indicate that they have a family member or caregiver available to attend study visits, as it expresses indifference ('I don't care').\n\n",
+        "high_priority_criteria_met": "0/2",
+        "evaluation_timestamp": "2025-06-28T05:39:19.102501",
+        "participant_id": "P-CF4E5970"
+      },
+      "export_timestamp": "2025-06-28T05:39:21.591455"
+    }
+  },
+  "P-60C941AF": {
+    "session_id": "bccd6d4b-7d4a-41a3-8cdc-abe3a15b9cd0",
+    "participant_id": "P-60C941AF",
+    "saved_at": "2025-06-28T06:24:53.632122",
+    "data": {
+      "participant_id": "P-60C941AF",
+      "session_id": "bccd6d4b-7d4a-41a3-8cdc-abe3a15b9cd0",
+      "study_id": "neurology-mindsharp",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's age of 25 years does not fall within the specified age range of 55 to 85 years.",
+            "extracted_value": "25",
+            "criteria_id": "NE001",
+            "criteria_text": "Age 55 \u2013 85 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25 years old."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant explicitly states that they have not been diagnosed with mild cognitive impairment, which directly contradicts the eligibility criterion of having a diagnosis.",
+            "extracted_value": "No",
+            "criteria_id": "NE002",
+            "criteria_text": "Diagnosis of mild cognitive impairment (MCI)",
+            "criteria_question": "Have you been diagnosed with mild cognitive impairment or mild memory problems by a doctor?",
+            "priority": "high",
+            "participant_response": "No."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response of 'I don't know' suggests uncertainty about their hearing and vision capabilities, which does not align with the expected answer of having adequate hearing and vision.",
+            "extracted_value": "I don't know",
+            "criteria_id": "NE003",
+            "criteria_text": "Adequate hearing and vision for cognitive testing",
+            "criteria_question": "Do you have adequate hearing and vision to participate in computer-based cognitive tests?",
+            "priority": "medium",
+            "participant_response": "I don't know."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response 'Yes, I think.' indicates uncertainty, which does not provide clear evidence that their medications have been stable for at least 3 months as required by the criteria.",
+            "extracted_value": "Yes, I think.",
+            "criteria_id": "NE004",
+            "criteria_text": "Stable on current medications for at least 3 months",
+            "criteria_question": "Have your current medications remained stable without major changes for at least 3 months?",
+            "priority": "medium",
+            "participant_response": "Yes, I think."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'I don't know' does not affirm the availability of a study partner or caregiver, thus failing to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "NE005",
+            "criteria_text": "Available study partner or caregiver",
+            "criteria_question": "Do you have a family member or caregiver who can attend some study visits with you?",
+            "priority": "low",
+            "participant_response": "I don't know"
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 55 \u2013 85 years (inclusive)\n   Response: \"25 years old.\"\n   Assessment: The participant's age of 25 years does not fall within the specified age range of 55 to 85 years.\n\n\u274c \ud83d\udd34 Diagnosis of mild cognitive impairment (MCI)\n   Response: \"No.\"\n   Assessment: The participant explicitly states that they have not been diagnosed with mild cognitive impairment, which directly contradicts the eligibility criterion of having a diagnosis.\n\n\u274c \ud83d\udfe1 Adequate hearing and vision for cognitive testing\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' suggests uncertainty about their hearing and vision capabilities, which does not align with the expected answer of having adequate hearing and vision.\n\n\u274c \ud83d\udfe1 Stable on current medications for at least 3 months\n   Response: \"Yes, I think.\"\n   Assessment: The participant's response 'Yes, I think.' indicates uncertainty, which does not provide clear evidence that their medications have been stable for at least 3 months as required by the criteria.\n\n\u274c \ud83d\udfe2 Available study partner or caregiver\n   Response: \"I don't know\"\n   Assessment: The participant's response 'I don't know' does not affirm the availability of a study partner or caregiver, thus failing to meet the eligibility criteria.\n\n",
+        "high_priority_criteria_met": "0/2",
+        "evaluation_timestamp": "2025-06-28T06:24:50.974072",
+        "participant_id": "P-60C941AF"
+      },
+      "export_timestamp": "2025-06-28T06:24:53.631495"
+    }
   }
 }
