@@ -43,6 +43,31 @@ export interface ButtonConfig {
   disabled: boolean;
 }
 
+export interface Study {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  phase: string;
+  sponsor: string;
+  nct_id: string;
+  purpose: string;
+  commitment: string;
+  procedures: string[];
+  // Additional properties from JSON data
+  protocol_version?: string;
+  last_amended?: string;
+  key_procedures?: string[];
+  criteria?: Array<{
+    id: string;
+    text: string;
+    question: string;
+    expected_response: string;
+    response: string;
+    priority: 'high' | 'medium' | 'low';
+  }>;
+}
+
 export interface EligibilityResult {
   participant_id: string;
   eligible: boolean;
@@ -83,4 +108,32 @@ export interface InterviewState {
   showTranscriptionConfirm: boolean;
   lastTranscription: string;
   canInterruptSpeech: boolean;
+}
+
+// Admin Dashboard Types
+export interface AdminInterview {
+  id: string;
+  participant_name: string;
+  participant_id: string;
+  session_id: string;
+  study_id: string;
+  study_name: string;
+  date: string;
+  status: 'Completed' | 'In Progress' | 'Abandoned' | 'Paused' | 'Interrupted' | 'Incomplete';
+  total_messages: number;
+  eligibility_result?: {
+    eligible: boolean;
+    score: number;
+  } | null;
+}
+
+export interface AdminInterviewsResponse {
+  interviews: AdminInterview[];
+  total_count: number;
+  completed_count: number;
+  in_progress_count: number;
+  abandoned_count: number;
+  paused_count: number;
+  interrupted_count: number;
+  incomplete_count: number;
 } 

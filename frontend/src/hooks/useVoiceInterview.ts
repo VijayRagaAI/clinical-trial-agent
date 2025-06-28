@@ -186,9 +186,25 @@ export const useVoiceInterview = () => {
         break;
         
       case 'interview_complete':
-        console.log('Interview complete received:', data); // Debug log
+        console.log('📋 Interview complete received:', {
+          participant_id: data.participant_id,
+          session_id: data.session_id,
+          already_saved: data.already_saved,
+          consent_rejected: data.consent_rejected
+        });
         setInterviewCompleted(true);
-        setEligibilityResult(data.eligibility);
+        
+        // Check if this is a consent rejection
+        if (data.consent_rejected) {
+          console.log('🚫 Interview completed due to consent rejection - marked as Incomplete by backend');
+          // Don't set eligibility result for consent rejection
+          setEligibilityResult(null);
+        } else {
+          console.log('✅ Interview completed successfully - conversation + evaluation saved by backend');
+          // Normal completion with eligibility results
+          setEligibilityResult(data.eligibility);
+        }
+        
         setWaitingForUser(false);
         setShowTranscriptionConfirm(false);
         setIsEvaluating(false);
@@ -205,19 +221,20 @@ export const useVoiceInterview = () => {
     }
   };
 
-  const startInterview = async () => {
+  const startInterview = async (studyId: string, participantName?: string) => {
     try {
       setConnectionError(null);
       setConversationState('starting');
       
       const newSession = await apiService.startSession({
-        participant_name: 'Anonymous',
+        participant_name: participantName || 'Anonymous',
+        study_id: studyId,
       });
       
       setSession(newSession);
       setInterviewStarted(true);
       
-      const ws = apiService.createWebSocketConnection(newSession.session_id);
+      const ws = apiService.createWebSocketConnection(newSession.session_id, studyId);
       wsRef.current = ws;
       
       ws.onopen = () => {

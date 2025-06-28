@@ -12,6 +12,7 @@ export interface SessionData {
 export interface StartSessionRequest {
   participant_name?: string;
   participant_email?: string;
+  study_id: string;
 }
 
 export interface Message {
@@ -88,10 +89,54 @@ class ApiService {
     return response.json();
   }
 
+  // Study management
+  async getAvailableStudies(): Promise<{ studies: any[] }> {
+    const response = await fetch(`${this.baseUrl}/api/studies`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get available studies');
+    }
+
+    return response.json();
+  }
+
+  async getStudyDetails(studyId: string): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/studies/${studyId}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get study details');
+    }
+
+    return response.json();
+  }
+
   // WebSocket connection
-  createWebSocketConnection(sessionId: string): WebSocket {
-    const ws = new WebSocket(`${this.wsUrl}/ws/${sessionId}`);
+  createWebSocketConnection(sessionId: string, studyId: string): WebSocket {
+    const ws = new WebSocket(`${this.wsUrl}/ws/${sessionId}/${studyId}`);
     return ws;
+  }
+
+  // ClinicalTrials.gov API integration
+  async searchClinicalTrials(query: string, maxResults: number = 20): Promise<any> {
+    const response = await fetch(
+      `${this.baseUrl}/api/clinicaltrials/search?query=${encodeURIComponent(query)}&max_results=${maxResults}`
+    );
+    
+    if (!response.ok) {
+      throw new Error('Failed to search clinical trials');
+    }
+
+    return response.json();
+  }
+
+  async getClinicalTrialDetails(nctId: string): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/clinicaltrials/study/${nctId}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get clinical trial details');
+    }
+
+    return response.json();
   }
 
   // Health check
@@ -245,4 +290,8 @@ export class AudioPlayer {
 }
 
 // Export singleton instance
-export const apiService = new ApiService(); 
+export const apiService = new ApiService();
+
+// Export convenient functions
+export const getAvailableStudies = () => apiService.getAvailableStudies();
+export const getStudyDetails = (studyId: string) => apiService.getStudyDetails(studyId); 
