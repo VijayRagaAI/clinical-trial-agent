@@ -317,9 +317,47 @@ const AdminDashboard: React.FC = () => {
     console.log('View interview:', interview);
   };
 
-  const handleDownloadInterview = (interview: AdminInterview) => {
-    // TODO: Implement download functionality
-    console.log('Download interview:', interview);
+  const handleDownloadInterview = async (interview: AdminInterview) => {
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await fetch(`${API_BASE}/api/download/interview/${interview.participant_id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const interviewData = await response.json();
+        
+        // Create filename with participant_id and current date
+        const currentDate = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+        const filename = `interview_${interview.participant_id}_${currentDate}.json`;
+        
+        // Create blob and download
+        const blob = new Blob([JSON.stringify(interviewData, null, 2)], {
+          type: 'application/json'
+        });
+        
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(url);
+        
+        console.log('✅ Interview data downloaded successfully:', filename);
+      } else {
+        const errorData = await response.json().catch(() => ({ detail: 'Unknown error' }));
+        console.error('Failed to download interview data:', errorData);
+        alert(`Failed to download interview data: ${errorData.detail || 'Unknown error'}`);
+      }
+    } catch (error) {
+      console.error('Error downloading interview data:', error);
+      alert('Failed to download interview data. Please check your connection and try again.');
+    }
   };
 
   const handleViewStudy = (study: Study) => {

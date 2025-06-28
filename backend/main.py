@@ -708,6 +708,87 @@ async def download_evaluation_data(session_id: str, participant_id: str):
         logger.error(f"Error retrieving evaluation data: {e}")
         raise HTTPException(status_code=500, detail="Failed to retrieve evaluation data")
 
+@app.get("/api/download/interview/{participant_id}")
+async def download_interview_data(participant_id: str):
+    """Download complete interview data (conversation + evaluation) as JSON"""
+    try:
+        from models import get_saved_conversation, get_saved_evaluation
+        import json
+        from pathlib import Path
+        
+        # Use current file directory to find data directory
+        current_dir = Path(__file__).parent
+        data_dir = current_dir / "data"
+        
+        conversations_file = data_dir / "conversations.json"
+        evaluations_file = data_dir / "evaluations.json"
+        
+        conversation_data = None
+        evaluation_data = None
+        
+        # Load conversation data
+        if conversations_file.exists():
+            with open(conversations_file, 'r', encoding='utf-8') as f:
+                conversations = json.load(f)
+                conversation_entry = conversations.get(participant_id)
+                if conversation_entry:
+                    conversation_data = conversation_entry.get("data")
+        
+        # Load evaluation data
+        if evaluations_file.exists():
+            with open(evaluations_file, 'r', encoding='utf-8') as f:
+                evaluations = json.load(f)
+                evaluation_entry = evaluations.get(participant_id)
+                if evaluation_entry:
+                    evaluation_data = evaluation_entry.get("data")
+        
+        if not conversation_data and not evaluation_data:
+            raise HTTPException(status_code=404, detail=f"No interview data found for participant {participant_id}")
+        
+        # Extract metadata for participant info
+        metadata = conversation_data.get("metadata", {}) if conversation_data else {}
+        evaluation_result = evaluation_data.get("eligibility_result", {}) if evaluation_data else {}
+        
+        # Determine interview status
+        conversation_state = metadata.get("conversation_state", "unknown")
+        saved_incomplete = metadata.get("saved_incomplete", False)
+        status = metadata.get("interview_status", "Unknown")
+        
+        if conversation_state == "completed" and evaluation_data:
+            status = "Completed"
+        elif saved_incomplete and metadata.get("interview_status"):
+            status = metadata.get("interview_status")
+        elif metadata.get("total_messages", 0) > 2:
+            status = "In Progress" if conversation_state != "completed" else "Abandoned"
+        
+        # Build comprehensive download structure
+        download_data = {
+            "participant_interview_info": {
+                "participant_id": participant_id,
+                "session_id": metadata.get("session_id", ""),
+                "study_name": metadata.get("study_id", "").replace("_", " ").title() if metadata.get("study_id") else "",
+                "status": status,
+                "interview_status": metadata.get("interview_status", status),
+                "Eligibility": {
+                    "eligible": evaluation_result.get("eligible", None),
+                    "score": evaluation_result.get("score", None),
+                    "summary": evaluation_result.get("summary", "No evaluation available")
+                } if evaluation_result else None,
+                "date_and_time": metadata.get("export_timestamp", ""),
+                "download_timestamp": datetime.now().isoformat()
+            },
+            "conversation": conversation_data if conversation_data else None,
+            "evaluation": evaluation_data if evaluation_data else None
+        }
+        
+        return download_data
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error retrieving interview data for download: {e}")
+        raise HTTPException(status_code=500, detail="Failed to retrieve interview data")
+
 @app.post("/api/interviews/save-progress")
 async def save_interview_progress(request: Request):
     """Save incomplete interview progress with status"""
