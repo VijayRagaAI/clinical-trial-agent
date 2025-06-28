@@ -1,0 +1,108 @@
+{
+  "studies": [
+    {
+      "id": "imported-nct-03678831",
+      "trial": {
+        "nct_id": "NCT03678831",
+        "title": "Characteristics of Marrow Fatty Cells in the Ageing of Bone and Joints, Osteoarthritis and Osteoporosis",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Rheumatology",
+        "description": "This study aims to compare the characteristics of bone marrow adipocytes in post-menopausal women with knee osteoarthritis to those from subcutaneous adipose tissue.",
+        "phase": "N/A",
+        "sponsor": "Not specified"
+      },
+      "overview": {
+        "purpose": "To understand if marrow fat contributes more to joint problems compared to subcutaneous fat in women with knee osteoarthritis.",
+        "participant_commitment": "Participants will undergo assessments before surgery and will be involved in the study until the primary completion date.",
+        "key_procedures": [
+          "Body weight measurement",
+          "Waist and hip circumference measurements",
+          "Blood pressure checks",
+          "Blood tests for glucose, insulin, and lipids",
+          "Surgical removal of fat tissue"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "IMP001",
+          "text": "Post-menopausal woman",
+          "question": "Are you a post-menopausal woman?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP002",
+          "text": "Symptomatic knee osteoarthritis requiring prosthesis",
+          "question": "Do you have knee osteoarthritis that is severe enough to require a prosthesis?",
+          "expected_response": "Yes, I need a prosthesis",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP003",
+          "text": "Able to handle general anaesthesia",
+          "question": "Are you able to undergo general anaesthesia for surgery?",
+          "expected_response": "Yes, I can handle anaesthesia",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP004",
+          "text": "Able to understand the study constraints",
+          "question": "Do you understand the requirements and constraints of this study?",
+          "expected_response": "Yes, I understand",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP005",
+          "text": "Health insurance coverage",
+          "question": "Do you have health insurance?",
+          "expected_response": "Yes, I have health insurance",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP006",
+          "text": "Able to understand French",
+          "question": "Can you understand the French language?",
+          "expected_response": "Yes, I understand French",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP007",
+          "text": "No active infections or evolving cancer",
+          "question": "Do you currently have any active infections or evolving cancer?",
+          "expected_response": "No, I am healthy",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "IMP008",
+          "text": "No previous surgery at the surgery site",
+          "question": "Have you had any previous surgeries at the site where the prosthesis will be placed?",
+          "expected_response": "No previous surgeries",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "IMP009",
+          "text": "Not currently participating in another study",
+          "question": "Are you currently participating in any other clinical trials?",
+          "expected_response": "No, I am not in another study",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "schema_version": "eligibility-json/2.0-multi-study",
+    "author": "clinical-trial-agent",
+    "generated_utc": "2025-06-28T18:48:31Z",
+    "total_studies": 1
+  }
+}
