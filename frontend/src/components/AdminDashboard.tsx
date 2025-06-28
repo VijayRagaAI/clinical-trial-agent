@@ -313,8 +313,8 @@ const AdminDashboard: React.FC = () => {
   };
 
   const handleViewInterview = (interview: AdminInterview) => {
-    // TODO: Implement view details modal or navigation
-    console.log('View interview:', interview);
+    // Navigate to the interview viewer page
+    navigate(`/interview/view/${interview.participant_id}`);
   };
 
   const handleDownloadInterview = async (interview: AdminInterview) => {

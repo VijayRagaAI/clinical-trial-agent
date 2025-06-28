@@ -14,6 +14,7 @@ import { VoiceInterface } from './components/VoiceInterface';
 import { ConversationChat } from './components/ConversationChat';
 import { EligibilityResults } from './components/EligibilityResults';
 import AdminDashboard from './components/AdminDashboard';
+import InterviewViewer from './components/InterviewViewer';
 import { Study } from './types/interview';
 import { getAvailableStudies } from './services/api';
 import { ConfirmationModal } from './components/ConfirmationModal';
@@ -1020,6 +1021,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AdminDashboard />} />
         <Route path="/interview" element={<InterviewPage />} />
+        <Route path="/interview/view/:participant_id" element={<InterviewViewer />} />
       </Routes>
     </Router>
   );
