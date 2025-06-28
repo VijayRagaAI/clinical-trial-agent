@@ -261,24 +261,26 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           )}
           
           {/* Action Buttons */}
-          <div className="flex space-x-4">
-            <button
-              onClick={onClose}
-              className={`group relative flex-1 p-4 rounded-2xl font-semibold transition-all duration-500 hover:scale-105 hover:-translate-y-1 backdrop-blur-md border shadow-lg ${
-                isDarkMode 
-                  ? 'bg-gradient-to-r from-gray-700/80 to-gray-600/80 text-gray-300 border-gray-500/50 hover:from-gray-600/90 hover:to-gray-500/90 hover:border-gray-400/60' 
-                  : 'bg-gradient-to-r from-gray-200/80 to-gray-300/80 text-gray-700 border-gray-300/50 hover:from-gray-300/90 hover:to-gray-400/90 hover:border-gray-400/60'
-              } hover:shadow-xl`}
-            >
-              <span className="relative z-10 flex items-center justify-center space-x-2">
-                <X className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
-                <span>{cancelText}</span>
-              </span>
-            </button>
+          <div className={`flex ${cancelText ? 'space-x-4' : 'justify-center'}`}>
+            {cancelText && (
+              <button
+                onClick={onClose}
+                className={`group relative flex-1 p-4 rounded-2xl font-semibold transition-all duration-500 hover:scale-105 hover:-translate-y-1 backdrop-blur-md border shadow-lg ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-r from-gray-700/80 to-gray-600/80 text-gray-300 border-gray-500/50 hover:from-gray-600/90 hover:to-gray-500/90 hover:border-gray-400/60' 
+                    : 'bg-gradient-to-r from-gray-200/80 to-gray-300/80 text-gray-700 border-gray-300/50 hover:from-gray-300/90 hover:to-gray-400/90 hover:border-gray-400/60'
+                } hover:shadow-xl`}
+              >
+                <span className="relative z-10 flex items-center justify-center space-x-2">
+                  <X className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
+                  <span>{cancelText}</span>
+                </span>
+              </button>
+            )}
             
             <button
               onClick={onConfirm}
-              className={`group relative flex-1 p-4 rounded-2xl font-bold text-white transition-all duration-500 hover:scale-105 hover:-translate-y-1 backdrop-blur-md border shadow-lg ${
+              className={`group relative ${cancelText ? 'flex-1' : 'px-8'} p-4 rounded-2xl font-bold text-white transition-all duration-500 hover:scale-105 hover:-translate-y-1 backdrop-blur-md border shadow-lg ${
                 colors.confirmButton
               } hover:shadow-xl`}
             >

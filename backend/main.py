@@ -577,8 +577,9 @@ async def get_all_interviews():
         abandoned_count = len([i for i in interviews if i["status"] == "Abandoned"])
         paused_count = len([i for i in interviews if i["status"] == "Paused"])
         interrupted_count = len([i for i in interviews if i["status"] == "Interrupted"])
+        incomplete_count = len([i for i in interviews if i["status"] == "Incomplete"])
         
-        logger.info(f"Admin dashboard: returning {len(interviews)} interviews (Completed: {completed_count}, In Progress: {in_progress_count}, Paused: {paused_count}, Interrupted: {interrupted_count}, Abandoned: {abandoned_count})")
+        logger.info(f"Admin dashboard: returning {len(interviews)} interviews (Completed: {completed_count}, In Progress: {in_progress_count}, Paused: {paused_count}, Interrupted: {interrupted_count}, Abandoned: {abandoned_count}, Incomplete: {incomplete_count})")
         
         return {
             "interviews": interviews,
@@ -587,7 +588,8 @@ async def get_all_interviews():
             "in_progress_count": in_progress_count,
             "abandoned_count": abandoned_count,
             "paused_count": paused_count,
-            "interrupted_count": interrupted_count
+            "interrupted_count": interrupted_count,
+            "incomplete_count": incomplete_count
         }
         
     except Exception as e:

@@ -3076,5 +3076,330 @@
         "conversation_duration": "1 minutes"
       }
     }
+  },
+  "P-BA41E114": {
+    "session_id": "35e382c6-e08d-40bf-a1c8-c3b087e04c5e",
+    "participant_id": "P-BA41E114",
+    "saved_at": "2025-06-28T10:48:44.183393",
+    "data": {
+      "metadata": {
+        "participant_id": "P-BA41E114",
+        "session_id": "35e382c6-e08d-40bf-a1c8-c3b087e04c5e",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T10:48:44.181957",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751087721029",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:45:20.989271"
+        },
+        {
+          "id": "user-1751087737679",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:45:37.676411"
+        },
+        {
+          "id": "agent-1751087743060",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:45:43.034933"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-176CB301": {
+    "session_id": "e09c17ef-cd9b-4730-a690-b5c7351f39ce",
+    "participant_id": "P-176CB301",
+    "saved_at": "2025-06-28T10:56:18.720549",
+    "data": {
+      "metadata": {
+        "participant_id": "P-176CB301",
+        "session_id": "e09c17ef-cd9b-4730-a690-b5c7351f39ce",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T10:56:18.718692",
+        "total_messages": 7,
+        "conversation_state": "consent",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751087954410",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:49:14.377760"
+        },
+        {
+          "id": "user-1751087995801",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:49:55.798522"
+        },
+        {
+          "id": "agent-1751088000927",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:50:00.897683"
+        },
+        {
+          "id": "user-1751088025254",
+          "type": "user",
+          "content": "You",
+          "timestamp": "2025-06-28T10:50:25.254259"
+        },
+        {
+          "id": "agent-1751088029980",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:50:29.952764"
+        },
+        {
+          "id": "user-1751088059872",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-28T10:50:59.865569"
+        },
+        {
+          "id": "agent-1751088066503",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to evaluate if heartplus medication reduces the risk of heart attacks and strokes in patients with cardiovascular risk factors.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T10:51:06.470954"
+        }
+      ],
+      "summary": {
+        "agent_messages": 4,
+        "user_messages": 3,
+        "conversation_duration": "2 minutes"
+      }
+    }
+  },
+  "P-A658FC9E": {
+    "session_id": "aac73600-be32-4404-99a8-d36ae3f99eea",
+    "participant_id": "P-A658FC9E",
+    "saved_at": "2025-06-28T11:20:31.588311",
+    "data": {
+      "metadata": {
+        "participant_id": "P-A658FC9E",
+        "session_id": "aac73600-be32-4404-99a8-d36ae3f99eea",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T11:20:31.585960",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751088735950",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T11:02:15.926495"
+        },
+        {
+          "id": "user-1751088756417",
+          "type": "user",
+          "content": "You",
+          "timestamp": "2025-06-28T11:02:36.416911"
+        },
+        {
+          "id": "agent-1751088761268",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T11:02:41.241072"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-E4FF1ED3": {
+    "session_id": "5e85ea3c-a645-4e0e-8111-cb3df25b96bc",
+    "participant_id": "P-E4FF1ED3",
+    "saved_at": "2025-06-28T11:22:19.078802",
+    "data": {
+      "metadata": {
+        "participant_id": "P-E4FF1ED3",
+        "session_id": "5e85ea3c-a645-4e0e-8111-cb3df25b96bc",
+        "study_id": "oncology-immunocare",
+        "export_timestamp": "2025-06-28T11:22:19.078101",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751089868697",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T11:21:08.672494"
+        },
+        {
+          "id": "user-1751089899211",
+          "type": "user",
+          "content": "You",
+          "timestamp": "2025-06-28T11:21:39.210759"
+        },
+        {
+          "id": "agent-1751089904566",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to test if new diabetes pill controls blood sugar in adults with type-2 diabetes.\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T11:21:44.537355"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-681CC53D": {
+    "session_id": "b8eb8148-deda-41ab-b586-cab2db32fc98",
+    "participant_id": "P-681CC53D",
+    "saved_at": "2025-06-28T11:31:58.396791",
+    "data": {
+      "metadata": {
+        "participant_id": "P-681CC53D",
+        "session_id": "b8eb8148-deda-41ab-b586-cab2db32fc98",
+        "study_id": "diabetes-abc123",
+        "export_timestamp": "2025-06-28T11:31:58.395000",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751090500496",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to evaluate the safety and effectiveness of immunocare immunotherapy in patients with advanced solid tumors that have not responded to standard treatments.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T11:31:40.465857"
+        },
+        {
+          "id": "user-1751090505333",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-28T11:31:45.333185"
+        },
+        {
+          "id": "agent-1751090508836",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T11:31:48.831479"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-99B7EFCF": {
+    "session_id": "02be10b7-a4b2-4edd-9341-82bd64bcd6c9",
+    "participant_id": "P-99B7EFCF",
+    "saved_at": "2025-06-28T11:38:54.150221",
+    "data": {
+      "metadata": {
+        "participant_id": "P-99B7EFCF",
+        "session_id": "02be10b7-a4b2-4edd-9341-82bd64bcd6c9",
+        "study_id": "arthritis-jointcare",
+        "export_timestamp": "2025-06-28T11:38:54.147474",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "study_change",
+        "interview_status": "Abandoned",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751090919990",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to test if jointcare treatment reduces joint pain and inflammation in patients with rheumatoid arthritis.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T11:38:39.965713"
+        },
+        {
+          "id": "user-1751090924444",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-28T11:38:44.444254"
+        },
+        {
+          "id": "agent-1751090927212",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-28T11:38:47.209168"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-CA6F6A3F": {
+    "session_id": "f1a6012b-6e93-4e13-ba31-15dca4744cce",
+    "participant_id": "P-CA6F6A3F",
+    "saved_at": "2025-06-28T12:04:12.607957",
+    "data": {
+      "metadata": {
+        "participant_id": "P-CA6F6A3F",
+        "session_id": "f1a6012b-6e93-4e13-ba31-15dca4744cce",
+        "study_id": "neurology-mindsharp",
+        "export_timestamp": "2025-06-28T12:04:12.606967",
+        "total_messages": 3,
+        "conversation_state": "completed",
+        "exit_reason": "interview_completed",
+        "interview_status": "Completed",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751092307481",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to determine if mindsharp therapy can slow cognitive decline and improve memory function in patients with mild cognitive impairment.\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-28T12:01:47.451185"
+        },
+        {
+          "id": "user-1751092340861",
+          "type": "user",
+          "content": "No, I don't want to proceed.",
+          "timestamp": "2025-06-28T12:02:20.861029"
+        },
+        {
+          "id": "agent-1751092344180",
+          "type": "agent",
+          "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
+          "timestamp": "2025-06-28T12:02:24.171399"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "1 minutes"
+      }
+    }
   }
 }

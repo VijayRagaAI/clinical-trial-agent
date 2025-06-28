@@ -36,6 +36,7 @@ interface VoiceInterfaceProps {
   isDarkMode: boolean;
   setIsDarkMode: (isDark: boolean) => void;
   onRestart: () => void;
+  onConsentRejection?: () => void;
   participantName?: string;
   
   // Study selection
@@ -56,8 +57,8 @@ interface VoiceInterfaceProps {
   formatTime: (seconds: number) => string;
   getStatusText: () => string;
   canRepeatLastQuestion: () => boolean;
-
-  // Navigation with confirmation
+  
+  // Optional handlers
   onSettingsChange?: (reason: string) => void;
 }
 
@@ -94,6 +95,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   formatTime,
   getStatusText,
   canRepeatLastQuestion,
+  onConsentRejection,
   onSettingsChange
 }) => {
   const [audioLevels, setAudioLevels] = useState<number[]>(Array(20).fill(0));

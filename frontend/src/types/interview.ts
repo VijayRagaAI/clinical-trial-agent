@@ -119,7 +119,7 @@ export interface AdminInterview {
   study_id: string;
   study_name: string;
   date: string;
-  status: 'Completed' | 'In Progress' | 'Abandoned' | 'Paused' | 'Interrupted';
+  status: 'Completed' | 'In Progress' | 'Abandoned' | 'Paused' | 'Interrupted' | 'Incomplete';
   total_messages: number;
   eligibility_result?: {
     eligible: boolean;
@@ -133,4 +133,7 @@ export interface AdminInterviewsResponse {
   completed_count: number;
   in_progress_count: number;
   abandoned_count: number;
+  paused_count: number;
+  interrupted_count: number;
+  incomplete_count: number;
 } 

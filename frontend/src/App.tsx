@@ -29,6 +29,7 @@ const InterviewPage: React.FC = () => {
   
   // Confirmation modal state
   const [showConfirmation, setShowConfirmation] = useState(false);
+  const [isReloading, setIsReloading] = useState(false); // Flag to disable beforeunload
   const [confirmationConfig, setConfirmationConfig] = useState<{
     title: string;
     message: string;
@@ -45,8 +46,13 @@ const InterviewPage: React.FC = () => {
     };
   } | null>(null);
 
-  // Check if interview has meaningful progress (user has spoken)
+  // Check if interview has started (session exists)
   const hasInterviewStarted = () => {
+    return interview.session !== null && interview.conversationState !== 'not_started';
+  };
+
+  // Check if user has made any responses
+  const hasUserResponded = () => {
     return interview.messages.filter(msg => msg.type === 'user').length > 0;
   };
 
@@ -61,11 +67,62 @@ const InterviewPage: React.FC = () => {
     return `${Math.round(durationMinutes)} minutes`;
   };
 
-  // Save interview progress before navigation
-  const saveInterviewProgress = async (exitReason: string) => {
-    if (!interview.session || !selectedStudy || !hasInterviewStarted()) {
+  // Save initial interview start with "In Progress" status
+  const saveInterviewStart = async () => {
+    if (!interview.session || !selectedStudy) {
+      console.log('🚫 Cannot save interview start - missing session or study');
       return;
     }
+
+    console.log('🚀 Saving interview start with "In Progress" status');
+
+    try {
+      const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      
+      const startData = {
+        session_id: interview.session.session_id,
+        participant_id: interview.session.participant_id,
+        study_id: selectedStudy.id,
+        exit_reason: 'interview_started',
+        conversation_state: interview.conversationState,
+        messages: interview.messages.map(msg => ({
+          id: msg.id,
+          type: msg.type,
+          content: msg.content,
+          timestamp: msg.timestamp
+        }))
+      };
+
+      console.log('📤 Sending interview start data:', startData);
+
+      const response = await fetch(`${API_BASE}/api/interviews/save-progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(startData)
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('✅ Interview started and saved with status:', result.interview_status);
+      } else {
+        console.error('Failed to save interview start:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error saving interview start:', error);
+    }
+  };
+
+  // Save interview progress before navigation (update from "In Progress")
+  const saveInterviewProgress = async (exitReason: string) => {
+    if (!interview.session || !selectedStudy) {
+      console.log('🚫 Not saving progress:', {
+        hasSession: !!interview.session,
+        hasStudy: !!selectedStudy
+      });
+      return;
+    }
+
+    console.log('💾 Updating interview status from "In Progress" with exit reason:', exitReason);
 
     try {
       const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8000';
@@ -84,6 +141,8 @@ const InterviewPage: React.FC = () => {
         }))
       };
 
+      console.log('📤 Sending progress update:', progressData);
+
       const response = await fetch(`${API_BASE}/api/interviews/save-progress`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -92,7 +151,7 @@ const InterviewPage: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
-        console.log('✅ Interview progress saved:', result.interview_status);
+        console.log('✅ Interview status updated to:', result.interview_status);
       } else {
         console.error('Failed to save interview progress:', response.statusText);
       }
@@ -103,7 +162,7 @@ const InterviewPage: React.FC = () => {
 
   // Show confirmation modal for navigation
   const showNavigationConfirmation = (exitReason: string, destination: () => void) => {
-    if (!hasInterviewStarted() || interview.conversationState === 'completed') {
+    if (!interview.session || interview.conversationState === 'completed' || interview.conversationState === 'not_started') {
       destination();
       return;
     }
@@ -115,13 +174,6 @@ const InterviewPage: React.FC = () => {
          confirmText: "Save & Go to Dashboard",
          cancelText: "Stay in Interview",
          type: 'warning' as const
-       },
-       study_change: {
-         title: "Change Study?",
-         message: "Changing the study will end your current interview. All progress will be saved, but you'll need to start over with the new study.",
-         confirmText: "Change Study",
-         cancelText: "Keep Current Study",
-         type: 'danger' as const
        },
        page_refresh: {
          title: "Refresh Page?",
@@ -137,17 +189,20 @@ const InterviewPage: React.FC = () => {
     // Determine what status the interview will have based on exit reason
     const getStatusByReason = (reason: string) => {
       const statusMap = {
+        'interview_started': 'In Progress',
         'back_to_dashboard': 'Paused',
         'user_initiated': 'Paused',
         'study_change': 'Abandoned',
-        'settings_change': 'Paused',
+        'consent_rejected': 'Incomplete',
+        'consent_abandoned': 'Incomplete',
         'page_refresh': 'Interrupted',
         'browser_refresh': 'Interrupted',
         'connection_lost': 'Interrupted',
         'browser_close': 'Interrupted',
-        'navigation': 'Interrupted'
+        'navigation': 'Interrupted',
+        'interview_completed': 'Completed'
       };
-      return statusMap[reason as keyof typeof statusMap] || 'Abandoned';
+      return statusMap[reason as keyof typeof statusMap] || 'Interrupted';
     };
 
     setConfirmationConfig({
@@ -174,28 +229,128 @@ const InterviewPage: React.FC = () => {
     showNavigationConfirmation('back_to_dashboard', () => navigate('/'));
   };
 
-  // Handle study selection with confirmation
+  // Handle study selection with refined logic
   const handleStudySelect = async (study: Study) => {
-    if (hasInterviewStarted() && selectedStudy?.id !== study.id) {
-      showNavigationConfirmation('study_change', () => {
-        setSelectedStudy(study);
-        saveStudyPreference(study);
-      });
-    } else {
+    // If same study, no change needed
+    if (selectedStudy?.id === study.id) {
+      return;
+    }
+
+    const interviewStarted = hasInterviewStarted();
+    const userHasReplied = hasUserResponded();
+
+    console.log('🔍 Study selection debug:', {
+      interviewStarted,
+      userHasReplied,
+      conversationState: interview.conversationState,
+      sessionExists: !!interview.session
+    });
+
+    // Case 1: Before interview start OR after interview complete → just restart
+    if (!interviewStarted || interview.conversationState === 'completed') {
+      console.log('📝 Case 1: No interview or completed - changing study immediately');
       setSelectedStudy(study);
       await saveStudyPreference(study);
+      return;
     }
+
+    // Case 2: After starting but before replying → save as Incomplete and restart
+    if (interviewStarted && !userHasReplied) {
+      console.log('🔄 Case 2: Interview started but no replies - saving as Incomplete and restarting');
+      
+      // Set flag to prevent browser warning
+      setIsReloading(true);
+      
+      // Save current interview as Incomplete (abandoned during consent)
+      await saveInterviewProgress('consent_abandoned');
+      
+      // Update study and reload
+      setSelectedStudy(study);
+      await saveStudyPreference(study);
+      
+      setTimeout(() => {
+        window.location.reload();
+      }, 100);
+      return;
+    }
+
+    // Case 3: After replying → show modal + save data when closed
+    console.log('💬 Case 3: User has replied - showing modal');
+    setConfirmationConfig({
+      title: "Study Changed",
+      message: "Your interview progress has been saved. The page will restart with the new study.",
+      confirmText: "Close",
+      cancelText: "",
+      type: 'info' as const,
+      onConfirm: async () => {
+        // Set flag to prevent browser warning
+        setIsReloading(true);
+        
+        await saveInterviewProgress('study_change');
+        console.log('🔄 Interview abandoned due to study change - progress saved');
+        setShowConfirmation(false);
+        
+        setTimeout(() => {
+          window.location.reload();
+        }, 100);
+      },
+      participantInfo: {
+        name: interview.session?.participant_id || participantName || 'Anonymous',
+        messageCount: interview.messages.length,
+        studyName: selectedStudy?.title || 'Unknown Study',
+        timeElapsed: calculateTimeElapsed(),
+        interviewStatus: 'Abandoned'
+      }
+    });
+
+    // Update study selection immediately (for UI feedback)
+    setSelectedStudy(study);
+    await saveStudyPreference(study);
+    setShowConfirmation(true);
   };
+
+  // Auto-save interview start when session is created
+  useEffect(() => {
+    if (interview.session && selectedStudy && interview.conversationState !== 'not_started' && interview.conversationState !== 'completed') {
+      // Add small delay to ensure session is fully established
+      const timer = setTimeout(() => {
+        saveInterviewStart();
+      }, 500);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [interview.session, selectedStudy, interview.conversationState]);
+
+  // Auto-save interview completion when interview completes
+  useEffect(() => {
+    if (interview.conversationState === 'completed' && interview.session && selectedStudy) {
+      // Add small delay to ensure completion is fully processed
+      const timer = setTimeout(() => {
+        handleInterviewCompletion();
+      }, 1000);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [interview.conversationState, interview.session, selectedStudy]);
 
   // Browser refresh/close detection
   useEffect(() => {
     const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      if (hasInterviewStarted() && interview.conversationState !== 'completed') {
+      // Don't show warning if we're intentionally reloading
+      if (isReloading) {
+        return;
+      }
+      
+      // Show warning if interview has started (has session), regardless of user responses
+      if (interview.session && interview.conversationState !== 'completed' && interview.conversationState !== 'not_started') {
         e.preventDefault();
         e.returnValue = 'Your interview progress will be automatically saved, but you may lose connection state.';
         
+        // Determine appropriate exit reason based on current state
+        const exitReason = hasUserResponded() ? 'page_refresh' : 'consent_abandoned';
+        
         // Try to save progress (may not complete due to browser limitations)
-        saveInterviewProgress('page_refresh').catch(console.error);
+        saveInterviewProgress(exitReason).catch(console.error);
         
         return e.returnValue;
       }
@@ -203,7 +358,7 @@ const InterviewPage: React.FC = () => {
 
     window.addEventListener('beforeunload', handleBeforeUnload);
     return () => window.removeEventListener('beforeunload', handleBeforeUnload);
-  }, [interview.conversationState, interview.messages.length, selectedStudy]);
+  }, [interview.conversationState, interview.messages.length, selectedStudy, isReloading, interview.session]);
 
   useEffect(() => {
     loadPreferences();
@@ -512,6 +667,23 @@ ${index + 1}. ${criterion.criteria_text}
     }
   };
 
+  // Handle explicit consent rejection
+  const handleConsentRejection = async () => {
+    if (interview.session && selectedStudy) {
+      await saveInterviewProgress('consent_rejected');
+      console.log('❌ User rejected consent - interview marked as Incomplete');
+    }
+    window.location.reload();
+  };
+
+  // Handle interview completion
+  const handleInterviewCompletion = async () => {
+    if (interview.session && selectedStudy) {
+      await saveInterviewProgress('interview_completed');
+      console.log('🎉 Interview completed successfully');
+    }
+  };
+
   const restartInterview = () => {
     window.location.reload();
   };
@@ -748,9 +920,9 @@ ${index + 1}. ${criterion.criteria_text}
                 canRepeatLastQuestion={interview.canRepeatLastQuestion}
                 isDarkMode={isDarkMode}
                 setIsDarkMode={handleThemeChange}
-                onRestart={restartInterview}
-
-              />
+                                onRestart={restartInterview}
+                onConsentRejection={handleConsentRejection}
+                />
             </div>
             
             {/* Evaluation Results Section - Connected below */}

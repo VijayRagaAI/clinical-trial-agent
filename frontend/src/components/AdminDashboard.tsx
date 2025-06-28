@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AdminInterview, AdminInterviewsResponse } from '../types/interview';
 import { Study } from '../types/interview';
-import { Plus, Users, CheckCircle, Clock, AlertCircle, Calendar, User, X, Eye, Download, Trash2, MessageSquare, ArrowUpDown, UserCircle, Search, Sparkles, FileText, Settings, Palette, Moon, Sun, Play, Mic } from 'lucide-react';
+import { Plus, Users, CheckCircle, Clock, AlertCircle, Calendar, User, X, Eye, Download, Trash2, MessageSquare, ArrowUpDown, UserCircle, Search, Sparkles, FileText, Settings, Palette, Moon, Sun, Play, Mic, Pause, WifiOff, XCircle } from 'lucide-react';
 
 const AdminDashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -11,7 +11,10 @@ const AdminDashboard: React.FC = () => {
     total_count: 0,
     completed_count: 0,
     in_progress_count: 0,
-    abandoned_count: 0
+    abandoned_count: 0,
+    paused_count: 0,
+    interrupted_count: 0,
+    incomplete_count: 0
   });
   const [loading, setLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
@@ -94,7 +97,10 @@ const AdminDashboard: React.FC = () => {
           total_count: data.total_count,
           completed_count: data.completed_count,
           in_progress_count: data.in_progress_count,
-          abandoned_count: data.abandoned_count
+          abandoned_count: data.abandoned_count,
+          paused_count: data.paused_count,
+          interrupted_count: data.interrupted_count,
+          incomplete_count: data.incomplete_count
         });
         console.log(`✅ Loaded ${data.total_count} interviews from admin API`);
       } else {
@@ -146,7 +152,7 @@ const AdminDashboard: React.FC = () => {
             ? 'bg-yellow-900/40 text-yellow-300 border border-yellow-700/50' 
             : 'bg-yellow-100 text-yellow-800 border border-yellow-200/50'
         }`}>
-          <Clock className="w-3 h-3 mr-1.5" />
+          <Pause className="w-3 h-3 mr-1.5" />
           Paused
         </span>
       ),
@@ -156,8 +162,18 @@ const AdminDashboard: React.FC = () => {
             ? 'bg-purple-900/40 text-purple-300 border border-purple-700/50' 
             : 'bg-purple-100 text-purple-800 border border-purple-200/50'
         }`}>
-          <AlertCircle className="w-3 h-3 mr-1.5" />
+          <WifiOff className="w-3 h-3 mr-1.5" />
           Interrupted
+        </span>
+      ),
+      'Incomplete': (
+        <span className={`inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-semibold transition-all duration-300 hover:scale-105 ${
+          isDarkMode 
+            ? 'bg-red-900/40 text-red-300 border border-red-700/50' 
+            : 'bg-red-100 text-red-800 border border-red-200/50'
+        }`}>
+          <XCircle className="w-3 h-3 mr-1.5" />
+          Incomplete
         </span>
       ),
       'Abandoned': (
@@ -301,9 +317,10 @@ const AdminDashboard: React.FC = () => {
     setSelectedStudyForView(null);
   };
 
-  const StatCard = ({ icon: Icon, title, value, color }: {
+  const StatCard = ({ icon: Icon, title, subtitle, value, color }: {
     icon: any;
     title: string;
+    subtitle?: string;
     value: number;
     color: string;
   }) => (
@@ -320,10 +337,22 @@ const AdminDashboard: React.FC = () => {
         ? isDarkMode 
           ? 'bg-gradient-to-br from-gray-800/60 via-gray-700/40 to-gray-800/60 border-gray-600/40 hover:shadow-indigo-500/30' 
           : 'bg-gradient-to-br from-white/80 via-white/70 to-white/80 border-white/40 hover:shadow-indigo-500/25'
+        : color === 'yellow'
+        ? isDarkMode 
+          ? 'bg-gradient-to-br from-gray-800/60 via-gray-700/40 to-gray-800/60 border-gray-600/40 hover:shadow-yellow-500/30' 
+          : 'bg-gradient-to-br from-white/80 via-white/70 to-white/80 border-white/40 hover:shadow-yellow-500/25'
+        : color === 'purple'
+        ? isDarkMode 
+          ? 'bg-gradient-to-br from-gray-800/60 via-gray-700/40 to-gray-800/60 border-gray-600/40 hover:shadow-purple-500/30' 
+          : 'bg-gradient-to-br from-white/80 via-white/70 to-white/80 border-white/40 hover:shadow-purple-500/25'
+        : color === 'red'
+        ? isDarkMode 
+          ? 'bg-gradient-to-br from-gray-800/60 via-gray-700/40 to-gray-800/60 border-gray-600/40 hover:shadow-red-500/30' 
+          : 'bg-gradient-to-br from-white/80 via-white/70 to-white/80 border-white/40 hover:shadow-red-500/25'
         : isDarkMode 
           ? 'bg-gradient-to-br from-gray-800/60 via-gray-700/40 to-gray-800/60 border-gray-600/40 hover:shadow-orange-500/30' 
           : 'bg-gradient-to-br from-white/80 via-white/70 to-white/80 border-white/40 hover:shadow-orange-500/25'
-    } p-8 shadow-2xl`}>
+    } p-4 shadow-2xl`}>
       {/* Enhanced magical background effects */}
       <div className={`absolute inset-0 bg-gradient-to-br opacity-8 transition-all duration-700 group-hover:opacity-20 rounded-3xl ${
         color === 'blue' 
@@ -332,6 +361,12 @@ const AdminDashboard: React.FC = () => {
           ? 'from-emerald-500/20 to-emerald-600/15'
           : color === 'indigo'
           ? 'from-indigo-500/20 to-indigo-600/15'
+          : color === 'yellow'
+          ? 'from-yellow-500/20 to-yellow-600/15'
+          : color === 'purple'
+          ? 'from-purple-500/20 to-purple-600/15'
+          : color === 'red'
+          ? 'from-red-500/20 to-red-600/15'
           : 'from-orange-500/20 to-red-500/15'
       }`}></div>
       <div className={`absolute inset-0 bg-gradient-to-tr opacity-0 group-hover:opacity-10 transition-all duration-700 rounded-3xl ${
@@ -341,44 +376,61 @@ const AdminDashboard: React.FC = () => {
           ? isDarkMode ? 'from-emerald-500/20 to-emerald-600/20' : 'from-emerald-400/15 to-emerald-500/15'
           : color === 'indigo'
           ? isDarkMode ? 'from-indigo-500/20 to-indigo-600/20' : 'from-indigo-400/15 to-indigo-500/15'
+          : color === 'yellow'
+          ? isDarkMode ? 'from-yellow-500/20 to-yellow-600/20' : 'from-yellow-400/15 to-yellow-500/15'
+          : color === 'purple'
+          ? isDarkMode ? 'from-purple-500/20 to-purple-600/20' : 'from-purple-400/15 to-purple-500/15'
+          : color === 'red'
+          ? isDarkMode ? 'from-red-500/20 to-red-600/20' : 'from-red-400/15 to-red-500/15'
           : isDarkMode ? 'from-orange-500/20 to-red-500/20' : 'from-orange-400/15 to-red-400/15'
       }`}></div>
       
       {/* Floating sparkles */}
       <div className={`absolute top-4 right-6 w-2 h-2 rounded-full animate-bounce ${
-        color === 'blue' ? 'bg-blue-400/40' : color === 'emerald' ? 'bg-emerald-400/40' : color === 'indigo' ? 'bg-indigo-400/40' : 'bg-orange-400/40'
+        color === 'blue' ? 'bg-blue-400/40' : color === 'emerald' ? 'bg-emerald-400/40' : color === 'indigo' ? 'bg-indigo-400/40' : color === 'yellow' ? 'bg-yellow-400/40' : color === 'purple' ? 'bg-purple-400/40' : color === 'red' ? 'bg-red-400/40' : 'bg-orange-400/40'
       }`} style={{animationDelay: '0s'}}></div>
       <div className={`absolute top-8 right-12 w-1.5 h-1.5 rounded-full animate-bounce ${
-        color === 'blue' ? 'bg-blue-300/30' : color === 'emerald' ? 'bg-emerald-300/30' : color === 'indigo' ? 'bg-indigo-300/30' : 'bg-orange-300/30'
+        color === 'blue' ? 'bg-blue-300/30' : color === 'emerald' ? 'bg-emerald-300/30' : color === 'indigo' ? 'bg-indigo-300/30' : color === 'yellow' ? 'bg-yellow-300/30' : color === 'purple' ? 'bg-purple-300/30' : color === 'red' ? 'bg-red-300/30' : 'bg-orange-300/30'
       }`} style={{animationDelay: '0.3s'}}></div>
       <div className={`absolute bottom-8 left-6 w-2.5 h-2.5 rounded-full animate-bounce ${
-        color === 'blue' ? 'bg-blue-300/25' : color === 'emerald' ? 'bg-emerald-300/25' : color === 'indigo' ? 'bg-indigo-300/25' : 'bg-orange-300/25'
+        color === 'blue' ? 'bg-blue-300/25' : color === 'emerald' ? 'bg-emerald-300/25' : color === 'indigo' ? 'bg-indigo-300/25' : color === 'yellow' ? 'bg-yellow-300/25' : color === 'purple' ? 'bg-purple-300/25' : color === 'red' ? 'bg-red-300/25' : 'bg-orange-300/25'
       }`} style={{animationDelay: '0.6s'}}></div>
       <div className={`absolute bottom-4 right-8 w-1 h-1 rounded-full animate-bounce ${
-        color === 'blue' ? 'bg-blue-200/20' : color === 'emerald' ? 'bg-emerald-200/20' : color === 'indigo' ? 'bg-indigo-200/20' : 'bg-orange-200/20'
+        color === 'blue' ? 'bg-blue-200/20' : color === 'emerald' ? 'bg-emerald-200/20' : color === 'indigo' ? 'bg-indigo-200/20' : color === 'yellow' ? 'bg-yellow-200/20' : color === 'purple' ? 'bg-purple-200/20' : color === 'red' ? 'bg-red-200/20' : 'bg-orange-200/20'
       }`} style={{animationDelay: '0.9s'}}></div>
       
       <div className="relative z-10 flex items-center justify-between">
         <div>
-          <p className={`text-sm font-semibold mb-3 transition-all duration-500 group-hover:scale-105 ${
+          <p className={`text-sm font-semibold mb-1 transition-all duration-500 group-hover:scale-105 ${
             isDarkMode ? 'text-gray-300' : 'text-gray-600'
           }`}>{title}</p>
-          <p className={`text-4xl font-black group-hover:scale-110 transition-all duration-500 ${
+          {subtitle && (
+            <p className={`text-xs mb-3 transition-all duration-500 ${
+              isDarkMode ? 'text-gray-400' : 'text-gray-500'
+            }`}>{subtitle}</p>
+          )}
+          <p className={`text-2xl font-black group-hover:scale-110 transition-all duration-500 ${
             isDarkMode 
               ? 'bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent' 
               : 'bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent'
           } drop-shadow-lg`}>{value}</p>
         </div>
-        <div className={`relative p-4 rounded-2xl bg-gradient-to-br shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 backdrop-blur-sm border ${
+        <div className={`relative p-2 rounded-2xl bg-gradient-to-br shadow-2xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-12 backdrop-blur-sm border ${
           color === 'blue' 
             ? 'from-blue-500 to-blue-600 shadow-blue-500/40 border-blue-400/30' 
             : color === 'emerald'
             ? 'from-emerald-500 to-emerald-600 shadow-emerald-500/40 border-emerald-400/30'
             : color === 'indigo'
             ? 'from-indigo-500 to-indigo-600 shadow-indigo-500/40 border-indigo-400/30'
+            : color === 'yellow'
+            ? 'from-yellow-500 to-yellow-600 shadow-yellow-500/40 border-yellow-400/30'
+            : color === 'purple'
+            ? 'from-purple-500 to-purple-600 shadow-purple-500/40 border-purple-400/30'
+            : color === 'red'
+            ? 'from-red-500 to-red-600 shadow-red-500/40 border-red-400/30'
             : 'from-orange-500 to-red-500 shadow-orange-500/40 border-orange-400/30'
         }`}>
-          <Icon className="w-8 h-8 text-white drop-shadow-lg" />
+          <Icon className="w-6 h-6 text-white drop-shadow-lg" />
           
           {/* Enhanced floating mini-circles */}
           <div className="absolute top-1 right-1 w-2 h-2 bg-white/40 rounded-full animate-pulse"></div>
@@ -393,6 +445,12 @@ const AdminDashboard: React.FC = () => {
               ? 'bg-emerald-400/30'
               : color === 'indigo'
               ? 'bg-indigo-400/30'
+              : color === 'yellow'
+              ? 'bg-yellow-400/30'
+              : color === 'purple'
+              ? 'bg-purple-400/30'
+              : color === 'red'
+              ? 'bg-red-400/30'
               : 'bg-orange-400/30'
           }`}></div>
         </div>
@@ -400,15 +458,15 @@ const AdminDashboard: React.FC = () => {
       
       {/* Enhanced floating decorative rings */}
       <div className={`absolute -top-16 -right-16 w-64 h-64 border rounded-full group-hover:scale-110 transition-transform duration-1000 ${
-        color === 'blue' ? 'border-blue-300/10' : color === 'emerald' ? 'border-emerald-300/10' : color === 'indigo' ? 'border-indigo-300/10' : 'border-orange-300/10'
+        color === 'blue' ? 'border-blue-300/10' : color === 'emerald' ? 'border-emerald-300/10' : color === 'indigo' ? 'border-indigo-300/10' : color === 'yellow' ? 'border-yellow-300/10' : color === 'purple' ? 'border-purple-300/10' : color === 'red' ? 'border-red-300/10' : 'border-orange-300/10'
       }`}></div>
       <div className={`absolute -bottom-12 -left-12 w-48 h-48 border rounded-full group-hover:scale-110 transition-transform duration-1200 ${
-        color === 'blue' ? 'border-blue-300/10' : color === 'emerald' ? 'border-emerald-300/10' : color === 'indigo' ? 'border-indigo-300/10' : 'border-orange-300/10'
+        color === 'blue' ? 'border-blue-300/10' : color === 'emerald' ? 'border-emerald-300/10' : color === 'indigo' ? 'border-indigo-300/10' : color === 'yellow' ? 'border-yellow-300/10' : color === 'purple' ? 'border-purple-300/10' : color === 'red' ? 'border-red-300/10' : 'border-orange-300/10'
       }`}></div>
       
       {/* Enhanced shimmer effect */}
       <div className={`absolute inset-0 bg-gradient-to-r from-transparent to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1500 rounded-3xl ${
-        color === 'blue' ? 'via-blue-300/10' : color === 'emerald' ? 'via-emerald-300/10' : color === 'indigo' ? 'via-indigo-300/10' : 'via-orange-300/10'
+        color === 'blue' ? 'via-blue-300/10' : color === 'emerald' ? 'via-emerald-300/10' : color === 'indigo' ? 'via-indigo-300/10' : color === 'yellow' ? 'via-yellow-300/10' : color === 'purple' ? 'via-purple-300/10' : color === 'red' ? 'via-red-300/10' : 'via-orange-300/10'
       }`}></div>
       
       {/* Premium glow effect */}
@@ -419,6 +477,12 @@ const AdminDashboard: React.FC = () => {
           ? isDarkMode ? 'bg-emerald-400/20' : 'bg-emerald-400/15'
           : color === 'indigo'
           ? isDarkMode ? 'bg-indigo-400/20' : 'bg-indigo-400/15'
+          : color === 'yellow'
+          ? isDarkMode ? 'bg-yellow-400/20' : 'bg-yellow-400/15'
+          : color === 'purple'
+          ? isDarkMode ? 'bg-purple-400/20' : 'bg-purple-400/15'
+          : color === 'red'
+          ? isDarkMode ? 'bg-red-400/20' : 'bg-red-400/15'
           : isDarkMode ? 'bg-orange-400/20' : 'bg-orange-400/15'
       }`}></div>
     </div>
@@ -621,31 +685,60 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Enhanced Stats Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="flex justify-center mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-4xl">
+            <StatCard
+              icon={Users}
+              title="Total"
+              value={stats.total_count}
+              color="blue"
+            />
+            <StatCard
+              icon={CheckCircle}
+              title="Completed"
+              value={stats.completed_count}
+              color="emerald"
+            />
+            <StatCard
+              icon={Clock}
+              title="In Progress"
+              value={stats.in_progress_count}
+              color="indigo"
+            />
+          </div>
+        </div>
+        
+        <div className="flex justify-center mb-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl">
           <StatCard
-            icon={Users}
-            title="Total Interviews"
-            value={stats.total_count}
-            color="blue"
-          />
-          <StatCard
-            icon={CheckCircle}
-            title="Completed"
-            value={stats.completed_count}
-            color="emerald"
-          />
-          <StatCard
-            icon={Clock}
-            title="In Progress"
-            value={stats.in_progress_count}
-            color="indigo"
+            icon={Pause}
+            title="Paused"
+            subtitle="Interview paused"
+            value={stats.paused_count}
+            color="yellow"
           />
           <StatCard
             icon={AlertCircle}
             title="Abandoned"
+            subtitle="Study changed"
             value={stats.abandoned_count}
             color="orange"
           />
+          <StatCard
+            icon={WifiOff}
+            title="Interrupted"
+            subtitle="Page refreshed"
+            value={stats.interrupted_count}
+            color="purple"
+          />
+          <StatCard
+            icon={XCircle}
+            title="Incomplete"
+            subtitle="Consent not given"
+            value={stats.incomplete_count}
+            color="red"
+          />
+          </div>
         </div>
 
         {/* ✨ SPECIAL SHINING Start New Interview Card ✨ */}
