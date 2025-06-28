@@ -23,6 +23,7 @@ const AdminDashboard: React.FC = () => {
   const [availableStudies, setAvailableStudies] = useState<Study[]>([]);
   const [selectedStudyForView, setSelectedStudyForView] = useState<Study | null>(null);
   const [showStudyModal, setShowStudyModal] = useState(false);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   useEffect(() => {
     fetchInterviews();
@@ -113,8 +114,67 @@ const AdminDashboard: React.FC = () => {
     }
   };
 
-  // Sort interviews by date
-  const sortedInterviews = [...interviews].sort((a, b) => {
+  // Filter and sort interviews with error handling
+  const filteredInterviews = React.useMemo(() => {
+    try {
+      if (!searchTerm || !interviews || interviews.length === 0) {
+        console.log('📊 Search Debug: No search term or no interviews, returning all', { 
+          searchTerm, 
+          interviewCount: interviews?.length || 0 
+        });
+        return interviews;
+      }
+      
+      const searchLower = searchTerm.toLowerCase().trim();
+      if (!searchLower) return interviews;
+      
+      console.log('🔍 Search Debug: Filtering with term:', searchTerm);
+      
+      const filtered = interviews.filter(interview => {
+        try {
+          // Safely get all searchable text
+          const searchableFields = [
+            interview.participant_name || '',
+            interview.participant_id || '',
+            interview.session_id || '',
+            interview.study_name || '',
+            interview.study_id || '',
+            interview.status || '',
+            interview.eligibility_result?.eligible ? 'eligible' : interview.eligibility_result ? 'not eligible' : 'pending',
+            interview.date || '', // Search raw date instead of formatted
+            (interview.total_messages || 0).toString(),
+            (interview.eligibility_result?.score || 0).toString()
+          ].filter(field => field); // Remove empty strings
+          
+          // Check if any field contains the search term
+          const matches = searchableFields.some(field => 
+            field.toLowerCase().includes(searchLower)
+          );
+          
+          console.log(`${matches ? '✅' : '❌'} ${interview.participant_id} (${interview.status}) - matches: ${matches}`);
+          
+          return matches;
+        } catch (error) {
+          console.warn('Error filtering interview:', error);
+          return true; // Include interview if there's an error
+        }
+      });
+      
+      console.log('🎯 Search Results:', {
+        searchTerm,
+        totalInterviews: interviews.length,
+        filteredCount: filtered.length,
+        filtered: filtered.map(i => ({ name: i.participant_name, status: i.status }))
+      });
+      
+      return filtered;
+    } catch (error) {
+      console.error('Error in filteredInterviews:', error);
+      return interviews; // Return all interviews if there's an error
+    }
+  }, [interviews, searchTerm]);
+
+  const sortedInterviews = [...filteredInterviews].sort((a, b) => {
     const dateA = new Date(a.date).getTime();
     const dateB = new Date(b.date).getTime();
     return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
@@ -983,7 +1043,8 @@ const AdminDashboard: React.FC = () => {
 
           {/* Studies Grid */}
           {availableStudies.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="relative max-h-[900px] overflow-y-auto custom-scrollbar">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {availableStudies.map((study, index) => (
                 <div
                   key={study.id}
@@ -1099,6 +1160,7 @@ const AdminDashboard: React.FC = () => {
                   }`}></div>
                 </div>
               ))}
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center py-20">
@@ -1130,6 +1192,101 @@ const AdminDashboard: React.FC = () => {
               </p>
             </div>
           )}
+        </div>
+
+        {/* Interview Sessions Section */}
+        <div className="mb-12">
+          {/* Section Header */}
+          <div className="mb-8">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-3">
+                <div className={`relative p-3 rounded-xl backdrop-blur-md border shadow-lg transition-all duration-500 hover:scale-105 hover:rotate-3 ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-br from-purple-600/20 via-indigo-600/10 to-purple-600/20 border-purple-500/30' 
+                    : 'bg-gradient-to-br from-purple-50/80 via-indigo-50/60 to-purple-50/80 border-purple-200/30'
+                }`}>
+                  <div className={`absolute top-1 right-1 w-2 h-2 rounded-full animate-pulse ${
+                    isDarkMode ? 'bg-purple-400/50' : 'bg-purple-400/50'
+                  }`}></div>
+                  <User className={`h-6 w-6 ${isDarkMode ? 'text-purple-400/70' : 'text-purple-500/70'}`} />
+                </div>
+                
+                <div>
+                  <h2 className={`text-3xl font-bold bg-gradient-to-r bg-clip-text text-transparent transition-all duration-500 ${
+                    isDarkMode 
+                      ? 'from-purple-400 via-indigo-400 to-purple-400' 
+                      : 'from-purple-600 via-indigo-600 to-purple-600'
+                  }`}>
+                    Interview Sessions
+                  </h2>
+                  <p className={`text-base mt-1 transition-all duration-500 ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
+                  }`}>
+                    {sortedInterviews.length} participant interviews {searchTerm ? `(filtered from ${interviews.length})` : 'recorded'}
+                  </p>
+                  {searchTerm && (
+                    <p className={`text-sm mt-1 transition-all duration-500 ${
+                      isDarkMode ? 'text-purple-300' : 'text-purple-600'
+                    }`}>
+                      🔍 Searching for: "{searchTerm}" {sortedInterviews.length === 0 && '(no matches)'}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              {/* Search Input */}
+              <div className="relative max-w-sm">
+                <div className={`relative flex items-center backdrop-blur-md border rounded-2xl shadow-lg transition-all duration-500 hover:scale-105 focus-within:scale-105 focus-within:shadow-xl ${
+                  isDarkMode 
+                    ? 'bg-gradient-to-br from-purple-600/20 via-indigo-600/10 to-purple-600/20 border-purple-500/30 focus-within:border-purple-400/50' 
+                    : 'bg-gradient-to-br from-purple-50/80 via-indigo-50/60 to-purple-50/80 border-purple-200/30 focus-within:border-purple-300/50'
+                }`}>
+                  <div className="absolute left-3 flex items-center pointer-events-none">
+                    <Search className={`h-5 w-5 transition-all duration-300 ${
+                      isDarkMode ? 'text-purple-400/70' : 'text-purple-500/70'
+                    }`} />
+                  </div>
+                  <input
+                    type="text"
+                    placeholder="Search interviews..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className={`w-full pl-10 pr-4 py-3 rounded-2xl text-sm font-medium placeholder-opacity-60 transition-all duration-300 focus:outline-none bg-transparent ${
+                      isDarkMode 
+                        ? 'text-gray-200 placeholder-gray-400' 
+                        : 'text-gray-800 placeholder-gray-500'
+                    }`}
+                  />
+                  {searchTerm && (
+                    <button
+                      onClick={() => setSearchTerm('')}
+                      className={`absolute right-3 p-1 rounded-lg transition-all duration-300 hover:scale-110 ${
+                        isDarkMode 
+                          ? 'text-purple-400 hover:bg-purple-600/20' 
+                          : 'text-purple-500 hover:bg-purple-100/50'
+                      }`}
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  )}
+                </div>
+                
+                {/* Floating sparkles for search */}
+                <div className={`absolute -top-1 -right-1 w-2 h-2 rounded-full animate-bounce ${
+                  isDarkMode ? 'bg-purple-400/40' : 'bg-purple-400/40'
+                }`} style={{animationDelay: '0s'}}></div>
+                <div className={`absolute -bottom-1 -left-1 w-1.5 h-1.5 rounded-full animate-bounce ${
+                  isDarkMode ? 'bg-indigo-400/30' : 'bg-indigo-400/30'
+                }`} style={{animationDelay: '0.5s'}}></div>
+              </div>
+            </div>
+            
+            <div className={`h-0.5 rounded-full opacity-60 transition-all duration-500 ${
+              isDarkMode 
+                ? 'bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-500' 
+                : 'bg-gradient-to-r from-purple-500 via-indigo-500 to-purple-500'
+            }`}></div>
+          </div>
         </div>
 
         {/* Enhanced Premium Interviews Table */}
@@ -1215,7 +1372,7 @@ const AdminDashboard: React.FC = () => {
           </div>
 
           {/* Premium Table Content */}
-          <div className="relative max-h-[700px] overflow-y-auto custom-scrollbar">
+          <div className="relative max-h-[900px] overflow-y-auto custom-scrollbar">
             {loading ? (
               <div className="flex flex-col items-center justify-center py-20">
                 <div className="relative">
@@ -1240,18 +1397,37 @@ const AdminDashboard: React.FC = () => {
                     ? 'from-purple-900/30 via-violet-900/30 to-indigo-900/30' 
                     : 'from-purple-100 via-violet-100 to-indigo-100'
                 }`}>
-                  <User className="h-12 w-12 text-purple-400" />
+                  {searchTerm ? (
+                    <Search className="h-12 w-12 text-purple-400" />
+                  ) : (
+                    <User className="h-12 w-12 text-purple-400" />
+                  )}
                 </div>
                 <p className={`text-xl font-bold mb-3 transition-all duration-500 ${
                   isDarkMode ? 'text-gray-300' : 'text-gray-700'
                 }`}>
-                  No interviews yet
+                  {searchTerm ? 'No matching interviews' : 'No interviews yet'}
                 </p>
                 <p className={`text-sm transition-all duration-500 ${
                   isDarkMode ? 'text-gray-400' : 'text-gray-500'
                 }`}>
-                  Click "Start Interview" above to begin your first interview session
+                  {searchTerm 
+                    ? `No interviews match "${searchTerm}". Try different search terms.`
+                    : 'Click "Start Interview" above to begin your first interview session'
+                  }
                 </p>
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm('')}
+                    className={`mt-4 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 hover:scale-105 ${
+                      isDarkMode 
+                        ? 'bg-purple-600/20 text-purple-300 hover:bg-purple-600/30' 
+                        : 'bg-purple-100 text-purple-700 hover:bg-purple-200'
+                    }`}
+                  >
+                    Clear search
+                  </button>
+                )}
               </div>
             ) : (
               <div className={`divide-y transition-all duration-500 ${
@@ -1391,39 +1567,72 @@ const AdminDashboard: React.FC = () => {
                       {/* Actions - Enhanced with better spacing and sizing */}
                       <div className="col-span-2 flex items-center justify-center space-x-3">
                         <button
-                          onClick={() => handleViewInterview(interview)}
-                          className="group/btn relative p-3.5 rounded-2xl bg-gradient-to-br from-blue-500/20 to-indigo-500/20 hover:from-blue-500/35 hover:to-indigo-500/35 border border-blue-500/40 hover:border-blue-400/70 transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-blue-500/40 hover:-translate-y-2 backdrop-blur-sm"
-                          title="View Details"
+                          onClick={() => interview.status !== 'In Progress' && handleViewInterview(interview)}
+                          disabled={interview.status === 'In Progress'}
+                          className={`group/btn relative p-3.5 rounded-2xl border transition-all duration-500 backdrop-blur-sm ${
+                            interview.status === 'In Progress'
+                              ? `bg-gradient-to-br ${isDarkMode ? 'from-gray-600/20 to-gray-700/20 border-gray-600/40' : 'from-gray-300/20 to-gray-400/20 border-gray-400/40'} cursor-not-allowed opacity-50`
+                              : 'bg-gradient-to-br from-blue-500/20 to-indigo-500/20 hover:from-blue-500/35 hover:to-indigo-500/35 border-blue-500/40 hover:border-blue-400/70 hover:scale-125 hover:shadow-2xl hover:shadow-blue-500/40 hover:-translate-y-2'
+                          }`}
+                          title={interview.status === 'In Progress' ? 'Cannot view - Interview in progress' : 'View Details'}
                         >
-                          <Eye className={`h-5 w-5 group-hover/btn:scale-125 transition-all duration-500 drop-shadow-sm ${
-                            isDarkMode ? 'text-blue-300' : 'text-blue-700'
+                          <Eye className={`h-5 w-5 transition-all duration-500 drop-shadow-sm ${
+                            interview.status === 'In Progress'
+                              ? (isDarkMode ? 'text-gray-500' : 'text-gray-400')
+                              : `group-hover/btn:scale-125 ${isDarkMode ? 'text-blue-300' : 'text-blue-700'}`
                           }`} />
-                          <div className="absolute inset-0 bg-blue-500/0 group-hover/btn:bg-blue-500/15 rounded-2xl transition-all duration-500"></div>
-                          <div className="absolute inset-0 bg-blue-400/0 group-hover/btn:bg-blue-400/10 rounded-2xl blur-sm transition-all duration-500"></div>
+                          {interview.status !== 'In Progress' && (
+                            <>
+                              <div className="absolute inset-0 bg-blue-500/0 group-hover/btn:bg-blue-500/15 rounded-2xl transition-all duration-500"></div>
+                              <div className="absolute inset-0 bg-blue-400/0 group-hover/btn:bg-blue-400/10 rounded-2xl blur-sm transition-all duration-500"></div>
+                            </>
+                          )}
                         </button>
                         
                         <button
-                          onClick={() => handleDownloadInterview(interview)}
-                          className="group/btn relative p-3.5 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/35 hover:to-teal-500/35 border border-emerald-500/40 hover:border-emerald-400/70 transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-emerald-500/40 hover:-translate-y-2 backdrop-blur-sm"
-                          title="Download Data"
+                          onClick={() => interview.status !== 'In Progress' && handleDownloadInterview(interview)}
+                          disabled={interview.status === 'In Progress'}
+                          className={`group/btn relative p-3.5 rounded-2xl border transition-all duration-500 backdrop-blur-sm ${
+                            interview.status === 'In Progress'
+                              ? `bg-gradient-to-br ${isDarkMode ? 'from-gray-600/20 to-gray-700/20 border-gray-600/40' : 'from-gray-300/20 to-gray-400/20 border-gray-400/40'} cursor-not-allowed opacity-50`
+                              : 'bg-gradient-to-br from-emerald-500/20 to-teal-500/20 hover:from-emerald-500/35 hover:to-teal-500/35 border-emerald-500/40 hover:border-emerald-400/70 hover:scale-125 hover:shadow-2xl hover:shadow-emerald-500/40 hover:-translate-y-2'
+                          }`}
+                          title={interview.status === 'In Progress' ? 'Cannot download - Interview in progress' : 'Download Data'}
                         >
-                          <Download className={`h-5 w-5 group-hover/btn:scale-125 transition-all duration-500 drop-shadow-sm ${
-                            isDarkMode ? 'text-emerald-300' : 'text-emerald-700'
+                          <Download className={`h-5 w-5 transition-all duration-500 drop-shadow-sm ${
+                            interview.status === 'In Progress'
+                              ? (isDarkMode ? 'text-gray-500' : 'text-gray-400')
+                              : `group-hover/btn:scale-125 ${isDarkMode ? 'text-emerald-300' : 'text-emerald-700'}`
                           }`} />
-                          <div className="absolute inset-0 bg-emerald-500/0 group-hover/btn:bg-emerald-500/15 rounded-2xl transition-all duration-500"></div>
-                          <div className="absolute inset-0 bg-emerald-400/0 group-hover/btn:bg-emerald-400/10 rounded-2xl blur-sm transition-all duration-500"></div>
+                          {interview.status !== 'In Progress' && (
+                            <>
+                              <div className="absolute inset-0 bg-emerald-500/0 group-hover/btn:bg-emerald-500/15 rounded-2xl transition-all duration-500"></div>
+                              <div className="absolute inset-0 bg-emerald-400/0 group-hover/btn:bg-emerald-400/10 rounded-2xl blur-sm transition-all duration-500"></div>
+                            </>
+                          )}
                         </button>
                         
                         <button
-                          onClick={() => handleDeleteInterview(interview.participant_id, interview.participant_name)}
-                          className="group/btn relative p-3.5 rounded-2xl bg-gradient-to-br from-red-500/20 to-rose-500/20 hover:from-red-500/35 hover:to-rose-500/35 border border-red-500/40 hover:border-red-400/70 transition-all duration-500 hover:scale-125 hover:shadow-2xl hover:shadow-red-500/40 hover:-translate-y-2 backdrop-blur-sm"
-                          title="Delete Interview"
+                          onClick={() => interview.status !== 'In Progress' && handleDeleteInterview(interview.participant_id, interview.participant_name)}
+                          disabled={interview.status === 'In Progress'}
+                          className={`group/btn relative p-3.5 rounded-2xl border transition-all duration-500 backdrop-blur-sm ${
+                            interview.status === 'In Progress'
+                              ? `bg-gradient-to-br ${isDarkMode ? 'from-gray-600/20 to-gray-700/20 border-gray-600/40' : 'from-gray-300/20 to-gray-400/20 border-gray-400/40'} cursor-not-allowed opacity-50`
+                              : 'bg-gradient-to-br from-red-500/20 to-rose-500/20 hover:from-red-500/35 hover:to-rose-500/35 border-red-500/40 hover:border-red-400/70 hover:scale-125 hover:shadow-2xl hover:shadow-red-500/40 hover:-translate-y-2'
+                          }`}
+                          title={interview.status === 'In Progress' ? 'Cannot delete - Interview in progress' : 'Delete Interview'}
                         >
-                          <Trash2 className={`h-5 w-5 group-hover/btn:scale-125 transition-all duration-500 drop-shadow-sm ${
-                            isDarkMode ? 'text-red-300' : 'text-red-700'
+                          <Trash2 className={`h-5 w-5 transition-all duration-500 drop-shadow-sm ${
+                            interview.status === 'In Progress'
+                              ? (isDarkMode ? 'text-gray-500' : 'text-gray-400')
+                              : `group-hover/btn:scale-125 ${isDarkMode ? 'text-red-300' : 'text-red-700'}`
                           }`} />
-                          <div className="absolute inset-0 bg-red-500/0 group-hover/btn:bg-red-500/15 rounded-2xl transition-all duration-500"></div>
-                          <div className="absolute inset-0 bg-red-400/0 group-hover/btn:bg-red-400/10 rounded-2xl blur-sm transition-all duration-500"></div>
+                          {interview.status !== 'In Progress' && (
+                            <>
+                              <div className="absolute inset-0 bg-red-500/0 group-hover/btn:bg-red-500/15 rounded-2xl transition-all duration-500"></div>
+                              <div className="absolute inset-0 bg-red-400/0 group-hover/btn:bg-red-400/10 rounded-2xl blur-sm transition-all duration-500"></div>
+                            </>
+                          )}
                         </button>
                       </div>
                     </div>
