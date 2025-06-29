@@ -2781,33 +2781,6 @@ const AdminDashboard: React.FC = () => {
                     <div className="absolute inset-0 bg-gradient-to-r from-red-400/0 via-red-400/20 to-red-400/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                     <div className="absolute inset-0 bg-red-400/0 group-hover:bg-red-400/15 rounded-2xl blur-sm transition-all duration-500"></div>
                   </button>
-
-                  {/* Start Interview Button */}
-                  <button
-                    onClick={() => {
-                      closeStudyModal();
-                      // Navigate to interview for this specific study
-                      window.location.href = `/interview?study=${selectedStudyForView.id}`;
-                    }}
-                    className={`group relative px-8 py-4 rounded-2xl font-black text-lg transition-all duration-700 hover:scale-110 hover:-translate-y-2 backdrop-blur-md border shadow-2xl ${
-                      isDarkMode 
-                        ? 'bg-gradient-to-r from-emerald-600/80 via-teal-600/70 to-emerald-600/80 hover:from-emerald-500/90 hover:via-teal-500/80 hover:to-emerald-500/90 border-emerald-500/50 text-white' 
-                        : 'bg-gradient-to-r from-emerald-500/90 via-teal-500/80 to-emerald-500/90 hover:from-emerald-600/95 hover:via-teal-600/85 hover:to-emerald-600/95 border-emerald-400/50 text-white'
-                    } hover:shadow-2xl hover:shadow-emerald-500/40`}
-                  >
-                    <span className="relative z-10 flex items-center space-x-3">
-                      <Play className="h-6 w-6 group-hover:scale-125 transition-transform duration-300" />
-                      <span>Start Interview for This Study</span>
-                    </span>
-                    
-                    {/* Enhanced button effects */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                    <div className="absolute inset-0 bg-emerald-400/0 group-hover:bg-emerald-400/15 rounded-2xl blur-sm transition-all duration-500"></div>
-                    
-                    {/* Button sparkles */}
-                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/60 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300"></div>
-                    <div className="absolute bottom-2 left-2 w-1 h-1 bg-white/40 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300" style={{animationDelay: '0.3s'}}></div>
-                  </button>
                 </div>
               </div>
             </div>
