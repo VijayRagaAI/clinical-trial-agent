@@ -111,54 +111,6 @@
           "expected_response": "60 years or older",
           "response": "",
           "priority": "high"
-        },
-        {
-          "id": "INC002",
-          "text": "Clinical diagnosis of probable Alzheimer's Disease",
-          "question": "Have you been diagnosed with Alzheimer's Disease?",
-          "expected_response": "Yes, diagnosed with Alzheimer's",
-          "response": "",
-          "priority": "high"
-        },
-        {
-          "id": "INC003",
-          "text": "Existing neuropsychiatric symptoms with a score of 10 or greater on the NPI",
-          "question": "Do you have neuropsychiatric symptoms that are significant?",
-          "expected_response": "Yes, score of 10 or greater",
-          "response": "",
-          "priority": "high"
-        },
-        {
-          "id": "INC004",
-          "text": "Stable dose of Donepezil for at least four months",
-          "question": "Have you been on a stable dose of Donepezil for at least four months?",
-          "expected_response": "Yes, stable for 4+ months",
-          "response": "",
-          "priority": "medium"
-        },
-        {
-          "id": "INC005",
-          "text": "No major structural brain disease other than Alzheimer's Disease",
-          "question": "Do you have any other major brain diseases?",
-          "expected_response": "No other major brain diseases",
-          "response": "",
-          "priority": "medium"
-        },
-        {
-          "id": "INC006",
-          "text": "No participation in another clinical trial within the last 30 days",
-          "question": "Have you participated in any other clinical trials in the past month?",
-          "expected_response": "No recent trial participation",
-          "response": "",
-          "priority": "low"
-        },
-        {
-          "id": "INC007",
-          "text": "Available for all study visits over the study duration",
-          "question": "Can you commit to attending all study visits?",
-          "expected_response": "Yes, available for all visits",
-          "response": "",
-          "priority": "low"
         }
       ]
     },

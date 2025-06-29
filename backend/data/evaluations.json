@@ -314,5 +314,37 @@
       },
       "export_timestamp": "2025-06-30T00:01:22.505534"
     }
+  },
+  "P-1C83551C": {
+    "session_id": "e6e50980-364f-4888-9074-c014762d5088",
+    "participant_id": "P-1C83551C",
+    "saved_at": "2025-06-30T02:46:41.548194",
+    "data": {
+      "participant_id": "P-1C83551C",
+      "session_id": "e6e50980-364f-4888-9074-c014762d5088",
+      "study_id": "imported-nct-01712074",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 0.0,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response '25.' indicates a specific age that is below the eligibility criterion of 60 years or older. Although there may be errors in transcription, the clear communication of the age suggests that the participant intended to state their age rather than misrepresent it. Therefore, they do not meet the age criteria.",
+            "extracted_value": "25",
+            "criteria_id": "INC001",
+            "criteria_text": "Age 60 years or older",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 60 years or older\n   Response: \"25.\"\n   Assessment: The participant's response '25.' indicates a specific age that is below the eligibility criterion of 60 years or older. Although there may be errors in transcription, the clear communication of the age suggests that the participant intended to state their age rather than misrepresent it. Therefore, they do not meet the age criteria.\n\n",
+        "high_priority_criteria_met": "0/1",
+        "evaluation_timestamp": "2025-06-30T02:46:40.799155",
+        "participant_id": "P-1C83551C"
+      },
+      "export_timestamp": "2025-06-30T02:46:41.547191"
+    }
   }
 }
