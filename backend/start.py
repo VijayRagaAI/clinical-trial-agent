@@ -43,6 +43,7 @@ def check_api_keys():
         print("⚠️  Missing API keys:")
         for key in missing_keys:
             print(f"   - {key}")
+        return False
        
     print("✅ All API keys configured")
     return True
