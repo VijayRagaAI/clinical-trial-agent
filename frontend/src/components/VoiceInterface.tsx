@@ -450,8 +450,6 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       if (conversationState === 'questioning') {
         if (awaitingSubmission) {
           secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
-          secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
-          secondaryButtons.push({ action: hearInstructionAgain, icon: RotateCcw, text: "Hear Instruction Again", color: "amber" });
       } else {
           if (currentQuestionNumber > 1) {
             secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
@@ -487,8 +485,6 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       if (conversationState === 'questioning') {
         if (awaitingSubmission) {
           secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
-          secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
-          secondaryButtons.push({ action: hearInstructionAgain, icon: RotateCcw, text: "Hear Instruction Again", color: "amber" });
         } else {
           if (currentQuestionNumber > 1) {
             secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
@@ -515,8 +511,6 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       if (conversationState === 'questioning') {
         if (awaitingSubmission) {
           secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
-          secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
-          secondaryButtons.push({ action: hearInstructionAgain, icon: RotateCcw, text: "Hear Instruction Again", color: "amber" });
         } else {
           if (currentQuestionNumber > 1) {
             secondaryButtons.push({ action: repeatLastQuestion, icon: RefreshCw, text: "Repeat Last Question", color: "purple" });
@@ -1318,48 +1312,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           )}
         </div>
 
-            {/* Enhanced Transcription Display */}
-            {lastTranscription && showTranscriptionConfirm && !isEvaluating && !isProcessing && (
-              <div className={`relative backdrop-blur-md rounded-2xl p-6 max-w-2xl mx-auto border transition-all duration-500 hover:scale-[1.02] group/transcription overflow-hidden ${
-                isDarkMode 
-                  ? 'bg-blue-900/30 border-blue-700/50 shadow-blue-500/10' 
-                  : 'bg-blue-50/70 border-blue-200/50 shadow-blue-500/10'
-              }`}>
 
-                
-                {/* Transcription Decorative Ring */}
-                <div className="absolute top-2 left-2 w-16 h-16 border border-blue-400/20 rounded-full opacity-0 group-hover/transcription:opacity-60 group-hover/transcription:scale-110 transition-all duration-500"></div>
-                
-                {/* Transcription Shimmer Effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-300/5 to-transparent transform -skew-x-12 -translate-x-full group-hover/transcription:translate-x-full transition-transform duration-1000 rounded-2xl"></div>
-
-                <div className="space-y-3 relative z-10">
-                  <div className="flex items-center space-x-2">
-                    <Volume2 className={`h-5 w-5 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'} animate-pulse`} />
-                    <h4 className={`text-sm font-bold tracking-wide bg-gradient-to-r ${
-                      isDarkMode 
-                        ? 'from-blue-400 via-blue-300 to-indigo-400 bg-clip-text text-transparent' 
-                        : 'from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent'
-                    }`}>
-                      💬 Your last response was:
-                    </h4>
-                  </div>
-                  
-                  <div className={`text-lg leading-relaxed italic ${
-                    isDarkMode ? 'text-gray-200' : 'text-gray-700'
-                  }`}>
-                    "{lastTranscription}"
-                  </div>
-                  
-                  <div className={`text-xs flex items-center space-x-1 ${
-                    isDarkMode ? 'text-blue-400' : 'text-blue-600'
-                  }`}>
-                    <CheckCircle className="h-4 w-4 animate-pulse" />
-                    <span className="font-medium">✨ Is this correct? Use the above buttons or Start Speaking to correct it.</span>
-                  </div>
-            </div>
-          </div>
-        )}
           </div>
         </div>
       </div>

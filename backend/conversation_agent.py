@@ -253,19 +253,18 @@ Do you consent to proceed with the screening questions?"""
 
             CURRENT INTERVIEW CONTEXT:
             - Current question: "{current_criteria.question}"
+            - expected response: {current_criteria.expected_response}
             - Question {self.current_criteria_index + 1} of {len(self.trial_criteria)} screening questions
             - This question is about: {current_criteria.text}
 
             PARTICIPANT'S UNCLEAR RESPONSE: "{user_message}"
 
             INSTRUCTIONS:
-            - The participant's response doesn't clearly fit any expected category (answer, repeat, submit, etc.)
-            - This could be due to speech-to-text errors, technical confusion, or off-topic responses
+            - This could be due to speech-to-text errors, technical confusion, or off-topic responses, or a question
             - Generate a helpful response that gently redirects them back to the current question
             - Stay conversational and supportive
             - Keep response concise (2-3 sentences max)
             - Do NOT advance to the next question - stay on the current question
-            - If their response seems like it might be attempting to answer the question, acknowledge that and ask for clarification
 
             RESPONSE GUIDELINES:
             - Be understanding about potential technical issues
@@ -277,7 +276,7 @@ Do you consent to proceed with the screening questions?"""
             """
 
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=200,
                 temperature=0.3
@@ -328,6 +327,17 @@ Do you consent to proceed with the screening questions?"""
                 # Use LLM to handle unclear response with full context
                 return await self._handle_unclear_response(user_message)
             
+            elif intent == "decline":
+                # User wants to decline/withdraw during questioning phase
+                return {
+                    "content": "I understand. Thank you for your time. If you change your mind and would like to participate in the future, feel free to try again.",
+                    "requires_response": False,
+                    "is_final": True,
+                    "consent_rejected": True,  # Use same flag as consent phase for consistency
+                    "question_number": self.current_criteria_index + 1,
+                    "total_questions": len(self.trial_criteria)
+                }
+            
             elif intent == "repeat_current":
                 # Just repeat the current question without saving or advancing
                 return await self._ask_current_criteria_question()
@@ -360,26 +370,29 @@ Do you consent to proceed with the screening questions?"""
                     # All questions answered - wait for user to submit
                     self.conversation_state = "awaiting_submission"
                     return {
-                        "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
-                        "requires_response": False,
+                        "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
+                        "requires_response": True,
                         "is_final": False,
                         "awaiting_submission": True,
                         "question_number": len(self.trial_criteria),
                         "total_questions": len(self.trial_criteria)
                     }
             
-            else:  # intent == "submit"
-                # Unexpected submit during questioning phase, treat as answer
+            else:
+                # Any other intent (including unrecognized responses) - treat as answer
                 self.session.responses[current_criteria.id] = user_message.strip()
+                
+                # Move to next question
                 self.current_criteria_index += 1
                 
                 if self.current_criteria_index < len(self.trial_criteria):
                     return await self._ask_current_criteria_question()
                 else:
+                    # All questions answered - wait for user to submit
                     self.conversation_state = "awaiting_submission"
                     return {
-                        "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
-                        "requires_response": False,
+                        "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
+                        "requires_response": True,
                         "is_final": False,
                         "awaiting_submission": True,
                         "question_number": len(self.trial_criteria),
@@ -424,7 +437,7 @@ Do you consent to proceed with the screening questions?"""
         return await self._ask_current_criteria_question()
     
     def _classify_user_intent(self, user_message: str, current_criteria=None) -> str:
-        """Use LLM to classify user intent from their message with question context"""
+        """Use LLM to classify user intent from their message during questioning phase"""
         try:
             # First, check for exact "Ambiguous sound." match directly (more reliable than LLM)
             if user_message.strip() == "Ambiguous sound.":
@@ -432,31 +445,17 @@ Do you consent to proceed with the screening questions?"""
             
             client = openai.OpenAI()
             
-            # Build context section
+            # Build context section for questioning phase
             context_section = ""
-            is_submission_phase = False
             if current_criteria:
                 context_section = f"""
             Current question: "{current_criteria.question}"
             Eligibility criteria: "{current_criteria.text}"
             Expected response: {current_criteria.expected_response}
             """
-                # Check if this is the submission phase
-                if current_criteria.id == "submission":
-                    is_submission_phase = True
-            
-            # Special handling for submission phase
-            submission_guidance = ""
-            if is_submission_phase:
-                submission_guidance = """
-            
-            SPECIAL SUBMISSION PHASE RULES:
-            - If user is asking questions ABOUT THE STUDY (timeline, duration, procedures, requirements, what happens next, etc.), classify as "unclear" so they get proper study information
-            - Only classify as "answer" if they are trying to answer the submission options (Submit/Repeat/Instruction), otherwise classify as "unclear"
-            """
             
             prompt = f"""
-            You are analyzing a user's spoken response in a clinical trial interview to determine their intent.
+            You are analyzing a user's spoken response in a clinical trial interview during the QUESTIONING PHASE to determine their intent.
             The response came from speech-to-text and may contain transcription errors.
             Analyze this user response in the context of the current question and eligibility criteria.
             {context_section}
@@ -469,34 +468,34 @@ Do you consent to proceed with the screening questions?"""
                Examples: "repeat that question", "what?", "I don't understand", "repeat the current question" etc
             
             2. "repeat_previous" - User wants to go back to the previous question  
-               Examples: "go back", "previous question", "repeat the last question", "I want to answer the previous question again"
+               Examples: "go back", "previous question", "repeat the last question", "I want to answer the previous question again", "previous question's answer was or change previous answers as: '...'"
             
-            3. "submit" - User wants to submit their final response and complete the interview
-               Examples: "submit", "I'm done", "finish", "complete the interview"
+           
             
-            4. "hear_instruction" - User wants to hear the instruction/options again (only in final submission phase)
-               Examples: "hear instruction again", "repeat these options", "what are my options"
+            4. "decline" - User wants to decline/withdraw from participation in the interview(skip this category if he is declining to answer the question)
+               Examples: "I don't want to participate", "I withdraw", "I don't want to submit", "I want to stop"
             
             5. "answer" - User is providing a normal answer to an interview question
                Examples: medical/health responses, personal information, yes/no answers to eligibility questions
             
             6. "unclear" - Response is completely unclear, nonsensical, or seems to be a technical/navigation question that doesn't fit other categories
-               Examples: garbled STT text, technical questions about the interview process, completely off-topic responses
+               Examples: garbled STT text, technical questions about the interview process, completely off-topic responses, or a question
                IMPORTANT: Only use this for very rare cases when you are highly unsure - if there's any chance it's an answer, classify as "answer"
             
             SPEECH-TO-TEXT CONSIDERATIONS:
             - Focus on intent rather than exact wording
             - Account for transcription errors and incomplete responses
             - Be more lenient with classification due to potential STT issues
-            {submission_guidance}
             
-            Respond with ONLY the category name: repeat_current, repeat_previous, submit, hear_instruction, answer, or unclear
+            IMPORTANT NOTE: Users can decline/withdraw at ANY phase (consent, questioning, submission) - always respect their choice to withdraw.
+            
+            Respond with ONLY the category name: repeat_current, repeat_previous, decline, answer, or unclear
 
-            NOTE: In case of doubt: In regular phases- prefer "answer" over "unclear" to avoid getting stuck, In submission phase- prefer "unclear".
+            NOTE: In case of doubt, prefer "answer" over "unclear" to avoid getting stuck. Always respect user's choice to decline/withdraw.
             """
             
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=10,
                 temperature=0
@@ -505,7 +504,7 @@ Do you consent to proceed with the screening questions?"""
             intent = response.choices[0].message.content.strip().lower()
             
             # Validate the response
-            valid_intents = ["repeat_current", "repeat_previous", "submit", "hear_instruction", "answer", "unclear"]
+            valid_intents = ["repeat_current", "repeat_previous", "decline", "answer", "unclear"]
             if intent in valid_intents:
                 return intent
             else:
@@ -515,6 +514,76 @@ Do you consent to proceed with the screening questions?"""
         except Exception as e:
             logger.error(f"Error classifying user intent: {e}")
             return "answer"
+
+    def _classify_submission_user_intent(self, user_message: str) -> str:
+        """Use LLM to classify user intent from their message during submission phase"""
+        try:
+            # First, check for exact "Ambiguous sound." match directly (more reliable than LLM)
+            if user_message.strip() == "Ambiguous sound.":
+                return "ambiguous"
+            
+            client = openai.OpenAI()
+            
+            prompt = f"""
+            You are analyzing a user's spoken response in a clinical trial interview during the SUBMISSION PHASE to determine their intent.
+            The user has already answered ALL screening questions and is now deciding whether to submit their responses.
+            The response came from speech-to-text and may contain transcription errors.
+
+            User's response: "{user_message}"
+            
+            Classify this response into ONE of these categories:
+            
+            1. "repeat_instruction" - User wants to hear the submission instruction/options again
+               Examples: "repeat", "what?", "I don't understand", "repeat that", "what are my options", "say that again"
+            
+            2. "submit" - User wants to submit their responses and complete the interview
+               Examples: "submit", "yes", "I'm done", "finish", "complete", "proceed", "yes I want to submit"
+            
+            3. "decline" - User wants to decline/withdraw from participation and NOT submit
+               Examples: "no", "I don't want to participate", "I withdraw", "I don't want to submit"
+            
+            4. "study_question" - User is asking questions about the study itself before deciding
+               Examples: "What is the timeline?", "How long is the study?", "What happens next?", "Tell me more about the study"
+            
+            5. "unclear" - Response is completely unclear, nonsensical, or technical issue
+               Examples: garbled STT text, completely off-topic responses, technical problems
+            
+            SUBMISSION PHASE CONTEXT:
+            - User has completed all screening questions
+            - They are deciding whether to submit or not
+            - "Repeat" in this context means repeat the submission instruction
+            - They can ask study questions, submit, or decline
+            
+            SPEECH-TO-TEXT CONSIDERATIONS:
+            - Focus on intent rather than exact wording
+            - Account for transcription errors and incomplete responses
+            - Be more lenient with classification due to potential STT issues
+            
+            Respond with ONLY the category name: repeat_instruction, submit, decline, study_question, or unclear
+
+            NOTE: When user says "repeat" during submission, they mean repeat the submission instruction.
+            """
+            
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=10,
+                temperature=0
+            )
+            
+            intent = response.choices[0].message.content.strip().lower()
+            
+            # Validate the response
+            valid_intents = ["repeat_instruction", "submit", "decline", "study_question", "unclear"]
+            if intent in valid_intents:
+                return intent
+            else:
+                logger.warning(f"LLM returned invalid submission intent '{intent}', defaulting to 'repeat_instruction'")
+                return "repeat_instruction"
+                
+        except Exception as e:
+            logger.error(f"Error classifying submission user intent: {e}")
+            return "repeat_instruction"
     
     async def _handle_unclear_submission_response(self, user_message: str) -> Dict:
         """Handle unclear response during submission phase - may be study questions like consent phase"""
@@ -550,19 +619,19 @@ Do you consent to proceed with the screening questions?"""
 
             SUBMISSION PHASE CONTEXT:
             - Participant has answered all {len(self.trial_criteria)} screening questions
-            - They are now ready to submit their responses for evaluation
-            - Available options: Submit Response, Repeat Last Question, or Hear Instruction Again
+            - They are now deciding whether to submit their responses for evaluation
+            - They have the choice to submit, decline, ask more questions, or change previous answers
 
             PARTICIPANT'S QUESTION/CONCERN: "{user_message}"
 
             INSTRUCTIONS:
-            - The participant may be asking about the study before submitting (similar to consent phase questions)
+            - The participant may be asking about the study before making their decision
             - Address their specific question/concern directly using the study information provided
             - Be conversational, helpful, and reassuring while staying factual
             - Only use information provided above - DO NOT invent or assume details
             - Keep response concise (2-3 sentences max)
-            - Always end by presenting their three submission options
-            - If their question is about something not covered in the study info, acknowledge this and present the options
+            - End by asking if they'd like to submit their responses or if they have other questions
+            - If their question is about something not covered in the study info, acknowledge this honestly
 
             SPEECH-TO-TEXT CONSIDERATIONS:
             - The participant's message may have transcription errors or be incomplete
@@ -604,10 +673,10 @@ Do you consent to proceed with the screening questions?"""
             overview = self.trial_info.get("overview", {})
             purpose = overview.get("purpose", "Test a new medical treatment")
             return {
-                "content": f"""Let me clarify: This study aims to {purpose.lower()}. You've completed all the screening questions. 
+                "content": f"""This study aims to {purpose.lower()}. You've completed all the screening questions. 
 
-You have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.""",
-                "requires_response": False,
+Would you like to submit your responses for evaluation, or do you have other questions about the study?""",
+                "requires_response": True,
                 "is_final": False,
                 "awaiting_submission": True,
                 "question_number": len(self.trial_criteria),
@@ -616,24 +685,15 @@ You have three options: 'Submit Response' to complete your interview, 'Repeat La
     
     async def _handle_submission_request(self, user_message: str) -> Dict:
         """Handle submission or repeat request when awaiting final submission"""
-        # Create mock criteria for submission phase context
-        from models import TrialCriteria
-        submission_criteria = TrialCriteria(
-            id="submission",
-            text="Final submission phase",
-            question="Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
-            expected_response="Submit, Repeat Last Question, or Hear Instruction Again",
-            priority="high"
-        )
         
-        # Use LLM to classify user intent with submission context
-        intent = self._classify_user_intent(user_message, submission_criteria)
+        # Use submission-specific LLM to classify user intent
+        intent = self._classify_submission_user_intent(user_message)
         
         if intent == "ambiguous":
             # Speech was unclear - ask user to speak more clearly
             return {
                 "content": "I didn't catch that clearly. Please speak more clearly.",
-                "requires_response": False,
+                "requires_response": True,
                 "is_final": False,
                 "awaiting_submission": True,
                 "question_number": len(self.trial_criteria),
@@ -652,32 +712,36 @@ You have three options: 'Submit Response' to complete your interview, 'Repeat La
                 "total_questions": len(self.trial_criteria)
             }
         
-        elif intent == "hear_instruction":
-            # Repeat the instruction message
+        elif intent == "decline":
+            # User chooses not to submit/participate
             return {
-                "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+                "content": "I understand. Thank you for taking the time to answer the screening questions. If you change your mind and would like to participate in the future, feel free to try again.",
                 "requires_response": False,
+                "is_final": True,
+                "consent_rejected": True,  # Use same flag as consent phase for consistency
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
+        
+        elif intent == "repeat_instruction":
+            # User wants to hear the submission instruction again
+            return {
+                "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
+                "requires_response": True,
                 "is_final": False,
                 "awaiting_submission": True,
                 "question_number": len(self.trial_criteria),
                 "total_questions": len(self.trial_criteria)
             }
         
-        elif intent == "unclear":
-            # Use LLM to handle unclear response in submission phase
+        
+        elif intent == "study_question":
+            # User is asking questions about the study - handle as unclear to get study info
             return await self._handle_unclear_submission_response(user_message)
         
-        else:  # repeat_current, repeat_previous, or answer - all treated as wanting to change last answer
-            # Go back to the last question
-            self.current_criteria_index = len(self.trial_criteria) - 1
-            self.conversation_state = "asking_questions"
-            
-            # Remove the last answer so they can re-answer
-            last_criteria = self.trial_criteria[self.current_criteria_index]
-            if last_criteria.id in self.session.responses:
-                del self.session.responses[last_criteria.id]
-            
-            return await self._ask_current_criteria_question()
+        else:  # intent == "unclear"
+            # Use LLM to handle unclear response in submission phase
+            return await self._handle_unclear_submission_response(user_message)
     
     def complete_interview(self) -> Dict:
         """Complete the interview after evaluation"""
