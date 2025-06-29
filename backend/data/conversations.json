@@ -1,1 +1,363 @@
-{}
+{
+  "P-B1762347": {
+    "session_id": "8431481c-74cd-4a6e-b490-5a12b7298cf6",
+    "participant_id": "P-B1762347",
+    "saved_at": "2025-06-29T10:26:58.110202",
+    "data": {
+      "metadata": {
+        "participant_id": "P-B1762347",
+        "session_id": "8431481c-74cd-4a6e-b490-5a12b7298cf6",
+        "study_id": "imported-nct-03729531",
+        "export_timestamp": "2025-06-29T10:26:58.109558",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751172986681",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to determine if the no-touch vein harvesting technique improves graft patency compared to conventional methods in patients undergoing opcabg..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:26:26.649191"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-662F2B89": {
+    "session_id": "791bc319-a00d-44d8-9c5f-c6a240826bf2",
+    "participant_id": "P-662F2B89",
+    "saved_at": "2025-06-29T10:28:46.583755",
+    "data": {
+      "metadata": {
+        "participant_id": "P-662F2B89",
+        "session_id": "791bc319-a00d-44d8-9c5f-c6a240826bf2",
+        "study_id": "imported-nct-03729531",
+        "export_timestamp": "2025-06-29T10:28:46.583204",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751173105634",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to determine if the no-touch vein harvesting technique improves graft patency compared to conventional methods in patients undergoing opcabg..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:28:25.604983"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-0E337EC3": {
+    "session_id": "384dc67b-803d-4965-825e-3ef9fedafc53",
+    "participant_id": "P-0E337EC3",
+    "saved_at": "2025-06-29T10:31:26.986344",
+    "data": {
+      "metadata": {
+        "participant_id": "P-0E337EC3",
+        "session_id": "384dc67b-803d-4965-825e-3ef9fedafc53",
+        "study_id": "imported-nct-03678831",
+        "export_timestamp": "2025-06-29T10:31:26.985251",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751173245974",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to understand if marrow fat contributes more to joint problems compared to subcutaneous fat in women with knee osteoarthritis..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:30:45.948104"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-DB2BD695": {
+    "session_id": "7b38a8f1-3a37-4b02-be69-d2fe810b9a9c",
+    "participant_id": "P-DB2BD695",
+    "saved_at": "2025-06-29T10:34:58.153486",
+    "data": {
+      "metadata": {
+        "participant_id": "P-DB2BD695",
+        "session_id": "7b38a8f1-3a37-4b02-be69-d2fe810b9a9c",
+        "study_id": "imported-nct-03678831",
+        "export_timestamp": "2025-06-29T10:34:58.153271",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751173317645",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to understand if marrow fat contributes more to joint problems compared to subcutaneous fat in women with knee osteoarthritis..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:31:57.616582"
+        },
+        {
+          "id": "user-1751173328337",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-29T10:32:08.336836"
+        },
+        {
+          "id": "agent-1751173331546",
+          "type": "agent",
+          "content": "Are you a post-menopausal woman?",
+          "timestamp": "2025-06-29T10:32:11.538737"
+        },
+        {
+          "id": "user-1751173410151",
+          "type": "user",
+          "content": "Bon Appetit!",
+          "timestamp": "2025-06-29T10:33:30.150879"
+        },
+        {
+          "id": "agent-1751173413339",
+          "type": "agent",
+          "content": "Do you have knee osteoarthritis that is severe enough to require a prosthesis?",
+          "timestamp": "2025-06-29T10:33:33.326695"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "2 minutes"
+      }
+    }
+  },
+  "P-53BF255D": {
+    "session_id": "a343599e-c9ec-4bb3-b611-fcc561b418b2",
+    "participant_id": "P-53BF255D",
+    "saved_at": "2025-06-29T10:35:13.059431",
+    "data": {
+      "metadata": {
+        "participant_id": "P-53BF255D",
+        "session_id": "a343599e-c9ec-4bb3-b611-fcc561b418b2",
+        "study_id": "imported-nct-03678831",
+        "export_timestamp": "2025-06-29T10:35:13.058992",
+        "total_messages": 0,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [],
+      "summary": {
+        "agent_messages": 0,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-E461F57A": {
+    "session_id": "38c6530f-da7b-4f4c-b1aa-0b32b88366ad",
+    "participant_id": "P-E461F57A",
+    "saved_at": "2025-06-29T10:38:00.295086",
+    "data": {
+      "metadata": {
+        "participant_id": "P-E461F57A",
+        "session_id": "38c6530f-da7b-4f4c-b1aa-0b32b88366ad",
+        "study_id": "imported-nct-01712074",
+        "export_timestamp": "2025-06-29T10:38:00.294384",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751173620026",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to test if pf-05212377 improves cognitive and neuropsychiatric symptoms in individuals with alzheimer's disease already on donepezil..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:36:59.992520"
+        },
+        {
+          "id": "user-1751173626213",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-29T10:37:06.213079"
+        },
+        {
+          "id": "agent-1751173628655",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T10:37:08.653112"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-4E552F33": {
+    "session_id": "1e580e54-a390-4dd3-a537-12d23c570e92",
+    "participant_id": "P-4E552F33",
+    "saved_at": "2025-06-29T10:39:35.652614",
+    "data": {
+      "metadata": {
+        "participant_id": "P-4E552F33",
+        "session_id": "1e580e54-a390-4dd3-a537-12d23c570e92",
+        "study_id": "imported-nct-01712074",
+        "export_timestamp": "2025-06-29T10:39:35.652088",
+        "total_messages": 11,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751173693977",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to test if pf-05212377 improves cognitive and neuropsychiatric symptoms in individuals with alzheimer's disease already on donepezil..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:38:13.944967"
+        },
+        {
+          "id": "user-1751173699187",
+          "type": "user",
+          "content": "Yes proceed",
+          "timestamp": "2025-06-29T10:38:19.186589"
+        },
+        {
+          "id": "agent-1751173701186",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T10:38:21.184598"
+        },
+        {
+          "id": "user-1751173706292",
+          "type": "user",
+          "content": "I am 25 years old.",
+          "timestamp": "2025-06-29T10:38:26.292371"
+        },
+        {
+          "id": "agent-1751173710079",
+          "type": "agent",
+          "content": "Have you been diagnosed with Alzheimer's Disease?",
+          "timestamp": "2025-06-29T10:38:30.075584"
+        },
+        {
+          "id": "user-1751173738722",
+          "type": "user",
+          "content": "No?",
+          "timestamp": "2025-06-29T10:38:58.721884"
+        },
+        {
+          "id": "agent-1751173742899",
+          "type": "agent",
+          "content": "Do you have neuropsychiatric symptoms that are significant?",
+          "timestamp": "2025-06-29T10:39:02.890126"
+        },
+        {
+          "id": "user-1751173748966",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-29T10:39:08.953019"
+        },
+        {
+          "id": "agent-1751173752841",
+          "type": "agent",
+          "content": "Do you have neuropsychiatric symptoms that are significant?",
+          "timestamp": "2025-06-29T10:39:12.836120"
+        },
+        {
+          "id": "user-1751173764634",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-29T10:39:24.621385"
+        },
+        {
+          "id": "agent-1751173768449",
+          "type": "agent",
+          "content": "Do you have neuropsychiatric symptoms that are significant?",
+          "timestamp": "2025-06-29T10:39:28.441474"
+        }
+      ],
+      "summary": {
+        "agent_messages": 6,
+        "user_messages": 5,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-8B733E27": {
+    "session_id": "d00eba07-eb8f-43d7-9d89-5eb39db5080f",
+    "participant_id": "P-8B733E27",
+    "saved_at": "2025-06-29T10:41:38.270377",
+    "data": {
+      "metadata": {
+        "participant_id": "P-8B733E27",
+        "session_id": "d00eba07-eb8f-43d7-9d89-5eb39db5080f",
+        "study_id": "imported-nct-01712074",
+        "export_timestamp": "2025-06-29T10:41:38.269861",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751173868902",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to test if pf-05212377 improves cognitive and neuropsychiatric symptoms in individuals with alzheimer's disease already on donepezil..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:41:08.855257"
+        },
+        {
+          "id": "user-1751173882323",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-29T10:41:22.316855"
+        },
+        {
+          "id": "agent-1751173888210",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to test if pf-05212377 improves cognitive and neuropsychiatric symptoms in individuals with alzheimer's disease already on donepezil..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T10:41:28.177417"
+        },
+        {
+          "id": "user-1751173895321",
+          "type": "user",
+          "content": "Yes proceed",
+          "timestamp": "2025-06-29T10:41:35.320673"
+        },
+        {
+          "id": "agent-1751173897761",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T10:41:37.757832"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  }
+}

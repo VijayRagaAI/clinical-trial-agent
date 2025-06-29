@@ -1,6 +1,264 @@
 {
   "studies": [
     {
+      "id": "imported-nct-04076631",
+      "trial": {
+        "nct_id": "NCT04076631",
+        "title": "Surgical Stages of Liver Cirrhosis In Patients With Hepatocellular Carcinoma",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Oncology",
+        "description": "This study aims to establish clinical criteria for surgical stages of liver cirrhosis to guide treatment for hepatocellular carcinoma (HCC).",
+        "phase": "N/A",
+        "sponsor": "Multicenter Research Group"
+      },
+      "overview": {
+        "purpose": "To evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma.",
+        "participant_commitment": "Approximately 1 year with multiple clinic visits.",
+        "key_procedures": [
+          "Preoperative liver function assessment",
+          "Intraoperative liver morphological evaluation",
+          "Measurement of liver stiffness",
+          "Postoperative follow-up assessments"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age 18 – 75 years (inclusive)",
+          "question": "How old are you?",
+          "expected_response": "18-75 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Clinically diagnosed with hepatocellular carcinoma confirmed by pathology",
+          "question": "Have you been diagnosed with hepatocellular carcinoma?",
+          "expected_response": "Yes, confirmed by pathology",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Liver function grade Child-Pugh class A or B",
+          "question": "What is your current liver function grade?",
+          "expected_response": "Child-Pugh class A or B",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC004",
+          "text": "Ability to undergo open surgery",
+          "question": "Are you able to undergo open surgery?",
+          "expected_response": "Yes, I can undergo open surgery",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC005",
+          "text": "No serious physical diseases that affect surgery",
+          "question": "Do you have any serious health conditions that might affect your ability to have surgery?",
+          "expected_response": "No serious health conditions",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC006",
+          "text": "Willingness to sign informed consent",
+          "question": "Are you willing to sign a consent form for this study?",
+          "expected_response": "Yes, I am willing to sign",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC007",
+          "text": "No participation in other clinical trials within the last 30 days",
+          "question": "Have you participated in any other clinical trials in the past month?",
+          "expected_response": "No recent trial participation",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-01712074",
+      "trial": {
+        "nct_id": "NCT01712074",
+        "title": "Study Evaluating The Safety And Efficacy Of PF-05212377 Or Placebo In Subjects With Alzheimer's Disease With Existing Neuropsychiatric Symptoms On Donepezil",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Neurology",
+        "description": "This study evaluates the safety and efficacy of PF-05212377 in subjects with mild-to-moderate Alzheimer's Disease experiencing neuropsychiatric symptoms.",
+        "phase": "Phase II",
+        "sponsor": "Pfizer Inc."
+      },
+      "overview": {
+        "purpose": "To test if PF-05212377 improves cognitive and neuropsychiatric symptoms in individuals with Alzheimer's Disease already on Donepezil.",
+        "participant_commitment": "Approximately 18 weeks with multiple clinic visits.",
+        "key_procedures": [
+          "Neuropsychiatric assessments",
+          "Cognitive tests",
+          "Medication administration",
+          "Monitoring of symptoms"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age 60 years or older",
+          "question": "How old are you?",
+          "expected_response": "60 years or older",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Clinical diagnosis of probable Alzheimer's Disease",
+          "question": "Have you been diagnosed with Alzheimer's Disease?",
+          "expected_response": "Yes, diagnosed with Alzheimer's",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Existing neuropsychiatric symptoms with a score of 10 or greater on the NPI",
+          "question": "Do you have neuropsychiatric symptoms that are significant?",
+          "expected_response": "Yes, score of 10 or greater",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC004",
+          "text": "Stable dose of Donepezil for at least four months",
+          "question": "Have you been on a stable dose of Donepezil for at least four months?",
+          "expected_response": "Yes, stable for 4+ months",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC005",
+          "text": "No major structural brain disease other than Alzheimer's Disease",
+          "question": "Do you have any other major brain diseases?",
+          "expected_response": "No other major brain diseases",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC006",
+          "text": "No participation in another clinical trial within the last 30 days",
+          "question": "Have you participated in any other clinical trials in the past month?",
+          "expected_response": "No recent trial participation",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC007",
+          "text": "Available for all study visits over the study duration",
+          "question": "Can you commit to attending all study visits?",
+          "expected_response": "Yes, available for all visits",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-03729531",
+      "trial": {
+        "nct_id": "NCT03729531",
+        "title": "Clinical Effect of No-touch Harvesting Technique in OPCABG",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Cardiology",
+        "description": "This study investigates the clinical effect of the No-touch saphenous vein harvesting technique in off-pump coronary artery bypass grafting (OPCABG) compared to the conventional technique.",
+        "phase": "NA",
+        "sponsor": "Not specified"
+      },
+      "overview": {
+        "purpose": "To determine if the No-touch vein harvesting technique improves graft patency compared to conventional methods in patients undergoing OPCABG.",
+        "participant_commitment": "Approximately 6 months with follow-up visits at 3 months post-surgery.",
+        "key_procedures": [
+          "Echocardiogram to assess ejection fraction",
+          "Graft harvesting using No-touch or conventional technique",
+          "CTA to evaluate graft patency at 3 months"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age between 18 and 70 years",
+          "question": "How old are you?",
+          "expected_response": "18-70 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "First-time isolated off-pump coronary artery bypass graft surgery",
+          "question": "Is this your first time undergoing off-pump coronary artery bypass graft surgery?",
+          "expected_response": "Yes, it is my first time",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Ejection fraction greater than 35%",
+          "question": "What is your most recent ejection fraction percentage?",
+          "expected_response": "Greater than 35%",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC004",
+          "text": "Diameter of saphenous vein is at least 2mm",
+          "question": "What is the diameter of your saphenous vein?",
+          "expected_response": "At least 2mm",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC005",
+          "text": "Willingness to sign informed consent",
+          "question": "Are you willing to sign the informed consent form for this study?",
+          "expected_response": "Yes, I am willing to sign",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC006",
+          "text": "No urgent surgery required",
+          "question": "Do you require any urgent surgery at this time?",
+          "expected_response": "No, I do not require urgent surgery",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC007",
+          "text": "No severe renal insufficiency",
+          "question": "Do you have any issues with your kidneys, such as severe renal insufficiency?",
+          "expected_response": "No, I do not have severe renal issues",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC008",
+          "text": "No allergy to radiocontrast agents",
+          "question": "Are you allergic to any radiocontrast agents?",
+          "expected_response": "No, I am not allergic",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC009",
+          "text": "No history of malignant tumors or severe systemic conditions",
+          "question": "Do you have a history of any malignant tumors or severe systemic health issues?",
+          "expected_response": "No, I do not have such a history",
+          "response": "",
+          "priority": "high"
+        }
+      ]
+    },
+    {
       "id": "imported-nct-03678831",
       "trial": {
         "nct_id": "NCT03678831",
@@ -102,7 +360,7 @@
   "meta": {
     "schema_version": "eligibility-json/2.0-multi-study",
     "author": "clinical-trial-agent",
-    "generated_utc": "2025-06-28T18:48:31Z",
-    "total_studies": 1
+    "generated_utc": "2025-06-29T05:10:54Z",
+    "total_studies": 4
   }
 }

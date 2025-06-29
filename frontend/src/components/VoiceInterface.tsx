@@ -444,7 +444,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       }
       
       return {
-        primary: { action: startRecording, icon: Mic, text: "Start Speaking", color: "blue" },
+        primary: { action: startRecording, icon: Mic, text: "Click to speak", color: "blue" },
         secondary: secondaryButtons,
         disabled: false
       };
@@ -472,7 +472,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       }
       
       return {
-        primary: { action: startRecording, icon: Mic, text: "Start Speaking", color: "blue" },
+        primary: { action: startRecording, icon: Mic, text: "Click to speak", color: "blue" },
         secondary: secondaryButtons,
         disabled: false
       };
