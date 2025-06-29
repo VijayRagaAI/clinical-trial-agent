@@ -28,25 +28,6 @@ def init_json_storage():
         print(f"❌ JSON storage initialization failed: {e}")
         return False
 
-def check_api_keys():
-    """Check if required API keys are available"""
-    print("🔑 Checking API configuration...")
-    
-    missing_keys = []
-    
-    # Check OpenAI API key for the main conversation agent
-    openai_key = os.getenv("OPENAI_API_KEY")
-    if not openai_key:
-        missing_keys.append("OPENAI_API_KEY")
-    
-    if missing_keys:
-        print("⚠️  Missing API keys:")
-        for key in missing_keys:
-            print(f"   - {key}")
-        return False
-       
-    print("✅ All API keys configured")
-    return True
 
 def start_server(host="0.0.0.0", port=8000, reload=True):
     """Start the FastAPI server"""
@@ -82,13 +63,7 @@ def main():
     if not init_json_storage():
         sys.exit(1)
     
-    # Check API keys
-    has_api_keys = check_api_keys()
-    
-    print("\n✅ Startup checks completed!")
-    if not has_api_keys:
-        print("\n⚠️  Note: Voice features require all API keys to be configured")
-    
+
     print("\n" + "=" * 60)
     
     # Start the server

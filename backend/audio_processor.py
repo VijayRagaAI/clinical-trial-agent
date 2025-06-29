@@ -3,7 +3,6 @@ import base64
 import io
 import logging
 import os
-import tempfile
 from typing import Optional
 
 import openai
@@ -14,10 +13,11 @@ logger = logging.getLogger(__name__)
 
 class AudioProcessor:
     def __init__(self):
-        # Initialize OpenAI for translation and Whisper fallback
-        self.openai_api_key = os.getenv("personal")
+        # Initialize OpenAI API key for translation
+        self.openai_api_key = os.getenv("OPENAI_API_KEY")
         if self.openai_api_key:
             openai.api_key = self.openai_api_key
+            logger.info("OpenAI API key configured for translation")
         else:
             logger.warning("OPENAI_API_KEY not found in environment variables")
         
@@ -26,7 +26,7 @@ class AudioProcessor:
         if self.google_credentials:
             logger.info("Google Speech-to-Text credentials configured")
         else:
-            logger.warning("Google credentials not found, will use Whisper for all languages")
+            logger.warning("Google credentials not found")
         
         # Initialize Google TTS
         self.google_tts = GoogleTTS()
@@ -34,10 +34,15 @@ class AudioProcessor:
         # Get output language from environment, default to English
         self.output_language = os.getenv("OUTPUT_LANGUAGE", "english").lower()
         
+        # Sync the initial language between AudioProcessor and GoogleTTS
+        if self.output_language != self.google_tts.output_language:
+            logger.info(f"Syncing initial language: AudioProcessor={self.output_language}, GoogleTTS={self.google_tts.output_language}")
+            self.google_tts.update_settings({"language": self.output_language})
+        
         # Supported languages - Indian languages + Top 15 World languages
         self.supported_languages = [
-            # Existing Indian languages
-            "english", "hindi", "bhojpuri", "bengali", "telugu", "marathi", 
+            # Indian languages
+            "english", "hindi", "bengali", "telugu", "marathi", 
             "tamil", "gujarati", "urdu", "kannada",
             # Top 15 World languages
             "mandarin", "spanish", "french", "arabic", "portuguese", 
@@ -50,7 +55,6 @@ class AudioProcessor:
             # Indian languages
             "english": "English",
             "hindi": "Hindi", 
-            "bhojpuri": "Bhojpuri",
             "bengali": "Bengali",
             "telugu": "Telugu", 
             "marathi": "Marathi",
@@ -85,7 +89,7 @@ class AudioProcessor:
             "marathi": "mr-IN",
             "tamil": "ta-IN",
             "gujarati": "gu-IN",
-            "urdu": "ur-IN",
+            "urdu": "ur-IN",  # Use India variant as supported by Google Cloud STT
             "kannada": "kn-IN",
             "mandarin": "zh-CN",
             "spanish": "es-ES",
@@ -104,9 +108,6 @@ class AudioProcessor:
             "dutch": "nl-NL"
         }
         
-        # Languages NOT supported by Google (fallback to Whisper)
-        self.whisper_only_languages = ["bhojpuri"]
-        
         if self.output_language not in self.supported_languages:
             logger.warning(f"Unsupported output language: {self.output_language}. Defaulting to English.")
             self.output_language = "english"
@@ -124,7 +125,6 @@ class AudioProcessor:
         try:
             # Gender-aware instructions for specific languages
             gender_instructions = ""
-            logger.info(f"🔄 Gender-aware translation: language={target_language}, gender={gender}")
             
             if gender.lower() in ["male", "female"]:
                 if target_language.lower() == "hindi":
@@ -173,8 +173,6 @@ class AudioProcessor:
             if target_language.lower() == "english":
                 # When translating TO English, detect source language automatically
                 special_instructions = " Detect the source language automatically and translate to clear, natural English."
-            elif target_language.lower() == "bhojpuri":
-                special_instructions = " For Bhojpuri, use proper Bhojpuri language and script."
             elif target_language.lower() == "urdu":
                 special_instructions = " For Urdu, use proper Urdu script and vocabulary."
             elif target_language.lower() == "tamil":
@@ -236,8 +234,6 @@ class AudioProcessor:
             )
             
             translated_text = response.choices[0].message.content.strip()
-            logger.info(f"✅ Translated '{text[:50]}...' to {target_lang} (gender: {gender})")
-            logger.info(f"📝 Result: {translated_text}")
             return translated_text
             
         except Exception as e:
@@ -245,27 +241,21 @@ class AudioProcessor:
             return text
     
     async def speech_to_text(self, audio_data: str) -> str:
-        """Convert base64 encoded audio to text using Google STT with Whisper fallback"""
+        """Convert base64 encoded audio to text using Google STT"""
         
-        # Check if target language needs Whisper fallback
-        if self.output_language in self.whisper_only_languages:
-            logger.info(f"Using Whisper for unsupported language: {self.output_language}")
-            return await self.whisper_speech_to_text(audio_data)
+        # Use the same language source as TTS
+        current_language = self.google_tts.output_language
         
         # Check if target language is supported by Google
-        if self.output_language not in self.google_language_mapping:
-            logger.warning(f"Target language {self.output_language} not in Google mapping, using Whisper")
-            return await self.whisper_speech_to_text(audio_data)
+        if current_language not in self.google_language_mapping:
+            logger.warning(f"Target language {current_language} not in Google mapping")
+            return "Language not supported."
         
-        # Try Google Speech-to-Text first
-        try:
-            return await self.google_speech_to_text(audio_data)
-        except Exception as e:
-            logger.warning(f"Google STT failed for {self.output_language}, falling back to Whisper: {e}")
-            return await self.whisper_speech_to_text(audio_data)
+        # Use Google Speech-to-Text
+        return await self.google_speech_to_text(audio_data)
 
     async def google_speech_to_text(self, audio_data: str) -> str:
-        """Google Speech-to-Text with English primary + target language secondary"""
+        """Google Speech-to-Text with dynamic primary language based on user selection"""
         if not self.google_credentials:
             raise Exception("Google Speech-to-Text credentials not configured")
             
@@ -275,20 +265,40 @@ class AudioProcessor:
             
             # Check audio duration - reject very short clips
             if len(audio_bytes) < 2000:  # Less than ~0.1 seconds of audio
-                return "Please speak clearly."
+                return "Ambiguous sound."
             
             # Google STT setup
             from google.cloud import speech
             client = speech.SpeechClient()
             
-            # Simple: English primary, target language secondary
-            primary_language = "en-US"  # Always English for medical processing
-            target_language_code = self.google_language_mapping[self.output_language]
+            # Use the same language source as TTS
+            current_language = self.google_tts.output_language
+            target_language_code = self.google_language_mapping[current_language]
             
-            # Only add target as alternative if it's different from English
-            alternative_languages = []
-            if self.output_language != "english":
-                alternative_languages = [target_language_code]
+            if current_language == "english":
+                # When English is selected, use English as primary
+                primary_language = "en-US"
+                alternative_languages = []
+            elif current_language == "urdu":
+                # Special handling for Urdu: use Hindi as alternative since they share phonetics
+                primary_language = target_language_code  # ur-IN
+                alternative_languages = ["hi-IN", "en-US"]  # Hindi and English as alternatives
+            else:
+                # When non-English is selected, use that language as primary and English as fallback
+                primary_language = target_language_code
+                alternative_languages = ["en-US"]
+            
+            # Languages that support latest_short model (limited set)
+            latest_short_supported = [
+                "en-US", "en-GB", "es-ES", "fr-FR", "de-DE", "it-IT", 
+                "ja-JP", "ko-KR", "pt-BR", "ru-RU", "hi-IN", "zh-CN"
+            ]
+            
+            # Use appropriate model based on language support
+            if primary_language in latest_short_supported:
+                model_to_use = "latest_short"
+            else:
+                model_to_use = "default"  # Default model has broader language support
             
             config = speech.RecognitionConfig(
                 encoding=speech.RecognitionConfig.AudioEncoding.WEBM_OPUS,
@@ -296,11 +306,11 @@ class AudioProcessor:
                 language_code=primary_language,
                 alternative_language_codes=alternative_languages,
                 
-                # Medical optimizations - using standard model for free tier
-                use_enhanced=False,  # Stay in free tier, faster response
+                # Free tier optimizations
+                use_enhanced=False,  # Stay in free tier
                 enable_automatic_punctuation=True,
                 enable_word_confidence=True,
-                model="latest_short",  # Optimized for short audio clips
+                model=model_to_use,  # Use language-appropriate model
                 max_alternatives=1,
                 profanity_filter=False,
             )
@@ -311,76 +321,46 @@ class AudioProcessor:
             
             # Handle results
             if not response.results:
-                return "Please speak clearly."
+                return "Ambiguous sound."
                 
             result = response.results[0]
             transcript = result.alternatives[0].transcript.strip()
             confidence = result.alternatives[0].confidence
             
-            if not transcript or confidence < 0.15:
-                return "Please speak clearly."
+            # Language-specific confidence thresholds
+            # Some languages need higher confidence to avoid random text
+            confidence_thresholds = {
+                "ur-IN": 0.4,  # Urdu needs higher confidence
+                "ar-XA": 0.35,  # Arabic needs higher confidence  
+                "bn-IN": 0.35,  # Bengali needs higher confidence
+                "ta-IN": 0.35,  # Tamil needs higher confidence
+                "te-IN": 0.35,  # Telugu needs higher confidence
+                "kn-IN": 0.35,  # Kannada needs higher confidence
+                "gu-IN": 0.35,  # Gujarati needs higher confidence
+                "mr-IN": 0.35,  # Marathi needs higher confidence
+            }
             
-            # Log confidence for monitoring but don't reject based on it
-            logger.info(f"Google STT (en-US + {self.output_language}) - {confidence:.2f} confidence: {transcript[:50]}...")
+            min_confidence = confidence_thresholds.get(primary_language, 0.25)  # Default 0.25
             
-            # Translation if needed (user spoke in native language, we got it transcribed)
-            if self.output_language != "english" and transcript:
-                return self.translate_text(transcript, "english")
+            if not transcript or confidence < min_confidence:
+                logger.info(f"Low confidence for {primary_language}: {confidence:.2f} < {min_confidence} - '{transcript}'")
+                return "Ambiguous sound."
+            
+            # Translation logic:
+            # If user selected non-English language, they likely spoke in that language
+            # We need to translate their input TO English for medical processing
+            if current_language != "english" and transcript:
+                # User spoke in their native language, translate to English for processing
+                english_text = self.translate_text(transcript, "english")
+                return english_text
             else:
+                # User spoke in English or output language is English
                 return transcript
                 
         except Exception as e:
             logger.error(f"Google Speech-to-text error: {e}")
-            raise  # Re-raise to trigger Whisper fallback
+            return "Ambiguous sound."
 
-    async def whisper_speech_to_text(self, audio_data: str) -> str:
-        """Whisper fallback implementation for unsupported languages"""
-        if not self.openai_api_key:
-            return "Error: OpenAI API key not configured for Whisper fallback"
-            
-        try:
-            # Decode base64 audio data
-            audio_bytes = base64.b64decode(audio_data)
-            
-            # Create temporary file for audio
-            with tempfile.NamedTemporaryFile(suffix=".webm", delete=False) as temp_file:
-                temp_file.write(audio_bytes)
-                temp_file.flush()
-                
-                # Transcribe using OpenAI Whisper
-                with open(temp_file.name, "rb") as audio_file:
-                    transcription = openai.audio.transcriptions.create(
-                        model="whisper-1",
-                        file=audio_file,
-                        response_format="text"
-                    )
-                
-                # Clean up temporary file
-                os.unlink(temp_file.name)
-                
-                result_text = transcription.strip() if transcription else ""
-                
-                # Handle empty/gibberish results better
-                if not result_text or len(result_text.strip()) < 2:
-                    return "I didn't catch that. Can you please repeat that again?"
-                
-                logger.info(f"Whisper fallback: {result_text[:50]}...")
-                
-                # If output language is not English, user likely spoke in their native language
-                # So we need to translate their input TO English for processing
-                if self.output_language != "english" and result_text:
-                    english_text = self.translate_text(result_text, "english")
-                    logger.info(f"User spoke in {self.output_language}: {result_text[:50]}...")
-                    logger.info(f"Translated to English for processing: {english_text[:50]}...")
-                    return english_text
-                else:
-                    logger.info(f"Using original transcribed text (English): {result_text[:50]}...")
-                    return result_text
-                
-        except Exception as e:
-            logger.error(f"Whisper fallback error: {e}")
-            return f"Error: Speech recognition failed - {str(e)}"
-    
     async def text_to_speech(self, text: str, speed: float = 1.0) -> str:
         """Convert text to speech using Google TTS and return base64 encoded audio"""
         try:
@@ -414,7 +394,6 @@ class AudioProcessor:
             # Indian languages
             {"code": "english", "name": "English"},
             {"code": "hindi", "name": "Hindi"},
-            {"code": "bhojpuri", "name": "Bhojpuri"},
             {"code": "bengali", "name": "Bengali"},
             {"code": "telugu", "name": "Telugu"},
             {"code": "marathi", "name": "Marathi"},
@@ -454,8 +433,15 @@ class AudioProcessor:
             return False
     
     def update_google_tts_settings(self, settings: dict) -> bool:
-        """Update Google TTS settings"""
-        return self.google_tts.update_settings(settings)
+        """Update Google TTS settings and sync language"""
+        result = self.google_tts.update_settings(settings)
+        
+        # Sync the language setting to keep both in sync
+        if result and "language" in settings:
+            self.output_language = settings["language"].lower()
+            logger.info(f"Synced AudioProcessor language to: {self.output_language}")
+        
+        return result
     
     async def play_voice_preview(self, voice_id: str, text: str = None, language: str = "english", gender: str = "neutral", speed: float = 1.0) -> str:
         """Generate voice preview using Google TTS"""

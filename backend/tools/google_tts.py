@@ -154,7 +154,7 @@ class GoogleTTS:
             }
         }
         
-        # Supported languages for Google TTS (no Bhojpuri)
+        # Supported languages for Google TTS
         self.supported_languages = list(self.voice_mapping.keys())
         
         logger.info(f"Google TTS initialized - Model: {self.selected_model}, Voice: {self.selected_voice}")
@@ -163,7 +163,7 @@ class GoogleTTS:
         """Translate text using OpenAI for languages not supported by Google TTS"""
         import openai
         
-        openai_api_key = os.getenv("personal")
+        openai_api_key = os.getenv("OPENAI_API_KEY")
         if not openai_api_key:
             logger.error("OpenAI API key not configured for translation")
             return text

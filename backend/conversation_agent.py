@@ -62,6 +62,16 @@ Do you consent to proceed with the screening questions?"""
     async def _handle_consent_response(self, user_message: str) -> Dict:
         """Handle consent response using LLM to understand user intent"""
         try:
+            # First, check for exact "Ambiguous sound." match directly
+            if user_message.strip() == "Ambiguous sound.":
+                return {
+                    "content": "I didn't catch that clearly. Please speak more clearly.",
+                    "requires_response": True,
+                    "is_final": False,
+                    "question_number": 0,  # Still in consent phase
+                    "total_questions": len(self.trial_criteria)
+                }
+            
             # Use LLM to determine if user consented
             client = openai.OpenAI()
             
@@ -138,7 +148,17 @@ Do you consent to proceed with the screening questions?"""
             # Use LLM to classify user intent
             intent = self._classify_user_intent(user_message)
             
-            if intent == "repeat_current":
+            if intent == "ambiguous":
+                # Speech was unclear - ask user to speak more clearly without advancing
+                return {
+                    "content": "I didn't catch that clearly. Please speak more clearly.",
+                    "requires_response": True,
+                    "is_final": False,
+                    "question_number": self.current_criteria_index + 1,  # Stay on current question
+                    "total_questions": len(self.trial_criteria)
+                }
+            
+            elif intent == "repeat_current":
                 # Just repeat the current question without saving or advancing
                 return await self._ask_current_criteria_question()
             
@@ -236,6 +256,10 @@ Do you consent to proceed with the screening questions?"""
     def _classify_user_intent(self, user_message: str) -> str:
         """Use LLM to classify user intent from their message"""
         try:
+            # First, check for exact "Ambiguous sound." match directly (more reliable than LLM)
+            if user_message.strip() == "Ambiguous sound.":
+                return "ambiguous"
+            
             client = openai.OpenAI()
             
             prompt = f"""
@@ -292,7 +316,18 @@ Do you consent to proceed with the screening questions?"""
         # Use LLM to classify user intent
         intent = self._classify_user_intent(user_message)
         
-        if intent == "submit":
+        if intent == "ambiguous":
+            # Speech was unclear - ask user to speak more clearly
+            return {
+                "content": "I didn't catch that clearly. Please speak more clearly.",
+                "requires_response": False,
+                "is_final": False,
+                "awaiting_submission": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
+        
+        elif intent == "submit":
             # Start evaluation process
             self.conversation_state = "evaluating"
             return {

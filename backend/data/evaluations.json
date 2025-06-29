@@ -96,5 +96,125 @@
       },
       "export_timestamp": "2025-06-29T12:42:09.551398"
     }
+  },
+  "P-C1B95FCF": {
+    "session_id": "26a9c918-9add-4d0a-983d-d7047f8684f4",
+    "participant_id": "P-C1B95FCF",
+    "saved_at": "2025-06-29T21:08:32.680227",
+    "data": {
+      "participant_id": "P-C1B95FCF",
+      "session_id": "26a9c918-9add-4d0a-983d-d7047f8684f4",
+      "study_id": "imported-nct-00006020",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 7.1,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant did not disclose their age, which is necessary to determine if they meet the age criteria of being 16 years or older. Without this information, we cannot confirm eligibility.",
+            "extracted_value": null,
+            "criteria_id": "IMP001",
+            "criteria_text": "Age 16 years or older",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "I won't tell you my age!"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response does not confirm a diagnosis of acute lymphocytic leukemia. The phrase 'I will not tell' does not provide the necessary information to meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "IMP002",
+            "criteria_text": "Diagnosis of acute lymphocytic leukemia (ALL)",
+            "criteria_question": "Have you been diagnosed with acute lymphocytic leukemia?",
+            "priority": "high",
+            "participant_response": "I will not tell."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response is ambiguous and does not specify whether their leukemia is classified as non-T-cell ALL. They did not provide a clear answer, which is necessary to assess eligibility.",
+            "extracted_value": null,
+            "criteria_id": "IMP003",
+            "criteria_text": "Non-T-cell acute lymphoblastic leukemia",
+            "criteria_question": "Is your leukemia classified as non-T-cell?",
+            "priority": "high",
+            "participant_response": "What do I know?"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'It won't happen to me' implies a belief that they do not have CNS involvement, but it is not a definitive or clear statement affirming they have no CNS involvement.",
+            "extracted_value": null,
+            "criteria_id": "IMP004",
+            "criteria_text": "No central nervous system involvement",
+            "criteria_question": "Do you have any involvement of the central nervous system?",
+            "priority": "high",
+            "participant_response": "It won't happen to me."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response confirms they are refractory to standard induction treatment, which includes vincristine and prednisone, meeting the eligibility criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "IMP005",
+            "criteria_text": "Refractory to standard induction regimen including vincristine and prednisone",
+            "criteria_question": "Have you been refractory to standard induction treatment including vincristine and prednisone?",
+            "priority": "medium",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates 'No', suggesting their bilirubin level is not within normal limits, which does not meet the eligibility criteria.",
+            "extracted_value": null,
+            "criteria_id": "IMP006",
+            "criteria_text": "Bilirubin no greater than 1.5 times upper limit of normal",
+            "criteria_question": "Is your bilirubin level within normal limits?",
+            "priority": "medium",
+            "participant_response": "No!"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.8,
+            "reasoning": "The participant's response is ambiguous and does not clearly state whether they are pregnant or nursing. Their statement, 'Note that I know, okay?' suggests uncertainty or deflection, which does not affirmatively answer the question.",
+            "extracted_value": null,
+            "criteria_id": "IMP007",
+            "criteria_text": "Not pregnant or nursing",
+            "criteria_question": "Are you currently pregnant or nursing?",
+            "priority": "medium",
+            "participant_response": "Note that I know, okay?"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.85,
+            "reasoning": "The participant's response indicates uncertainty with the phrase 'if I will try', suggesting they are not fully committed to attending all required visits.",
+            "extracted_value": "I will try",
+            "criteria_id": "IMP008",
+            "criteria_text": "Available for all study visits over the study duration",
+            "criteria_question": "Can you commit to attending all required study visits?",
+            "priority": "low",
+            "participant_response": "Yes, I can take if I will try."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.8,
+            "reasoning": "The participant's response indicates uncertainty about whether they have had any malignancies within the past 5 years, which does not align with the expectation of a clear 'no' response.",
+            "extracted_value": null,
+            "criteria_id": "IMP009",
+            "criteria_text": "No other prior malignancy within the past 5 years except certain skin cancers",
+            "criteria_question": "Have you had any other malignancies in the past 5 years?",
+            "priority": "low",
+            "participant_response": "It might have happened, I have no idea!"
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 7.1%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 16 years or older\n   Response: \"I won't tell you my age!\"\n   Assessment: The participant did not disclose their age, which is necessary to determine if they meet the age criteria of being 16 years or older. Without this information, we cannot confirm eligibility.\n\n\u274c \ud83d\udd34 Diagnosis of acute lymphocytic leukemia (ALL)\n   Response: \"I will not tell.\"\n   Assessment: The participant's response does not confirm a diagnosis of acute lymphocytic leukemia. The phrase 'I will not tell' does not provide the necessary information to meet the eligibility criteria.\n\n\u274c \ud83d\udd34 Non-T-cell acute lymphoblastic leukemia\n   Response: \"What do I know?\"\n   Assessment: The participant's response is ambiguous and does not specify whether their leukemia is classified as non-T-cell ALL. They did not provide a clear answer, which is necessary to assess eligibility.\n\n\u274c \ud83d\udd34 No central nervous system involvement\n   Response: \"It won't happen to me.\"\n   Assessment: The participant's response 'It won't happen to me' implies a belief that they do not have CNS involvement, but it is not a definitive or clear statement affirming they have no CNS involvement.\n\n\u2705 \ud83d\udfe1 Refractory to standard induction regimen including vincristine and prednisone\n   Response: \"Yes.\"\n   Assessment: The participant's response confirms they are refractory to standard induction treatment, which includes vincristine and prednisone, meeting the eligibility criteria.\n\n\u274c \ud83d\udfe1 Bilirubin no greater than 1.5 times upper limit of normal\n   Response: \"No!\"\n   Assessment: The participant's response indicates 'No', suggesting their bilirubin level is not within normal limits, which does not meet the eligibility criteria.\n\n\u274c \ud83d\udfe1 Not pregnant or nursing\n   Response: \"Note that I know, okay?\"\n   Assessment: The participant's response is ambiguous and does not clearly state whether they are pregnant or nursing. Their statement, 'Note that I know, okay?' suggests uncertainty or deflection, which does not affirmatively answer the question.\n\n\u274c \ud83d\udfe2 Available for all study visits over the study duration\n   Response: \"Yes, I can take if I will try.\"\n   Assessment: The participant's response indicates uncertainty with the phrase 'if I will try', suggesting they are not fully committed to attending all required visits.\n\n\u274c \ud83d\udfe2 No other prior malignancy within the past 5 years except certain skin cancers\n   Response: \"It might have happened, I have no idea!\"\n   Assessment: The participant's response indicates uncertainty about whether they have had any malignancies within the past 5 years, which does not align with the expectation of a clear 'no' response.\n\n",
+        "high_priority_criteria_met": "0/4",
+        "evaluation_timestamp": "2025-06-29T21:08:31.218156",
+        "participant_id": "P-C1B95FCF"
+      },
+      "export_timestamp": "2025-06-29T21:08:32.680105"
+    }
   }
 }
