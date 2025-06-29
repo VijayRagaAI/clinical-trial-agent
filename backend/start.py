@@ -51,8 +51,6 @@ def check_api_keys():
 def start_server(host="0.0.0.0", port=8000, reload=True):
     """Start the FastAPI server"""
     print(f"🚀 Starting server on {host}:{port}")
-    print(f"   API docs will be available at: http://localhost:{port}/docs")
-    print(f"   Health check: http://localhost:{port}/health")
     print("\n🎤 Clinical Trial Voice Interviewer Backend")
     print("=" * 50)
     
