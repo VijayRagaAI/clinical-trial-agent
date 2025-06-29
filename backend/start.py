@@ -39,16 +39,6 @@ def check_api_keys():
     if not openai_key:
         missing_keys.append("OPENAI_API_KEY")
     
-    # Check AssemblyAI API key for speech-to-text
-    assembly_key = os.getenv("ASSEMBLYAI_API_KEY")
-    if not assembly_key:
-        missing_keys.append("ASSEMBLYAI_API_KEY")
-    
-    # Check ElevenLabs API key for text-to-speech
-    elevenlabs_key = os.getenv("ELEVENLABS_API_KEY")
-    if not elevenlabs_key:
-        missing_keys.append("ELEVENLABS_API_KEY")
-    
     if missing_keys:
         print("⚠️  Missing API keys:")
         for key in missing_keys:
@@ -56,10 +46,6 @@ def check_api_keys():
         print("\n   Set your API keys:")
         if "OPENAI_API_KEY" in missing_keys:
             print("   export OPENAI_API_KEY='your-openai-api-key'")
-        if "ASSEMBLYAI_API_KEY" in missing_keys:
-            print("   export ASSEMBLYAI_API_KEY='your-assemblyai-api-key'")
-        if "ELEVENLABS_API_KEY" in missing_keys:
-            print("   export ELEVENLABS_API_KEY='your-elevenlabs-api-key'")
         return False
     
     print("✅ All API keys configured")
@@ -108,14 +94,6 @@ def main():
     if not has_api_keys:
         print("\n⚠️  Note: Voice features require all API keys to be configured")
     
-    print("\n📋 Next steps:")
-    print("   1. Server will start at http://localhost:8000")
-    print("   2. API documentation: http://localhost:8000/docs") 
-    print("   3. Start the frontend with: cd ../frontend && npm run dev")
-    print("   4. Frontend will be at: http://localhost:5173")
-    print("\n💡 Audio Processing:")
-    print("   - Speech-to-Text: AssemblyAI")
-    print("   - Text-to-Speech: ElevenLabs")
     print("\n" + "=" * 60)
     
     # Start the server
