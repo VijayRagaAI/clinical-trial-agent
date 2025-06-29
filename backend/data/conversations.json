@@ -1482,7 +1482,7 @@
         {
           "id": "user-1751210401729",
           "type": "user",
-          "content": "\u090f\u0938 \u092a\u094d\u0930\u094b\u0938\u0947\u0964",
+          "content": "एस प्रोसे।",
           "timestamp": "2025-06-29T20:50:01.727632"
         },
         {
@@ -1494,7 +1494,7 @@
         {
           "id": "user-1751210415621",
           "type": "user",
-          "content": "25\u0964",
+          "content": "25।",
           "timestamp": "2025-06-29T20:50:15.620807"
         },
         {
@@ -1506,7 +1506,7 @@
         {
           "id": "user-1751210423642",
           "type": "user",
-          "content": "\u090f \u0921\u0949\u0928'\u091f\u0940 \u0928\u094b!",
+          "content": "ए डॉन'टी नो!",
           "timestamp": "2025-06-29T20:50:23.640921"
         },
         {
@@ -3549,7 +3549,7 @@
         {
           "id": "agent-1751230629196",
           "type": "agent",
-          "content": "It seems there might have been a misunderstanding. I\u2019d like to clarify the question: Have you been diagnosed with hepatocellular carcinoma, confirmed by pathology? Your response will help us better understand your situation.",
+          "content": "It seems there might have been a misunderstanding. I’d like to clarify the question: Have you been diagnosed with hepatocellular carcinoma, confirmed by pathology? Your response will help us better understand your situation.",
           "timestamp": "2025-06-30T02:27:09.187735"
         }
       ],
@@ -3652,7 +3652,7 @@
         {
           "id": "agent-1751230754102",
           "type": "agent",
-          "content": "I appreciate your interest in the study! Just to clarify, I\u2019d like to know how old you are. Could you please provide your age? Thank you!",
+          "content": "I appreciate your interest in the study! Just to clarify, I’d like to know how old you are. Could you please provide your age? Thank you!",
           "timestamp": "2025-06-30T02:29:14.094262"
         },
         {
@@ -3700,7 +3700,7 @@
         {
           "id": "agent-1751230885803",
           "type": "agent",
-          "content": "It sounds like you might be feeling uncertain, but there's no reason to worry! I'm here to help you with any questions you have about the study. The purpose of this study is to evaluate the safety and efficacy of PF-05212377 in individuals with Alzheimer's Disease who are already on Donepezil. If you\u2019re ready to submit your responses, you can choose from the options below: Submit Response, Repeat Last Question, or Hear Instruction Again.",
+          "content": "It sounds like you might be feeling uncertain, but there's no reason to worry! I'm here to help you with any questions you have about the study. The purpose of this study is to evaluate the safety and efficacy of PF-05212377 in individuals with Alzheimer's Disease who are already on Donepezil. If you’re ready to submit your responses, you can choose from the options below: Submit Response, Repeat Last Question, or Hear Instruction Again.",
           "timestamp": "2025-06-30T02:31:25.789065"
         },
         {
@@ -3981,7 +3981,7 @@
         {
           "id": "agent-1751231855872",
           "type": "agent",
-          "content": "I understand you might be hesitant about submitting your responses. If you choose not to participate, that's completely okay! You can take your time to think it over, and there\u2019s no pressure to proceed if you\u2019re not comfortable. If you\u2019re ready to submit your responses, you can go ahead, or if you\u2019d like to repeat the last question or hear instructions again, just let me know! Your options are: Submit Response, Repeat Last Question, or Hear Instruction Again.",
+          "content": "I understand you might be hesitant about submitting your responses. If you choose not to participate, that's completely okay! You can take your time to think it over, and there’s no pressure to proceed if you’re not comfortable. If you’re ready to submit your responses, you can go ahead, or if you’d like to repeat the last question or hear instructions again, just let me know! Your options are: Submit Response, Repeat Last Question, or Hear Instruction Again.",
           "timestamp": "2025-06-30T02:47:35.851441"
         }
       ],
@@ -4163,7 +4163,7 @@
         {
           "id": "agent-1751232114752",
           "type": "agent",
-          "content": "It sounds like you might have some concerns about submitting your responses. If you have questions about the study, such as its purpose or what to expect, I'm here to help clarify! Just let me know what you\u2019d like to know. \n\nIf you're ready to proceed, you can choose to submit your response, repeat the last question, or hear the instructions again.",
+          "content": "It sounds like you might have some concerns about submitting your responses. If you have questions about the study, such as its purpose or what to expect, I'm here to help clarify! Just let me know what you’d like to know. \n\nIf you're ready to proceed, you can choose to submit your response, repeat the last question, or hear the instructions again.",
           "timestamp": "2025-06-30T02:51:54.735321"
         },
         {
@@ -4364,7 +4364,7 @@
         {
           "id": "agent-10",
           "type": "agent",
-          "content": "It sounds like you\u2019re asking about the criteria for participation in the study. While I don\u2019t have the exact number of criteria available, the study focuses on individuals with Alzheimer's Disease who are already on Donepezil and have existing neuropsychiatric symptoms. If you have any other questions or need clarification, feel free to ask! Would you like to submit your responses now?",
+          "content": "It sounds like you’re asking about the criteria for participation in the study. While I don’t have the exact number of criteria available, the study focuses on individuals with Alzheimer's Disease who are already on Donepezil and have existing neuropsychiatric symptoms. If you have any other questions or need clarification, feel free to ask! Would you like to submit your responses now?",
           "timestamp": "2025-06-30T03:33:35.262637"
         },
         {
@@ -4680,7 +4680,7 @@
         {
           "id": "agent-1751234854954",
           "type": "agent",
-          "content": "I understand that there might be some confusion. Just to clarify, I\u2019m asking how old you are. Could you please provide your age? Thank you!",
+          "content": "I understand that there might be some confusion. Just to clarify, I’m asking how old you are. Could you please provide your age? Thank you!",
           "timestamp": "2025-06-30T03:37:34.947669"
         }
       ],
@@ -4960,7 +4960,7 @@
         {
           "id": "agent-1751235539461",
           "type": "agent",
-          "content": "It seems there might have been a misunderstanding. I\u2019d like to clarify: how old are you? Please provide your age in years, as we're looking for a response between 18 and 75. Thank you!",
+          "content": "It seems there might have been a misunderstanding. I’d like to clarify: how old are you? Please provide your age in years, as we're looking for a response between 18 and 75. Thank you!",
           "timestamp": "2025-06-30T03:48:59.451571"
         },
         {
@@ -5130,7 +5130,7 @@
         {
           "id": "agent-1751235728897",
           "type": "agent",
-          "content": "I understand that there might be some confusion. Just to clarify, I\u2019m asking, \"How old are you?\" Please provide your age in years, ideally between 18 and 75. Thank you!",
+          "content": "I understand that there might be some confusion. Just to clarify, I’m asking, \"How old are you?\" Please provide your age in years, ideally between 18 and 75. Thank you!",
           "timestamp": "2025-06-30T03:52:08.888501"
         }
       ],
@@ -6295,85 +6295,65 @@
       }
     }
   },
-  "P-4F266B8B": {
-    "session_id": "cd1ce16a-e3cf-46c3-9f5c-1997a8dd2415",
-    "participant_id": "P-4F266B8B",
-    "saved_at": "2025-06-30T04:57:20.296218",
+  "P-BCCECDAD": {
+    "session_id": "c941b7ed-bcc7-4432-882f-cf51d109ed6e",
+    "participant_id": "P-BCCECDAD",
+    "saved_at": "2025-06-30T04:59:59.297075",
     "data": {
       "metadata": {
-        "participant_id": "P-4F266B8B",
-        "session_id": "cd1ce16a-e3cf-46c3-9f5c-1997a8dd2415",
-        "study_id": "imported-nct-01712074",
-        "export_timestamp": "2025-06-30T04:57:20.295148",
-        "total_messages": 10,
-        "conversation_state": "completed"
+        "participant_id": "P-BCCECDAD",
+        "session_id": "c941b7ed-bcc7-4432-882f-cf51d109ed6e",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-30T04:59:59.293500",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
       },
       "conversation": [
         {
-          "id": "agent-0",
+          "id": "agent-1751239729074",
           "type": "agent",
-          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to test if pf-05212377 improves cognitive and neuropsychiatric symptoms in individuals with alzheimer's disease already on donepezil..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
-          "timestamp": "2025-06-30T04:56:43.823505"
-        },
-        {
-          "id": "user-1",
-          "type": "user",
-          "content": "Yes, please.",
-          "timestamp": "2025-06-30T04:56:51.764868"
-        },
-        {
-          "id": "agent-2",
-          "type": "agent",
-          "content": "How old are you?",
-          "timestamp": "2025-06-30T04:56:52.745883"
-        },
-        {
-          "id": "user-3",
-          "type": "user",
-          "content": "25.",
-          "timestamp": "2025-06-30T04:56:57.073773"
-        },
-        {
-          "id": "agent-4",
-          "type": "agent",
-          "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
-          "timestamp": "2025-06-30T04:56:58.691340"
-        },
-        {
-          "id": "user-5",
-          "type": "user",
-          "content": "Repeat it.",
-          "timestamp": "2025-06-30T04:57:05.892744"
-        },
-        {
-          "id": "agent-6",
-          "type": "agent",
-          "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
-          "timestamp": "2025-06-30T04:57:07.766895"
-        },
-        {
-          "id": "user-7",
-          "type": "user",
-          "content": "Submit my response and complete the interview.",
-          "timestamp": "2025-06-30T04:57:15.819662"
-        },
-        {
-          "id": "agent-8",
-          "type": "agent",
-          "content": "Evaluating your responses...",
-          "timestamp": "2025-06-30T04:57:17.054401"
-        },
-        {
-          "id": "agent-9",
-          "type": "agent",
-          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
-          "timestamp": "2025-06-30T04:57:20.291289"
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-30T04:58:49.062173"
         }
       ],
       "summary": {
-        "agent_messages": 6,
-        "user_messages": 4,
-        "conversation_duration": "1 minutes"
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-36A73F31": {
+    "session_id": "7ec13d9e-4dff-420b-bc7a-51e0e02bbf87",
+    "participant_id": "P-36A73F31",
+    "saved_at": "2025-06-30T05:06:19.113712",
+    "data": {
+      "metadata": {
+        "participant_id": "P-36A73F31",
+        "session_id": "7ec13d9e-4dff-420b-bc7a-51e0e02bbf87",
+        "study_id": "imported-nct-01712074",
+        "export_timestamp": "2025-06-30T05:06:19.111172",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751240144658",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:05:44.643431"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
       }
     }
   }
