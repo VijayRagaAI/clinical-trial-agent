@@ -2758,23 +2758,385 @@
   "P-1203932A": {
     "session_id": "d6d298d1-28e4-4cff-94e2-bf32f8f027eb",
     "participant_id": "P-1203932A",
-    "saved_at": "2025-06-29T23:47:53.847749",
+    "saved_at": "2025-06-29T23:50:19.400773",
     "data": {
       "metadata": {
         "participant_id": "P-1203932A",
         "session_id": "d6d298d1-28e4-4cff-94e2-bf32f8f027eb",
         "study_id": "imported-nct-04076631",
-        "export_timestamp": "2025-06-29T23:47:53.846176",
-        "total_messages": 0,
-        "conversation_state": "consent",
-        "exit_reason": "interview_started",
-        "interview_status": "In Progress",
+        "export_timestamp": "2025-06-29T23:50:19.400181",
+        "total_messages": 5,
+        "conversation_state": "completed",
+        "exit_reason": "consent_rejected",
+        "interview_status": "Incomplete",
         "saved_incomplete": true
       },
-      "conversation": [],
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T23:47:50.446014"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-06-29T23:50:08.319409"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly.",
+          "timestamp": "2025-06-29T23:50:11.607024"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "No.",
+          "timestamp": "2025-06-29T23:50:16.967331"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
+          "timestamp": "2025-06-29T23:50:19.394761"
+        }
+      ],
       "summary": {
-        "agent_messages": 0,
-        "user_messages": 0,
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-28DEB31D": {
+    "session_id": "00b2db4b-9758-447f-b44e-bd2a40642069",
+    "participant_id": "P-28DEB31D",
+    "saved_at": "2025-06-29T23:57:32.669351",
+    "data": {
+      "metadata": {
+        "participant_id": "P-28DEB31D",
+        "session_id": "00b2db4b-9758-447f-b44e-bd2a40642069",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T23:57:32.668752",
+        "total_messages": 3,
+        "conversation_state": "completed",
+        "exit_reason": "consent_rejected",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T23:57:15.378726"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "No, I don't want to continue.",
+          "timestamp": "2025-06-29T23:57:29.967644"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
+          "timestamp": "2025-06-29T23:57:32.663063"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-1C56456C": {
+    "session_id": "50c9438f-61b7-4896-9c9c-2cc966c848c8",
+    "participant_id": "P-1C56456C",
+    "saved_at": "2025-06-29T23:58:23.148628",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1C56456C",
+        "session_id": "50c9438f-61b7-4896-9c9c-2cc966c848c8",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T23:58:23.148043",
+        "total_messages": 3,
+        "conversation_state": "completed",
+        "exit_reason": "consent_rejected",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T23:58:02.026474"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "I do not want to give an interview.",
+          "timestamp": "2025-06-29T23:58:20.149269"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
+          "timestamp": "2025-06-29T23:58:23.141091"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-7B6AD60E": {
+    "session_id": "e64b8248-4a6e-4e06-866a-e8bbb2f0a9bb",
+    "participant_id": "P-7B6AD60E",
+    "saved_at": "2025-06-30T00:01:22.503299",
+    "data": {
+      "metadata": {
+        "participant_id": "P-7B6AD60E",
+        "session_id": "e64b8248-4a6e-4e06-866a-e8bbb2f0a9bb",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-30T00:01:22.502672",
+        "total_messages": 30,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T23:58:39.250813"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-29T23:59:00.690751"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T23:59:01.766485"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-06-29T23:59:05.605319"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly.",
+          "timestamp": "2025-06-29T23:59:06.239166"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "25.",
+          "timestamp": "2025-06-29T23:59:12.776858"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Have you been diagnosed with hepatocellular carcinoma?",
+          "timestamp": "2025-06-29T23:59:14.017340"
+        },
+        {
+          "id": "user-7",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-06-29T23:59:20.556556"
+        },
+        {
+          "id": "agent-8",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly.",
+          "timestamp": "2025-06-29T23:59:20.926672"
+        },
+        {
+          "id": "user-9",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-29T23:59:29.260192"
+        },
+        {
+          "id": "agent-10",
+          "type": "agent",
+          "content": "What is your current liver function grade?",
+          "timestamp": "2025-06-29T23:59:30.447849"
+        },
+        {
+          "id": "user-11",
+          "type": "user",
+          "content": "I don't know.",
+          "timestamp": "2025-06-29T23:59:36.326245"
+        },
+        {
+          "id": "agent-12",
+          "type": "agent",
+          "content": "Are you able to undergo open surgery?",
+          "timestamp": "2025-06-29T23:59:37.553818"
+        },
+        {
+          "id": "user-13",
+          "type": "user",
+          "content": "Yes, I can go.",
+          "timestamp": "2025-06-29T23:59:43.086616"
+        },
+        {
+          "id": "agent-14",
+          "type": "agent",
+          "content": "Do you have any serious health conditions that might affect your ability to have surgery?",
+          "timestamp": "2025-06-29T23:59:44.332678"
+        },
+        {
+          "id": "user-15",
+          "type": "user",
+          "content": "I don't think that I have any such serious issues.",
+          "timestamp": "2025-06-29T23:59:55.270576"
+        },
+        {
+          "id": "agent-16",
+          "type": "agent",
+          "content": "Are you willing to sign a consent form for this study?",
+          "timestamp": "2025-06-29T23:59:56.403713"
+        },
+        {
+          "id": "user-17",
+          "type": "user",
+          "content": "oh yes, I can sign if need be",
+          "timestamp": "2025-06-30T00:00:04.280915"
+        },
+        {
+          "id": "agent-18",
+          "type": "agent",
+          "content": "Have you participated in any other clinical trials in the past month?",
+          "timestamp": "2025-06-30T00:00:06.040066"
+        },
+        {
+          "id": "user-19",
+          "type": "user",
+          "content": "I don't think that I might have taken any clinical trials for school, but yeah, I can try",
+          "timestamp": "2025-06-30T00:00:20.358026"
+        },
+        {
+          "id": "agent-20",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-30T00:00:21.845391"
+        },
+        {
+          "id": "user-21",
+          "type": "user",
+          "content": "Hear instruction again.",
+          "timestamp": "2025-06-30T00:00:39.758889"
+        },
+        {
+          "id": "agent-22",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-30T00:00:40.761787"
+        },
+        {
+          "id": "user-23",
+          "type": "user",
+          "content": "Could you please repeat the previous question? I want to try answering it again.",
+          "timestamp": "2025-06-30T00:00:45.631350"
+        },
+        {
+          "id": "agent-24",
+          "type": "agent",
+          "content": "Have you participated in any other clinical trials in the past month?",
+          "timestamp": "2025-06-30T00:00:46.834228"
+        },
+        {
+          "id": "user-25",
+          "type": "user",
+          "content": "I don't think that I have died.",
+          "timestamp": "2025-06-30T00:00:56.095814"
+        },
+        {
+          "id": "agent-26",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-30T00:00:57.355624"
+        },
+        {
+          "id": "user-27",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-30T00:01:07.825191"
+        },
+        {
+          "id": "agent-28",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-30T00:01:09.226864"
+        },
+        {
+          "id": "agent-29",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-30T00:01:22.495767"
+        }
+      ],
+      "summary": {
+        "agent_messages": 16,
+        "user_messages": 14,
+        "conversation_duration": "3 minutes"
+      }
+    }
+  },
+  "P-CAFEA658": {
+    "session_id": "d0481061-304b-4122-a194-9b797b04468a",
+    "participant_id": "P-CAFEA658",
+    "saved_at": "2025-06-30T01:17:15.606129",
+    "data": {
+      "metadata": {
+        "participant_id": "P-CAFEA658",
+        "session_id": "d0481061-304b-4122-a194-9b797b04468a",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-30T01:17:15.604625",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751226384197",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-30T01:16:24.183705"
+        },
+        {
+          "id": "user-1751226388954",
+          "type": "user",
+          "content": "Is.",
+          "timestamp": "2025-06-30T01:16:28.953609"
+        },
+        {
+          "id": "agent-1751226392932",
+          "type": "agent",
+          "content": "It seems like your message might have been cut off, but I want to assure you that this study is designed to evaluate the severity of liver cirrhosis and how it affects surgical treatment for patients with hepatocellular carcinoma. If you have any specific questions or concerns, feel free to share! Would you like to proceed with the screening questions?",
+          "timestamp": "2025-06-30T01:16:32.920878"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
         "conversation_duration": "0 minutes"
       }
     }

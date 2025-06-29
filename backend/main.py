@@ -809,8 +809,8 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
             {
                 "id": "INC005",
                 "text": "Available for all study visits over 7 months",
-                "question": "Are you able to commit to attending clinic visits regularly over the next 7 months?",
-                "expected_response": "Yes, available for all visits",
+                "question": "Would you be able to come for regular clinic visits over the next 7 months?",
+                "expected_response": "Available for all visits over 7 months",
                 "response": "",
                 "priority": "low"  # Administrative requirement
             },
@@ -847,8 +847,14 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
 6. **Key Procedures**: Extract from eligibility criteria and study description (3-6 items)
 7. **Criteria**: Convert eligibility text into interview questions
    - Extract ALL meaningful criteria from eligibility_criteria text
-   - Create natural conversation questions
+   - Create natural conversation questions using APPROPRIATE QUESTION TYPES
    - Use IDs like "IMP001", "IMP002", etc.
+
+**QUESTION DESIGN APPROACH:**
+- Act like a normal doctor having a conversation with a patient
+- Ask natural, conversational questions that a healthcare provider would ask
+- Questions should cover the full scope of each criterion, not just part of it
+- Avoid overly simple yes/no questions when more detail is needed for proper assessment
 
 **PRIORITY ASSIGNMENT RULES (CRITICAL - CREATE MIXTURE):**
 - **HIGH priority**: Core medical requirements that absolutely disqualify
@@ -866,8 +872,9 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
 **IMPORTANT:**
 - MUST create a realistic mixture: ~40% high, ~40% medium, ~20% low priorities
 - Extract as many criteria as possible from the eligibility_criteria field
-- Make questions sound conversational, not medical jargon
-- Be specific about expected responses
+- Questions should be natural and conversational, like a doctor would ask
+- Questions should cover the full scope of each criterion when needed
+- Avoid overly medical jargon - make it patient-friendly
 
 Return ONLY the JSON object, no markdown or explanation."""
 

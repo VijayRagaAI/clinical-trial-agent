@@ -216,5 +216,103 @@
       },
       "export_timestamp": "2025-06-29T21:08:32.680105"
     }
+  },
+  "P-7B6AD60E": {
+    "session_id": "e64b8248-4a6e-4e06-866a-e8bbb2f0a9bb",
+    "participant_id": "P-7B6AD60E",
+    "saved_at": "2025-06-30T00:01:22.506406",
+    "data": {
+      "participant_id": "P-7B6AD60E",
+      "session_id": "e64b8248-4a6e-4e06-866a-e8bbb2f0a9bb",
+      "study_id": "imported-nct-04076631",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 54.2,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response of '25' is within the age range of 18 to 75 years.",
+            "extracted_value": "25",
+            "criteria_id": "INC001",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
+            "criteria_question": "How old are you?",
+            "priority": "high",
+            "participant_response": "25."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant confirmed a diagnosis of hepatocellular carcinoma but did not specify that it was confirmed by pathology, which is a key requirement of the eligibility criteria.",
+            "extracted_value": "Yes",
+            "criteria_id": "INC002",
+            "criteria_text": "Clinically diagnosed with hepatocellular carcinoma confirmed by pathology",
+            "criteria_question": "Have you been diagnosed with hepatocellular carcinoma?",
+            "priority": "high",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.95,
+            "reasoning": "The participant's response of 'I don't know' does not provide a clear indication of their liver function status. Eligibility requires a specific classification of Child-Pugh class A or B, which is not met by an uncertain response.",
+            "extracted_value": null,
+            "criteria_id": "INC003",
+            "criteria_text": "Liver function grade Child-Pugh class A or B",
+            "criteria_question": "What is your current liver function grade?",
+            "priority": "high",
+            "participant_response": "I don't know."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The participant's response indicates an ability to undergo open surgery, which aligns with the expected response.",
+            "extracted_value": "Yes, I can go.",
+            "criteria_id": "INC004",
+            "criteria_text": "Ability to undergo open surgery",
+            "criteria_question": "Are you able to undergo open surgery?",
+            "priority": "high",
+            "participant_response": "Yes, I can go."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.85,
+            "reasoning": "The participant indicates a lack of awareness of serious health issues that could affect surgery, suggesting they do not have any serious health conditions, which aligns with the expected answer.",
+            "extracted_value": null,
+            "criteria_id": "INC005",
+            "criteria_text": "No serious physical diseases that affect surgery",
+            "criteria_question": "Do you have any serious health conditions that might affect your ability to have surgery?",
+            "priority": "medium",
+            "participant_response": "I don't think that I have any such serious issues."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The participant's response indicates a willingness to sign the consent form, as they affirmatively state, 'oh yes, I can sign if need be', which suggests that they are agreeable to the requirement.",
+            "extracted_value": "Yes, I can sign",
+            "criteria_id": "INC006",
+            "criteria_text": "Willingness to sign informed consent",
+            "criteria_question": "Are you willing to sign a consent form for this study?",
+            "priority": "low",
+            "participant_response": "oh yes, I can sign if need be"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response does not directly answer the question regarding participation in clinical trials in the past month. Instead, it appears to be unrelated and nonsensical in this context.",
+            "extracted_value": null,
+            "criteria_id": "INC007",
+            "criteria_text": "No participation in other clinical trials within the last 30 days",
+            "criteria_question": "Have you participated in any other clinical trials in the past month?",
+            "priority": "low",
+            "participant_response": "I don't think that I have died."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 54.2%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25.\"\n   Assessment: The participant's response of '25' is within the age range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Clinically diagnosed with hepatocellular carcinoma confirmed by pathology\n   Response: \"Yes.\"\n   Assessment: The participant confirmed a diagnosis of hepatocellular carcinoma but did not specify that it was confirmed by pathology, which is a key requirement of the eligibility criteria.\n\n\u274c \ud83d\udd34 Liver function grade Child-Pugh class A or B\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a clear indication of their liver function status. Eligibility requires a specific classification of Child-Pugh class A or B, which is not met by an uncertain response.\n\n\u2705 \ud83d\udd34 Ability to undergo open surgery\n   Response: \"Yes, I can go.\"\n   Assessment: The participant's response indicates an ability to undergo open surgery, which aligns with the expected response.\n\n\u2705 \ud83d\udfe1 No serious physical diseases that affect surgery\n   Response: \"I don't think that I have any such serious issues.\"\n   Assessment: The participant indicates a lack of awareness of serious health issues that could affect surgery, suggesting they do not have any serious health conditions, which aligns with the expected answer.\n\n\u2705 \ud83d\udfe2 Willingness to sign informed consent\n   Response: \"oh yes, I can sign if need be\"\n   Assessment: The participant's response indicates a willingness to sign the consent form, as they affirmatively state, 'oh yes, I can sign if need be', which suggests that they are agreeable to the requirement.\n\n\u274c \ud83d\udfe2 No participation in other clinical trials within the last 30 days\n   Response: \"I don't think that I have died.\"\n   Assessment: The participant's response does not directly answer the question regarding participation in clinical trials in the past month. Instead, it appears to be unrelated and nonsensical in this context.\n\n",
+        "high_priority_criteria_met": "2/4",
+        "evaluation_timestamp": "2025-06-30T00:01:22.006210",
+        "participant_id": "P-7B6AD60E"
+      },
+      "export_timestamp": "2025-06-30T00:01:22.505534"
+    }
   }
 }

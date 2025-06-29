@@ -76,14 +76,24 @@ Do you consent to proceed with the screening questions?"""
             client = openai.OpenAI()
             
             prompt = f"""
-            Analyze this response to a consent request for participating in a clinical trial screening interview:
+            Analyze this spoken response to a consent request for participating in a clinical trial screening interview.
+            The response came from speech-to-text and may contain transcription errors.
             
             User's response: "{user_message}"
             
             Determine if the user is:
             1. Giving consent/agreeing to proceed (YES)
-            2. Declining/refusing to proceed (NO)
+               - Examples: "yes", "yeah", "sure", "okay", "I agree", "let's go", "proceed", partial affirmatives
+            2. Declining/refusing to proceed (NO)  
+               - Examples: "no", "nah", "I don't want to", "not interested", "decline"
             3. Asking for clarification or more information (CLARIFY)
+               - Examples: questions about time, procedures, risks, "what does this involve?", "tell me more"
+            
+            IMPORTANT: Account for speech-to-text imperfections:
+            - Focus on intent rather than exact wording
+            - "yeah" = "yes", "nah" = "no" 
+            - Incomplete responses like "I think..." or "maybe I..." likely indicate need for clarification
+            - If response seems confused or off-topic, classify as CLARIFY
             
             Respond with only: YES, NO, or CLARIFY
             """
@@ -111,23 +121,16 @@ Do you consent to proceed with the screening questions?"""
                     "total_questions": len(self.trial_criteria)
                 }
             else:  # CLARIFY
-                overview = self.trial_info.get("overview", {})
-                purpose = overview.get("purpose", "Test a new medical treatment")
-                clarification = f"""Let me clarify: I'm MedBot, your clinical trial assistant. 
-
-        This study aims to {purpose.lower()}.
-
-        You will be asked a few screening questions to see if you might be eligible.
-
-        Do you consent to proceed with the screening questions?"""
+                # Use LLM to generate personalized clarification based on study data and user's specific question
+                clarification = await self._generate_consent_clarification(user_message)
                 
                 return {
                     "content": clarification,
                     "requires_response": True,
                     "is_final": False,
                     "question_number": 0,  # Still in consent phase
-                    "total_questions": len(self.trial_criteria)
-                }
+                                    "total_questions": len(self.trial_criteria)
+            }
                 
         except Exception as e:
             logger.error(f"Error processing consent response: {e}")
@@ -138,6 +141,92 @@ Do you consent to proceed with the screening questions?"""
                 "question_number": 0,
                 "total_questions": len(self.trial_criteria)
             }
+
+    async def _generate_consent_clarification(self, user_message: str) -> str:
+        """Generate personalized consent clarification using LLM and study context"""
+        try:
+            client = openai.OpenAI()
+            
+            # Prepare study context for LLM
+            overview = self.trial_info.get("overview", {})
+            trial = self.trial_info.get("trial", {})
+            
+            study_context = {
+                "title": trial.get("title", "Clinical Trial"),
+                "purpose": overview.get("purpose", "Test a new medical treatment"),
+                "commitment": overview.get("participant_commitment", "Time commitment varies"),
+                "procedures": overview.get("key_procedures", ["Standard procedures"]),
+                "phase": trial.get("phase", "Not specified"),
+                "sponsor": trial.get("sponsor", "Research institution"),
+                "category": trial.get("category", "Medical research")
+            }
+
+            prompt = f"""
+            You are MedBot, a clinical trial assistant helping explain a research study to a potential participant.
+            The participant has asked a question about the study during the consent process.
+            The participant's message came from speech-to-text conversion and may contain transcription errors.
+
+            STUDY INFORMATION:
+            - Title: {study_context['title']}
+            - Purpose: {study_context['purpose']}
+            - Category: {study_context['category']}
+            - Phase: {study_context['phase']}
+            - Sponsor: {study_context['sponsor']}
+            - Time Commitment: {study_context['commitment']}
+            - Key Procedures: {', '.join(study_context['procedures'])}
+
+            PARTICIPANT'S QUESTION/CONCERN: "{user_message}"
+
+            INSTRUCTIONS:
+            - Address their specific question/concern directly using the study information provided
+            - Be conversational, helpful, and reassuring while staying factual
+            - Only use information provided above - DO NOT invent or assume details
+            - Keep response concise (2-3 sentences max)
+            - Always end by asking for their consent to proceed with screening questions
+            - If their question is about something not covered in the study info, acknowledge this and offer to proceed with screening
+
+            SPEECH-TO-TEXT CONSIDERATIONS:
+            - The participant's message may have transcription errors or be incomplete
+            - Focus on understanding their likely intent rather than exact wording
+            - If the message seems unclear, provide general helpful information and ask for consent
+
+            SAFETY RULES:
+            - DO NOT provide medical advice
+            - DO NOT guarantee study outcomes  
+            - DO NOT make promises about results
+            - DO NOT discuss specific risks/side effects (not provided in basic info)
+            - Stay focused on the screening consent, not full study consent
+
+            Generate a helpful, personalized response:
+            """
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=200,
+                temperature=0.3
+            )
+            
+            clarification = response.choices[0].message.content.strip()
+            
+            # Safety check - ensure response ends with consent request
+            if "consent" not in clarification.lower() and "proceed" not in clarification.lower():
+                clarification += "\n\nDo you consent to proceed with the screening questions?"
+            
+            return clarification
+            
+        except Exception as e:
+            logger.error(f"Error generating consent clarification: {e}")
+            # Fallback to simple clarification
+            overview = self.trial_info.get("overview", {})
+            purpose = overview.get("purpose", "Test a new medical treatment")
+            return f"""Let me clarify: I'm MedBot, your clinical trial assistant. 
+
+This study aims to {purpose.lower()}.
+
+You will be asked a few screening questions to see if you might be eligible.
+
+Do you consent to proceed with the screening questions?"""
     
     async def _handle_criteria_questions(self, user_message: str) -> Dict:
         """Handle responses to eligibility criteria questions"""

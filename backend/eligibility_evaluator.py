@@ -108,20 +108,29 @@ class EligibilityEvaluator:
         try:
             # Use LLM to evaluate the response
             evaluation_prompt = f"""
-            You are evaluating a clinical trial participant's response against eligibility criteria.
-            
+            You are evaluating a clinical trial participant's spoken response against eligibility criteria. 
+            The response came from speech-to-text conversion and may contain transcription errors.
+
             CRITERIA: {criteria.text}
             QUESTION: {criteria.question}
             EXPECTED: {criteria.expected_response}
             PARTICIPANT'S RESPONSE: "{response}"
-            
-            Evaluate if the participant's response meets the criteria and align with the expected answer.
-            
+
+            IMPORTANT - Speech-to-Text Considerations:
+            - The response may have transcription errors, incomplete words, or mixed-up similar-sounding words
+            - Focus on understanding the participant's INTENT rather than exact wording
+            - Look for key information even if grammar/wording is imperfect
+            - If response seems completely unrelated, it might be a transcription error - be more lenient
+            - Partial responses (e.g., "yeah, I think I..." cut off) should be interpreted based on available context
+            - Consider common speech patterns: "yeah"="yes", "nah"="no", partial numbers, etc.
+
+            Evaluate if the participant's response meets the criteria, accounting for speech-to-text imperfections.
+
             Respond with a JSON object:
             {{
                 "meets_criteria": true/false,
-                "confidence": 0.0-1.0, # how confident are you in your meets_criteria answer. give 1 if you are 100% confident for either true or false, 0 if you are 0% confident for either true or false.
-                "reasoning": "brief explanation", # why you think the participant's response meets the criteria or not.
+                "confidence": 0.0-1.0, # Lower confidence for unclear/incomplete responses due to STT issues
+                "reasoning": "brief explanation including any STT considerations",
                 "extracted_value": "key value from response if applicable"
             }}
             """
@@ -162,20 +171,29 @@ class EligibilityEvaluator:
         try:
             # Use LLM to evaluate the response
             evaluation_prompt = f"""
-            You are evaluating a clinical trial participant's response against eligibility criteria.
-            
+            You are evaluating a clinical trial participant's spoken response against eligibility criteria. 
+            The response came from speech-to-text conversion and may contain transcription errors.
+
             CRITERIA: {criteria.text}
             QUESTION: {criteria.question}
             EXPECTED: {criteria.expected_response}
             PARTICIPANT'S RESPONSE: "{response}"
-            
-            Evaluate if the participant's response meets the criteria and align with the expected answer.
-            
+
+            IMPORTANT - Speech-to-Text Considerations:
+            - The response may have transcription errors, incomplete words, or mixed-up similar-sounding words
+            - Focus on understanding the participant's INTENT rather than exact wording
+            - Look for key information even if grammar/wording is imperfect
+            - If response seems completely unrelated, it might be a transcription error - be more lenient
+            - Partial responses (e.g., "yeah, I think I..." cut off) should be interpreted based on available context
+            - Consider common speech patterns: "yeah"="yes", "nah"="no", partial numbers, etc.
+
+            Evaluate if the participant's response meets the criteria, accounting for speech-to-text imperfections.
+
             Respond with a JSON object:
             {{
                 "meets_criteria": true/false,
-                "confidence": 0.0-1.0, # how confident are you in your meets_criteria answer. give 1 if you are 100% confident for either true or false, 0 if you are 0% confident for either true or false.
-                "reasoning": "brief explanation", # why you think the participant's response meets the criteria or not.
+                "confidence": 0.0-1.0, # Lower confidence for unclear/incomplete responses due to STT issues
+                "reasoning": "brief explanation including any STT considerations",
                 "extracted_value": "key value from response if applicable"
             }}
             """

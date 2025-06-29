@@ -40,6 +40,7 @@ interface VoiceInterfaceProps {
   onRestart: () => void;
   onConsentRejection?: () => void;
   participantName?: string;
+  eligibilityResult?: any; // Add eligibilityResult to check if consent was given
   
   // Study selection
   selectedStudy: Study | null;
@@ -84,6 +85,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   setIsDarkMode,
   onRestart,
   participantName,
+  eligibilityResult, // Add the new prop
   selectedStudy,
   onStudySelect,
   startInterview,
@@ -533,8 +535,23 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       };
     }
 
-    // State 9: Interview completed - Beautiful View Results button only
+        // State 9: Interview completed - Check if consent was given
     if (conversationState === 'completed') {
+      // If eligibilityResult is null, it means consent was not given
+      if (!eligibilityResult) {
+        return {
+          primary: { 
+            action: () => {}, // No action needed
+            icon: ChevronDown, 
+            text: "Consent not given", 
+            color: "gray" 
+          },
+          secondary: [],
+          disabled: true
+        };
+      }
+      
+      // If eligibilityResult exists, consent was given - show View Results
       return {
         primary: { 
           action: () => {
@@ -549,7 +566,7 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           color: "results" 
         },
         secondary: [],
-      disabled: false
+        disabled: false
       };
     }
 
