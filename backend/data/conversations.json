@@ -2711,5 +2711,72 @@
         "conversation_duration": "0 minutes"
       }
     }
+  },
+  "P-355079BF": {
+    "session_id": "efc916a9-d8d4-49a2-a840-b794dbd88475",
+    "participant_id": "P-355079BF",
+    "saved_at": "2025-06-29T23:12:41.739614",
+    "data": {
+      "metadata": {
+        "participant_id": "P-355079BF",
+        "session_id": "efc916a9-d8d4-49a2-a840-b794dbd88475",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T23:12:41.737915",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751218945347",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T23:12:25.333298"
+        },
+        {
+          "id": "user-1751218953670",
+          "type": "user",
+          "content": "Yes. Proceed.",
+          "timestamp": "2025-06-29T23:12:33.670184"
+        },
+        {
+          "id": "agent-1751218955616",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T23:12:35.614253"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-1203932A": {
+    "session_id": "d6d298d1-28e4-4cff-94e2-bf32f8f027eb",
+    "participant_id": "P-1203932A",
+    "saved_at": "2025-06-29T23:47:53.847749",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1203932A",
+        "session_id": "d6d298d1-28e4-4cff-94e2-bf32f8f027eb",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T23:47:53.846176",
+        "total_messages": 0,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [],
+      "summary": {
+        "agent_messages": 0,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
   }
 }
