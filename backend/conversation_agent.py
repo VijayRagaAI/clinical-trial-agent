@@ -209,10 +209,6 @@ Do you consent to proceed with the screening questions?"""
             
             clarification = response.choices[0].message.content.strip()
             
-            # Safety check - ensure response ends with consent request
-            if "consent" not in clarification.lower() and "proceed" not in clarification.lower():
-                clarification += "\n\nDo you consent to proceed with the screening questions?"
-            
             return clarification
             
         except Exception as e:
@@ -228,6 +224,87 @@ You will be asked a few screening questions to see if you might be eligible.
 
 Do you consent to proceed with the screening questions?"""
     
+    async def _handle_unclear_response(self, user_message: str) -> Dict:
+        """Handle unclear response using LLM with full context"""
+        try:
+            client = openai.OpenAI()
+            
+            # Get current question context
+            current_criteria = self.trial_criteria[self.current_criteria_index]
+            
+            # Prepare study context
+            overview = self.trial_info.get("overview", {})
+            trial = self.trial_info.get("trial", {})
+            
+            study_context = {
+                "title": trial.get("title", "Clinical Trial"),
+                "purpose": overview.get("purpose", "Test a new medical treatment"),
+                "category": trial.get("category", "Medical research")
+            }
+            
+            prompt = f"""
+            You are MedBot, a clinical trial assistant. A participant has given an unclear response during a screening interview.
+            Their message came from speech-to-text and may contain transcription errors.
+
+            STUDY CONTEXT:
+            - Title: {study_context['title']}
+            - Purpose: {study_context['purpose']}
+            - Category: {study_context['category']}
+
+            CURRENT INTERVIEW CONTEXT:
+            - Current question: "{current_criteria.question}"
+            - Question {self.current_criteria_index + 1} of {len(self.trial_criteria)} screening questions
+            - This question is about: {current_criteria.text}
+
+            PARTICIPANT'S UNCLEAR RESPONSE: "{user_message}"
+
+            INSTRUCTIONS:
+            - The participant's response doesn't clearly fit any expected category (answer, repeat, submit, etc.)
+            - This could be due to speech-to-text errors, technical confusion, or off-topic responses
+            - Generate a helpful response that gently redirects them back to the current question
+            - Stay conversational and supportive
+            - Keep response concise (2-3 sentences max)
+            - Do NOT advance to the next question - stay on the current question
+            - If their response seems like it might be attempting to answer the question, acknowledge that and ask for clarification
+
+            RESPONSE GUIDELINES:
+            - Be understanding about potential technical issues
+            - Clearly restate the current question
+            - Encourage them to provide a clear answer
+            - Don't make assumptions about what they meant to say
+
+            Generate a helpful response:
+            """
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=200,
+                temperature=0.3
+            )
+            
+            clarification = response.choices[0].message.content.strip()
+            
+            return {
+                "content": clarification,
+                "requires_response": True,
+                "is_final": False,
+                "question_number": self.current_criteria_index + 1,  # Stay on current question
+                "total_questions": len(self.trial_criteria)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error handling unclear response: {e}")
+            # Fallback response
+            current_criteria = self.trial_criteria[self.current_criteria_index]
+            return {
+                "content": f"I didn't quite understand that. Let me ask the question again: {current_criteria.question}",
+                "requires_response": True,
+                "is_final": False,
+                "question_number": self.current_criteria_index + 1,
+                "total_questions": len(self.trial_criteria)
+            }
+    
     async def _handle_criteria_questions(self, user_message: str) -> Dict:
         """Handle responses to eligibility criteria questions"""
         if self.current_criteria_index < len(self.trial_criteria):
@@ -235,7 +312,7 @@ Do you consent to proceed with the screening questions?"""
             current_criteria = self.trial_criteria[self.current_criteria_index]
             
             # Use LLM to classify user intent
-            intent = self._classify_user_intent(user_message)
+            intent = self._classify_user_intent(user_message, current_criteria)
             
             if intent == "ambiguous":
                 # Speech was unclear - ask user to speak more clearly without advancing
@@ -246,6 +323,10 @@ Do you consent to proceed with the screening questions?"""
                     "question_number": self.current_criteria_index + 1,  # Stay on current question
                     "total_questions": len(self.trial_criteria)
                 }
+            
+            elif intent == "unclear":
+                # Use LLM to handle unclear response with full context
+                return await self._handle_unclear_response(user_message)
             
             elif intent == "repeat_current":
                 # Just repeat the current question without saving or advancing
@@ -342,8 +423,8 @@ Do you consent to proceed with the screening questions?"""
         """Ask the next eligibility criteria question - wrapper for backward compatibility"""
         return await self._ask_current_criteria_question()
     
-    def _classify_user_intent(self, user_message: str) -> str:
-        """Use LLM to classify user intent from their message"""
+    def _classify_user_intent(self, user_message: str, current_criteria=None) -> str:
+        """Use LLM to classify user intent from their message with question context"""
         try:
             # First, check for exact "Ambiguous sound." match directly (more reliable than LLM)
             if user_message.strip() == "Ambiguous sound.":
@@ -351,9 +432,35 @@ Do you consent to proceed with the screening questions?"""
             
             client = openai.OpenAI()
             
-            prompt = f"""
-            You are analyzing a user's response in a clinical trial interview to determine their intent.
+            # Build context section
+            context_section = ""
+            is_submission_phase = False
+            if current_criteria:
+                context_section = f"""
+            Current question: "{current_criteria.question}"
+            Eligibility criteria: "{current_criteria.text}"
+            Expected response: {current_criteria.expected_response}
+            """
+                # Check if this is the submission phase
+                if current_criteria.id == "submission":
+                    is_submission_phase = True
             
+            # Special handling for submission phase
+            submission_guidance = ""
+            if is_submission_phase:
+                submission_guidance = """
+            
+            SPECIAL SUBMISSION PHASE RULES:
+            - If user is asking questions ABOUT THE STUDY (timeline, duration, procedures, requirements, what happens next, etc.), classify as "unclear" so they get proper study information
+            - Only classify as "answer" if they are trying to answer the submission options (Submit/Repeat/Instruction), otherwise classify as "unclear"
+            """
+            
+            prompt = f"""
+            You are analyzing a user's spoken response in a clinical trial interview to determine their intent.
+            The response came from speech-to-text and may contain transcription errors.
+            Analyze this user response in the context of the current question and eligibility criteria.
+            {context_section}
+
             User's response: "{user_message}"
             
             Classify this response into ONE of these categories:
@@ -373,10 +480,19 @@ Do you consent to proceed with the screening questions?"""
             5. "answer" - User is providing a normal answer to an interview question
                Examples: medical/health responses, personal information, yes/no answers to eligibility questions
             
+            6. "unclear" - Response is completely unclear, nonsensical, or seems to be a technical/navigation question that doesn't fit other categories
+               Examples: garbled STT text, technical questions about the interview process, completely off-topic responses
+               IMPORTANT: Only use this for very rare cases when you are highly unsure - if there's any chance it's an answer, classify as "answer"
             
-            Respond with ONLY the category name: repeat_current, repeat_previous, submit, hear_instruction, or answer
+            SPEECH-TO-TEXT CONSIDERATIONS:
+            - Focus on intent rather than exact wording
+            - Account for transcription errors and incomplete responses
+            - Be more lenient with classification due to potential STT issues
+            {submission_guidance}
+            
+            Respond with ONLY the category name: repeat_current, repeat_previous, submit, hear_instruction, answer, or unclear
 
-            NOTE: You must response with ONLY one the category name, in case of doubt respond with 'answer' category
+            NOTE: In case of doubt: In regular phases- prefer "answer" over "unclear" to avoid getting stuck, In submission phase- prefer "unclear".
             """
             
             response = client.chat.completions.create(
@@ -389,21 +505,129 @@ Do you consent to proceed with the screening questions?"""
             intent = response.choices[0].message.content.strip().lower()
             
             # Validate the response
-            valid_intents = ["repeat_current", "repeat_previous", "submit", "hear_instruction", "answer"]
+            valid_intents = ["repeat_current", "repeat_previous", "submit", "hear_instruction", "answer", "unclear"]
             if intent in valid_intents:
                 return intent
             else:
                 logger.warning(f"LLM returned invalid intent '{intent}', defaulting to 'answer'")
-                return "answer"  # Default to answer to ensure responses are saved
+                return "answer"
                 
         except Exception as e:
             logger.error(f"Error classifying user intent: {e}")
-            return "answer"  # Default to answer to ensure responses are saved
+            return "answer"
+    
+    async def _handle_unclear_submission_response(self, user_message: str) -> Dict:
+        """Handle unclear response during submission phase - may be study questions like consent phase"""
+        try:
+            client = openai.OpenAI()
+            
+            # Prepare study context (same as consent clarification)
+            overview = self.trial_info.get("overview", {})
+            trial = self.trial_info.get("trial", {})
+            
+            study_context = {
+                "title": trial.get("title", "Clinical Trial"),
+                "purpose": overview.get("purpose", "Test a new medical treatment"),
+                "commitment": overview.get("participant_commitment", "Time commitment varies"),
+                "procedures": overview.get("key_procedures", ["Standard procedures"]),
+                "phase": trial.get("phase", "Not specified"),
+                "sponsor": trial.get("sponsor", "Research institution"),
+                "category": trial.get("category", "Medical research")
+            }
+
+            prompt = f"""
+            You are MedBot, a clinical trial assistant. A participant has completed all screening questions and may have a question about the study before submitting their responses.
+            The participant's message came from speech-to-text conversion and may contain transcription errors.
+
+            STUDY INFORMATION:
+            - Title: {study_context['title']}
+            - Purpose: {study_context['purpose']}
+            - Category: {study_context['category']}
+            - Phase: {study_context['phase']}
+            - Sponsor: {study_context['sponsor']}
+            - Time Commitment: {study_context['commitment']}
+            - Key Procedures: {', '.join(study_context['procedures'])}
+
+            SUBMISSION PHASE CONTEXT:
+            - Participant has answered all {len(self.trial_criteria)} screening questions
+            - They are now ready to submit their responses for evaluation
+            - Available options: Submit Response, Repeat Last Question, or Hear Instruction Again
+
+            PARTICIPANT'S QUESTION/CONCERN: "{user_message}"
+
+            INSTRUCTIONS:
+            - The participant may be asking about the study before submitting (similar to consent phase questions)
+            - Address their specific question/concern directly using the study information provided
+            - Be conversational, helpful, and reassuring while staying factual
+            - Only use information provided above - DO NOT invent or assume details
+            - Keep response concise (2-3 sentences max)
+            - Always end by presenting their three submission options
+            - If their question is about something not covered in the study info, acknowledge this and present the options
+
+            SPEECH-TO-TEXT CONSIDERATIONS:
+            - The participant's message may have transcription errors or be incomplete
+            - Focus on understanding their likely intent rather than exact wording
+            - If the message seems unclear, provide general helpful information and present the options
+
+            SAFETY RULES:
+            - DO NOT provide medical advice
+            - DO NOT guarantee study outcomes  
+            - DO NOT make promises about results
+            - DO NOT discuss specific risks/side effects (not provided in basic info)
+            - Stay focused on helping them understand the study basics before submission
+
+            Generate a helpful, personalized response:
+            """
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=200,
+                temperature=0.3
+            )
+            
+            clarification = response.choices[0].message.content.strip()
+            
+            
+            return {
+                "content": clarification,
+                "requires_response": False,
+                "is_final": False,
+                "awaiting_submission": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
+            
+        except Exception as e:
+            logger.error(f"Error handling unclear submission response: {e}")
+            # Fallback response (same as consent clarification pattern)
+            overview = self.trial_info.get("overview", {})
+            purpose = overview.get("purpose", "Test a new medical treatment")
+            return {
+                "content": f"""Let me clarify: This study aims to {purpose.lower()}. You've completed all the screening questions. 
+
+You have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.""",
+                "requires_response": False,
+                "is_final": False,
+                "awaiting_submission": True,
+                "question_number": len(self.trial_criteria),
+                "total_questions": len(self.trial_criteria)
+            }
     
     async def _handle_submission_request(self, user_message: str) -> Dict:
         """Handle submission or repeat request when awaiting final submission"""
-        # Use LLM to classify user intent
-        intent = self._classify_user_intent(user_message)
+        # Create mock criteria for submission phase context
+        from models import TrialCriteria
+        submission_criteria = TrialCriteria(
+            id="submission",
+            text="Final submission phase",
+            question="Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+            expected_response="Submit, Repeat Last Question, or Hear Instruction Again",
+            priority="high"
+        )
+        
+        # Use LLM to classify user intent with submission context
+        intent = self._classify_user_intent(user_message, submission_criteria)
         
         if intent == "ambiguous":
             # Speech was unclear - ask user to speak more clearly
@@ -438,6 +662,10 @@ Do you consent to proceed with the screening questions?"""
                 "question_number": len(self.trial_criteria),
                 "total_questions": len(self.trial_criteria)
             }
+        
+        elif intent == "unclear":
+            # Use LLM to handle unclear response in submission phase
+            return await self._handle_unclear_submission_response(user_message)
         
         else:  # repeat_current, repeat_previous, or answer - all treated as wanting to change last answer
             # Go back to the last question
