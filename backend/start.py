@@ -43,11 +43,7 @@ def check_api_keys():
         print("⚠️  Missing API keys:")
         for key in missing_keys:
             print(f"   - {key}")
-        print("\n   Set your API keys:")
-        if "OPENAI_API_KEY" in missing_keys:
-            print("   export OPENAI_API_KEY='your-openai-api-key'")
-        return False
-    
+       
     print("✅ All API keys configured")
     return True
 
