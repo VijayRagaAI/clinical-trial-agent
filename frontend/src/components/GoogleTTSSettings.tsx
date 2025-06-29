@@ -74,6 +74,34 @@ const GOOGLE_TTS_MODELS: GoogleTTSModel[] = [
 // Minimal fallback data - should be replaced by backend API
 const GOOGLE_VOICES: Record<string, GoogleVoice[]> = {};
 
+// Human-friendly voice names mapping for each language (2 female, 2 male per language)
+const VOICE_NAME_MAPPING: Record<string, {female: string[], male: string[]}> = {
+  'english': { female: ['Emily', 'Sarah'], male: ['James', 'Michael'] },
+  'hindi': { female: ['Priya', 'Chandani'], male: ['Arjun', 'Rohan'] },
+  'spanish': { female: ['Sofia', 'Carmen'], male: ['Diego', 'Carlos'] },
+  'french': { female: ['Marie', 'Camille'], male: ['Pierre', 'Antoine'] },
+  'german': { female: ['Anna', 'Lena'], male: ['Max', 'Stefan'] },
+  'italian': { female: ['Giulia', 'Francesca'], male: ['Marco', 'Alessandro'] },
+  'portuguese': { female: ['Ana', 'Beatriz'], male: ['João', 'Pedro'] },
+  'russian': { female: ['Anastasia', 'Katya'], male: ['Dmitri', 'Alexei'] },
+  'japanese': { female: ['Yuki', 'Sakura'], male: ['Hiroshi', 'Takeshi'] },
+  'korean': { female: ['Minji', 'Seoyeon'], male: ['Minho', 'Jaehyun'] },
+  'mandarin': { female: ['Wei Lin', 'Xiu Mei'], male: ['Li Wei', 'Chen Ming'] },
+  'arabic': { female: ['Fatima', 'Aisha'], male: ['Omar', 'Ahmed'] },
+  'dutch': { female: ['Emma', 'Sophie'], male: ['Lars', 'Daan'] },
+  'turkish': { female: ['Elif', 'Zeynep'], male: ['Emre', 'Mehmet'] },
+  'vietnamese': { female: ['Linh', 'Mai'], male: ['Duc', 'Nam'] },
+  'thai': { female: ['Siriporn', 'Ploy'], male: ['Somchai', 'Niran'] },
+  'indonesian': { female: ['Sari', 'Indira'], male: ['Budi', 'Ravi'] },
+  'tamil': { female: ['Lakshmi', 'Meera'], male: ['Ravi', 'Karthik'] },
+  'bengali': { female: ['Rima', 'Ishita'], male: ['Arjun', 'Rahul'] },
+  'telugu': { female: ['Swathi', 'Ananya'], male: ['Vikram', 'Ravi'] },
+  'marathi': { female: ['Priyanka', 'Neha'], male: ['Amit', 'Suresh'] },
+  'gujarati': { female: ['Kavya', 'Diya'], male: ['Jay', 'Nirav'] },
+  'urdu': { female: ['Zara', 'Ayesha'], male: ['Hassan', 'Ali'] },
+  'kannada': { female: ['Deepika', 'Shruthi'], male: ['Arun', 'Kiran'] }
+};
+
 const SUPPORTED_LANGUAGES = [
   { code: 'english', name: '🇺🇸 English', flag: '🇺🇸' },
   { code: 'hindi', name: '🇮🇳 Hindi (हिंदी)', flag: '🇮🇳' },
@@ -101,6 +129,51 @@ const SUPPORTED_LANGUAGES = [
   { code: 'kannada', name: '🇮🇳 Kannada (ಕನ್ನಡ)', flag: '🇮🇳' }
 ];
 
+// Function to get human-friendly voice name
+const getHumanVoiceName = (voice: GoogleVoice, language: string, voiceIndex: number): string => {
+  const languageMapping = VOICE_NAME_MAPPING[language];
+  if (!languageMapping) {
+    // Fallback to technical name if language mapping doesn't exist
+    return voice.name || voice.id;
+  }
+  
+  const genderNames = voice.gender === 'female' ? languageMapping.female : languageMapping.male;
+  if (!genderNames || genderNames.length === 0) {
+    // Fallback to technical name if no names for this gender
+    return voice.name || voice.id;
+  }
+  
+  // Use modulo to cycle through available names
+  const nameIndex = voiceIndex % genderNames.length;
+  return genderNames[nameIndex];
+};
+
+// Function to get all voices with human names for display
+const getVoicesWithHumanNames = (voices: GoogleVoice[], language: string): (GoogleVoice & { humanName: string })[] => {
+  const femaleVoices = voices.filter(v => v.gender === 'female');
+  const maleVoices = voices.filter(v => v.gender === 'male');
+  
+  const enhancedVoices: (GoogleVoice & { humanName: string })[] = [];
+  
+  // Add female voices with human names
+  femaleVoices.forEach((voice, index) => {
+    enhancedVoices.push({
+      ...voice,
+      humanName: getHumanVoiceName(voice, language, index)
+    });
+  });
+  
+  // Add male voices with human names
+  maleVoices.forEach((voice, index) => {
+    enhancedVoices.push({
+      ...voice,
+      humanName: getHumanVoiceName(voice, language, index)
+    });
+  });
+  
+  return enhancedVoices;
+};
+
 export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
   isOpen,
   onClose,
@@ -126,6 +199,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
   // Load data from backend when component opens
   useEffect(() => {
     if (isOpen) {
+      console.log(`🚀 Component opened - Initial state: language=${selectedLanguage}, model=${selectedModel}, voice=${selectedVoice}`);
       loadBackendData();
     }
   }, [isOpen]);
@@ -133,16 +207,40 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
   // Load voices when language or model changes
   useEffect(() => {
     if (isOpen && selectedLanguage) {
+      console.log(`🔄 Loading voices for language: ${selectedLanguage}, current model: ${selectedModel}, current voice: ${selectedVoice}`);
       loadVoicesForLanguage(selectedLanguage);
     }
   }, [isOpen, selectedLanguage, selectedModel]);
 
-  // Auto-select optimal model with fallback and default voice (only on language change or initial load)
+  // Note: Removed delayed selection useEffect - now handled by main voice selection logic
+
+  // Note: Removed language change useEffect - voice selection now only happens after voices are loaded
+
+  // Handle voice selection when voices become available (initial load or language change)
   useEffect(() => {
-    if (isOpen && selectedLanguage && availableVoices[selectedLanguage]) {
-      selectOptimalModelAndVoice();
+    if (isOpen && selectedLanguage && availableVoices[selectedLanguage] && availableVoices[selectedLanguage].length > 0) {
+      const voices = availableVoices[selectedLanguage] || [];
+      console.log(`🎯 Voices loaded for ${selectedLanguage}: ${voices.length} voices available`);
+      
+      // Always try to select optimal model/voice when voices are available
+      // This handles both initial selection and language changes
+      const currentModelVoices = voices.filter(v => v.model === selectedModel);
+      
+      // Force reselection in these cases:
+      // 1. No model or voice selected (initial state)
+      // 2. Current model has no voices for this language
+      // 3. No voice selected for current model
+      const needsSelection = !selectedModel || !selectedVoice || currentModelVoices.length === 0 || 
+                           !currentModelVoices.some(v => v.id === selectedVoice);
+      
+      if (needsSelection) {
+        console.log(`🎯 Voice selection needed for ${selectedLanguage} - model: ${selectedModel}, voice: ${selectedVoice}, needsSelection: ${needsSelection}`);
+        selectOptimalModelAndVoice(true); // Force selection to get best available
+      } else {
+        console.log(`✅ Current selection valid for ${selectedLanguage} - model: ${selectedModel}, voice: ${selectedVoice}`);
+      }
     }
-  }, [isOpen, selectedLanguage]); // Removed availableVoices dependency to prevent overriding user selections
+  }, [availableVoices[selectedLanguage]]); // Trigger when voices for current language change
 
   // When model changes manually, auto-select a default voice for that model
   useEffect(() => {
@@ -254,46 +352,72 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
     }
   };
 
-  const selectOptimalModelAndVoice = () => {
+  const selectOptimalModelAndVoice = (forceReselection = false) => {
     const voices = availableVoices[selectedLanguage] || [];
+    console.log(`🎯 selectOptimalModelAndVoice called: language=${selectedLanguage}, forceReselection=${forceReselection}, availableVoices=${voices.length}`);
     
-    // Model priority: neural2 (optimal) -> wavenet (best quality) -> standard (fast speed)
+    // Model priority: neural2 (quantum-default) -> wavenet (crystal) -> standard (lightning)
     const modelPriority = ['neural2', 'wavenet', 'standard'];
     
     let selectedModelToUse = selectedModel;
     let voiceToUse = selectedVoice;
     
-    // Only auto-select model if no model is currently selected or current model has no voices
+    console.log(`🎯 Current state: model=${selectedModel}, voice=${selectedVoice}`);
+    
+    // Check if current model has voices available
     const currentModelVoices = voices.filter(v => v.model === selectedModel);
-    if (!selectedModel || selectedModel === '' || currentModelVoices.length === 0) {
-      // Find the best available model for the current language
-      let bestAvailableModel = null;
-      for (const model of modelPriority) {
-        const modelVoices = voices.filter(v => v.model === model);
-        if (modelVoices.length > 0) {
-          bestAvailableModel = model;
-          console.log(`✅ Best available model for ${selectedLanguage}: ${model} (${modelVoices.length} voices)`);
-          break;
-        }
+    console.log(`🎯 Current model voices: ${currentModelVoices.length}`);
+    
+    // Find the best available model for the current language
+    let bestAvailableModel = null;
+    for (const model of modelPriority) {
+      const modelVoices = voices.filter(v => v.model === model);
+      if (modelVoices.length > 0) {
+        bestAvailableModel = model;
+        console.log(`✅ Best available model for ${selectedLanguage}: ${model} (${modelVoices.length} voices)`);
+        break;
       }
+    }
+    
+    // Auto-select model if:
+    // 1. No model is currently selected 
+    // 2. Current model has no voices (fallback case)
+    // 3. Force reselection (when language changes, always try to pick the best model)
+    // 4. Current model is not the best available (upgrade to better model)
+    const shouldFallback = !selectedModel || selectedModel === '' || currentModelVoices.length === 0 || 
+                          forceReselection || (bestAvailableModel && bestAvailableModel !== selectedModel);
+    
+    console.log(`🎯 Fallback decision: shouldFallback=${shouldFallback}, bestAvailableModel=${bestAvailableModel}`);
+    console.log(`🎯 Fallback reasons: noModel=${!selectedModel || selectedModel === ''}, noVoices=${currentModelVoices.length === 0}, forceReselection=${forceReselection}, betterModel=${bestAvailableModel && bestAvailableModel !== selectedModel}`);
+    
+    if (shouldFallback && bestAvailableModel) {
+      selectedModelToUse = bestAvailableModel;
       
-      if (bestAvailableModel) {
-        selectedModelToUse = bestAvailableModel;
-        
-        // Log model change reasons
-        if (selectedModelToUse !== selectedModel) {
-          if (!selectedModel || selectedModel === '') {
-            console.log(`🔄 Initial model selection: ${selectedModelToUse} for ${selectedLanguage}`);
-          } else {
-            console.log(`🔄 Upgrading from ${selectedModel} (no voices) to ${selectedModelToUse} for ${selectedLanguage}`);
-          }
-          // Update the model selection
-          onModelChange(selectedModelToUse);
+      // Log model change reasons with specific messaging
+      if (selectedModelToUse !== selectedModel) {
+        if (!selectedModel || selectedModel === '') {
+          console.log(`🔄 Initial model selection: ${selectedModelToUse} for ${selectedLanguage}`);
+        } else if (currentModelVoices.length === 0) {
+          const modelName = selectedModel === 'neural2' ? 'Quantum-default (neural2)' : 
+                           selectedModel === 'wavenet' ? 'Crystal (wavenet)' : 'Lightning (standard)';
+          const newModelName = selectedModelToUse === 'neural2' ? 'Quantum-default (neural2)' : 
+                              selectedModelToUse === 'wavenet' ? 'Crystal (wavenet)' : 'Lightning (standard)';
+          console.log(`🔄 ${modelName} has 0 voices for ${selectedLanguage}, falling back to ${newModelName}`);
+        } else if (forceReselection) {
+          const currentModelName = selectedModel === 'neural2' ? 'Quantum-default' : 
+                                  selectedModel === 'wavenet' ? 'Crystal' : 'Lightning';
+          const newModelName = selectedModelToUse === 'neural2' ? 'Quantum-default' : 
+                              selectedModelToUse === 'wavenet' ? 'Crystal' : 'Lightning';
+          console.log(`🔄 Language changed to ${selectedLanguage}: upgrading from ${currentModelName} to ${newModelName} (best available)`);
+        } else {
+          console.log(`🔄 Upgrading to better model: ${selectedModelToUse} for ${selectedLanguage}`);
         }
-      } else {
-        console.warn(`⚠️ No voices available for any model in ${selectedLanguage}`);
-        return; // Don't change anything if no voices are available
+        // Update the model selection
+        onModelChange(selectedModelToUse);
       }
+    } else if (!bestAvailableModel) {
+      console.warn(`⚠️ No voices available for any model in ${selectedLanguage}`);
+      return; // Don't change anything if no voices are available
     }
     
     // Auto-select voice if needed (using the potentially updated model)
@@ -372,7 +496,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
         selectedLanguage,
         selectedVoice,
         voiceGender,
-        selectedVoiceData: selectedVoiceData?.name,
+        selectedVoiceData: (selectedVoiceData as any)?.humanName,
         detectedFromId: voiceGender
       });
 
@@ -407,8 +531,9 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
   };
   
   const currentVoices = availableVoices[selectedLanguage] || GOOGLE_VOICES[selectedLanguage] || [];
-  const maleVoices = currentVoices.filter(v => v.gender === 'male' && v.model === selectedModel);
-  const femaleVoices = currentVoices.filter(v => v.gender === 'female' && v.model === selectedModel);
+  const enhancedVoices = getVoicesWithHumanNames(currentVoices, selectedLanguage);
+  const maleVoices = enhancedVoices.filter(v => v.gender === 'male' && v.model === selectedModel);
+  const femaleVoices = enhancedVoices.filter(v => v.gender === 'female' && v.model === selectedModel);
   
   // Debug UI state
   console.log('🎨 UI Render State:', {
@@ -426,7 +551,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
     }
   });
   
-  const selectedVoiceData = currentVoices.find(v => v.id === selectedVoice);
+  const selectedVoiceData = enhancedVoices.find(v => v.id === selectedVoice);
   const selectedModelData = availableModels.find(m => m.id === selectedModel);
 
   const playVoicePreview = async (voiceId: string) => {
@@ -468,7 +593,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
       audioPlayer.stop();
       
       // Get the gender of the selected voice with fallback detection
-      const selectedVoiceData = currentVoices.find(v => v.id === selectedVoice);
+      const selectedVoiceData = enhancedVoices.find(v => v.id === selectedVoice);
       let voiceGender = selectedVoiceData?.gender || "neutral";
       
       // Fallback: detect gender from voice ID if not found in data
@@ -477,7 +602,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
       }
       
       // Use the translated preview text with the selected voice name
-      const fullPreviewText = previewText.replace('your selected voice', selectedVoiceData?.name || 'your selected voice');
+      const fullPreviewText = previewText.replace('your selected voice', selectedVoiceData?.humanName || 'your selected voice');
       const response = await apiService.generateGoogleVoicePreview(selectedVoice, fullPreviewText, selectedLanguage, voiceGender, selectedSpeed);
       if (response.audio) {
         await audioPlayer.playBase64Audio(response.audio);
@@ -777,6 +902,25 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
                         </span>
                       </div>
                     </div>
+                    
+                    {/* Select Button - Only show when not selected */}
+                    {selectedModel !== model.id && (
+                      <div className="flex justify-center">
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onModelChange(model.id);
+                          }}
+                          className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 shadow-lg border ${
+                            isDarkMode
+                              ? 'bg-gradient-to-r from-indigo-600/30 to-purple-600/30 text-indigo-300 hover:from-indigo-500/40 hover:to-purple-500/40 border-indigo-400/30'
+                              : 'bg-gradient-to-r from-indigo-200/80 to-purple-200/80 text-indigo-700 hover:from-indigo-300/90 hover:to-purple-300/90 border-indigo-300/40'
+                          }`}
+                        >
+                          Select Model
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </button>
               ))}
@@ -897,7 +1041,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
                                   ? isDarkMode ? 'text-indigo-300' : 'text-indigo-700'
                                   : isDarkMode ? 'text-indigo-300' : 'text-indigo-700'
                               }`}>
-                                {voice.name}
+                                {voice.humanName}
                               </h6>
                               {/* Show sample rate without model info */}
                               <div className="mt-2">
@@ -1052,7 +1196,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
                                   ? isDarkMode ? 'text-purple-300' : 'text-purple-700'
                                   : isDarkMode ? 'text-purple-300' : 'text-purple-700'
                               }`}>
-                                {voice.name}
+                                {voice.humanName}
                               </h6>
                               {/* Show sample rate without model info */}
                               <div className="mt-2">
@@ -1249,13 +1393,13 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
               <div className={`text-center font-semibold ${
                 isDarkMode ? 'text-indigo-300' : 'text-indigo-700'
               }`}>
-                🎵 Selected: {selectedVoiceData?.name || 'No voice selected'} ({selectedModelData?.name}) - {availableLanguages.find(l => l.code === selectedLanguage)?.name} at {selectedSpeed}x speed
+                🎵 Selected: {(selectedVoiceData as any)?.humanName || 'No voice selected'} ({selectedModelData?.name}) - {availableLanguages.find(l => l.code === selectedLanguage)?.name} at {selectedSpeed}x speed
               </div>
               
               <div className={`mt-3 p-3 rounded-lg italic text-center ${
                 isDarkMode ? 'bg-gray-600/30 text-gray-300' : 'bg-white/50 text-gray-600'
               }`}>
-                "{previewText.replace('your selected voice', selectedVoiceData?.name || 'your selected voice')}"
+                "{previewText.replace('your selected voice', (selectedVoiceData as any)?.humanName || 'your selected voice')}"
               </div>
               
               <div className="mt-4 flex justify-center">
