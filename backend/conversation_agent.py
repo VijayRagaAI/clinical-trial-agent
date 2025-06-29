@@ -33,7 +33,7 @@ class ClinicalTrialAgent:
 
 This study aims to {purpose.lower()}.
 
-I'll ask you a few screening questions to see if you might be eligible.
+You will be asked a few screening questions to see if you might be eligible.
 
 Do you consent to proceed with the screening questions?"""
         
@@ -107,7 +107,7 @@ Do you consent to proceed with the screening questions?"""
 
         This study aims to {purpose.lower()}.
 
-        I'll ask you a few screening questions to see if you might be eligible.
+        You will be asked a few screening questions to see if you might be eligible.
 
         Do you consent to proceed with the screening questions?"""
                 

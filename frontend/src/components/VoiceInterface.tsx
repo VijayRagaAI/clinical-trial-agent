@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Mic, MicOff, Volume2, RotateCcw, CheckCircle, RefreshCw, Play, Square, Send, Moon, Sun, ChevronDown, Settings, Globe, VolumeX, Palette, FileText, X } from 'lucide-react';
+import { GoogleTTSSettings } from './GoogleTTSSettings';
+import { apiService } from '../services/api';
 import { ButtonConfig, ButtonState } from '../types/interview';
 import { Study } from '../types/interview';
 import { StudySelector } from './StudySelector';
@@ -108,6 +110,12 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
   const [availableVoices, setAvailableVoices] = useState<Voice[]>([]);
   const [isLoadingVoices, setIsLoadingVoices] = useState(false);
   const [playingVoice, setPlayingVoice] = useState<string | null>(null);
+  
+  // Google TTS Settings
+  const [showGoogleTTSSettings, setShowGoogleTTSSettings] = useState(false);
+  const [googleTTSModel, setGoogleTTSModel] = useState('neural2');
+  const [googleTTSVoice, setGoogleTTSVoice] = useState('en-US-Neural2-F');
+  const [googleTTSSpeed, setGoogleTTSSpeed] = useState(1.0);
 
 
   // Load available languages and voices on component mount
@@ -308,6 +316,53 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
       // You could show an error notification here
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       alert(`Failed to save settings: ${errorMessage}`);
+    }
+  };
+
+  // Google TTS Settings Handlers
+  const handleGoogleTTSLanguageChange = (language: string) => {
+    setSelectedLanguage(language);
+    // Auto-select appropriate voice for the language
+    if (language === 'english') {
+      setGoogleTTSVoice('en-US-Neural2-F');
+    } else if (language === 'hindi') {
+      setGoogleTTSVoice('hi-IN-Neural2-A');
+    }
+    // Add more language mappings as needed
+  };
+
+  const handleGoogleTTSModelChange = (model: string) => {
+    setGoogleTTSModel(model);
+  };
+
+  const handleGoogleTTSVoiceChange = (voice: string) => {
+    setGoogleTTSVoice(voice);
+  };
+
+  const handleGoogleTTSSpeedChange = (speed: number) => {
+    setGoogleTTSSpeed(speed);
+  };
+
+  const saveGoogleTTSSettings = async () => {
+    try {
+      // Use the API service for consistency
+      await apiService.updateGoogleTTSSettings({
+        output_language: selectedLanguage,
+        model: googleTTSModel,
+        voice: googleTTSVoice,
+        speed: googleTTSSpeed
+      });
+
+      console.log('Google TTS settings saved successfully');
+      setShowGoogleTTSSettings(false);
+      
+      // Show success message
+      console.log(`✅ Google TTS updated: ${selectedLanguage} language with ${googleTTSVoice} voice (${googleTTSModel}) at ${googleTTSSpeed}x speed`);
+      
+    } catch (error) {
+      console.error('Failed to save Google TTS settings:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Failed to save Google TTS settings: ${errorMessage}`);
     }
   };
 
@@ -616,9 +671,9 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
               }`}></div>
               
           <button
-            onClick={() => setShowSettings(!showSettings)}
+            onClick={() => setShowGoogleTTSSettings(!showGoogleTTSSettings)}
                 className={`relative w-full p-4 rounded-3xl transition-all duration-700 ${
-                  showSettings ? 'ring-2 ring-indigo-400/60 scale-105 shadow-lg shadow-indigo-500/20' : ''
+                  showGoogleTTSSettings ? 'ring-2 ring-indigo-400/60 scale-105 shadow-lg shadow-indigo-500/20' : ''
                 }`}
           >
                 <div className="relative z-10 flex flex-col items-center space-y-3">
@@ -827,590 +882,23 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
         </div>
       </div>
 
-      {/* Voice Settings Panel Overlay */}
-      {showSettings && (
-        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-20 flex items-center justify-center p-4">
-          <div className={`w-full max-w-5xl max-h-[90vh] backdrop-blur-xl rounded-3xl shadow-2xl border transition-all duration-500 overflow-hidden ${
-            isDarkMode 
-              ? 'bg-gray-800/90 border-gray-700/50' 
-              : 'bg-white/90 border-white/20'
-          }`}>
-            {/* Scrollable Content Container */}
-            <div className="overflow-y-auto max-h-[90vh] custom-scrollbar p-6">
-            {/* Enhanced Settings Header */}
-            <div className={`relative flex items-center justify-between mb-8 p-6 rounded-2xl backdrop-blur-sm border ${
-              isDarkMode 
-                ? 'bg-gradient-to-r from-purple-600/20 via-indigo-600/15 to-purple-600/20 border-purple-500/30' 
-                : 'bg-gradient-to-r from-purple-50/80 via-indigo-50/60 to-purple-50/80 border-purple-200/30'
-            }`}>
-              {/* Background sparkles */}
-              <div className="absolute top-2 right-8 w-1.5 h-1.5 bg-purple-400/40 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
-              <div className="absolute bottom-2 left-8 w-1 h-1 bg-indigo-400/30 rounded-full animate-bounce" style={{animationDelay: '0.5s'}}></div>
-              
-              <div className="flex items-center space-x-4">
-                <div className={`relative p-3 rounded-xl backdrop-blur-md border shadow-lg transition-all duration-500 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-br from-purple-600/30 via-indigo-600/20 to-purple-600/30 border-purple-500/40' 
-                    : 'bg-gradient-to-br from-purple-100/90 via-indigo-100/70 to-purple-100/90 border-purple-300/40'
-                }`}>
-                  <div className={`absolute top-1 right-1 w-2 h-2 rounded-full animate-pulse ${
-                    isDarkMode ? 'bg-purple-400/60' : 'bg-purple-500/60'
-                  }`}></div>
-                  <Settings className={`h-6 w-6 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
-                </div>
-                
-                <div>
-                  <h3 className={`text-2xl font-black bg-gradient-to-r bg-clip-text text-transparent transition-all duration-500 ${
-                    isDarkMode 
-                      ? 'from-purple-400 via-indigo-400 to-purple-400' 
-                      : 'from-purple-600 via-indigo-600 to-purple-600'
-                  } drop-shadow-lg`}>
-                  Voice Settings
-                </h3>
-                  <p className={`text-sm mt-1 transition-all duration-500 ${
-                    isDarkMode ? 'text-gray-300' : 'text-gray-600'
-                  }`}>
-                    Customize your audio experience
-                  </p>
-              </div>
-              </div>
-              
-              <button
-                onClick={() => setShowSettings(false)}
-                className={`group relative p-3 rounded-2xl transition-all duration-500 hover:scale-110 hover:rotate-90 backdrop-blur-md border ${
-                  isDarkMode 
-                    ? 'bg-gray-700/50 hover:bg-red-600/30 border-gray-600/50 hover:border-red-500/50' 
-                    : 'bg-white/70 hover:bg-red-100/70 border-gray-300/50 hover:border-red-300/50'
-                } hover:shadow-2xl hover:shadow-red-500/30`}
-              >
-                <X className={`h-6 w-6 transition-all duration-300 ${
-                  isDarkMode ? 'text-gray-300 group-hover:text-red-300' : 'text-gray-600 group-hover:text-red-600'
-                }`} />
-                
-                {/* Hover glow */}
-                <div className="absolute inset-0 bg-red-400/0 group-hover:bg-red-400/20 rounded-2xl transition-all duration-500"></div>
-              </button>
-            </div>
-
-            {/* Enhanced Language Selection */}
-            <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg mb-6 ${
-              isDarkMode 
-                ? 'bg-gray-700/30 border-gray-600/30' 
-                : 'bg-white/50 border-gray-200/30'
-            }`}>
-              <div className="absolute top-3 right-3 w-2 h-2 bg-blue-400/40 rounded-full animate-pulse"></div>
-              
-              <div className="flex items-center space-x-4 mb-4">
-                <div className={`p-3 rounded-xl transition-all duration-500 ${
-                  isDarkMode ? 'bg-blue-600/20' : 'bg-blue-100'
-                }`}>
-                  <Globe className={`h-6 w-6 ${isDarkMode ? 'text-blue-400' : 'text-blue-600'}`} />
-              </div>
-                <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
-                  isDarkMode 
-                    ? 'from-blue-400 to-indigo-400' 
-                    : 'from-blue-600 to-indigo-600'
-                }`}>
-                  Select Voice Language
-                </h4>
-              </div>
-              
-              <select
-                value={selectedLanguage}
-                onChange={(e) => setSelectedLanguage(e.target.value)}
-                className={`w-full p-5 rounded-2xl border-2 backdrop-blur-xl transition-all duration-500 hover:scale-105 shadow-xl hover:shadow-2xl text-lg font-bold ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-br from-gray-700/80 via-gray-600/70 to-gray-700/80 border-blue-400/60 text-white focus:ring-4 focus:ring-blue-400/40 hover:border-purple-400/80 hover:from-gray-600/90 hover:to-gray-500/90' 
-                    : 'bg-gradient-to-br from-white/90 via-gray-50/80 to-white/90 border-blue-500/60 text-gray-900 focus:ring-4 focus:ring-blue-500/40 hover:border-purple-500/80 hover:from-white/95 hover:to-gray-50/95'
-                } focus:outline-none focus:border-indigo-500/80`}
-                style={{
-                  textShadow: isDarkMode ? '0 2px 4px rgba(0,0,0,0.3)' : '0 1px 2px rgba(0,0,0,0.1)'
-                }}
-              >
-                {availableLanguages.map((lang) => (
-                  <option 
-                    key={lang.code} 
-                    value={lang.code}
-                    className={`py-3 px-4 font-bold text-base transition-all duration-300 ${
-                      isDarkMode 
-                        ? 'bg-gray-800 text-gray-200 hover:bg-gradient-to-r hover:from-indigo-700 hover:to-purple-700 hover:text-white' 
-                        : 'bg-white text-gray-800 hover:bg-gradient-to-r hover:from-indigo-100 hover:to-purple-100 hover:text-indigo-900'
-                    }`}
-                  >
-                    {lang.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Enhanced Voice Speed Control */}
-            <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg mb-6 ${
-              isDarkMode 
-                ? 'bg-gray-700/30 border-gray-600/30' 
-                : 'bg-white/50 border-gray-200/30'
-            }`}>
-              <div className="absolute top-3 right-3 w-2 h-2 bg-emerald-400/40 rounded-full animate-pulse" style={{animationDelay: '0.3s'}}></div>
-              
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-4">
-                  <div className={`p-3 rounded-xl transition-all duration-500 ${
-                    isDarkMode ? 'bg-emerald-600/20' : 'bg-emerald-100'
-                  }`}>
-                    <Volume2 className={`h-6 w-6 ${isDarkMode ? 'text-emerald-400' : 'text-emerald-600'}`} />
-                </div>
-                  <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
-                  isDarkMode 
-                      ? 'from-emerald-400 to-teal-400' 
-                      : 'from-emerald-600 to-teal-600'
-                  }`}>
-                    Set Voice Speed
-                  </h4>
-                </div>
-                <div className={`px-4 py-2 rounded-full border backdrop-blur-sm shadow-lg transition-all duration-300 hover:scale-110 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-r from-emerald-600/40 to-teal-600/40 border-emerald-400/50 text-emerald-300' 
-                    : 'bg-gradient-to-r from-emerald-100 to-teal-100 border-emerald-300/50 text-emerald-700'
-                } font-mono font-bold`}>
-                  {selectedSpeed}x
-                </div>
-              </div>
-              
-              {/* Enhanced Slider */}
-              <div className="space-y-3">
-                <div className="relative">
-                  <input
-                    type="range"
-                    min="0.25"
-                    max="2.0"
-                    step="0.25"
-                    value={selectedSpeed}
-                    onChange={(e) => setSelectedSpeed(parseFloat(e.target.value))}
-                    className={`w-full h-4 rounded-lg appearance-none cursor-pointer transition-all duration-300 hover:scale-105 ${
-                      isDarkMode 
-                        ? 'bg-gray-600 slider-thumb-dark' 
-                        : 'bg-gray-200 slider-thumb-light'
-                    }`}
-                    style={{
-                      background: `linear-gradient(to right, ${
-                        isDarkMode ? '#10b981' : '#059669'
-                      } 0%, ${
-                        isDarkMode ? '#10b981' : '#059669'
-                      } ${((selectedSpeed - 0.25) / (2.0 - 0.25)) * 100}%, ${
-                        isDarkMode ? '#4b5563' : '#e5e7eb'
-                      } ${((selectedSpeed - 0.25) / (2.0 - 0.25)) * 100}%, ${
-                        isDarkMode ? '#4b5563' : '#e5e7eb'
-                      } 100%)`
-                    }}
-                  />
-                  
-                  {/* Enhanced Speed Indicator Line */}
-                  <div 
-                    className={`absolute top-1/2 w-1 h-8 -translate-y-1/2 transition-all duration-500 rounded-full shadow-lg ${
-                      isDarkMode ? 'bg-emerald-400 shadow-emerald-400/50' : 'bg-emerald-600 shadow-emerald-600/50'
-                    }`}
-                    style={{
-                      left: `${((selectedSpeed - 0.25) / (2.0 - 0.25)) * 100}%`,
-                      transform: 'translateX(-50%) translateY(-50%)'
-                    }}
-                  />
-                </div>
-                
-                {/* Speed markers - showing actual functional range */}
-                <div className="flex justify-between text-xs font-bold px-2">
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 0.25 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>0.25x</span>
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 0.5 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>0.5x</span>
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 0.75 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>0.75x</span>
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 1.0 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>1.0x</span>
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 1.25 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>1.25x</span>
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 1.5 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>1.5x</span>
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 1.75 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>1.75x</span>
-                  <span className={`transition-all duration-300 px-2 py-1 rounded-lg ${
-                    selectedSpeed === 2.0 
-                      ? isDarkMode 
-                        ? 'text-emerald-300 bg-emerald-600/20 border border-emerald-400/40' 
-                        : 'text-emerald-700 bg-emerald-100 border border-emerald-300/60' 
-                      : isDarkMode ? 'text-gray-400' : 'text-gray-500'
-                  }`}>2.0x</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Enhanced Voice Selection */}
-            <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg mb-6 ${
-              isDarkMode 
-                ? 'bg-gray-700/30 border-gray-600/30' 
-                : 'bg-white/50 border-gray-200/30'
-            }`}>
-              <div className="absolute top-3 right-3 w-2 h-2 bg-purple-400/40 rounded-full animate-pulse" style={{animationDelay: '0.6s'}}></div>
-              
-              <div className="flex items-center space-x-4 mb-6">
-                <div className={`p-3 rounded-xl transition-all duration-500 ${
-                  isDarkMode ? 'bg-purple-600/20' : 'bg-purple-100'
-                }`}>
-                  <Mic className={`h-6 w-6 ${isDarkMode ? 'text-purple-400' : 'text-purple-600'}`} />
-                </div>
-                <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
-                  isDarkMode 
-                    ? 'from-purple-400 to-pink-400' 
-                    : 'from-purple-600 to-pink-600'
-                }`}>
-                  Select Speaking Voice
-                </h4>
-              </div>
-              
-              {/* Enhanced Two Column Voice Layout */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Professional Voices Column */}
-                <div className={`group relative overflow-hidden rounded-2xl backdrop-blur-sm border shadow-lg transition-all duration-500 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-br from-gray-800/40 via-gray-700/30 to-gray-800/40 border-gray-600/40' 
-                    : 'bg-gradient-to-br from-white/60 via-white/50 to-white/60 border-white/40'
-                } p-6`}>
-                  {/* Background effects */}
-                  <div className={`absolute inset-0 bg-gradient-to-br opacity-5 transition-all duration-700 group-hover:opacity-15 rounded-2xl ${
-                    isDarkMode ? 'from-indigo-500/30 to-purple-500/25' : 'from-indigo-400/25 to-purple-400/20'
-                  }`}></div>
-                  
-                  {/* Floating sparkles */}
-                  <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-indigo-400/40 rounded-full animate-bounce" style={{animationDelay: '0s'}}></div>
-                  <div className="absolute bottom-3 left-3 w-1 h-1 bg-purple-400/30 rounded-full animate-bounce" style={{animationDelay: '0.8s'}}></div>
-                  
-                  <div className="relative z-10">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className={`p-2 rounded-lg ${
-                        isDarkMode ? 'bg-indigo-600/20' : 'bg-indigo-100'
-                      }`}>
-                        <span className="text-xl">🏢</span>
-                      </div>
-                      <h5 className={`font-black text-base bg-gradient-to-r bg-clip-text text-transparent ${
-                        isDarkMode 
-                          ? 'from-indigo-400 to-purple-400' 
-                          : 'from-indigo-600 to-purple-600'
-                    }`}>
-                      Professional
-                      </h5>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    {availableVoices
-                      .filter(voice => voice.category === 'professional')
-                        .map((voice, index) => (
-                      <div
-                        key={voice.id}
-                          className={`group/card relative overflow-hidden rounded-xl border transition-all duration-500 cursor-pointer hover:scale-105 hover:-translate-y-1 ${
-                          selectedVoice === voice.id
-                            ? isDarkMode
-                                ? 'bg-gradient-to-br from-purple-600/30 via-indigo-600/20 to-purple-600/30 border-purple-400/70 shadow-lg shadow-purple-500/30 ring-2 ring-purple-400/50'
-                                : 'bg-gradient-to-br from-purple-100/80 via-indigo-100/60 to-purple-100/80 border-purple-300/70 shadow-lg shadow-purple-300/30 ring-2 ring-purple-500/50'
-                            : isDarkMode
-                              ? 'bg-gradient-to-br from-gray-700/30 via-gray-600/20 to-gray-700/30 border-gray-500/30 hover:border-purple-400/50 hover:shadow-lg hover:shadow-purple-500/20'
-                              : 'bg-gradient-to-br from-white/70 via-white/60 to-white/70 border-gray-200/40 hover:border-purple-300/50 hover:shadow-lg hover:shadow-purple-300/20'
-                          } p-4`}
-                        onClick={() => setSelectedVoice(voice.id)}
-                      >
-                          {/* Card background effects */}
-                          <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover/card:opacity-10 transition-all duration-500 rounded-xl ${
-                            selectedVoice === voice.id 
-                              ? 'from-purple-400/20 to-indigo-400/15' 
-                              : 'from-purple-300/15 to-indigo-300/10'
-                          }`}></div>
-                          
-                          {/* Floating sparkle */}
-                          <div className="absolute top-2 right-2 w-1 h-1 bg-purple-400/50 rounded-full animate-pulse" style={{animationDelay: `${index * 0.3}s`}}></div>
-                          
-                          <div className="relative flex items-center justify-between">
-                          <div className="flex-1">
-                              <div className={`font-black text-sm transition-all duration-300 ${
-                              selectedVoice === voice.id
-                                  ? isDarkMode 
-                                    ? 'bg-gradient-to-r from-purple-200 via-indigo-200 to-purple-200 bg-clip-text text-transparent' 
-                                    : 'bg-gradient-to-r from-purple-800 via-indigo-800 to-purple-800 bg-clip-text text-transparent'
-                                  : isDarkMode ? 'text-gray-200' : 'text-gray-800'
-                              } drop-shadow-sm`}>
-                              {voice.name}
-                            </div>
-                              <div className={`text-xs mt-1 leading-relaxed ${
-                              selectedVoice === voice.id
-                                  ? isDarkMode ? 'text-purple-300' : 'text-purple-700'
-                                  : isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                            }`}>
-                              {voice.description}
-                            </div>
-                          </div>
-                          
-                            {/* Enhanced Voice Preview Button */}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              playVoicePreview(voice.id);
-                            }}
-                            disabled={playingVoice !== null}
-                              className={`group/btn relative p-2.5 rounded-full transition-all duration-500 ml-3 hover:scale-125 hover:-translate-y-1 backdrop-blur-sm border shadow-lg ${
-                              playingVoice === voice.id
-                                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white animate-pulse border-emerald-400/50 shadow-emerald-500/40'
-                                : playingVoice !== null
-                                  ? 'bg-gray-400/50 text-gray-300 cursor-not-allowed border-gray-400/30'
-                                : isDarkMode
-                                  ? 'bg-gradient-to-r from-indigo-600/80 to-purple-600/80 text-white border-indigo-400/50 hover:from-indigo-500/90 hover:to-purple-500/90 hover:shadow-indigo-500/40'
-                                  : 'bg-gradient-to-r from-indigo-500/90 to-purple-500/90 text-white border-indigo-300/50 hover:from-indigo-600/95 hover:to-purple-600/95 hover:shadow-indigo-300/40'
-                            }`}
-                          >
-                            {playingVoice === voice.id ? (
-                                <VolumeX className="h-3.5 w-3.5 group-hover/btn:scale-110 transition-transform duration-300" />
-                            ) : (
-                                <Play className="h-3.5 w-3.5 group-hover/btn:scale-110 transition-transform duration-300" />
-                            )}
-                              
-                              {/* Button glow */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-indigo-400/0 via-purple-400/20 to-indigo-400/0 rounded-full opacity-0 group-hover/btn:opacity-100 transition-all duration-500"></div>
-                          </button>
-                        </div>
-                          
-                          {/* Shimmer effect */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-300/8 to-transparent transform -skew-x-12 -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 rounded-xl"></div>
-                      </div>
-                    ))}
-                    </div>
-                  </div>
-                </div>
-
-                {/* Warm Voices Column */}
-                <div className={`group relative overflow-hidden rounded-2xl backdrop-blur-sm border shadow-lg transition-all duration-500 ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-br from-gray-800/40 via-gray-700/30 to-gray-800/40 border-gray-600/40' 
-                    : 'bg-gradient-to-br from-white/60 via-white/50 to-white/60 border-white/40'
-                } p-6`}>
-                  {/* Background effects */}
-                  <div className={`absolute inset-0 bg-gradient-to-br opacity-5 transition-all duration-700 group-hover:opacity-15 rounded-2xl ${
-                    isDarkMode ? 'from-pink-500/30 to-amber-500/25' : 'from-pink-400/25 to-amber-400/20'
-                  }`}></div>
-                  
-                  {/* Floating sparkles */}
-                  <div className="absolute top-3 right-3 w-1.5 h-1.5 bg-pink-400/40 rounded-full animate-bounce" style={{animationDelay: '0.4s'}}></div>
-                  <div className="absolute bottom-3 left-3 w-1 h-1 bg-amber-400/30 rounded-full animate-bounce" style={{animationDelay: '1.2s'}}></div>
-                  
-                  <div className="relative z-10">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className={`p-2 rounded-lg ${
-                        isDarkMode ? 'bg-pink-600/20' : 'bg-pink-100'
-                      }`}>
-                        <span className="text-xl">💫</span>
-                      </div>
-                      <h5 className={`font-black text-base bg-gradient-to-r bg-clip-text text-transparent ${
-                        isDarkMode 
-                          ? 'from-pink-400 to-amber-400' 
-                          : 'from-pink-600 to-amber-600'
-                    }`}>
-                      Warm
-                      </h5>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    {availableVoices
-                      .filter(voice => voice.category === 'warm')
-                        .map((voice, index) => (
-                      <div
-                        key={voice.id}
-                          className={`group/card relative overflow-hidden rounded-xl border transition-all duration-500 cursor-pointer hover:scale-105 hover:-translate-y-1 ${
-                          selectedVoice === voice.id
-                            ? isDarkMode
-                                ? 'bg-gradient-to-br from-purple-600/30 via-pink-600/20 to-purple-600/30 border-purple-400/70 shadow-lg shadow-purple-500/30 ring-2 ring-purple-400/50'
-                                : 'bg-gradient-to-br from-purple-100/80 via-pink-100/60 to-purple-100/80 border-purple-300/70 shadow-lg shadow-purple-300/30 ring-2 ring-purple-500/50'
-                            : isDarkMode
-                              ? 'bg-gradient-to-br from-gray-700/30 via-gray-600/20 to-gray-700/30 border-gray-500/30 hover:border-pink-400/50 hover:shadow-lg hover:shadow-pink-500/20'
-                              : 'bg-gradient-to-br from-white/70 via-white/60 to-white/70 border-gray-200/40 hover:border-pink-300/50 hover:shadow-lg hover:shadow-pink-300/20'
-                          } p-4`}
-                        onClick={() => setSelectedVoice(voice.id)}
-                      >
-                          {/* Card background effects */}
-                          <div className={`absolute inset-0 bg-gradient-to-br opacity-0 group-hover/card:opacity-10 transition-all duration-500 rounded-xl ${
-                            selectedVoice === voice.id 
-                              ? 'from-pink-400/20 to-amber-400/15' 
-                              : 'from-pink-300/15 to-amber-300/10'
-                          }`}></div>
-                          
-                          {/* Floating sparkle */}
-                          <div className="absolute top-2 right-2 w-1 h-1 bg-pink-400/50 rounded-full animate-pulse" style={{animationDelay: `${index * 0.3 + 0.5}s`}}></div>
-                          
-                          <div className="relative flex items-center justify-between">
-                          <div className="flex-1">
-                              <div className={`font-black text-sm transition-all duration-300 ${
-                              selectedVoice === voice.id
-                                  ? isDarkMode 
-                                    ? 'bg-gradient-to-r from-purple-200 via-pink-200 to-purple-200 bg-clip-text text-transparent' 
-                                    : 'bg-gradient-to-r from-purple-800 via-pink-800 to-purple-800 bg-clip-text text-transparent'
-                                  : isDarkMode ? 'text-gray-200' : 'text-gray-800'
-                              } drop-shadow-sm`}>
-                              {voice.name}
-                            </div>
-                              <div className={`text-xs mt-1 leading-relaxed ${
-                              selectedVoice === voice.id
-                                  ? isDarkMode ? 'text-purple-300' : 'text-purple-700'
-                                  : isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                            }`}>
-                              {voice.description}
-                            </div>
-                          </div>
-                          
-                            {/* Enhanced Voice Preview Button */}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              playVoicePreview(voice.id);
-                            }}
-                            disabled={playingVoice !== null}
-                              className={`group/btn relative p-2.5 rounded-full transition-all duration-500 ml-3 hover:scale-125 hover:-translate-y-1 backdrop-blur-sm border shadow-lg ${
-                              playingVoice === voice.id
-                                  ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white animate-pulse border-emerald-400/50 shadow-emerald-500/40'
-                                : playingVoice !== null
-                                  ? 'bg-gray-400/50 text-gray-300 cursor-not-allowed border-gray-400/30'
-                                : isDarkMode
-                                  ? 'bg-gradient-to-r from-pink-600/80 to-amber-600/80 text-white border-pink-400/50 hover:from-pink-500/90 hover:to-amber-500/90 hover:shadow-pink-500/40'
-                                  : 'bg-gradient-to-r from-pink-500/90 to-amber-500/90 text-white border-pink-300/50 hover:from-pink-600/95 hover:to-amber-600/95 hover:shadow-pink-300/40'
-                            }`}
-                          >
-                            {playingVoice === voice.id ? (
-                                <VolumeX className="h-3.5 w-3.5 group-hover/btn:scale-110 transition-transform duration-300" />
-                            ) : (
-                                <Play className="h-3.5 w-3.5 group-hover/btn:scale-110 transition-transform duration-300" />
-                            )}
-                              
-                              {/* Button glow */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-pink-400/0 via-amber-400/20 to-pink-400/0 rounded-full opacity-0 group-hover/btn:opacity-100 transition-all duration-500"></div>
-                          </button>
-                        </div>
-                          
-                          {/* Shimmer effect */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-pink-300/8 to-transparent transform -skew-x-12 -translate-x-full group-hover/card:translate-x-full transition-transform duration-1000 rounded-xl"></div>
-                      </div>
-                    ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Enhanced Voice Preview Status */}
-              {playingVoice && (
-                <div className={`mt-6 text-center p-3 rounded-xl backdrop-blur-sm border ${
-                  isDarkMode 
-                    ? 'bg-emerald-600/20 border-emerald-500/30 text-emerald-300' 
-                    : 'bg-emerald-100/80 border-emerald-200/40 text-emerald-700'
-                } animate-pulse`}>
-                  <div className="flex items-center justify-center space-x-2">
-                    <span className="text-lg">🎵</span>
-                    <span className="font-semibold">
-                      Playing preview for {availableVoices.find(v => v.id === playingVoice)?.name} at {selectedSpeed}x speed, may take a few seconds to speak please wait...
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* Enhanced Action Buttons */}
-            <div className="flex space-x-4">
-              <button
-                onClick={() => setShowSettings(false)}
-                className={`group relative flex-1 p-4 rounded-2xl font-semibold transition-all duration-500 hover:scale-105 hover:-translate-y-1 backdrop-blur-md border shadow-lg ${
-                  isDarkMode 
-                    ? 'bg-gradient-to-r from-gray-700/80 to-gray-600/80 text-gray-300 border-gray-500/50 hover:from-gray-600/90 hover:to-gray-500/90 hover:border-gray-400/60' 
-                    : 'bg-gradient-to-r from-gray-200/80 to-gray-300/80 text-gray-700 border-gray-300/50 hover:from-gray-300/90 hover:to-gray-400/90 hover:border-gray-400/60'
-                } hover:shadow-xl`}
-              >
-                <span className="relative z-10 flex items-center justify-center space-x-2">
-                  <X className="h-4 w-4 group-hover:scale-110 transition-transform duration-300" />
-                  <span>Cancel</span>
-                </span>
-                
-                {/* Button glow */}
-                <div className="absolute inset-0 bg-gradient-to-r from-gray-400/0 via-gray-400/10 to-gray-400/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-              </button>
-              
-              <button
-                onClick={saveSettings}
-                className="group relative flex-1 p-5 rounded-3xl font-black text-lg transition-all duration-700 hover:scale-[1.15] hover:-translate-y-3 backdrop-blur-xl border-2 shadow-2xl bg-gradient-to-br from-purple-600/90 via-indigo-600/80 via-pink-600/70 to-purple-700/90 hover:from-purple-500/95 hover:via-indigo-500/85 hover:via-pink-500/75 hover:to-purple-600/95 border-purple-400/60 hover:border-pink-400/80 text-white hover:shadow-2xl hover:shadow-purple-500/50 overflow-hidden"
-              >
-                {/* Magical background layers */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-pink-500/30 via-indigo-500/20 to-purple-500/0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
-                <div className="absolute inset-0 bg-gradient-to-br from-purple-400/0 via-pink-400/20 to-indigo-400/0 rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-sm"></div>
-                <div className="absolute inset-0 bg-purple-400/0 group-hover:bg-purple-400/15 rounded-3xl blur-lg transition-all duration-700"></div>
-                
-                {/* Enhanced shimmer effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-3xl"></div>
-                
-                <span className="relative z-10 flex items-center justify-center space-x-3">
-                  <CheckCircle className="h-6 w-6 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 drop-shadow-lg" />
-                  <span className="drop-shadow-md">Save Settings</span>
-                </span>
-                
-                {/* Enhanced floating sparkles */}
-                <div className="absolute top-3 right-4 w-2 h-2 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300 shadow-lg shadow-white/40"></div>
-                <div className="absolute bottom-3 left-4 w-1.5 h-1.5 bg-pink-300/90 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300 shadow-md shadow-pink-300/60" style={{animationDelay: '0.2s'}}></div>
-                <div className="absolute top-1/2 left-6 w-1 h-1 bg-indigo-300/80 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300 shadow-sm shadow-indigo-300/50" style={{animationDelay: '0.4s'}}></div>
-                <div className="absolute top-4 left-1/2 w-1.5 h-1.5 bg-purple-300/90 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300 shadow-md shadow-purple-300/60" style={{animationDelay: '0.1s'}}></div>
-                <div className="absolute bottom-4 right-8 w-1 h-1 bg-white/70 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300 shadow-sm shadow-white/40" style={{animationDelay: '0.5s'}}></div>
-                
-                {/* Floating rings */}
-                <div className="absolute top-2 right-2 w-8 h-8 border border-white/20 rounded-full opacity-0 group-hover:opacity-60 group-hover:scale-110 transition-all duration-500"></div>
-                <div className="absolute bottom-2 left-2 w-6 h-6 border border-pink-300/30 rounded-full opacity-0 group-hover:opacity-50 group-hover:scale-125 transition-all duration-700" style={{animationDelay: '0.2s'}}></div>
-              </button>
-            </div>
-
-            {/* Simple Informational Text */}
-            <div className={`mt-4 p-3 rounded-lg text-center text-sm ${
-              isDarkMode 
-                ? 'bg-gray-700/50 text-gray-300' 
-                : 'bg-gray-100/80 text-gray-600'
-            }`}>
-              Changes will be applied from the next conversation onward
-            </div>
 
 
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Google TTS Settings */}
+      <GoogleTTSSettings
+        isOpen={showGoogleTTSSettings}
+        onClose={() => setShowGoogleTTSSettings(false)}
+        isDarkMode={isDarkMode}
+        selectedLanguage={selectedLanguage}
+        selectedModel={googleTTSModel}
+        selectedVoice={googleTTSVoice}
+        selectedSpeed={googleTTSSpeed}
+        onLanguageChange={handleGoogleTTSLanguageChange}
+        onModelChange={handleGoogleTTSModelChange}
+        onVoiceChange={handleGoogleTTSVoiceChange}
+        onSpeedChange={handleGoogleTTSSpeedChange}
+        onSave={saveGoogleTTSSettings}
+      />
 
       {/* Study Selector */}
       <StudySelector

@@ -158,6 +158,75 @@ class ApiService {
     const response = await fetch(`${this.baseUrl}/health`);
     return response.json();
   }
+
+  // Google TTS API methods
+  async getGoogleTTSModels(): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts/models`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get Google TTS models');
+    }
+
+    return response.json();
+  }
+
+  async getGoogleTTSVoices(language: string = 'english'): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts/voices?language=${language}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get Google TTS voices');
+    }
+
+    return response.json();
+  }
+
+  async getGoogleTTSSettings(): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts-settings`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get Google TTS settings');
+    }
+
+    return response.json();
+  }
+
+  async updateGoogleTTSSettings(settings: any): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts-settings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(settings),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update Google TTS settings');
+    }
+
+    return response.json();
+  }
+
+  async generateGoogleVoicePreview(voiceId: string, text?: string, language?: string, gender?: string, speed?: number): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts/voice-preview`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        voice_id: voiceId,
+        text: text || "Hello, I will guide you.",
+        language: language || "english",
+        gender: gender || "neutral",
+        speed: speed || 1.0
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to generate voice preview');
+    }
+
+    return response.json();
+  }
 }
 
 // Audio utilities

@@ -359,5 +359,1058 @@
         "conversation_duration": "0 minutes"
       }
     }
+  },
+  "P-11428CCE": {
+    "session_id": "0a70aaf3-0e6a-40ba-803c-f0c955d80e30",
+    "participant_id": "P-11428CCE",
+    "saved_at": "2025-06-29T11:58:54.652792",
+    "data": {
+      "metadata": {
+        "participant_id": "P-11428CCE",
+        "session_id": "0a70aaf3-0e6a-40ba-803c-f0c955d80e30",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T11:58:54.652033",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751178357530",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T11:55:57.487490"
+        },
+        {
+          "id": "user-1751178381609",
+          "type": "user",
+          "content": "Yes, proceed.",
+          "timestamp": "2025-06-29T11:56:21.609254"
+        },
+        {
+          "id": "agent-1751178385204",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T11:56:25.200095"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-2AE9D35D": {
+    "session_id": "9ed658f5-912e-48ea-986f-697a310df794",
+    "participant_id": "P-2AE9D35D",
+    "saved_at": "2025-06-29T12:00:27.102645",
+    "data": {
+      "metadata": {
+        "participant_id": "P-2AE9D35D",
+        "session_id": "9ed658f5-912e-48ea-986f-697a310df794",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T12:00:27.101964",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751178540847",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T11:59:00.801492"
+        },
+        {
+          "id": "user-1751178552220",
+          "type": "user",
+          "content": "Yes proceed",
+          "timestamp": "2025-06-29T11:59:12.220417"
+        },
+        {
+          "id": "agent-1751178554598",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T11:59:14.592451"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-196D3D49": {
+    "session_id": "ded69a97-797c-4175-beb6-ec4c90916fe0",
+    "participant_id": "P-196D3D49",
+    "saved_at": "2025-06-29T12:16:15.367034",
+    "data": {
+      "metadata": {
+        "participant_id": "P-196D3D49",
+        "session_id": "ded69a97-797c-4175-beb6-ec4c90916fe0",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T12:16:15.366242",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751179563562",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:16:03.535194"
+        },
+        {
+          "id": "user-1751179571395",
+          "type": "user",
+          "content": "Yes, it's done",
+          "timestamp": "2025-06-29T12:16:11.394040"
+        },
+        {
+          "id": "agent-1751179574843",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:16:14.838205"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-6546C945": {
+    "session_id": "90c7367f-ca18-4147-bfb5-c46060ee5374",
+    "participant_id": "P-6546C945",
+    "saved_at": "2025-06-29T12:27:03.923992",
+    "data": {
+      "metadata": {
+        "participant_id": "P-6546C945",
+        "session_id": "90c7367f-ca18-4147-bfb5-c46060ee5374",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T12:27:03.921845",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751179738868",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:18:58.836894"
+        },
+        {
+          "id": "user-1751179745765",
+          "type": "user",
+          "content": "Ya, saya baik-baik sahaja.",
+          "timestamp": "2025-06-29T12:19:05.765180"
+        },
+        {
+          "id": "agent-1751179748737",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:19:08.730620"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-4F1C6095": {
+    "session_id": "15c023f3-17a2-4e57-a81e-86e97911bfd5",
+    "participant_id": "P-4F1C6095",
+    "saved_at": "2025-06-29T12:29:11.162914",
+    "data": {
+      "metadata": {
+        "participant_id": "P-4F1C6095",
+        "session_id": "15c023f3-17a2-4e57-a81e-86e97911bfd5",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T12:29:11.162169",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751180245472",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:27:25.442619"
+        },
+        {
+          "id": "user-1751180251914",
+          "type": "user",
+          "content": "Yes proceed",
+          "timestamp": "2025-06-29T12:27:31.913867"
+        },
+        {
+          "id": "agent-1751180255111",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:27:35.108906"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-826586C8": {
+    "session_id": "e1a64f71-88d5-4105-880f-e97b52e1dd4e",
+    "participant_id": "P-826586C8",
+    "saved_at": "2025-06-29T12:38:46.543261",
+    "data": {
+      "metadata": {
+        "participant_id": "P-826586C8",
+        "session_id": "e1a64f71-88d5-4105-880f-e97b52e1dd4e",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T12:38:46.542992",
+        "total_messages": 9,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751180366396",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:29:26.368165"
+        },
+        {
+          "id": "user-1751180371114",
+          "type": "user",
+          "content": "I'm not sure I understood correctly. Can you please repeat that again?",
+          "timestamp": "2025-06-29T12:29:31.113385"
+        },
+        {
+          "id": "agent-1751180379597",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:29:39.554073"
+        },
+        {
+          "id": "user-1751180437745",
+          "type": "user",
+          "content": "Yes, I want to.",
+          "timestamp": "2025-06-29T12:30:37.744793"
+        },
+        {
+          "id": "agent-1751180440152",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:30:40.148288"
+        },
+        {
+          "id": "user-1751180446393",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:30:46.392789"
+        },
+        {
+          "id": "agent-1751180449771",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:30:49.768514"
+        },
+        {
+          "id": "user-1751180458208",
+          "type": "user",
+          "content": "I'm not sure I understood correctly. Can you please repeat that again?",
+          "timestamp": "2025-06-29T12:30:58.207636"
+        },
+        {
+          "id": "agent-1751180461077",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:31:01.075880"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 4,
+        "conversation_duration": "2 minutes"
+      }
+    }
+  },
+  "P-8160036C": {
+    "session_id": "0aac1bbe-4ffd-418e-8012-abaa5abf74a7",
+    "participant_id": "P-8160036C",
+    "saved_at": "2025-06-29T12:42:09.550607",
+    "data": {
+      "metadata": {
+        "participant_id": "P-8160036C",
+        "session_id": "0aac1bbe-4ffd-418e-8012-abaa5abf74a7",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T12:42:09.550302",
+        "total_messages": 32,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:38:50.371660"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes, I want to proceed, please proceed.",
+          "timestamp": "2025-06-29T12:39:02.874736"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:39:05.855319"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "I think I am 95 years old.",
+          "timestamp": "2025-06-29T12:39:15.009689"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Have you been diagnosed with hepatocellular carcinoma?",
+          "timestamp": "2025-06-29T12:39:17.995166"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:39:25.016881"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Have you been diagnosed with hepatocellular carcinoma?",
+          "timestamp": "2025-06-29T12:39:29.029504"
+        },
+        {
+          "id": "user-7",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:39:42.348825"
+        },
+        {
+          "id": "agent-8",
+          "type": "agent",
+          "content": "Have you been diagnosed with hepatocellular carcinoma?",
+          "timestamp": "2025-06-29T12:39:45.117304"
+        },
+        {
+          "id": "user-9",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:39:54.357659"
+        },
+        {
+          "id": "agent-10",
+          "type": "agent",
+          "content": "Have you been diagnosed with hepatocellular carcinoma?",
+          "timestamp": "2025-06-29T12:39:57.816493"
+        },
+        {
+          "id": "user-11",
+          "type": "user",
+          "content": "What should I say? Look at this. Look",
+          "timestamp": "2025-06-29T12:40:07.325686"
+        },
+        {
+          "id": "agent-12",
+          "type": "agent",
+          "content": "What is your current liver function grade?",
+          "timestamp": "2025-06-29T12:40:10.271487"
+        },
+        {
+          "id": "user-13",
+          "type": "user",
+          "content": "Did you really want to know?",
+          "timestamp": "2025-06-29T12:40:22.103348"
+        },
+        {
+          "id": "agent-14",
+          "type": "agent",
+          "content": "Are you able to undergo open surgery?",
+          "timestamp": "2025-06-29T12:40:24.703591"
+        },
+        {
+          "id": "user-15",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:40:37.234740"
+        },
+        {
+          "id": "agent-16",
+          "type": "agent",
+          "content": "Are you able to undergo open surgery?",
+          "timestamp": "2025-06-29T12:40:40.508414"
+        },
+        {
+          "id": "user-17",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:40:44.709545"
+        },
+        {
+          "id": "agent-18",
+          "type": "agent",
+          "content": "Are you able to undergo open surgery?",
+          "timestamp": "2025-06-29T12:40:47.727560"
+        },
+        {
+          "id": "user-19",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-29T12:40:53.643793"
+        },
+        {
+          "id": "agent-20",
+          "type": "agent",
+          "content": "Do you have any serious health conditions that might affect your ability to have surgery?",
+          "timestamp": "2025-06-29T12:40:59.414191"
+        },
+        {
+          "id": "user-21",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:41:03.448395"
+        },
+        {
+          "id": "agent-22",
+          "type": "agent",
+          "content": "Do you have any serious health conditions that might affect your ability to have surgery?",
+          "timestamp": "2025-06-29T12:41:07.137806"
+        },
+        {
+          "id": "user-23",
+          "type": "user",
+          "content": "I don't think so.",
+          "timestamp": "2025-06-29T12:41:15.634045"
+        },
+        {
+          "id": "agent-24",
+          "type": "agent",
+          "content": "Are you willing to sign a consent form for this study?",
+          "timestamp": "2025-06-29T12:41:19.180436"
+        },
+        {
+          "id": "user-25",
+          "type": "user",
+          "content": "yeah, I think I",
+          "timestamp": "2025-06-29T12:41:26.386688"
+        },
+        {
+          "id": "agent-26",
+          "type": "agent",
+          "content": "Have you participated in any other clinical trials in the past month?",
+          "timestamp": "2025-06-29T12:41:30.047859"
+        },
+        {
+          "id": "user-27",
+          "type": "user",
+          "content": "No, no.",
+          "timestamp": "2025-06-29T12:41:37.420512"
+        },
+        {
+          "id": "agent-28",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. You now have three options: 'Submit Response' to complete your interview, 'Repeat Last Question' to re-answer the last question, or 'Hear Instruction Again' to repeat these options.",
+          "timestamp": "2025-06-29T12:41:42.381208"
+        },
+        {
+          "id": "user-29",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-06-29T12:41:50.391399"
+        },
+        {
+          "id": "agent-30",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-06-29T12:41:52.836956"
+        },
+        {
+          "id": "agent-31",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-06-29T12:42:09.540159"
+        }
+      ],
+      "summary": {
+        "agent_messages": 17,
+        "user_messages": 15,
+        "conversation_duration": "3 minutes"
+      }
+    }
+  },
+  "P-B3B8A01A": {
+    "session_id": "4ccaccfb-de6f-44c0-a097-e2068cd4a2da",
+    "participant_id": "P-B3B8A01A",
+    "saved_at": "2025-06-29T12:44:03.402832",
+    "data": {
+      "metadata": {
+        "participant_id": "P-B3B8A01A",
+        "session_id": "4ccaccfb-de6f-44c0-a097-e2068cd4a2da",
+        "study_id": "imported-nct-04076631",
+        "export_timestamp": "2025-06-29T12:44:03.401772",
+        "total_messages": 9,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751181162993",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:42:42.949847"
+        },
+        {
+          "id": "user-1751181168613",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T12:42:48.612797"
+        },
+        {
+          "id": "agent-1751181174829",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T12:42:54.803421"
+        },
+        {
+          "id": "user-1751181180276",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-29T12:43:00.275555"
+        },
+        {
+          "id": "agent-1751181182961",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T12:43:02.955318"
+        },
+        {
+          "id": "user-1751181211158",
+          "type": "user",
+          "content": "I'm 25 years.",
+          "timestamp": "2025-06-29T12:43:31.157422"
+        },
+        {
+          "id": "agent-1751181215402",
+          "type": "agent",
+          "content": "Have you been diagnosed with hepatocellular carcinoma?",
+          "timestamp": "2025-06-29T12:43:35.388561"
+        },
+        {
+          "id": "user-1751181231977",
+          "type": "user",
+          "content": "What do you say, what?",
+          "timestamp": "2025-06-29T12:43:51.977288"
+        },
+        {
+          "id": "agent-1751181235427",
+          "type": "agent",
+          "content": "Have you been diagnosed with hepatocellular carcinoma?",
+          "timestamp": "2025-06-29T12:43:55.414449"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 4,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-CB96A0AA": {
+    "session_id": "c3a6deb9-6469-41b5-831d-961a0294d553",
+    "participant_id": "P-CB96A0AA",
+    "saved_at": "2025-06-29T15:02:14.908006",
+    "data": {
+      "metadata": {
+        "participant_id": "P-CB96A0AA",
+        "session_id": "c3a6deb9-6469-41b5-831d-961a0294d553",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T15:02:14.904890",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751188495126",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T14:44:55.125008"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-6E6C0668": {
+    "session_id": "6ffd751e-fdc6-473f-a39e-80b2ee105df1",
+    "participant_id": "P-6E6C0668",
+    "saved_at": "2025-06-29T15:16:11.068780",
+    "data": {
+      "metadata": {
+        "participant_id": "P-6E6C0668",
+        "session_id": "6ffd751e-fdc6-473f-a39e-80b2ee105df1",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T15:16:11.067774",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751189538238",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T15:02:18.236047"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-1974D152": {
+    "session_id": "498c8997-0f01-449e-86eb-cadef75ac365",
+    "participant_id": "P-1974D152",
+    "saved_at": "2025-06-29T15:13:27.767492",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1974D152",
+        "session_id": "498c8997-0f01-449e-86eb-cadef75ac365",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T15:13:27.767136",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751190079174",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T15:11:19.161229"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-FB26D8F9": {
+    "session_id": "98384cc3-5d29-4207-8ef8-dd085220933f",
+    "participant_id": "P-FB26D8F9",
+    "saved_at": "2025-06-29T17:32:07.114556",
+    "data": {
+      "metadata": {
+        "participant_id": "P-FB26D8F9",
+        "session_id": "98384cc3-5d29-4207-8ef8-dd085220933f",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T17:32:07.113329",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751198500720",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:31:40.705401"
+        },
+        {
+          "id": "user-1751198519140",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-06-29T17:31:59.140113"
+        },
+        {
+          "id": "agent-1751198522372",
+          "type": "agent",
+          "content": "How old are you?",
+          "timestamp": "2025-06-29T17:32:02.370048"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-E0F09055": {
+    "session_id": "2d87d29a-63ac-4b6c-91bf-752ab954d897",
+    "participant_id": "P-E0F09055",
+    "saved_at": "2025-06-29T17:35:27.308958",
+    "data": {
+      "metadata": {
+        "participant_id": "P-E0F09055",
+        "session_id": "2d87d29a-63ac-4b6c-91bf-752ab954d897",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T17:35:27.306433",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751198539880",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:32:19.864250"
+        },
+        {
+          "id": "user-1751198566164",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-29T17:32:46.155899"
+        },
+        {
+          "id": "agent-1751198571783",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:32:51.765080"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-23600489": {
+    "session_id": "c5a7a462-2591-4211-997e-65e4da0245a0",
+    "participant_id": "P-23600489",
+    "saved_at": "2025-06-29T17:43:07.082416",
+    "data": {
+      "metadata": {
+        "participant_id": "P-23600489",
+        "session_id": "c5a7a462-2591-4211-997e-65e4da0245a0",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T17:43:07.081773",
+        "total_messages": 5,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751198913945",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:38:33.932233"
+        },
+        {
+          "id": "user-1751198943143",
+          "type": "user",
+          "content": "Repeat that. Repeat the",
+          "timestamp": "2025-06-29T17:39:03.142870"
+        },
+        {
+          "id": "agent-1751198950481",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:39:10.463054"
+        },
+        {
+          "id": "user-1751199014705",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-29T17:40:14.701975"
+        },
+        {
+          "id": "agent-1751199022699",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:40:22.668023"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "2 minutes"
+      }
+    }
+  },
+  "P-087A7ACC": {
+    "session_id": "7cb94768-931e-4e2b-8387-24a79627f994",
+    "participant_id": "P-087A7ACC",
+    "saved_at": "2025-06-29T17:49:13.208234",
+    "data": {
+      "metadata": {
+        "participant_id": "P-087A7ACC",
+        "session_id": "7cb94768-931e-4e2b-8387-24a79627f994",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T17:49:13.207434",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751199220053",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:43:40.030372"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-04FBD739": {
+    "session_id": "7bafd877-46e4-420f-b9a2-4f3dbc00f5d7",
+    "participant_id": "P-04FBD739",
+    "saved_at": "2025-06-29T18:32:17.316959",
+    "data": {
+      "metadata": {
+        "participant_id": "P-04FBD739",
+        "session_id": "7bafd877-46e4-420f-b9a2-4f3dbc00f5d7",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T18:32:17.315914",
+        "total_messages": 11,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751199590664",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:49:50.646079"
+        },
+        {
+          "id": "user-1751199639799",
+          "type": "user",
+          "content": "Repeat that.",
+          "timestamp": "2025-06-29T17:50:39.798765"
+        },
+        {
+          "id": "agent-1751199645171",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:50:45.153892"
+        },
+        {
+          "id": "user-1751199681686",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T17:51:21.685550"
+        },
+        {
+          "id": "agent-1751199686780",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:51:26.761295"
+        },
+        {
+          "id": "user-1751199709903",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T17:51:49.902307"
+        },
+        {
+          "id": "agent-1751199714925",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:51:54.910771"
+        },
+        {
+          "id": "user-1751199730324",
+          "type": "user",
+          "content": "YouTube video.",
+          "timestamp": "2025-06-29T17:52:10.324049"
+        },
+        {
+          "id": "agent-1751199734322",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:52:14.306196"
+        },
+        {
+          "id": "user-1751199754352",
+          "type": "user",
+          "content": "I didn't hear any speech. Please speak after clicking the button",
+          "timestamp": "2025-06-29T17:52:34.350893"
+        },
+        {
+          "id": "agent-1751199759736",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        I'll ask you a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T17:52:39.707142"
+        }
+      ],
+      "summary": {
+        "agent_messages": 6,
+        "user_messages": 5,
+        "conversation_duration": "3 minutes"
+      }
+    }
+  },
+  "P-1F3D9FA8": {
+    "session_id": "2722df18-b064-4ba2-8c31-11768f8b8aab",
+    "participant_id": "P-1F3D9FA8",
+    "saved_at": "2025-06-29T19:32:31.289785",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1F3D9FA8",
+        "session_id": "2722df18-b064-4ba2-8c31-11768f8b8aab",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T19:32:31.289213",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751205577139",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nI'll ask you a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T19:29:37.115928"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-876DDDDC": {
+    "session_id": "1c270858-05f6-45d8-8215-e02573a37504",
+    "participant_id": "P-876DDDDC",
+    "saved_at": "2025-06-29T19:35:13.477356",
+    "data": {
+      "metadata": {
+        "participant_id": "P-876DDDDC",
+        "session_id": "1c270858-05f6-45d8-8215-e02573a37504",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T19:35:13.476237",
+        "total_messages": 5,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751205768970",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to evaluate how well 506u78 works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T19:32:48.948148"
+        },
+        {
+          "id": "user-1751205789906",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-29T19:33:09.900480"
+        },
+        {
+          "id": "agent-1751205795312",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well 506u78 works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        You will be asked a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T19:33:15.286726"
+        },
+        {
+          "id": "user-1751205900295",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-29T19:35:00.284815"
+        },
+        {
+          "id": "agent-1751205904760",
+          "type": "agent",
+          "content": "Let me clarify: I'm MedBot, your clinical trial assistant. \n\n        This study aims to to evaluate how well 506u78 works in treating patients with recurrent or refractory acute lymphocytic leukemia..\n\n        You will be asked a few screening questions to see if you might be eligible.\n\n        Do you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-29T19:35:04.736687"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "2 minutes"
+      }
+    }
+  },
+  "P-69E9CA56": {
+    "session_id": "5d51d9a3-6ab0-43f5-8ba1-ffab4214053a",
+    "participant_id": "P-69E9CA56",
+    "saved_at": "2025-06-29T19:36:02.645487",
+    "data": {
+      "metadata": {
+        "participant_id": "P-69E9CA56",
+        "session_id": "5d51d9a3-6ab0-43f5-8ba1-ffab4214053a",
+        "study_id": "imported-nct-00006020",
+        "export_timestamp": "2025-06-29T19:36:02.643959",
+        "total_messages": 0,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [],
+      "summary": {
+        "agent_messages": 0,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
   }
 }

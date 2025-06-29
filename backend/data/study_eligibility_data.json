@@ -1,6 +1,103 @@
 {
   "studies": [
     {
+      "id": "imported-nct-00006020",
+      "trial": {
+        "nct_id": "NCT00006020",
+        "title": "S0010 phenoma in Treating Patients With Recurrent or Refractory Acute Lymphocytic Leukemia",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Oncology",
+        "description": "This study investigates the effectiveness of the drug phenoma in treating patients with recurrent or refractory acute lymphoblastic leukemia.",
+        "phase": "Phase II",
+        "sponsor": "SWOG Cancer Research Network"
+      },
+      "overview": {
+        "purpose": "To evaluate how well phenoma works in treating patients with recurrent or refractory acute lymphocytic leukemia.",
+        "participant_commitment": "Participants will be involved for approximately 6 months with follow-up visits for up to 3.5 years.",
+        "key_procedures": [
+          "Intravenous administration of phenoma",
+          "Monthly follow-up visits for 6 months",
+          "Follow-up every 3 months for 1 year",
+          "Follow-up every 6 months for 3.5 years"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "IMP001",
+          "text": "Age 16 years or older",
+          "question": "How old are you?",
+          "expected_response": "16 years or older",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP002",
+          "text": "Diagnosis of acute lymphocytic leukemia (ALL)",
+          "question": "Have you been diagnosed with acute lymphocytic leukemia?",
+          "expected_response": "Yes, diagnosed with ALL",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP003",
+          "text": "Non-T-cell acute lymphoblastic leukemia",
+          "question": "Is your leukemia classified as non-T-cell?",
+          "expected_response": "Yes, non-T-cell ALL",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP004",
+          "text": "No central nervous system involvement",
+          "question": "Do you have any involvement of the central nervous system?",
+          "expected_response": "No CNS involvement",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP005",
+          "text": "Refractory to standard induction regimen including vincristine and prednisone",
+          "question": "Have you been refractory to standard induction treatment including vincristine and prednisone?",
+          "expected_response": "Yes, refractory to standard treatment",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP006",
+          "text": "Bilirubin no greater than 1.5 times upper limit of normal",
+          "question": "Is your bilirubin level within normal limits?",
+          "expected_response": "Bilirubin ≤ 1.5 times ULN",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP007",
+          "text": "Not pregnant or nursing",
+          "question": "Are you currently pregnant or nursing?",
+          "expected_response": "No, not pregnant or nursing",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP008",
+          "text": "Available for all study visits over the study duration",
+          "question": "Can you commit to attending all required study visits?",
+          "expected_response": "Yes, available for all visits",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "IMP009",
+          "text": "No other prior malignancy within the past 5 years except certain skin cancers",
+          "question": "Have you had any other malignancies in the past 5 years?",
+          "expected_response": "No other malignancies or only certain skin cancers",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
       "id": "imported-nct-04076631",
       "trial": {
         "nct_id": "NCT04076631",
@@ -360,7 +457,7 @@
   "meta": {
     "schema_version": "eligibility-json/2.0-multi-study",
     "author": "clinical-trial-agent",
-    "generated_utc": "2025-06-29T05:10:54Z",
-    "total_studies": 4
+    "generated_utc": "2025-06-29T07:47:52Z",
+    "total_studies": 5
   }
 }

@@ -16,3 +16,5 @@ wheel
 assemblyai
 elevenlabs
 requests
+google-cloud-speech
+google-cloud-texttospeech
