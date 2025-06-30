@@ -262,23 +262,6 @@ export const StudySelector: React.FC<StudySelectorProps> = ({
                             isDarkMode ? 'text-gray-300' : 'text-gray-700'
                           }`}>{study.commitment}</span>
                         </div>
-                        
-                        <div className={`flex items-center space-x-3 p-3 rounded-xl backdrop-blur-sm border transition-all duration-300 group-hover:scale-105 ${
-                          isDarkMode 
-                            ? 'bg-gray-700/30 border-gray-600/30' 
-                            : 'bg-white/50 border-gray-200/30'
-                        }`}>
-                          <div className={`p-2 rounded-lg transition-all duration-300 ${
-                            isDarkMode ? 'bg-purple-600/20' : 'bg-purple-100'
-                          }`}>
-                            <Building className={`h-4 w-4 ${
-                              isDarkMode ? 'text-purple-400' : 'text-purple-600'
-                            }`} />
-                          </div>
-                          <span className={`text-sm font-medium truncate ${
-                            isDarkMode ? 'text-gray-300' : 'text-gray-700'
-                          }`}>{study.sponsor}</span>
-                        </div>
                       </div>
 
                       {/* Enhanced Status Indicators */}
@@ -729,6 +712,87 @@ export const StudySelector: React.FC<StudySelectorProps> = ({
                     isDarkMode ? 'text-gray-300' : 'text-gray-700'
                   }`}>
                     {selectedForPreview.sponsor}
+                  </p>
+                </div>
+
+                {/* Contact Information */}
+                <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg ${
+                  isDarkMode 
+                    ? 'bg-gray-700/10 border-gray-600/10' 
+                    : 'bg-white/15 border-gray-200/10'
+                }`}>
+                  <div className="absolute top-3 right-3 w-2 h-2 bg-green-400/40 rounded-full animate-pulse" style={{animationDelay: '1.7s'}}></div>
+                  
+                  <div className="flex items-center space-x-4 mb-3">
+                    <div className={`p-3 rounded-xl ${
+                      isDarkMode ? 'bg-green-600/20' : 'bg-green-100'
+                    }`}>
+                      <Users className={`h-6 w-6 ${
+                        isDarkMode ? 'text-green-400' : 'text-green-600'
+                      }`} />
+                    </div>
+                    <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
+                      isDarkMode 
+                        ? 'from-green-400 to-emerald-400' 
+                        : 'from-green-600 to-emerald-600'
+                    }`}>
+                      Location & Contact
+                    </h4>
+                  </div>
+                  <p className={`text-base leading-relaxed ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    {selectedForPreview.contact_info || 'Contact information will be provided upon enrollment.'}
+                  </p>
+                </div>
+
+                {/* Screening Questions */}
+                <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg ${
+                  isDarkMode 
+                    ? 'bg-gray-700/10 border-gray-600/10' 
+                    : 'bg-white/15 border-gray-200/10'
+                }`}>
+                  <div className="absolute top-3 right-3 w-2 h-2 bg-amber-400/40 rounded-full animate-pulse" style={{animationDelay: '1.9s'}}></div>
+                  
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-4">
+                      <div className={`p-3 rounded-xl ${
+                        isDarkMode ? 'bg-amber-600/20' : 'bg-amber-100'
+                      }`}>
+                        <FileText className={`h-6 w-6 ${
+                          isDarkMode ? 'text-amber-400' : 'text-amber-600'
+                        }`} />
+                      </div>
+                      <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
+                        isDarkMode 
+                          ? 'from-amber-400 to-orange-400' 
+                          : 'from-amber-600 to-orange-600'
+                      }`}>
+                        Screening Questions
+                      </h4>
+                    </div>
+                    
+                    {/* Total Questions Count Badge */}
+                    <div className={`px-4 py-2 rounded-xl backdrop-blur-sm border ${
+                      isDarkMode 
+                        ? 'bg-gradient-to-r from-amber-600/30 to-orange-600/30 border-amber-500/40 text-amber-300' 
+                        : 'bg-gradient-to-r from-amber-100 to-orange-100 border-amber-200/40 text-amber-700'
+                    }`}>
+                      <div className="text-center">
+                        <div className="text-lg font-black">
+                          {selectedForPreview.criteria?.length || 0}
+                        </div>
+                        <div className="text-xs font-semibold">
+                          Total Questions
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <p className={`text-base leading-relaxed ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    You will be asked {selectedForPreview.criteria?.length || 0} screening questions to determine your eligibility for this study. The questions cover medical history, current health status, and study-specific requirements.
                   </p>
                 </div>
                 
