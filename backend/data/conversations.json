@@ -1313,17 +1313,17 @@
   "P-2068ACF7": {
     "session_id": "a245ada1-c501-4077-a098-6c244c444188",
     "participant_id": "P-2068ACF7",
-    "saved_at": "2025-06-30T12:10:37.215408",
+    "saved_at": "2025-06-30T12:38:32.350884",
     "data": {
       "metadata": {
         "participant_id": "P-2068ACF7",
         "session_id": "a245ada1-c501-4077-a098-6c244c444188",
         "study_id": "imported-nct-05253820",
-        "export_timestamp": "2025-06-30T12:10:37.214331",
-        "total_messages": 5,
-        "conversation_state": "consent",
-        "exit_reason": "interview_started",
-        "interview_status": "In Progress",
+        "export_timestamp": "2025-06-30T12:38:32.349328",
+        "total_messages": 11,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Paused",
         "saved_incomplete": true
       },
       "conversation": [
@@ -1356,12 +1356,48 @@
           "type": "agent",
           "content": "It seems like there might have been a misunderstanding with your message. If you meant to ask about the procedures involved in the study, we will be conducting ultrasound examinations of the radial artery, assessing the puncture success rate, and monitoring hemostasis duration, among other things. Would you like to proceed with the screening questions?",
           "timestamp": "2025-06-30T12:10:36.689436"
+        },
+        {
+          "id": "user-1751265649948",
+          "type": "user",
+          "content": "Can you leak this again?",
+          "timestamp": "2025-06-30T12:10:49.948165"
+        },
+        {
+          "id": "agent-1751265657410",
+          "type": "agent",
+          "content": "It seems like you might be asking for a recap of the study details. The study focuses on the long-term effects of radial artery occlusion after coronary procedures, using different access methods, and involves participants for about 3 months with follow-up visits. If you have any specific questions or need clarification on any aspect, feel free to ask! Are you ready to proceed with the screening questions?",
+          "timestamp": "2025-06-30T12:10:57.389767"
+        },
+        {
+          "id": "user-1751265820866",
+          "type": "user",
+          "content": "Repeat this again.",
+          "timestamp": "2025-06-30T12:13:40.865470"
+        },
+        {
+          "id": "agent-1751265830171",
+          "type": "agent",
+          "content": "It sounds like you'd like me to repeat the study information. The study is titled \"Long-term Radial Artery Occlusion in Coronary Diagnosis and Intervention Via Distal Radial Approach.\" Its purpose is to investigate the long-term effects of radial artery occlusion after coronary procedures, and it involves participants for about 3 months with follow-up visits. \n\nWould you like to proceed with the screening questions?",
+          "timestamp": "2025-06-30T12:13:50.164585"
+        },
+        {
+          "id": "user-1751265857429",
+          "type": "user",
+          "content": "Let's go, Britney again.",
+          "timestamp": "2025-06-30T12:14:17.429044"
+        },
+        {
+          "id": "agent-1751265859661",
+          "type": "agent",
+          "content": "Can you confirm that you are at least 18 years old?",
+          "timestamp": "2025-06-30T12:14:19.656831"
         }
       ],
       "summary": {
-        "agent_messages": 3,
-        "user_messages": 2,
-        "conversation_duration": "1 minutes"
+        "agent_messages": 6,
+        "user_messages": 5,
+        "conversation_duration": "5 minutes"
       }
     }
   }
