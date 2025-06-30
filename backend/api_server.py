@@ -1729,6 +1729,7 @@ async def health_check():
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
+        "version": "1.0.0",
         "services": {
             "audio_processor": "ready",
             "studies_api": "ready"
