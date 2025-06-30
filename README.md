@@ -142,7 +142,9 @@ GOOGLE_APPLICATION_CREDENTIALS_JSON={"type":"service_account",...} # Full JSON a
 
 **Frontend Service:**
 ```bash
-VITE_API_URL=https://your-backend-service.onrender.com
+# Note: VITE_API_URL is automatically set by Render using the backend service URL
+# Manual override only needed if using custom domain:
+VITE_API_URL=https://clinical-trial-backend.onrender.com
 ```
 
 #### 3. Deploy Steps
@@ -218,7 +220,7 @@ docker run -p 3000:3000 \
 | `OPENAI_API_KEY` | ✅ | OpenAI API key for conversation AI | `sk-...` |
 | `GOOGLE_APPLICATION_CREDENTIALS_JSON` | ✅ | Google Cloud service account JSON | `{"type":"service_account",...}` |
 | `CORS_ORIGINS` | ❌ | Allowed CORS origins | `https://yourdomain.com` |
-| `VITE_API_URL` | ✅ | Frontend API URL | `https://api.yourdomain.com` |
+| `VITE_API_URL` | ✅ | Frontend API URL | `https://your-backend.onrender.com` or `https://api.yourdomain.com` |
 
 ### Health Checks
 

@@ -1404,17 +1404,17 @@
   "P-A36703AF": {
     "session_id": "930a7cd1-23be-4c30-8359-53acc78d5975",
     "participant_id": "P-A36703AF",
-    "saved_at": "2025-06-30T13:11:05.333632",
+    "saved_at": "2025-06-30T13:28:45.874161",
     "data": {
       "metadata": {
         "participant_id": "P-A36703AF",
         "session_id": "930a7cd1-23be-4c30-8359-53acc78d5975",
         "study_id": "imported-nct-05253820",
-        "export_timestamp": "2025-06-30T13:11:05.332324",
+        "export_timestamp": "2025-06-30T13:28:45.873258",
         "total_messages": 5,
         "conversation_state": "questioning",
-        "exit_reason": "interview_started",
-        "interview_status": "In Progress",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
         "saved_incomplete": true
       },
       "conversation": [
