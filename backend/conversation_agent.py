@@ -35,7 +35,7 @@ This study aims to {purpose.lower()}.
 
 You will be asked a few screening questions to see if you might be eligible.
 
-Do you consent to proceed with the screening questions?"""
+Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?"""
         
         self.conversation_state = "waiting_consent"
         return greeting
