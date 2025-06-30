@@ -24,21 +24,83 @@ class ClinicalTrialAgent:
             raise ValueError(f"Study {study_id} not found")
     
     async def get_initial_greeting(self) -> str:
-        """Generate simple greeting with trial overview and consent request"""
-        overview = self.trial_info.get("overview", {})
-        
-        purpose = overview.get("purpose", "Test a new medical treatment")
-        
-        greeting = f"""Hello! I'm MedBot, your clinical trial assistant. 
+        """Generate enhanced greeting using LLM with comprehensive trial information"""
+        try:
+            client = openai.OpenAI()
+            
+            # Prepare comprehensive study context for LLM
+            trial = self.trial_info.get("trial", {})
+            overview = self.trial_info.get("overview", {})
+            criteria = self.trial_info.get("criteria", [])
+            
+            study_context = {
+                "title": trial.get("title", "Clinical Trial"),
+                "category": trial.get("category", "Medical Research"),
+                "phase": trial.get("phase", "N/A"),
+                "sponsor": trial.get("sponsor", "Research Institution"),
+                "nct_id": trial.get("nct_id", "N/A"),
+                "purpose": overview.get("purpose", "Test a new medical treatment"),
+                "commitment": overview.get("participant_commitment", "Time commitment varies"),
+                "procedures": overview.get("key_procedures", ["Standard procedures"]),
+                "contact_info": self.trial_info.get("contact_info", "Contact information available upon enrollment"),
+                "total_questions": len(criteria),
+                "protocol_version": trial.get("protocol_version", "Latest"),
+                "last_amended": trial.get("last_amended", "Recent")
+            }
 
-This study aims to {purpose.lower()}.
+            prompt = f"""
+            You are MedBot, a clinical trial assistant. Generate a brief, friendly greeting for a potential study participant.
 
-You will be asked a few screening questions to see if you might be eligible.
+            STUDY INFORMATION:
+            - Title: {study_context['title']}
+            - Purpose: {study_context['purpose']}
+            - total questions: {study_context['total_questions']}
+            - time commitment: {study_context['commitment']}
+
+            INSTRUCTIONS:
+            - Keep it to 2-3 lines maximum
+            - Briefly mention the study purpose in simple terms
+            - ALWAYS end with something like: "Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?"
+            - Don't include detailed information - users can ask questions later if needed
+
+            Generate a concise greeting:
+            """
+
+            response = client.chat.completions.create(
+                model="gpt-4o-mini",
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=300,
+                temperature=0.8,
+                top_p=0.9,
+            )
+            
+            greeting = response.choices[0].message.content.strip()
+            
+            self.conversation_state = "waiting_consent"
+            return greeting
+            
+        except Exception as e:
+            logger.error(f"Error generating LLM greeting: {e}")
+            # Fallback to enhanced template-based greeting
+            overview = self.trial_info.get("overview", {})
+            trial = self.trial_info.get("trial", {})
+            criteria = self.trial_info.get("criteria", [])
+            
+            title = trial.get("title", "Clinical Trial")
+            purpose = overview.get("purpose", "test a new medical treatment")
+            commitment = overview.get("participant_commitment", "Time commitment varies")
+            total_questions = len(criteria)
+            
+            greeting = f"""Hello! I'm MedBot, your clinical trial assistant.
+
+I'd like to tell you about "{title}" - this study aims to {purpose.lower()}.
+
+The time commitment is approximately {commitment.lower()}, and you'll be asked {total_questions} screening questions to see if you might be eligible.
 
 Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?"""
-        
-        self.conversation_state = "waiting_consent"
-        return greeting
+            
+            self.conversation_state = "waiting_consent"
+            return greeting
     
     async def process_user_response(self, user_message: str) -> Dict:
         """Process user response and generate appropriate follow-up"""
@@ -147,19 +209,24 @@ Do you consent to proceed with the screening questions, or do you have any quest
         try:
             client = openai.OpenAI()
             
-            # Prepare study context for LLM
-            overview = self.trial_info.get("overview", {})
+             # Prepare comprehensive study context for LLM
             trial = self.trial_info.get("trial", {})
+            overview = self.trial_info.get("overview", {})
+            criteria = self.trial_info.get("criteria", [])
             
             study_context = {
                 "title": trial.get("title", "Clinical Trial"),
+                "category": trial.get("category", "Medical Research"),
+                "phase": trial.get("phase", "N/A"),
+                "sponsor": trial.get("sponsor", "Research Institution"),
+                "nct_id": trial.get("nct_id", "N/A"),
                 "purpose": overview.get("purpose", "Test a new medical treatment"),
                 "commitment": overview.get("participant_commitment", "Time commitment varies"),
                 "procedures": overview.get("key_procedures", ["Standard procedures"]),
-                "phase": trial.get("phase", "Not specified"),
-                "sponsor": trial.get("sponsor", "Research institution"),
-                "category": trial.get("category", "Medical research"),
-                "contact_info": self.trial_info.get("contact_info", "Contact information not available")
+                "contact_info": self.trial_info.get("contact_info", "Contact information available upon enrollment"),
+                "total_questions": len(criteria),
+                "protocol_version": trial.get("protocol_version", "Latest"),
+                "last_amended": trial.get("last_amended", "Recent")
             }
 
             prompt = f"""
@@ -176,6 +243,7 @@ Do you consent to proceed with the screening questions, or do you have any quest
             - Time Commitment: {study_context['commitment']}
             - Key Procedures: {', '.join(study_context['procedures'])}
             - Location & Contact: {study_context['contact_info']}
+            - total questions: {study_context['total_questions']}
 
             PARTICIPANT'S QUESTION/CONCERN: "{user_message}"
 
@@ -604,7 +672,8 @@ Do you consent to proceed with the screening questions?"""
                 "phase": trial.get("phase", "Not specified"),
                 "sponsor": trial.get("sponsor", "Research institution"),
                 "category": trial.get("category", "Medical research"),
-                "contact_info": self.trial_info.get("contact_info", "Contact information not available")
+                "contact_info": self.trial_info.get("contact_info", "Contact information not available"),
+                "total_questions": len(self.trial_criteria)
             }
 
             prompt = f"""
@@ -619,6 +688,7 @@ Do you consent to proceed with the screening questions?"""
             - Sponsor: {study_context['sponsor']}
             - Time Commitment: {study_context['commitment']}
             - Key Procedures: {', '.join(study_context['procedures'])}
+            - total questions: {study_context['total_questions']}
             - Location & Contact: {study_context['contact_info']}
 
             SUBMISSION PHASE CONTEXT:
