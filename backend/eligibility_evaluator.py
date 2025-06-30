@@ -206,6 +206,7 @@ class EligibilityEvaluator:
                 "criteria_id": criteria.id,
                 "criteria_text": criteria.text,
                 "criteria_question": criteria.question,
+                "expected_response": criteria.expected_response,
                 "priority": criteria.priority,
                 "participant_response": response
             })
@@ -218,6 +219,7 @@ class EligibilityEvaluator:
                 "criteria_id": criteria.id,
                 "criteria_text": criteria.text,
                 "criteria_question": criteria.question,
+                "expected_response": criteria.expected_response,
                 "priority": criteria.priority,
                 "participant_response": response,
                 "meets_criteria": False,
@@ -228,9 +230,7 @@ class EligibilityEvaluator:
 
     def _evaluate_single_criteria_sync(self, criteria: TrialCriteria, response: str, model: str = "gpt-4o") -> Dict:
         """Evaluate a single criteria against the response"""
-        print('#'*100)
-        print('in sync')
-        print('#'*100)
+       
         try:
             # Use LLM to evaluate the response
             evaluation_prompt = f"""
@@ -271,6 +271,7 @@ class EligibilityEvaluator:
                 "criteria_id": criteria.id,
                 "criteria_text": criteria.text,
                 "criteria_question": criteria.question,
+                "expected_response": criteria.expected_response,
                 "priority": criteria.priority,
                 "participant_response": response
             })
@@ -283,6 +284,7 @@ class EligibilityEvaluator:
                 "criteria_id": criteria.id,
                 "criteria_text": criteria.text,
                 "criteria_question": criteria.question,
+                "expected_response": criteria.expected_response,
                 "priority": criteria.priority,
                 "participant_response": response,
                 "meets_criteria": False,
