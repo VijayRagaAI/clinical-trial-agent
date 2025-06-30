@@ -6583,5 +6583,227 @@
         "conversation_duration": "1 minutes"
       }
     }
+  },
+  "P-FEB592E6": {
+    "session_id": "d0944b98-9c77-43c2-bdbf-b43693bbf31f",
+    "participant_id": "P-FEB592E6",
+    "saved_at": "2025-06-30T11:02:15.856657",
+    "data": {
+      "metadata": {
+        "participant_id": "P-FEB592E6",
+        "session_id": "d0944b98-9c77-43c2-bdbf-b43693bbf31f",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T11:02:15.852136",
+        "total_messages": 3,
+        "conversation_state": "completed",
+        "exit_reason": "consent_rejected",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to participate in a study examining the long-term effects of a specific access method during heart procedures. Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-06-30T11:01:46.666619"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "I don't want to proceed.",
+          "timestamp": "2025-06-30T11:02:08.380404"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "I understand. Thank you for your time. If you change your mind, feel free to try again later.",
+          "timestamp": "2025-06-30T11:02:15.846793"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-FCBCE159": {
+    "session_id": "73301290-f877-42cc-9d0b-f5a19d61cba4",
+    "participant_id": "P-FCBCE159",
+    "saved_at": "2025-06-30T11:11:06.027215",
+    "data": {
+      "metadata": {
+        "participant_id": "P-FCBCE159",
+        "session_id": "73301290-f877-42cc-9d0b-f5a19d61cba4",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T11:11:06.023609",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751261945048",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to participate in a study examining the long-term effects of a specific artery procedure after heart treatments. Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-06-30T11:09:05.028525"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-3DF8DB59": {
+    "session_id": "3515dbd5-336c-45ae-a782-39d423e4ddb3",
+    "participant_id": "P-3DF8DB59",
+    "saved_at": "2025-06-30T11:11:22.664594",
+    "data": {
+      "metadata": {
+        "participant_id": "P-3DF8DB59",
+        "session_id": "3515dbd5-336c-45ae-a782-39d423e4ddb3",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T11:11:22.661388",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751262073664",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to participate in a study exploring the long-term effects of radial artery occlusion after heart procedures. It will take about 3 months of your time. Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-06-30T11:11:13.642656"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-1227A2B2": {
+    "session_id": "cbf261c2-4d2f-4ae3-b05a-73d082dfbb08",
+    "participant_id": "P-1227A2B2",
+    "saved_at": "2025-06-30T11:12:38.199261",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1227A2B2",
+        "session_id": "cbf261c2-4d2f-4ae3-b05a-73d082dfbb08",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T11:12:38.197372",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751262089908",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to participate in a study that looks at the long-term effects of using different methods for accessing the radial artery during heart procedures. Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-06-30T11:11:29.889756"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-268CA3FD": {
+    "session_id": "965a2fcb-b203-4b81-a85b-99dc2b33ed6a",
+    "participant_id": "P-268CA3FD",
+    "saved_at": "2025-06-30T11:13:17.136778",
+    "data": {
+      "metadata": {
+        "participant_id": "P-268CA3FD",
+        "session_id": "965a2fcb-b203-4b81-a85b-99dc2b33ed6a",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T11:13:17.132693",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751262164596",
+          "type": "agent",
+          "content": "Hello! We\u2019re conducting a study to explore the long-term effects of a specific heart procedure. Your participation could help us understand this better. Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-06-30T11:12:44.580165"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-E22679FF": {
+    "session_id": "18389fd9-7685-4f47-a848-30784c12eb03",
+    "participant_id": "P-E22679FF",
+    "saved_at": "2025-06-30T11:14:01.288761",
+    "data": {
+      "metadata": {
+        "participant_id": "P-E22679FF",
+        "session_id": "18389fd9-7685-4f47-a848-30784c12eb03",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T11:14:01.284396",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751262208030",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to participate in a study looking at the long-term effects of a specific procedure on the radial artery after heart interventions. Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-06-30T11:13:28.009611"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-F8CD5454": {
+    "session_id": "8e0c6adc-cb1e-4ae0-896f-217856fd936a",
+    "participant_id": "P-F8CD5454",
+    "saved_at": "2025-06-30T11:14:12.809368",
+    "data": {
+      "metadata": {
+        "participant_id": "P-F8CD5454",
+        "session_id": "8e0c6adc-cb1e-4ae0-896f-217856fd936a",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T11:14:12.807809",
+        "total_messages": 0,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [],
+      "summary": {
+        "agent_messages": 0,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
   }
 }
