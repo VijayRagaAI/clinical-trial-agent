@@ -38,7 +38,7 @@ def start_server(host="0.0.0.0", port=8000, reload=True):
     try:
         import uvicorn
         uvicorn.run(
-            "main:app",
+            "api_server:app",
             host=host,
             port=port,
             reload=reload,
