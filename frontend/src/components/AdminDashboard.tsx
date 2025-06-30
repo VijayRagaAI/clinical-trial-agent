@@ -2585,6 +2585,37 @@ const AdminDashboard: React.FC = () => {
                     {selectedStudyForView.purpose}
                   </p>
                 </div>
+
+                {/* Contact Information */}
+                <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg ${
+                  isDarkMode 
+                    ? 'bg-gray-700/30 border-gray-600/30' 
+                    : 'bg-white/50 border-gray-200/30'
+                }`}>
+                  <div className="absolute top-3 right-3 w-2 h-2 bg-green-400/40 rounded-full animate-pulse" style={{animationDelay: '0.7s'}}></div>
+                  
+                  <div className="flex items-center space-x-4 mb-3">
+                    <div className={`p-3 rounded-xl ${
+                      isDarkMode ? 'bg-green-600/20' : 'bg-green-100'
+                    }`}>
+                      <Users className={`h-6 w-6 ${
+                        isDarkMode ? 'text-green-400' : 'text-green-600'
+                      }`} />
+                    </div>
+                    <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
+                      isDarkMode 
+                        ? 'from-green-400 to-emerald-400' 
+                        : 'from-green-600 to-emerald-600'
+                    }`}>
+                      Location & Contact
+                    </h4>
+                  </div>
+                  <p className={`text-base leading-relaxed ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    {selectedStudyForView.contact_info || 'Contact information will be provided upon enrollment.'}
+                  </p>
+                </div>
                 
                 {/* Time Commitment & Key Procedures */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -2675,91 +2706,57 @@ const AdminDashboard: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Eligibility Criteria */}
-                {selectedStudyForView.criteria && selectedStudyForView.criteria.length > 0 && (
-                  <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg ${
-                    isDarkMode 
-                      ? 'bg-gray-700/30 border-gray-600/30' 
-                      : 'bg-white/50 border-gray-200/30'
-                  }`}>
-                    <div className="absolute top-3 right-3 w-2 h-2 bg-amber-400/40 rounded-full animate-pulse" style={{animationDelay: '1.5s'}}></div>
-                    
-                    <div className="flex items-center space-x-4 mb-6">
+                {/* Screening Questions */}
+                <div className={`relative p-6 rounded-2xl backdrop-blur-sm border shadow-lg ${
+                  isDarkMode 
+                    ? 'bg-gray-700/30 border-gray-600/30' 
+                    : 'bg-white/50 border-gray-200/30'
+                }`}>
+                  <div className="absolute top-3 right-3 w-2 h-2 bg-amber-400/40 rounded-full animate-pulse" style={{animationDelay: '1.3s'}}></div>
+                  
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-4">
                       <div className={`p-3 rounded-xl ${
                         isDarkMode ? 'bg-amber-600/20' : 'bg-amber-100'
                       }`}>
-                        <CheckCircle className={`h-6 w-6 ${
+                        <FileText className={`h-6 w-6 ${
                           isDarkMode ? 'text-amber-400' : 'text-amber-600'
                         }`} />
                       </div>
-                      <div>
-                        <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
-                          isDarkMode 
-                            ? 'from-amber-400 to-orange-400' 
-                            : 'from-amber-600 to-orange-600'
-                        }`}>
-                          Key Eligibility Criteria
-                        </h4>
-                        <p className={`text-sm ${
-                          isDarkMode ? 'text-gray-400' : 'text-gray-600'
-                        }`}>
-                          Main requirements for participation
-                        </p>
-                      </div>
+                      <h4 className={`text-lg font-black bg-gradient-to-r bg-clip-text text-transparent ${
+                        isDarkMode 
+                          ? 'from-amber-400 to-orange-400' 
+                          : 'from-amber-600 to-orange-600'
+                      }`}>
+                        Screening Questions
+                      </h4>
                     </div>
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                      {selectedStudyForView.criteria
-                        .filter(criterion => criterion.priority === 'high')
-                        .slice(0, 6)
-                        .map((criterion, index) => (
-                        <div 
-                          key={criterion.id}
-                          className={`relative p-4 rounded-xl backdrop-blur-sm border transition-all duration-500 hover:scale-105 hover:-translate-y-1 ${
-                            isDarkMode 
-                              ? 'bg-gradient-to-br from-amber-600/10 via-orange-600/5 to-amber-600/10 border-amber-500/25 hover:shadow-lg hover:shadow-amber-500/20' 
-                              : 'bg-gradient-to-br from-amber-50/80 via-orange-50/60 to-amber-50/80 border-amber-200/40 hover:shadow-lg hover:shadow-amber-300/30'
-                          }`}
-                          style={{animationDelay: `${index * 100}ms`}}
-                        >
-                          <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-amber-400/50 rounded-full animate-pulse" style={{animationDelay: `${index * 0.3}s`}}></div>
-                          
-                          <div className="flex items-start space-x-3">
-                            <div className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-                              isDarkMode 
-                                ? 'bg-gradient-to-br from-amber-500 to-orange-500 text-white' 
-                                : 'bg-gradient-to-br from-amber-400 to-orange-400 text-white'
-                            } shadow-lg`}>
-                              {index + 1}
-                            </div>
-                            <div className="flex-1">
-                              <p className={`text-sm font-semibold leading-relaxed ${
-                                isDarkMode ? 'text-gray-200' : 'text-gray-800'
-                              }`}>
-                                {criterion.text}
-                              </p>
-                            </div>
-                          </div>
-                          
-                          {/* Shimmer effect */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-300/8 to-transparent transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 rounded-xl"></div>
+                    {/* Total Questions Count Badge */}
+                    <div className={`px-4 py-2 rounded-xl backdrop-blur-sm border ${
+                      isDarkMode 
+                        ? 'bg-gradient-to-r from-amber-600/30 to-orange-600/30 border-amber-500/40 text-amber-300' 
+                        : 'bg-gradient-to-r from-amber-100 to-orange-100 border-amber-200/40 text-amber-700'
+                    }`}>
+                      <div className="text-center">
+                        <div className="text-lg font-black">
+                          {selectedStudyForView.criteria?.length || 0}
                         </div>
-                      ))}
-                    </div>
-                    
-                    {selectedStudyForView.criteria.length > 6 && (
-                      <div className="mt-4 text-center">
-                        <span className={`text-sm font-medium px-4 py-2 rounded-xl backdrop-blur-sm border ${
-                          isDarkMode 
-                            ? 'bg-gray-600/20 border-gray-500/30 text-gray-300' 
-                            : 'bg-gray-100/70 border-gray-200/40 text-gray-600'
-                        }`}>
-                          +{selectedStudyForView.criteria.length - 6} more criteria will be discussed during screening
-                        </span>
+                        <div className="text-xs font-semibold">
+                          Total Questions
+                        </div>
                       </div>
-                    )}
+                    </div>
                   </div>
-                )}
+                  
+                  <p className={`text-base leading-relaxed mb-6 ${
+                    isDarkMode ? 'text-gray-300' : 'text-gray-700'
+                  }`}>
+                    Participants will be asked {selectedStudyForView.criteria?.length || 0} screening questions to determine their eligibility for this study. The questions cover medical history, current health status, and study-specific requirements.
+                  </p>
+                </div>
+
+
                 
                 {/* Action Buttons */}
                 <div className="flex justify-center space-x-4 pt-4">
@@ -2780,33 +2777,6 @@ const AdminDashboard: React.FC = () => {
                     {/* Button effects */}
                     <div className="absolute inset-0 bg-gradient-to-r from-red-400/0 via-red-400/20 to-red-400/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
                     <div className="absolute inset-0 bg-red-400/0 group-hover:bg-red-400/15 rounded-2xl blur-sm transition-all duration-500"></div>
-                  </button>
-
-                  {/* Start Interview Button */}
-                  <button
-                    onClick={() => {
-                      closeStudyModal();
-                      // Navigate to interview for this specific study
-                      window.location.href = `/interview?study=${selectedStudyForView.id}`;
-                    }}
-                    className={`group relative px-8 py-4 rounded-2xl font-black text-lg transition-all duration-700 hover:scale-110 hover:-translate-y-2 backdrop-blur-md border shadow-2xl ${
-                      isDarkMode 
-                        ? 'bg-gradient-to-r from-emerald-600/80 via-teal-600/70 to-emerald-600/80 hover:from-emerald-500/90 hover:via-teal-500/80 hover:to-emerald-500/90 border-emerald-500/50 text-white' 
-                        : 'bg-gradient-to-r from-emerald-500/90 via-teal-500/80 to-emerald-500/90 hover:from-emerald-600/95 hover:via-teal-600/85 hover:to-emerald-600/95 border-emerald-400/50 text-white'
-                    } hover:shadow-2xl hover:shadow-emerald-500/40`}
-                  >
-                    <span className="relative z-10 flex items-center space-x-3">
-                      <Play className="h-6 w-6 group-hover:scale-125 transition-transform duration-300" />
-                      <span>Start Interview for This Study</span>
-                    </span>
-                    
-                    {/* Enhanced button effects */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                    <div className="absolute inset-0 bg-emerald-400/0 group-hover:bg-emerald-400/15 rounded-2xl blur-sm transition-all duration-500"></div>
-                    
-                    {/* Button sparkles */}
-                    <div className="absolute top-2 right-2 w-1.5 h-1.5 bg-white/60 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300"></div>
-                    <div className="absolute bottom-2 left-2 w-1 h-1 bg-white/40 rounded-full opacity-0 group-hover:opacity-100 animate-bounce transition-all duration-300" style={{animationDelay: '0.3s'}}></div>
                   </button>
                 </div>
               </div>

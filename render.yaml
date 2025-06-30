@@ -18,7 +18,7 @@ services:
       - key: ELEVENLABS_VOICE_ID
         value: "21m00Tcm4TlvDq8ikWAM"
       - key: CORS_ORIGINS
-        value: "https://clinical-trial-frontend.onrender.com,http://localhost:5173"
+        value: "https://clinical-trial-agent.onrender.com,http://localhost:5173"
       - key: LOG_LEVEL
         value: "INFO"
 

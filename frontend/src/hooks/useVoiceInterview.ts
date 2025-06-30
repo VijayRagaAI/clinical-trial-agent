@@ -433,7 +433,7 @@ export const useVoiceInterview = () => {
     if (conversationState === 'completed') return "Interview completed successfully";
     if (isAgentSpeaking) return "MedBot is speaking...";
     if (isRecording) return "Recording your response...";
-    if (showTranscriptionConfirm) return "Please confirm your response";
+    if (showTranscriptionConfirm) return "Your turn to speak";
     if (waitingForUser) return "Your turn to speak";
     return "Processing your response...";
   };

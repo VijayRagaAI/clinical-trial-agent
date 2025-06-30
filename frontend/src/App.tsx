@@ -959,6 +959,7 @@ ${index + 1}. ${criterion.criteria_text}
                 isEvaluating={interview.isEvaluating}
                 isProcessing={interview.isProcessing}
                 participantName={participantName || undefined}
+                eligibilityResult={interview.eligibilityResult}
                 selectedStudy={selectedStudy}
                 onStudySelect={handleStudySelect}
                 startInterview={interview.startInterview}

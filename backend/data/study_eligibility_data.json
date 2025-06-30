@@ -1,100 +1,571 @@
 {
   "studies": [
     {
-      "id": "imported-nct-03678831",
+      "id": "imported-nct-05253820",
       "trial": {
-        "nct_id": "NCT03678831",
-        "title": "Characteristics of Marrow Fatty Cells in the Ageing of Bone and Joints, Osteoarthritis and Osteoporosis",
-        "protocol_version": "imported-20250629",
-        "last_amended": "2025-06-29",
-        "category": "Rheumatology",
-        "description": "This study aims to compare the characteristics of bone marrow adipocytes in post-menopausal women with knee osteoarthritis to those from subcutaneous adipose tissue.",
-        "phase": "N/A",
-        "sponsor": "Not specified"
+        "nct_id": "NCT05253820",
+        "title": "Long-term Radial Artery Occlusion in Coronary Diagnosis and Intervention Via Distal Radial Approach (CONDITION)",
+        "protocol_version": "imported-20250630",
+        "last_amended": "2025-06-30",
+        "category": "Cardiology",
+        "description": "This study compares long-term radial artery occlusion in coronary diagnosis and intervention using distal versus conventional radial approaches.",
+        "phase": "NA",
+        "sponsor": "Unknown"
       },
       "overview": {
-        "purpose": "To understand if marrow fat contributes more to joint problems compared to subcutaneous fat in women with knee osteoarthritis.",
-        "participant_commitment": "Participants will undergo assessments before surgery and will be involved in the study until the primary completion date.",
+        "purpose": "To investigate the long-term effects of radial artery occlusion after coronary procedures using different access methods.",
+        "participant_commitment": "Participants will be involved for approximately 3 months with follow-up visits.",
         "key_procedures": [
-          "Body weight measurement",
-          "Waist and hip circumference measurements",
-          "Blood pressure checks",
-          "Blood tests for glucose, insulin, and lipids",
-          "Surgical removal of fat tissue"
+          "Ultrasound examination of the radial artery",
+          "Assessment of puncture success rate",
+          "Monitoring of hemostasis duration",
+          "Evaluation of radial artery trauma"
+        ]
+      },
+      "contact_info": "Study conducted at various locations. Enrolling 801 participants (completed). Contact details not provided. Study ran from March 2022 to March 2023.",
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age 18 years and older",
+          "question": "Can you confirm that you are at least 18 years old?",
+          "expected_response": "Yes, I am 18 or older",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Palpable unilateral distal radial and radial artery",
+          "question": "Do you have a palpable radial artery in your arm?",
+          "expected_response": "Yes, I can feel it",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "EXC001",
+          "text": "Age 90 years and older",
+          "question": "Are you 90 years old or older?",
+          "expected_response": "No, I am younger than 90",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "EXC002",
+          "text": "Height 185 cm or taller",
+          "question": "Are you taller than 185 cm?",
+          "expected_response": "No, I am shorter than 185 cm",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "EXC003",
+          "text": "Cardiogenic shock",
+          "question": "Do you currently have any condition like cardiogenic shock?",
+          "expected_response": "No, I do not have that condition",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "EXC004",
+          "text": "Contraindications to puncture at the puncture site",
+          "question": "Do you have any issues that would prevent a puncture at the site?",
+          "expected_response": "No, I have no contraindications",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "EXC005",
+          "text": "Inability to obtain written informed consent",
+          "question": "Are you able to provide written informed consent for this study?",
+          "expected_response": "Yes, I can provide consent",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "EXC006",
+          "text": "Previous right radial or distal artery intervention",
+          "question": "Have you had any previous interventions on your right radial or distal artery?",
+          "expected_response": "No, I have not had any previous interventions",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-02168920",
+      "trial": {
+        "nct_id": "NCT02168920",
+        "title": "Aripiprazole for the Treatment of Patients With Agitation Associated With Dementia of the Alzheimer's Type",
+        "protocol_version": "imported-20250630",
+        "last_amended": "2025-06-30",
+        "category": "Neurology",
+        "description": "This study evaluates the efficacy and safety of aripiprazole in treating agitation in patients with Alzheimer's type dementia.",
+        "phase": "Phase 3",
+        "sponsor": "Multicenter Research Group"
+      },
+      "overview": {
+        "purpose": "To determine if aripiprazole can effectively reduce agitation in patients with Alzheimer's disease.",
+        "participant_commitment": "Approximately 10 weeks of treatment and 30 days of post-treatment observation.",
+        "key_procedures": [
+          "Cohen-Mansfield Agitation Inventory assessments",
+          "Randomized treatment assignment",
+          "Monitoring of vital signs",
+          "Regular follow-up visits"
+        ]
+      },
+      "contact_info": "Conducted at multiple centers. Enrolling 150 participants (currently terminated). For more information, contact the research team.",
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age between 55 and 89 years",
+          "question": "Can you tell me your age?",
+          "expected_response": "55-89 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Diagnosis of major neurocognitive disorder due to Alzheimer's disease",
+          "question": "Have you been diagnosed with Alzheimer's disease or a related disorder?",
+          "expected_response": "Yes, diagnosed with Alzheimer's",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Mini-Mental State Examination (MMSE) score between 1 and 22",
+          "question": "What was your most recent Mini-Mental State Examination score?",
+          "expected_response": "MMSE score between 1 and 22",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC004",
+          "text": "Legal representative can provide informed consent",
+          "question": "Is there someone who can help provide informed consent for your participation?",
+          "expected_response": "Yes, I have a legal representative",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC005",
+          "text": "Hospitalized or residing in a care facility",
+          "question": "Are you currently hospitalized or living in a care facility?",
+          "expected_response": "Yes, I am in a care facility",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC006",
+          "text": "No history of severe complications related to dementia",
+          "question": "Do you have any complications from dementia that are not related to Alzheimer's?",
+          "expected_response": "No complications from other types of dementia",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC007",
+          "text": "Available for all study visits over 10 weeks",
+          "question": "Will you be able to attend all required visits over the next 10 weeks?",
+          "expected_response": "Yes, available for all visits",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC008",
+          "text": "No participation in another clinical trial within the last 30 days",
+          "question": "Have you participated in any other clinical trials in the past month?",
+          "expected_response": "No recent trial participation",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-02824120",
+      "trial": {
+        "nct_id": "NCT02824120",
+        "title": "Effects of Laugh Therapy Associated to Cardiopulmonary Rehab",
+        "protocol_version": "imported-20250630",
+        "last_amended": "2025-06-30",
+        "category": "Cardiology",
+        "description": "This study investigates the impact of laugh therapy combined with cardiopulmonary rehabilitation on patients with ischemic heart disease.",
+        "phase": "NA",
+        "sponsor": "Hospital de Clínicas de Porto Alegre"
+      },
+      "overview": {
+        "purpose": "To determine if laugh therapy can improve the quality of life and physiological parameters in patients with ischemic heart disease.",
+        "participant_commitment": "Approximately 6 months with bi-weekly visits for therapy sessions.",
+        "key_procedures": [
+          "30 minutes of stretching exercises",
+          "Laugh therapy sessions",
+          "Monitoring of cardiac frequency",
+          "Assessment of oxygen saturation"
+        ]
+      },
+      "contact_info": "Study conducted at Hospital de Clínicas de Porto Alegre, Brazil. Enrolling 40 participants (currently recruiting). Contact: Cardiology Research Department, +55-51-3359-8000. Principal Investigator: Dr. Silva. Study runs Jan 2024 - Dec 2024.",
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age between 40 and 80 years",
+          "question": "Can you tell me your age?",
+          "expected_response": "40-80 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Diagnosis of ischemic heart disease confirmed by cardiac catheterization",
+          "question": "Have you been diagnosed with ischemic heart disease through cardiac catheterization?",
+          "expected_response": "Yes, confirmed diagnosis",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Willingness to attend therapy sessions twice a week",
+          "question": "Are you able to come to the hospital for therapy sessions twice a week?",
+          "expected_response": "Yes, available for twice a week",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC004",
+          "text": "No participation in another clinical trial",
+          "question": "Are you currently participating in any other clinical trials?",
+          "expected_response": "No participation in other trials",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC005",
+          "text": "No severe lung disease or major psychiatric disorders",
+          "question": "Do you have any severe lung disease or major psychiatric conditions like depression or bipolar disorder?",
+          "expected_response": "No severe lung or psychiatric conditions",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC006",
+          "text": "Ability to understand the consent form",
+          "question": "Do you feel comfortable understanding the consent form for this study?",
+          "expected_response": "Yes, I can understand the consent form",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC007",
+          "text": "No chronic renal failure or active infections",
+          "question": "Do you have any chronic kidney issues or active infections?",
+          "expected_response": "No chronic renal failure or active infections",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-05391620",
+      "trial": {
+        "nct_id": "NCT05391620",
+        "title": "The Effect of the 3/7 vs 3X9 Method in Resistance Training on Metabolic Stress in Cardiac Rehabilitation",
+        "protocol_version": "imported-20250630",
+        "last_amended": "2025-06-30",
+        "category": "Cardiology",
+        "description": "This study investigates the effects of different resistance training methods on biological markers in patients with heart failure and coronary artery disease during cardiac rehabilitation.",
+        "phase": "NA",
+        "sponsor": "Cardiac Rehabilitation Research Institute"
+      },
+      "overview": {
+        "purpose": "To determine how different resistance training methods impact muscle growth markers in individuals with heart conditions.",
+        "participant_commitment": "Participation involves two testing days spaced between 2 to 10 days apart, with a total commitment of about 1 day for each visit.",
+        "key_procedures": [
+          "Blood sample collection before and after exercise",
+          "High-intensity interval training (HIIT)",
+          "Resistance training sessions",
+          "Monitoring of heart rate and exertion levels"
         ]
       },
       "criteria": [
         {
-          "id": "IMP001",
-          "text": "Post-menopausal woman",
-          "question": "Are you a post-menopausal woman?",
-          "expected_response": "Yes",
+          "id": "INC001",
+          "text": "Age 18 years or older",
+          "question": "Can you confirm that you are at least 18 years old?",
+          "expected_response": "Yes, I am 18 or older",
           "response": "",
           "priority": "high"
         },
         {
-          "id": "IMP002",
-          "text": "Symptomatic knee osteoarthritis requiring prosthesis",
-          "question": "Do you have knee osteoarthritis that is severe enough to require a prosthesis?",
-          "expected_response": "Yes, I need a prosthesis",
+          "id": "INC002",
+          "text": "Clinical coronary artery diseases",
+          "question": "Have you been diagnosed with any coronary artery diseases?",
+          "expected_response": "Yes, I have coronary artery disease",
           "response": "",
           "priority": "high"
         },
         {
-          "id": "IMP003",
-          "text": "Able to handle general anaesthesia",
-          "question": "Are you able to undergo general anaesthesia for surgery?",
-          "expected_response": "Yes, I can handle anaesthesia",
+          "id": "INC003",
+          "text": "Heart failure with reduced ejection fraction",
+          "question": "Do you have heart failure with reduced ejection fraction?",
+          "expected_response": "Yes, I have this condition",
           "response": "",
           "priority": "high"
         },
         {
-          "id": "IMP004",
-          "text": "Able to understand the study constraints",
-          "question": "Do you understand the requirements and constraints of this study?",
-          "expected_response": "Yes, I understand",
+          "id": "EXC001",
+          "text": "No angina",
+          "question": "Do you experience angina or chest pain?",
+          "expected_response": "No, I do not experience angina",
           "response": "",
           "priority": "medium"
         },
         {
-          "id": "IMP005",
-          "text": "Health insurance coverage",
-          "question": "Do you have health insurance?",
-          "expected_response": "Yes, I have health insurance",
+          "id": "EXC002",
+          "text": "No acutely decompensated heart failure",
+          "question": "Have you had any recent episodes of severe heart failure?",
+          "expected_response": "No, I have not had recent severe episodes",
           "response": "",
           "priority": "medium"
         },
         {
-          "id": "IMP006",
-          "text": "Able to understand French",
-          "question": "Can you understand the French language?",
-          "expected_response": "Yes, I understand French",
+          "id": "EXC003",
+          "text": "No significant valvular disease",
+          "question": "Have you been diagnosed with any significant valvular heart disease?",
+          "expected_response": "No, I do not have significant valvular disease",
           "response": "",
           "priority": "medium"
         },
         {
-          "id": "IMP007",
-          "text": "No active infections or evolving cancer",
-          "question": "Do you currently have any active infections or evolving cancer?",
-          "expected_response": "No, I am healthy",
+          "id": "EXC004",
+          "text": "No orthopedic or neurologic disorders limiting exercise",
+          "question": "Do you have any orthopedic or neurologic conditions that would limit your ability to exercise?",
+          "expected_response": "No, I do not have such conditions",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "LOW001",
+          "text": "Available for all study visits",
+          "question": "Will you be able to attend all required study visits?",
+          "expected_response": "Yes, I can attend all visits",
           "response": "",
           "priority": "low"
         },
         {
-          "id": "IMP008",
-          "text": "No previous surgery at the surgery site",
-          "question": "Have you had any previous surgeries at the site where the prosthesis will be placed?",
-          "expected_response": "No previous surgeries",
+          "id": "LOW002",
+          "text": "Willing to provide blood samples",
+          "question": "Are you comfortable with providing blood samples during the study?",
+          "expected_response": "Yes, I am comfortable with that",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-04076631",
+      "trial": {
+        "nct_id": "NCT04076631",
+        "title": "Surgical Stages of Liver Cirrhosis In Patients With Hepatocellular Carcinoma",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Oncology",
+        "description": "This study aims to establish clinical criteria for surgical stages of liver cirrhosis to guide treatment for hepatocellular carcinoma (HCC).",
+        "phase": "N/A",
+        "sponsor": "Multicenter Research Group"
+      },
+      "overview": {
+        "purpose": "To evaluate the severity of liver cirrhosis and its impact on surgical treatment for patients with hepatocellular carcinoma.",
+        "participant_commitment": "Approximately 1 year with multiple clinic visits.",
+        "key_procedures": [
+          "Preoperative liver function assessment",
+          "Intraoperative liver morphological evaluation",
+          "Measurement of liver stiffness",
+          "Postoperative follow-up assessments"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age 18 – 75 years (inclusive)",
+          "question": "How old are you?",
+          "expected_response": "18-75 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Clinically diagnosed with hepatocellular carcinoma confirmed by pathology",
+          "question": "Have you been diagnosed with hepatocellular carcinoma?",
+          "expected_response": "Yes, confirmed by pathology",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Liver function grade Child-Pugh class A or B",
+          "question": "What is your current liver function grade?",
+          "expected_response": "Child-Pugh class A or B",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC004",
+          "text": "Ability to undergo open surgery",
+          "question": "Are you able to undergo open surgery?",
+          "expected_response": "Yes, I can undergo open surgery",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC005",
+          "text": "No serious physical diseases that affect surgery",
+          "question": "Do you have any serious health conditions that might affect your ability to have surgery?",
+          "expected_response": "No serious health conditions",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC006",
+          "text": "Willingness to sign informed consent",
+          "question": "Are you willing to sign a consent form for this study?",
+          "expected_response": "Yes, I am willing to sign",
           "response": "",
           "priority": "low"
         },
         {
-          "id": "IMP009",
-          "text": "Not currently participating in another study",
-          "question": "Are you currently participating in any other clinical trials?",
-          "expected_response": "No, I am not in another study",
+          "id": "INC007",
+          "text": "No participation in other clinical trials within the last 30 days",
+          "question": "Have you participated in any other clinical trials in the past month?",
+          "expected_response": "No recent trial participation",
           "response": "",
           "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-01712074",
+      "trial": {
+        "nct_id": "NCT01712074",
+        "title": "Study Evaluating The Safety And Efficacy Of PF-05212377 Or Placebo In Subjects With Alzheimer's Disease With Existing Neuropsychiatric Symptoms On Donepezil",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Neurology",
+        "description": "This study evaluates the safety and efficacy of PF-05212377 in subjects with mild-to-moderate Alzheimer's Disease experiencing neuropsychiatric symptoms.",
+        "phase": "Phase II",
+        "sponsor": "Pfizer Inc."
+      },
+      "overview": {
+        "purpose": "To test if PF-05212377 improves cognitive and neuropsychiatric symptoms in individuals with Alzheimer's Disease already on Donepezil.",
+        "participant_commitment": "Approximately 18 weeks with multiple clinic visits.",
+        "key_procedures": [
+          "Neuropsychiatric assessments",
+          "Cognitive tests",
+          "Medication administration",
+          "Monitoring of symptoms"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age 60 years or older",
+          "question": "How old are you?",
+          "expected_response": "60 years or older",
+          "response": "",
+          "priority": "high"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-03729531",
+      "trial": {
+        "nct_id": "NCT03729531",
+        "title": "Clinical Effect of No-touch Harvesting Technique in OPCABG",
+        "protocol_version": "imported-20250629",
+        "last_amended": "2025-06-29",
+        "category": "Cardiology",
+        "description": "This study investigates the clinical effect of the No-touch saphenous vein harvesting technique in off-pump coronary artery bypass grafting (OPCABG) compared to the conventional technique.",
+        "phase": "NA",
+        "sponsor": "Not specified"
+      },
+      "overview": {
+        "purpose": "To determine if the No-touch vein harvesting technique improves graft patency compared to conventional methods in patients undergoing OPCABG.",
+        "participant_commitment": "Approximately 6 months with follow-up visits at 3 months post-surgery.",
+        "key_procedures": [
+          "Echocardiogram to assess ejection fraction",
+          "Graft harvesting using No-touch or conventional technique",
+          "CTA to evaluate graft patency at 3 months"
+        ]
+      },
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age between 18 and 70 years",
+          "question": "How old are you?",
+          "expected_response": "18-70 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "First-time isolated off-pump coronary artery bypass graft surgery",
+          "question": "Is this your first time undergoing off-pump coronary artery bypass graft surgery?",
+          "expected_response": "Yes, it is my first time",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Ejection fraction greater than 35%",
+          "question": "What is your most recent ejection fraction percentage?",
+          "expected_response": "Greater than 35%",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC004",
+          "text": "Diameter of saphenous vein is at least 2mm",
+          "question": "What is the diameter of your saphenous vein?",
+          "expected_response": "At least 2mm",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC005",
+          "text": "Willingness to sign informed consent",
+          "question": "Are you willing to sign the informed consent form for this study?",
+          "expected_response": "Yes, I am willing to sign",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC006",
+          "text": "No urgent surgery required",
+          "question": "Do you require any urgent surgery at this time?",
+          "expected_response": "No, I do not require urgent surgery",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC007",
+          "text": "No severe renal insufficiency",
+          "question": "Do you have any issues with your kidneys, such as severe renal insufficiency?",
+          "expected_response": "No, I do not have severe renal issues",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC008",
+          "text": "No allergy to radiocontrast agents",
+          "question": "Are you allergic to any radiocontrast agents?",
+          "expected_response": "No, I am not allergic",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC009",
+          "text": "No history of malignant tumors or severe systemic conditions",
+          "question": "Do you have a history of any malignant tumors or severe systemic health issues?",
+          "expected_response": "No, I do not have such a history",
+          "response": "",
+          "priority": "high"
         }
       ]
     }
@@ -102,7 +573,7 @@
   "meta": {
     "schema_version": "eligibility-json/2.0-multi-study",
     "author": "clinical-trial-agent",
-    "generated_utc": "2025-06-28T18:48:31Z",
-    "total_studies": 1
+    "generated_utc": "2025-06-30T04:55:18Z",
+    "total_studies": 7
   }
 }

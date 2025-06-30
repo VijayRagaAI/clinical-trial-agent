@@ -1,6 +1,20 @@
 // API service for communicating with the backend
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-const WS_BASE_URL = import.meta.env.VITE_API_URL?.replace('https://', 'wss://').replace('http://', 'ws://') || 'ws://localhost:8000';
+const getApiBaseUrl = () => {
+  if (import.meta.env.VITE_API_URL) {
+    return import.meta.env.VITE_API_URL;
+  }
+  
+  // Production fallback - if deployed on Render and no env var set
+  if (window.location.hostname.includes('onrender.com')) {
+    return 'https://clinical-trial-backend.onrender.com';
+  }
+  
+  // Development fallback
+  return 'http://localhost:8000';
+};
+
+const API_BASE_URL = getApiBaseUrl();
+const WS_BASE_URL = API_BASE_URL.replace('https://', 'wss://').replace('http://', 'ws://');
 
 export interface SessionData {
   session_id: string;
@@ -142,6 +156,75 @@ class ApiService {
   // Health check
   async healthCheck(): Promise<any> {
     const response = await fetch(`${this.baseUrl}/health`);
+    return response.json();
+  }
+
+  // Google TTS API methods
+  async getGoogleTTSModels(): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts/models`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get Google TTS models');
+    }
+
+    return response.json();
+  }
+
+  async getGoogleTTSVoices(language: string = 'english'): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts/voices?language=${language}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get Google TTS voices');
+    }
+
+    return response.json();
+  }
+
+  async getGoogleTTSSettings(): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts-settings`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to get Google TTS settings');
+    }
+
+    return response.json();
+  }
+
+  async updateGoogleTTSSettings(settings: any): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts-settings`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(settings),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to update Google TTS settings');
+    }
+
+    return response.json();
+  }
+
+  async generateGoogleVoicePreview(voiceId: string, text?: string, language?: string, gender?: string, speed?: number): Promise<any> {
+    const response = await fetch(`${this.baseUrl}/api/audio/google-tts/voice-preview`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        voice_id: voiceId,
+        text: text || "Hello, I will guide you.",
+        language: language || "english",
+        gender: gender || "neutral",
+        speed: speed || 1.0
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to generate voice preview');
+    }
+
     return response.json();
   }
 }

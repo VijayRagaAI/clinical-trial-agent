@@ -483,6 +483,171 @@ async def get_theme_preferences():
         logger.error(f"Error getting theme preferences: {e}")
         raise HTTPException(status_code=500, detail="Failed to get theme preferences")
 
+# Google TTS API Endpoints
+
+@app.get("/api/audio/google-tts/models")
+async def get_google_tts_models():
+    """Get list of available Google TTS models"""
+    try:
+        models = audio_processor.get_available_models()
+        return {"models": models}
+    except Exception as e:
+        logger.error(f"Error getting Google TTS models: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get Google TTS models")
+
+@app.get("/api/audio/google-tts/voices")
+async def get_google_tts_voices(language: str = "english"):
+    """Get list of available Google TTS voices for a language"""
+    try:
+        voices = audio_processor.get_available_voices(language)
+        return {"voices": voices, "language": language}
+    except Exception as e:
+        logger.error(f"Error getting Google TTS voices: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get Google TTS voices")
+
+@app.post("/api/audio/google-tts-settings")
+async def update_google_tts_settings(request: Request):
+    """Update Google TTS settings (model, voice, speed, language)"""
+    try:
+        data = await request.json()
+        
+        # Extract settings
+        model = data.get("model")
+        voice = data.get("voice") 
+        speed = data.get("speed")
+        language = data.get("output_language")
+        
+        # Validate and prepare settings dict
+        settings = {}
+        
+        if language:
+            # Validate language
+            supported_languages = [lang["code"] for lang in audio_processor.get_supported_languages()]
+            if language not in supported_languages:
+                raise HTTPException(status_code=400, detail=f"Unsupported language: {language}")
+            settings["language"] = language
+            
+        if model:
+            # Validate model
+            available_models = [m["id"] for m in audio_processor.get_available_models()]
+            if model not in available_models:
+                raise HTTPException(status_code=400, detail=f"Unsupported model: {model}")
+            settings["model"] = model
+            
+        if voice:
+            settings["voice"] = voice
+            
+        if speed is not None:
+            # Validate speed range
+            speed = float(speed)
+            if speed < 0.25 or speed > 4.0:
+                raise HTTPException(status_code=400, detail="Speed must be between 0.25 and 4.0")
+            settings["speed"] = speed
+        
+        # Update Google TTS settings
+        success = audio_processor.update_google_tts_settings(settings)
+        
+        if not success:
+            raise HTTPException(status_code=500, detail="Failed to update Google TTS settings")
+        
+        # Store in environment variables for persistence
+        if "model" in settings:
+            os.environ["GOOGLE_TTS_MODEL"] = settings["model"]
+        if "voice" in settings:
+            os.environ["GOOGLE_TTS_VOICE"] = settings["voice"]
+        if "speed" in settings:
+            os.environ["GOOGLE_TTS_SPEED"] = str(settings["speed"])
+        if "language" in settings:
+            os.environ["OUTPUT_LANGUAGE"] = settings["language"]
+        
+        logger.info(f"Google TTS settings updated: {settings}")
+        
+        return {
+            "status": "success",
+            "settings": settings
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error updating Google TTS settings: {e}")
+        raise HTTPException(status_code=500, detail="Failed to update Google TTS settings")
+
+@app.get("/api/audio/google-tts-settings")
+async def get_google_tts_settings():
+    """Get current Google TTS settings"""
+    try:
+        current_model = os.getenv("GOOGLE_TTS_MODEL", "neural2")
+        current_voice = os.getenv("GOOGLE_TTS_VOICE", "en-US-Neural2-F")
+        current_speed = float(os.getenv("GOOGLE_TTS_SPEED", "1.0"))
+        current_language = os.getenv("OUTPUT_LANGUAGE", "english")
+        
+        return {
+            "model": current_model,
+            "voice": current_voice,
+            "speed": current_speed,
+            "output_language": current_language,
+            "available_models": audio_processor.get_available_models(),
+            "available_languages": audio_processor.get_supported_languages()
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting Google TTS settings: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get Google TTS settings")
+
+@app.post("/api/audio/google-tts/voice-preview")
+async def generate_google_voice_preview(request: Request):
+    """Generate a voice preview using Google TTS"""
+    try:
+        data = await request.json()
+        voice_id = data.get("voice_id")
+        text = data.get("text", "Hello, I will guide you.")
+        language = data.get("language", "english").lower()
+        gender = data.get("gender", "neutral").lower()
+        speed = data.get("speed", 1.0)
+        
+        if not voice_id:
+            raise HTTPException(status_code=400, detail="voice_id is required")
+        
+        logger.info(f"🎤 Voice preview request: voice_id={voice_id}, language={language}, gender={gender}, speed={speed}")
+        
+        # Generate preview audio with language translation, gender awareness, and speed
+        audio_base64 = await audio_processor.play_voice_preview(voice_id, text, language, gender, speed)
+        
+        if not audio_base64:
+            raise HTTPException(status_code=500, detail="Failed to generate voice preview")
+        
+        return {"audio": audio_base64}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error generating Google voice preview: {e}")
+        raise HTTPException(status_code=500, detail="Failed to generate Google voice preview")
+
+@app.post("/api/translate")
+async def translate_text(request: Request):
+    """Translate text to specified language"""
+    try:
+        data = await request.json()
+        text = data.get("text")
+        target_language = data.get("target_language", "english").lower()
+        gender = data.get("gender", "neutral").lower()
+        
+        if not text:
+            raise HTTPException(status_code=400, detail="text is required")
+        
+        # Use audio processor's translation method with gender awareness
+        translated_text = audio_processor.translate_text(text, target_language, gender)
+        
+        return {"translated_text": translated_text}
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error translating text: {e}")
+        raise HTTPException(status_code=500, detail="Failed to translate text")
+
 # ClinicalTrials.gov API Integration Endpoints
 
 @app.get("/api/clinicaltrials/search")
@@ -608,6 +773,7 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
                 "Daily study pill"
             ]
         },
+        "contact_info": "Study conducted at DiabetesCare Research Institute, Boston MA. Enrolling 200 participants (currently recruiting). Contact: Dr. Johnson, (617) 555-0123. Study runs Jan 2025 - Aug 2025.",
         "criteria": [
             {
                 "id": "INC001",
@@ -644,8 +810,8 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
             {
                 "id": "INC005",
                 "text": "Available for all study visits over 7 months",
-                "question": "Are you able to commit to attending clinic visits regularly over the next 7 months?",
-                "expected_response": "Yes, available for all visits",
+                "question": "Would you be able to come for regular clinic visits over the next 7 months?",
+                "expected_response": "Available for all visits over 7 months",
                 "response": "",
                 "priority": "low"  # Administrative requirement
             },
@@ -680,10 +846,17 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
 4. **Purpose**: Patient-friendly explanation of what the study tests
 5. **Participant Commitment**: Estimate time/visits from available data
 6. **Key Procedures**: Extract from eligibility criteria and study description (3-6 items)
-7. **Criteria**: Convert eligibility text into interview questions
+7. **Contact Info**: Create 1-2 line summary with location, enrollment info, contact details, timeline
+8. **Criteria**: Convert eligibility text into interview questions
    - Extract ALL meaningful criteria from eligibility_criteria text
-   - Create natural conversation questions
+   - Create natural conversation questions using APPROPRIATE QUESTION TYPES
    - Use IDs like "IMP001", "IMP002", etc.
+
+**QUESTION DESIGN APPROACH:**
+- Act like a normal doctor having a conversation with a patient
+- Ask natural, conversational questions that a healthcare provider would ask
+- Questions should cover the full scope of each criterion, not just part of it
+- Avoid overly simple yes/no questions when more detail is needed for proper assessment
 
 **PRIORITY ASSIGNMENT RULES (CRITICAL - CREATE MIXTURE):**
 - **HIGH priority**: Core medical requirements that absolutely disqualify
@@ -701,8 +874,9 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
 **IMPORTANT:**
 - MUST create a realistic mixture: ~40% high, ~40% medium, ~20% low priorities
 - Extract as many criteria as possible from the eligibility_criteria field
-- Make questions sound conversational, not medical jargon
-- Be specific about expected responses
+- Questions should be natural and conversational, like a doctor would ask
+- Questions should cover the full scope of each criterion when needed
+- Avoid overly medical jargon - make it patient-friendly
 
 Return ONLY the JSON object, no markdown or explanation."""
 
@@ -1329,7 +1503,7 @@ async def websocket_endpoint(websocket: WebSocket, session_id: str, study_id: st
             # Track initial greeting message
             manager.add_message(session_id, "agent", initial_message)
             
-            # Generate audio for greeting
+            # Generate audio for greeting with user's saved speed setting
             audio_data = await audio_processor.text_to_speech(initial_message)
             
             await manager.send_message(session_id, {
