@@ -982,12 +982,12 @@ const AdminDashboard: React.FC = () => {
                   ? 'from-blue-400 via-indigo-400 to-purple-400' 
                   : 'from-indigo-600 via-purple-600 to-pink-600'
               }`}>
-                Clinical Trial Dashboard
+                Clinical Trial Voice Interviewer
               </h1>
               <p className={`text-lg mt-2 transition-all duration-500 ${
                 isDarkMode ? 'text-gray-300' : 'text-gray-600'
               }`}>
-                Manage and monitor all clinical trial interviews with elegance
+                Admin Dashboard - Manage and monitor all clinical trial interviews
               </p>
               
               {/* Animated dots below description */}
@@ -2020,7 +2020,7 @@ const AdminDashboard: React.FC = () => {
                     <span className={`text-xs font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-500'}`}>
                       Popular searches:
                     </span>
-                    {['diabetes', 'cancer', 'heart disease', 'alzheimer'].map((suggestion) => (
+                    {['diabetes', 'cancer', 'heart disease', 'alzheimer', 'depression', 'arthritis', 'asthma'].map((suggestion) => (
                       <button
                         key={suggestion}
                         onClick={() => {
