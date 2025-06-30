@@ -456,9 +456,6 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           }
           secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
         }
-      } else if (conversationState === 'consent') {
-        // During consent, only show repeat current question
-        secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
       }
       
         return {
@@ -491,9 +488,6 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           }
           secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
         }
-      } else if (conversationState === 'consent') {
-        // During consent, only show repeat current question
-        secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
       }
       
       return {
@@ -517,9 +511,6 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
           }
           secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
         }
-      } else if (conversationState === 'consent') {
-        // During consent, only show repeat current question
-        secondaryButtons.push({ action: repeatCurrentQuestion, icon: RotateCcw, text: "Repeat Current Question", color: "amber" });
       }
       
       return {

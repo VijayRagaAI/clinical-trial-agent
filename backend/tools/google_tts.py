@@ -197,6 +197,7 @@ class GoogleTTS:
         try:
             # Use provided speed or default
             speech_speed = speed if speed is not None else self.selected_speed
+            logger.info(f"🎛️ TTS Speed Debug: provided_speed={speed}, saved_speed={self.selected_speed}, using_speed={speech_speed}")
             
             # Translate if needed with gender awareness
             if self.output_language != "english":
@@ -247,6 +248,7 @@ class GoogleTTS:
     def update_settings(self, settings: Dict[str, Any]) -> bool:
         """Update Google TTS settings"""
         try:
+            old_speed = self.selected_speed
             if "model" in settings:
                 self.selected_model = settings["model"]
             if "voice" in settings:
@@ -256,7 +258,7 @@ class GoogleTTS:
             if "language" in settings:
                 self.output_language = settings["language"].lower()
             
-            logger.info(f"Google TTS settings updated")
+            logger.info(f"🔧 Google TTS settings updated: speed {old_speed} → {self.selected_speed}, voice: {self.selected_voice}, model: {self.selected_model}")
             return True
         except Exception as e:
             logger.error(f"Error updating settings: {e}")

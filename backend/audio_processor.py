@@ -361,10 +361,11 @@ class AudioProcessor:
             logger.error(f"Google Speech-to-text error: {e}")
             return "Ambiguous sound."
 
-    async def text_to_speech(self, text: str, speed: float = 1.0) -> str:
+    async def text_to_speech(self, text: str, speed: float = None) -> str:
         """Convert text to speech using Google TTS and return base64 encoded audio"""
         try:
             # Use Google TTS for text-to-speech with gender-aware translation
+            # Pass None for speed to let GoogleTTS use its saved speed setting
             return await self.google_tts.text_to_speech(text, speed, self.translate_text)
             
         except Exception as e:

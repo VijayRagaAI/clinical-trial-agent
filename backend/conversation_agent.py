@@ -60,14 +60,14 @@ class ClinicalTrialAgent:
             INSTRUCTIONS:
             - Keep it to 2-3 lines maximum
             - Briefly mention the study purpose in simple terms
-            - ALWAYS end with something like: "Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?"
+            - ALWAYS end with something like(but not exactly this, be creative): "Do you consent to proceed with the screening questions, or do you have any questions about the study before deciding?"
             - Don't include detailed information - users can ask questions later if needed
 
             Generate a concise greeting:
             """
 
             response = client.chat.completions.create(
-                model="gpt-4o-mini",
+                model="gpt-4o",
                 messages=[{"role": "user", "content": prompt}],
                 max_tokens=300,
                 temperature=0.8,

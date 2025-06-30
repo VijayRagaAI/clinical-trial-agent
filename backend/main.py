@@ -1503,7 +1503,7 @@ async def websocket_endpoint(websocket: WebSocket, session_id: str, study_id: st
             # Track initial greeting message
             manager.add_message(session_id, "agent", initial_message)
             
-            # Generate audio for greeting
+            # Generate audio for greeting with user's saved speed setting
             audio_data = await audio_processor.text_to_speech(initial_message)
             
             await manager.send_message(session_id, {
