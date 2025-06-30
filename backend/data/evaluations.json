@@ -17,7 +17,7 @@
             "reasoning": "The participant's response of 95 years old exceeds the maximum age limit of 75 years, therefore they do not meet the eligibility criteria.",
             "extracted_value": "95",
             "criteria_id": "INC001",
-            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
             "criteria_question": "How old are you?",
             "priority": "high",
             "participant_response": "I think I am 95 years old."
@@ -89,7 +89,7 @@
             "participant_response": "No, no."
           }
         ],
-        "summary": "❌ **NOT ELIGIBLE** - Overall score: 25.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I think I am 95 years old.\"\n   Assessment: The participant's response of 95 years old exceeds the maximum age limit of 75 years, therefore they do not meet the eligibility criteria.\n\n❌ 🔴 Clinically diagnosed with hepatocellular carcinoma confirmed by pathology\n   Response: \"What should I say? Look at this. Look\"\n   Assessment: The participant's response does not provide a clear confirmation of being diagnosed with hepatocellular carcinoma nor does it indicate any pathology confirmation. Instead, it seems to be a non-verbal gesture or unclear statement.\n\n❌ 🔴 Liver function grade Child-Pugh class A or B\n   Response: \"Did you really want to know?\"\n   Assessment: The participant's response does not provide any information regarding their liver function grade and is not aligned with the expected answer.\n\n✅ 🔴 Ability to undergo open surgery\n   Response: \"Yes.\"\n   Assessment: The participant's response 'Yes.' indicates that they are able to undergo open surgery, which meets the eligibility criteria.\n\n❌ 🟡 No serious physical diseases that affect surgery\n   Response: \"I don't think so.\"\n   Assessment: The participant's response 'I don't think so' indicates uncertainty about their health status, which does not clearly confirm that they have no serious health conditions that could affect surgery.\n\n❌ 🟢 Willingness to sign informed consent\n   Response: \"yeah, I think I\"\n   Assessment: The participant's response 'yeah, I think I' is vague and does not unequivocally indicate a willingness to sign the consent form. The use of 'I think I' suggests uncertainty.\n\n✅ 🟢 No participation in other clinical trials within the last 30 days\n   Response: \"No, no.\"\n   Assessment: The participant confirmed they have not participated in any other clinical trials in the past month, which aligns with the eligibility criteria.\n\n",
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 25.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I think I am 95 years old.\"\n   Assessment: The participant's response of 95 years old exceeds the maximum age limit of 75 years, therefore they do not meet the eligibility criteria.\n\n\u274c \ud83d\udd34 Clinically diagnosed with hepatocellular carcinoma confirmed by pathology\n   Response: \"What should I say? Look at this. Look\"\n   Assessment: The participant's response does not provide a clear confirmation of being diagnosed with hepatocellular carcinoma nor does it indicate any pathology confirmation. Instead, it seems to be a non-verbal gesture or unclear statement.\n\n\u274c \ud83d\udd34 Liver function grade Child-Pugh class A or B\n   Response: \"Did you really want to know?\"\n   Assessment: The participant's response does not provide any information regarding their liver function grade and is not aligned with the expected answer.\n\n\u2705 \ud83d\udd34 Ability to undergo open surgery\n   Response: \"Yes.\"\n   Assessment: The participant's response 'Yes.' indicates that they are able to undergo open surgery, which meets the eligibility criteria.\n\n\u274c \ud83d\udfe1 No serious physical diseases that affect surgery\n   Response: \"I don't think so.\"\n   Assessment: The participant's response 'I don't think so' indicates uncertainty about their health status, which does not clearly confirm that they have no serious health conditions that could affect surgery.\n\n\u274c \ud83d\udfe2 Willingness to sign informed consent\n   Response: \"yeah, I think I\"\n   Assessment: The participant's response 'yeah, I think I' is vague and does not unequivocally indicate a willingness to sign the consent form. The use of 'I think I' suggests uncertainty.\n\n\u2705 \ud83d\udfe2 No participation in other clinical trials within the last 30 days\n   Response: \"No, no.\"\n   Assessment: The participant confirmed they have not participated in any other clinical trials in the past month, which aligns with the eligibility criteria.\n\n",
         "high_priority_criteria_met": "1/4",
         "evaluation_timestamp": "2025-06-29T12:42:06.538305",
         "participant_id": "P-8160036C"
@@ -209,7 +209,7 @@
             "participant_response": "It might have happened, I have no idea!"
           }
         ],
-        "summary": "❌ **NOT ELIGIBLE** - Overall score: 7.1%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 16 years or older\n   Response: \"I won't tell you my age!\"\n   Assessment: The participant did not disclose their age, which is necessary to determine if they meet the age criteria of being 16 years or older. Without this information, we cannot confirm eligibility.\n\n❌ 🔴 Diagnosis of acute lymphocytic leukemia (ALL)\n   Response: \"I will not tell.\"\n   Assessment: The participant's response does not confirm a diagnosis of acute lymphocytic leukemia. The phrase 'I will not tell' does not provide the necessary information to meet the eligibility criteria.\n\n❌ 🔴 Non-T-cell acute lymphoblastic leukemia\n   Response: \"What do I know?\"\n   Assessment: The participant's response is ambiguous and does not specify whether their leukemia is classified as non-T-cell ALL. They did not provide a clear answer, which is necessary to assess eligibility.\n\n❌ 🔴 No central nervous system involvement\n   Response: \"It won't happen to me.\"\n   Assessment: The participant's response 'It won't happen to me' implies a belief that they do not have CNS involvement, but it is not a definitive or clear statement affirming they have no CNS involvement.\n\n✅ 🟡 Refractory to standard induction regimen including vincristine and prednisone\n   Response: \"Yes.\"\n   Assessment: The participant's response confirms they are refractory to standard induction treatment, which includes vincristine and prednisone, meeting the eligibility criteria.\n\n❌ 🟡 Bilirubin no greater than 1.5 times upper limit of normal\n   Response: \"No!\"\n   Assessment: The participant's response indicates 'No', suggesting their bilirubin level is not within normal limits, which does not meet the eligibility criteria.\n\n❌ 🟡 Not pregnant or nursing\n   Response: \"Note that I know, okay?\"\n   Assessment: The participant's response is ambiguous and does not clearly state whether they are pregnant or nursing. Their statement, 'Note that I know, okay?' suggests uncertainty or deflection, which does not affirmatively answer the question.\n\n❌ 🟢 Available for all study visits over the study duration\n   Response: \"Yes, I can take if I will try.\"\n   Assessment: The participant's response indicates uncertainty with the phrase 'if I will try', suggesting they are not fully committed to attending all required visits.\n\n❌ 🟢 No other prior malignancy within the past 5 years except certain skin cancers\n   Response: \"It might have happened, I have no idea!\"\n   Assessment: The participant's response indicates uncertainty about whether they have had any malignancies within the past 5 years, which does not align with the expectation of a clear 'no' response.\n\n",
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 7.1%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 16 years or older\n   Response: \"I won't tell you my age!\"\n   Assessment: The participant did not disclose their age, which is necessary to determine if they meet the age criteria of being 16 years or older. Without this information, we cannot confirm eligibility.\n\n\u274c \ud83d\udd34 Diagnosis of acute lymphocytic leukemia (ALL)\n   Response: \"I will not tell.\"\n   Assessment: The participant's response does not confirm a diagnosis of acute lymphocytic leukemia. The phrase 'I will not tell' does not provide the necessary information to meet the eligibility criteria.\n\n\u274c \ud83d\udd34 Non-T-cell acute lymphoblastic leukemia\n   Response: \"What do I know?\"\n   Assessment: The participant's response is ambiguous and does not specify whether their leukemia is classified as non-T-cell ALL. They did not provide a clear answer, which is necessary to assess eligibility.\n\n\u274c \ud83d\udd34 No central nervous system involvement\n   Response: \"It won't happen to me.\"\n   Assessment: The participant's response 'It won't happen to me' implies a belief that they do not have CNS involvement, but it is not a definitive or clear statement affirming they have no CNS involvement.\n\n\u2705 \ud83d\udfe1 Refractory to standard induction regimen including vincristine and prednisone\n   Response: \"Yes.\"\n   Assessment: The participant's response confirms they are refractory to standard induction treatment, which includes vincristine and prednisone, meeting the eligibility criteria.\n\n\u274c \ud83d\udfe1 Bilirubin no greater than 1.5 times upper limit of normal\n   Response: \"No!\"\n   Assessment: The participant's response indicates 'No', suggesting their bilirubin level is not within normal limits, which does not meet the eligibility criteria.\n\n\u274c \ud83d\udfe1 Not pregnant or nursing\n   Response: \"Note that I know, okay?\"\n   Assessment: The participant's response is ambiguous and does not clearly state whether they are pregnant or nursing. Their statement, 'Note that I know, okay?' suggests uncertainty or deflection, which does not affirmatively answer the question.\n\n\u274c \ud83d\udfe2 Available for all study visits over the study duration\n   Response: \"Yes, I can take if I will try.\"\n   Assessment: The participant's response indicates uncertainty with the phrase 'if I will try', suggesting they are not fully committed to attending all required visits.\n\n\u274c \ud83d\udfe2 No other prior malignancy within the past 5 years except certain skin cancers\n   Response: \"It might have happened, I have no idea!\"\n   Assessment: The participant's response indicates uncertainty about whether they have had any malignancies within the past 5 years, which does not align with the expectation of a clear 'no' response.\n\n",
         "high_priority_criteria_met": "0/4",
         "evaluation_timestamp": "2025-06-29T21:08:31.218156",
         "participant_id": "P-C1B95FCF"
@@ -235,7 +235,7 @@
             "reasoning": "The participant's response of '25' is within the age range of 18 to 75 years.",
             "extracted_value": "25",
             "criteria_id": "INC001",
-            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
             "criteria_question": "How old are you?",
             "priority": "high",
             "participant_response": "25."
@@ -307,7 +307,7 @@
             "participant_response": "I don't think that I have died."
           }
         ],
-        "summary": "❌ **NOT ELIGIBLE** - Overall score: 54.2%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"25.\"\n   Assessment: The participant's response of '25' is within the age range of 18 to 75 years.\n\n❌ 🔴 Clinically diagnosed with hepatocellular carcinoma confirmed by pathology\n   Response: \"Yes.\"\n   Assessment: The participant confirmed a diagnosis of hepatocellular carcinoma but did not specify that it was confirmed by pathology, which is a key requirement of the eligibility criteria.\n\n❌ 🔴 Liver function grade Child-Pugh class A or B\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a clear indication of their liver function status. Eligibility requires a specific classification of Child-Pugh class A or B, which is not met by an uncertain response.\n\n✅ 🔴 Ability to undergo open surgery\n   Response: \"Yes, I can go.\"\n   Assessment: The participant's response indicates an ability to undergo open surgery, which aligns with the expected response.\n\n✅ 🟡 No serious physical diseases that affect surgery\n   Response: \"I don't think that I have any such serious issues.\"\n   Assessment: The participant indicates a lack of awareness of serious health issues that could affect surgery, suggesting they do not have any serious health conditions, which aligns with the expected answer.\n\n✅ 🟢 Willingness to sign informed consent\n   Response: \"oh yes, I can sign if need be\"\n   Assessment: The participant's response indicates a willingness to sign the consent form, as they affirmatively state, 'oh yes, I can sign if need be', which suggests that they are agreeable to the requirement.\n\n❌ 🟢 No participation in other clinical trials within the last 30 days\n   Response: \"I don't think that I have died.\"\n   Assessment: The participant's response does not directly answer the question regarding participation in clinical trials in the past month. Instead, it appears to be unrelated and nonsensical in this context.\n\n",
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 54.2%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"25.\"\n   Assessment: The participant's response of '25' is within the age range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Clinically diagnosed with hepatocellular carcinoma confirmed by pathology\n   Response: \"Yes.\"\n   Assessment: The participant confirmed a diagnosis of hepatocellular carcinoma but did not specify that it was confirmed by pathology, which is a key requirement of the eligibility criteria.\n\n\u274c \ud83d\udd34 Liver function grade Child-Pugh class A or B\n   Response: \"I don't know.\"\n   Assessment: The participant's response of 'I don't know' does not provide a clear indication of their liver function status. Eligibility requires a specific classification of Child-Pugh class A or B, which is not met by an uncertain response.\n\n\u2705 \ud83d\udd34 Ability to undergo open surgery\n   Response: \"Yes, I can go.\"\n   Assessment: The participant's response indicates an ability to undergo open surgery, which aligns with the expected response.\n\n\u2705 \ud83d\udfe1 No serious physical diseases that affect surgery\n   Response: \"I don't think that I have any such serious issues.\"\n   Assessment: The participant indicates a lack of awareness of serious health issues that could affect surgery, suggesting they do not have any serious health conditions, which aligns with the expected answer.\n\n\u2705 \ud83d\udfe2 Willingness to sign informed consent\n   Response: \"oh yes, I can sign if need be\"\n   Assessment: The participant's response indicates a willingness to sign the consent form, as they affirmatively state, 'oh yes, I can sign if need be', which suggests that they are agreeable to the requirement.\n\n\u274c \ud83d\udfe2 No participation in other clinical trials within the last 30 days\n   Response: \"I don't think that I have died.\"\n   Assessment: The participant's response does not directly answer the question regarding participation in clinical trials in the past month. Instead, it appears to be unrelated and nonsensical in this context.\n\n",
         "high_priority_criteria_met": "2/4",
         "evaluation_timestamp": "2025-06-30T00:01:22.006210",
         "participant_id": "P-7B6AD60E"
@@ -339,7 +339,7 @@
             "participant_response": "25."
           }
         ],
-        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 60 years or older\n   Response: \"25.\"\n   Assessment: The participant's response '25.' indicates a specific age that is below the eligibility criterion of 60 years or older. Although there may be errors in transcription, the clear communication of the age suggests that the participant intended to state their age rather than misrepresent it. Therefore, they do not meet the age criteria.\n\n",
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 60 years or older\n   Response: \"25.\"\n   Assessment: The participant's response '25.' indicates a specific age that is below the eligibility criterion of 60 years or older. Although there may be errors in transcription, the clear communication of the age suggests that the participant intended to state their age rather than misrepresent it. Therefore, they do not meet the age criteria.\n\n",
         "high_priority_criteria_met": "0/1",
         "evaluation_timestamp": "2025-06-30T02:46:40.799155",
         "participant_id": "P-1C83551C"
@@ -371,7 +371,7 @@
             "participant_response": "1060 years old."
           }
         ],
-        "summary": "✅ **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n✅ 🔴 Age 60 years or older\n   Response: \"1060 years old.\"\n   Assessment: The participant's response of '1060 years old' likely contains a transcription error. Given the common context of the question, it's reasonable to interpret this as the participant being at least 60 years old, possibly intending to say '60' but misinterpreted by the speech-to-text system. Thus, they meet the age eligibility requirement.\n\n",
+        "summary": "\u2705 **ELIGIBLE** - Overall score: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 60 years or older\n   Response: \"1060 years old.\"\n   Assessment: The participant's response of '1060 years old' likely contains a transcription error. Given the common context of the question, it's reasonable to interpret this as the participant being at least 60 years old, possibly intending to say '60' but misinterpreted by the speech-to-text system. Thus, they meet the age eligibility requirement.\n\n",
         "high_priority_criteria_met": "1/1",
         "evaluation_timestamp": "2025-06-30T04:01:22.136802",
         "participant_id": "P-748AD01F"
@@ -397,7 +397,7 @@
             "reasoning": "The participant clearly stated 'I'm 25 years,' which indicates they are 25 years old. This falls within the eligibility age range of 18 to 75 years.",
             "extracted_value": "25",
             "criteria_id": "INC001",
-            "criteria_text": "Age 18 – 75 years (inclusive)",
+            "criteria_text": "Age 18 \u2013 75 years (inclusive)",
             "criteria_question": "How old are you?",
             "priority": "high",
             "participant_response": "I'm 25 years."
@@ -469,7 +469,7 @@
             "participant_response": "No, I have not."
           }
         ],
-        "summary": "❌ **NOT ELIGIBLE** - Overall score: 58.3%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n✅ 🔴 Age 18 – 75 years (inclusive)\n   Response: \"I'm 25 years.\"\n   Assessment: The participant clearly stated 'I'm 25 years,' which indicates they are 25 years old. This falls within the eligibility age range of 18 to 75 years.\n\n❌ 🔴 Clinically diagnosed with hepatocellular carcinoma confirmed by pathology\n   Response: \"Yes, I have.\"\n   Assessment: The participant's response 'Yes, I have.' is not sufficient to confirm a liver cancer diagnosis specifically as hepatocellular carcinoma or that it was confirmed by pathology. It is too vague and does not meet the full criteria.\n\n❌ 🔴 Liver function grade Child-Pugh class A or B\n   Response: \"I don't know.\"\n   Assessment: The participant's response 'I don't know' does not provide any information regarding their liver function grade, making it impossible to assess if it is Child-Pugh class A or B. The uncertainty indicates a lack of relevant information rather than an indication of eligibility.\n\n✅ 🔴 Ability to undergo open surgery\n   Response: \"Yes, I can go.\"\n   Assessment: The participant's response 'Yes, I can go' implies an affirmative intention to undergo open surgery, which meets the criteria. The response is slightly vague but maintains a positive intent. The word 'go' is interpreted in context as 'undergo' despite its lack of specificity. STT issues do not seem to hinder the overall meaning.\n\n✅ 🟡 No serious physical diseases that affect surgery\n   Response: \"No, I don't think so.\"\n   Assessment: The participant's response 'No, I don't think so.' indicates that they believe they do not have any serious health conditions affecting their ability to have surgery. The response aligns with the eligibility criteria despite potential minor transcription errors.\n\n✅ 🟢 Willingness to sign informed consent\n   Response: \"Yes, I can sign.\"\n   Assessment: The participant's response indicates willingness to sign the consent form with the phrase 'Yes, I can sign,' which is aligned with the intent of the criterion despite minor wording differences.\n\n✅ 🟢 No participation in other clinical trials within the last 30 days\n   Response: \"No, I have not.\"\n   Assessment: The participant's response 'No, I have not.' clearly indicates that they have not participated in any other clinical trials within the last month. This directly meets the eligibility criteria.\n\n",
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 58.3%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 \u2013 75 years (inclusive)\n   Response: \"I'm 25 years.\"\n   Assessment: The participant clearly stated 'I'm 25 years,' which indicates they are 25 years old. This falls within the eligibility age range of 18 to 75 years.\n\n\u274c \ud83d\udd34 Clinically diagnosed with hepatocellular carcinoma confirmed by pathology\n   Response: \"Yes, I have.\"\n   Assessment: The participant's response 'Yes, I have.' is not sufficient to confirm a liver cancer diagnosis specifically as hepatocellular carcinoma or that it was confirmed by pathology. It is too vague and does not meet the full criteria.\n\n\u274c \ud83d\udd34 Liver function grade Child-Pugh class A or B\n   Response: \"I don't know.\"\n   Assessment: The participant's response 'I don't know' does not provide any information regarding their liver function grade, making it impossible to assess if it is Child-Pugh class A or B. The uncertainty indicates a lack of relevant information rather than an indication of eligibility.\n\n\u2705 \ud83d\udd34 Ability to undergo open surgery\n   Response: \"Yes, I can go.\"\n   Assessment: The participant's response 'Yes, I can go' implies an affirmative intention to undergo open surgery, which meets the criteria. The response is slightly vague but maintains a positive intent. The word 'go' is interpreted in context as 'undergo' despite its lack of specificity. STT issues do not seem to hinder the overall meaning.\n\n\u2705 \ud83d\udfe1 No serious physical diseases that affect surgery\n   Response: \"No, I don't think so.\"\n   Assessment: The participant's response 'No, I don't think so.' indicates that they believe they do not have any serious health conditions affecting their ability to have surgery. The response aligns with the eligibility criteria despite potential minor transcription errors.\n\n\u2705 \ud83d\udfe2 Willingness to sign informed consent\n   Response: \"Yes, I can sign.\"\n   Assessment: The participant's response indicates willingness to sign the consent form with the phrase 'Yes, I can sign,' which is aligned with the intent of the criterion despite minor wording differences.\n\n\u2705 \ud83d\udfe2 No participation in other clinical trials within the last 30 days\n   Response: \"No, I have not.\"\n   Assessment: The participant's response 'No, I have not.' clearly indicates that they have not participated in any other clinical trials within the last month. This directly meets the eligibility criteria.\n\n",
         "high_priority_criteria_met": "2/4",
         "evaluation_timestamp": "2025-06-30T04:14:26.823009",
         "participant_id": "P-462B85BC"
@@ -501,12 +501,178 @@
             "participant_response": "25 years old."
           }
         ],
-        "summary": "❌ **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n❌ 🔴 Age 60 years or older\n   Response: \"25 years old.\"\n   Assessment: The participant responded with '25 years old,' which clearly indicates an age below the eligibility criterion of 60 years or older. Despite possible transcription errors, the response is direct and fully forms a coherent statement regarding age.\n\n",
+        "summary": "\u274c **NOT ELIGIBLE** - Overall score: 0.0%\n\nThe participant does not meet one or more high-priority eligibility criteria.\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age 60 years or older\n   Response: \"25 years old.\"\n   Assessment: The participant responded with '25 years old,' which clearly indicates an age below the eligibility criterion of 60 years or older. Despite possible transcription errors, the response is direct and fully forms a coherent statement regarding age.\n\n",
         "high_priority_criteria_met": "0/1",
         "evaluation_timestamp": "2025-06-30T04:55:10.204381",
         "participant_id": "P-93A014B7"
       },
       "export_timestamp": "2025-06-30T04:55:10.838358"
+    }
+  },
+  "P-A2A46813": {
+    "session_id": "4dcac661-0916-4057-bc25-41989287b3de",
+    "participant_id": "P-A2A46813",
+    "saved_at": "2025-06-30T17:55:32.458525",
+    "data": {
+      "participant_id": "P-A2A46813",
+      "session_id": "4dcac661-0916-4057-bc25-41989287b3de",
+      "study_id": "imported-nct-05253820",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 100.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The response confirms the participant is 18 years old, which meets the age criteria. The spoken response is clear and directly addresses the eligibility requirement. The minor possibility of transcription errors doesn't affect the understood intent.",
+            "extracted_value": "18 years old",
+            "criteria_id": "INC001",
+            "criteria_text": "Age 18 years and older",
+            "criteria_question": "Can you confirm that you are at least 18 years old?",
+            "expected_response": "Yes, I am 18 or older",
+            "priority": "high",
+            "participant_response": "Yes, I am 18 years old."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.8,
+            "reasoning": "The participant's response 'yes, I think I have' indicates a positive response about feeling their radial artery. The phrase 'I think I have' suggests some uncertainty, but the initial 'yes' aligns with the expected 'Yes, I can feel it.' Due to potential speech-to-text inaccuracies, the intent appears to match the criteria.",
+            "extracted_value": "yes",
+            "criteria_id": "INC002",
+            "criteria_text": "Palpable unilateral distal radial and radial artery",
+            "criteria_question": "Do you have a palpable radial artery in your arm?",
+            "expected_response": "Yes, I can feel it",
+            "priority": "high",
+            "participant_response": "yes, I think I have"
+          }
+        ],
+        "summary": "\u2705 **ELIGIBLE** - Decision Algorithm: Accept\n\n**Confidence-Weighted Score**: 8.50 (\u2265 0.0)\n**Legacy Score**: 100.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 years and older\n   Response: \"Yes, I am 18 years old.\"\n   Confidence: 0.90 | Weight: 5.0\n   Assessment: The response confirms the participant is 18 years old, which meets the age criteria. The spoken response is clear and directly addresses the eligibility requirement. The minor possibility of transcription errors doesn't affect the understood intent.\n\n\u2705 \ud83d\udd34 Palpable unilateral distal radial and radial artery\n   Response: \"yes, I think I have\"\n   Confidence: 0.80 | Weight: 5.0\n   Assessment: The participant's response 'yes, I think I have' indicates a positive response about feeling their radial artery. The phrase 'I think I have' suggests some uncertainty, but the initial 'yes' aligns with the expected 'Yes, I can feel it.' Due to potential speech-to-text inaccuracies, the intent appears to match the criteria.\n\n",
+        "high_priority_criteria_met": "2/2",
+        "decision_algorithm_score": 8.5,
+        "decision_algorithm_result": "Accept",
+        "evaluation_timestamp": "2025-06-30T17:55:31.617755",
+        "participant_id": "P-A2A46813"
+      },
+      "export_timestamp": "2025-06-30T17:55:32.457484"
+    }
+  },
+  "P-44ED47EA": {
+    "session_id": "e0c5f391-4bc0-4ea9-843e-c4d3c52ea8cf",
+    "participant_id": "P-44ED47EA",
+    "saved_at": "2025-06-30T18:00:24.108709",
+    "data": {
+      "participant_id": "P-44ED47EA",
+      "session_id": "e0c5f391-4bc0-4ea9-843e-c4d3c52ea8cf",
+      "study_id": "imported-nct-02168920",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 17.4,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.8,
+            "reasoning": "The participant clearly stated their age as '25', which does not meet the criteria of being between 55 and 89 years. Although STT errors are possible, the number '25' is distinct and unlikely to be a misinterpretation of a number within the required range.",
+            "extracted_value": "25",
+            "criteria_id": "INC001",
+            "criteria_text": "Age between 55 and 89 years",
+            "criteria_question": "Can you tell me your age?",
+            "expected_response": "55-89 years",
+            "priority": "high",
+            "participant_response": "Oh yes, it's 25."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.5,
+            "reasoning": "The response 'yes, I think I might have' suggests uncertainty rather than a definitive diagnosis. The phrase 'I think I might have' does not confirm a diagnosis, indicating possible misunderstanding or STT issue. The response does not clearly meet the criteria of a confirmed Alzheimer's diagnosis.",
+            "extracted_value": "I think I might have",
+            "criteria_id": "INC002",
+            "criteria_text": "Diagnosis of major neurocognitive disorder due to Alzheimer's disease",
+            "criteria_question": "Have you been diagnosed with Alzheimer's disease or a related disorder?",
+            "expected_response": "Yes, diagnosed with Alzheimer's",
+            "priority": "high",
+            "participant_response": "yes, I think I might have"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant explicitly stated they do not want to disclose their MMSE score. It\u2019s not related to potential transcription errors and there is no indication of a provided score.",
+            "extracted_value": null,
+            "criteria_id": "INC003",
+            "criteria_text": "Mini-Mental State Examination (MMSE) score between 1 and 22",
+            "criteria_question": "What was your most recent Mini-Mental State Examination score?",
+            "expected_response": "MMSE score between 1 and 22",
+            "priority": "high",
+            "participant_response": "I don't want to tell you."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response, 'No, I don't think,' suggests a negative answer to the question about having a legal representative, which means they do not meet the criteria. The response seems clear despite potential transcription errors.",
+            "extracted_value": "No",
+            "criteria_id": "INC004",
+            "criteria_text": "Legal representative can provide informed consent",
+            "criteria_question": "Is there someone who can help provide informed consent for your participation?",
+            "expected_response": "Yes, I have a legal representative",
+            "priority": "medium",
+            "participant_response": "No, I don't think."
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'Yes, I am in a hospital, right?' indicates an intent to confirm being in a hospital. Although there might be a minor transcription error with the additional 'right?', the response clearly aligns with the eligibility criteria of being hospitalized or residing in a care facility.",
+            "extracted_value": "hospital",
+            "criteria_id": "INC005",
+            "criteria_text": "Hospitalized or residing in a care facility",
+            "criteria_question": "Are you currently hospitalized or living in a care facility?",
+            "expected_response": "Yes, I am in a care facility",
+            "priority": "medium",
+            "participant_response": "Yes, I am in a hospital, right?"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.7,
+            "reasoning": "The participant responded with 'I don't remember anything', which does not explicitly indicate any complications. However, given the potential for transcription errors and incomplete speech, this response is interpreted with moderate confidence as not indicating any complications from other types of dementia.",
+            "extracted_value": "I don't remember anything",
+            "criteria_id": "INC006",
+            "criteria_text": "No history of severe complications related to dementia",
+            "criteria_question": "Do you have any complications from dementia that are not related to Alzheimer's?",
+            "expected_response": "No complications from other types of dementia",
+            "priority": "medium",
+            "participant_response": "I don't remember anything."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.3,
+            "reasoning": "The response 'It depends on' suggests uncertainty or conditional availability, rather than a clear commitment. This lowers confidence in the participant's availability for all study visits. The response does not align with the expectation of clear availability, and there is insufficient information to conclude otherwise.",
+            "extracted_value": "Uncertain availability",
+            "criteria_id": "INC007",
+            "criteria_text": "Available for all study visits over 10 weeks",
+            "criteria_question": "Will you be able to attend all required visits over the next 10 weeks?",
+            "expected_response": "Yes, available for all visits",
+            "priority": "low",
+            "participant_response": "It depends on."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'Yes, I have.' clearly indicates participation in a clinical trial within the past month. While it's possible there could be a transcription error, the response is directly and fully articulated, making it unlikely to be incorrect.",
+            "extracted_value": "Yes",
+            "criteria_id": "INC008",
+            "criteria_text": "No participation in another clinical trial within the last 30 days",
+            "criteria_question": "Have you participated in any other clinical trials in the past month?",
+            "expected_response": "No recent trial participation",
+            "priority": "low",
+            "participant_response": "Yes, I have."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Decision Algorithm: Reject\n\n**Confidence-Weighted Score**: -10.45 (< 0.0)\n**Legacy Score**: 17.4%\n\n**Immediate Rejection**: High-priority criterion failed with confidence \u2265 0.8\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Age between 55 and 89 years\n   Response: \"Oh yes, it's 25.\"\n   Confidence: 0.80 | Weight: 5.0\n   Assessment: The participant clearly stated their age as '25', which does not meet the criteria of being between 55 and 89 years. Although STT errors are possible, the number '25' is distinct and unlikely to be a misinterpretation of a number within the required range.\n\n\u274c \ud83d\udd34 Diagnosis of major neurocognitive disorder due to Alzheimer's disease\n   Response: \"yes, I think I might have\"\n   Confidence: 0.50 | Weight: 5.0\n   Assessment: The response 'yes, I think I might have' suggests uncertainty rather than a definitive diagnosis. The phrase 'I think I might have' does not confirm a diagnosis, indicating possible misunderstanding or STT issue. The response does not clearly meet the criteria of a confirmed Alzheimer's diagnosis.\n\n\u274c \ud83d\udd34 Mini-Mental State Examination (MMSE) score between 1 and 22\n   Response: \"I don't want to tell you.\"\n   Confidence: 0.90 | Weight: 5.0\n   Assessment: The participant explicitly stated they do not want to disclose their MMSE score. It\u2019s not related to potential transcription errors and there is no indication of a provided score.\n\n\u274c \ud83d\udfe1 Legal representative can provide informed consent\n   Response: \"No, I don't think.\"\n   Confidence: 0.90 | Weight: 2.5\n   Assessment: The participant's response, 'No, I don't think,' suggests a negative answer to the question about having a legal representative, which means they do not meet the criteria. The response seems clear despite potential transcription errors.\n\n\u2705 \ud83d\udfe1 Hospitalized or residing in a care facility\n   Response: \"Yes, I am in a hospital, right?\"\n   Confidence: 0.90 | Weight: 2.5\n   Assessment: The participant's response 'Yes, I am in a hospital, right?' indicates an intent to confirm being in a hospital. Although there might be a minor transcription error with the additional 'right?', the response clearly aligns with the eligibility criteria of being hospitalized or residing in a care facility.\n\n\u2705 \ud83d\udfe1 No history of severe complications related to dementia\n   Response: \"I don't remember anything.\"\n   Confidence: 0.70 | Weight: 2.5\n   Assessment: The participant responded with 'I don't remember anything', which does not explicitly indicate any complications. However, given the potential for transcription errors and incomplete speech, this response is interpreted with moderate confidence as not indicating any complications from other types of dementia.\n\n\u274c \ud83d\udfe2 Available for all study visits over 10 weeks\n   Response: \"It depends on.\"\n   Confidence: 0.30 | Weight: 1.0\n   Assessment: The response 'It depends on' suggests uncertainty or conditional availability, rather than a clear commitment. This lowers confidence in the participant's availability for all study visits. The response does not align with the expectation of clear availability, and there is insufficient information to conclude otherwise.\n\n\u274c \ud83d\udfe2 No participation in another clinical trial within the last 30 days\n   Response: \"Yes, I have.\"\n   Confidence: 0.90 | Weight: 1.0\n   Assessment: The participant's response 'Yes, I have.' clearly indicates participation in a clinical trial within the past month. While it's possible there could be a transcription error, the response is directly and fully articulated, making it unlikely to be incorrect.\n\n",
+        "high_priority_criteria_met": "0/3",
+        "decision_algorithm_score": -10.45,
+        "decision_algorithm_result": "Reject",
+        "evaluation_timestamp": "2025-06-30T18:00:23.256117",
+        "participant_id": "P-44ED47EA"
+      },
+      "export_timestamp": "2025-06-30T18:00:24.108283"
     }
   }
 }

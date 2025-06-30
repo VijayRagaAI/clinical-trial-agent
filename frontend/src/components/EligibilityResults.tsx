@@ -383,7 +383,7 @@ export const EligibilityResults: React.FC<EligibilityResultsProps> = ({
                       {criterion.criteria_text}
               </h6>
               
-              <div className="relative grid md:grid-cols-3 gap-3">
+              <div className="relative grid md:grid-cols-4 gap-3">
                 <div>
                   <p className={`text-sm font-bold mb-1 ${
                     isDarkMode 
@@ -398,6 +398,22 @@ export const EligibilityResults: React.FC<EligibilityResultsProps> = ({
                       : 'bg-blue-50/80 border-blue-200/60 text-blue-800'
                   }`}>
                       {criterion.criteria_question || "Question not available"}
+                  </p>
+                </div>
+                <div>
+                  <p className={`text-sm font-bold mb-1 ${
+                    isDarkMode 
+                      ? 'bg-gradient-to-r from-green-400 via-green-300 to-green-400 bg-clip-text text-transparent' 
+                      : 'text-green-700'
+                  }`}>
+                    Expected Response:
+                  </p>
+                  <p className={`text-sm font-medium rounded-lg p-2 backdrop-blur-sm border ${
+                    isDarkMode 
+                      ? 'bg-gradient-to-r from-green-700/20 to-green-800/20 border-green-500/30 text-green-300'
+                      : 'bg-green-50/80 border-green-200/60 text-green-800'
+                  }`}>
+                      {criterion.expected_response}
                   </p>
                 </div>
                 <div>

@@ -885,7 +885,7 @@ Return ONLY the JSON object, no markdown or explanation."""
         client = openai.OpenAI()  # Uses OPENAI_API_KEY from environment
         
         response = client.chat.completions.create(
-            model="gpt-4o-mini",
+            model="gpt-4o",
             messages=[
                 {
                     "role": "system", 

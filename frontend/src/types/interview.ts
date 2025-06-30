@@ -78,6 +78,8 @@ export interface EligibilityResult {
     meets_criteria: boolean;
     priority: 'high' | 'medium'| 'low';
     criteria_text: string;
+    criteria_question: string;
+    expected_response: string;
     participant_response: string;
     reasoning: string;
     confidence: number;
