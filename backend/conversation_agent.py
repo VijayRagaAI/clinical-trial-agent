@@ -127,7 +127,7 @@ Do you consent to proceed with the screening questions, or do you have any quest
             # First, check for exact "Ambiguous sound." match directly
             if user_message.strip() == "Ambiguous sound.":
                 return {
-                    "content": "I didn't catch that clearly. Please speak more clearly.",
+                    "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
                     "requires_response": True,
                     "is_final": False,
                     "question_number": 0,  # Still in consent phase
@@ -386,7 +386,7 @@ Do you consent to proceed with the screening questions?"""
             if intent == "ambiguous":
                 # Speech was unclear - ask user to speak more clearly without advancing
                 return {
-                    "content": "I didn't catch that clearly. Please speak more clearly.",
+                    "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
                     "requires_response": True,
                     "is_final": False,
                     "question_number": self.current_criteria_index + 1,  # Stay on current question
@@ -766,7 +766,7 @@ Would you like to submit your responses for evaluation, or do you have other que
         if intent == "ambiguous":
             # Speech was unclear - ask user to speak more clearly
             return {
-                "content": "I didn't catch that clearly. Please speak more clearly.",
+                "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
                 "requires_response": True,
                 "is_final": False,
                 "awaiting_submission": True,

@@ -446,8 +446,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
     if (isAgentSpeaking && canInterruptSpeech) {
       const secondaryButtons = [];
       
-      // For criteria questions and consent, show repeat buttons
-      if (conversationState === 'questioning') {
+      // For criteria questions only (exclude consent phase), show repeat buttons
+      if (conversationState === 'questioning' && currentQuestionNumber > 0) {
         if (awaitingSubmission) {
           secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
       } else {
@@ -478,8 +478,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
     if (showTranscriptionConfirm && lastTranscription && !isAgentSpeaking) {
       const secondaryButtons = [];
       
-      // For criteria questions and consent, show repeat buttons
-      if (conversationState === 'questioning') {
+      // For criteria questions only (exclude consent phase), show repeat buttons
+      if (conversationState === 'questioning' && currentQuestionNumber > 0) {
         if (awaitingSubmission) {
           secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
         } else {
@@ -501,8 +501,8 @@ export const VoiceInterface: React.FC<VoiceInterfaceProps> = ({
     if (waitingForUser && !userHasResponded) {
       const secondaryButtons = [];
       
-      // For criteria questions and consent, show repeat buttons
-      if (conversationState === 'questioning') {
+      // For criteria questions only (exclude consent phase), show repeat buttons
+      if (conversationState === 'questioning' && currentQuestionNumber > 0) {
         if (awaitingSubmission) {
           secondaryButtons.push({ action: submitResponse, icon: Send, text: "Submit Response", color: "green" });
         } else {
