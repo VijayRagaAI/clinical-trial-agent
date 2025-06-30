@@ -6489,24 +6489,98 @@
   "P-EA17A6AF": {
     "session_id": "58a580c6-5322-4daf-bc18-60b4226396aa",
     "participant_id": "P-EA17A6AF",
-    "saved_at": "2025-06-30T05:24:38.025508",
+    "saved_at": "2025-06-30T05:41:31.206750",
     "data": {
       "metadata": {
         "participant_id": "P-EA17A6AF",
         "session_id": "58a580c6-5322-4daf-bc18-60b4226396aa",
         "study_id": "imported-nct-02824120",
-        "export_timestamp": "2025-06-30T05:24:38.022639",
-        "total_messages": 0,
+        "export_timestamp": "2025-06-30T05:41:31.204985",
+        "total_messages": 3,
         "conversation_state": "consent",
-        "exit_reason": "interview_started",
-        "interview_status": "In Progress",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
         "saved_incomplete": true
       },
-      "conversation": [],
+      "conversation": [
+        {
+          "id": "agent-1751241277527",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to determine if laugh therapy can improve the quality of life and physiological parameters in patients with ischemic heart disease..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:24:37.507182"
+        },
+        {
+          "id": "user-1751241284068",
+          "type": "user",
+          "content": "Can you clarify this?",
+          "timestamp": "2025-06-30T05:24:44.068401"
+        },
+        {
+          "id": "agent-1751241287312",
+          "type": "agent",
+          "content": "It sounds like you\u2019re looking for more clarity about the study. This research aims to see if laugh therapy can enhance the quality of life and physiological parameters for patients with ischemic heart disease, involving bi-weekly therapy sessions over about six months. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:24:47.297188"
+        }
+      ],
       "summary": {
-        "agent_messages": 0,
-        "user_messages": 0,
+        "agent_messages": 2,
+        "user_messages": 1,
         "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-B9F0F825": {
+    "session_id": "e090c267-d8a7-4966-b192-62c089c865e2",
+    "participant_id": "P-B9F0F825",
+    "saved_at": "2025-06-30T05:43:15.401361",
+    "data": {
+      "metadata": {
+        "participant_id": "P-B9F0F825",
+        "session_id": "e090c267-d8a7-4966-b192-62c089c865e2",
+        "study_id": "imported-nct-02824120",
+        "export_timestamp": "2025-06-30T05:43:15.396579",
+        "total_messages": 5,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751242300167",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to determine if laugh therapy can improve the quality of life and physiological parameters in patients with ischemic heart disease..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-06-30T05:41:40.145980"
+        },
+        {
+          "id": "user-1751242329374",
+          "type": "user",
+          "content": "Yes, I have some questions.",
+          "timestamp": "2025-06-30T05:42:09.373620"
+        },
+        {
+          "id": "agent-1751242332978",
+          "type": "agent",
+          "content": "I'm glad you have questions! This study focuses on how laugh therapy, combined with cardiopulmonary rehabilitation, can enhance the quality of life and physiological parameters for patients with ischemic heart disease. If you're ready, we can proceed with the screening questions to see if you qualify for the study.",
+          "timestamp": "2025-06-30T05:42:12.964568"
+        },
+        {
+          "id": "user-1751242359494",
+          "type": "user",
+          "content": "Give me some more information about the stud.",
+          "timestamp": "2025-06-30T05:42:39.494089"
+        },
+        {
+          "id": "agent-1751242363963",
+          "type": "agent",
+          "content": "Sure! The study titled \"Effects of Laugh Therapy Associated to Cardiopulmonary Rehab\" aims to see if laugh therapy can enhance the quality of life and physiological parameters for patients with ischemic heart disease. It involves a commitment of about 6 months with bi-weekly visits for therapy sessions, including stretching exercises and monitoring of cardiac frequency and oxygen saturation. \n\nAre you ready to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:42:43.946475"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "1 minutes"
       }
     }
   }

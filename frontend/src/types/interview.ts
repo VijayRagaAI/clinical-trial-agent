@@ -54,6 +54,7 @@ export interface Study {
   purpose: string;
   commitment: string;
   procedures: string[];
+  contact_info: string;
   // Additional properties from JSON data
   protocol_version?: string;
   last_amended?: string;

@@ -773,6 +773,7 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
                 "Daily study pill"
             ]
         },
+        "contact_info": "Study conducted at DiabetesCare Research Institute, Boston MA. Enrolling 200 participants (currently recruiting). Contact: Dr. Johnson, (617) 555-0123. Study runs Jan 2025 - Aug 2025.",
         "criteria": [
             {
                 "id": "INC001",
@@ -845,7 +846,8 @@ async def convert_external_study_to_local(external_study: dict) -> dict:
 4. **Purpose**: Patient-friendly explanation of what the study tests
 5. **Participant Commitment**: Estimate time/visits from available data
 6. **Key Procedures**: Extract from eligibility criteria and study description (3-6 items)
-7. **Criteria**: Convert eligibility text into interview questions
+7. **Contact Info**: Create 1-2 line summary with location, enrollment info, contact details, timeline
+8. **Criteria**: Convert eligibility text into interview questions
    - Extract ALL meaningful criteria from eligibility_criteria text
    - Create natural conversation questions using APPROPRIATE QUESTION TYPES
    - Use IDs like "IMP001", "IMP002", etc.

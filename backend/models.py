@@ -206,7 +206,11 @@ def get_available_studies() -> List[Dict]:
                 "nct_id": trial.get("nct_id", "N/A"),
                 "purpose": overview.get("purpose", "No purpose specified"),
                 "commitment": overview.get("participant_commitment", "Time commitment not specified"),
-                "procedures": overview.get("key_procedures", ["Standard procedures"])
+                "procedures": overview.get("key_procedures", ["Standard procedures"]),
+                "contact_info": study.get("contact_info", "Contact information not available"),
+                "criteria": study.get("criteria", []),
+                "protocol_version": trial.get("protocol_version", "Latest"),
+                "last_amended": trial.get("last_amended", "Recent")
             })
         
         return studies

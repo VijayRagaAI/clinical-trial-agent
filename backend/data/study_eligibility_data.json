@@ -1,6 +1,186 @@
 {
   "studies": [
     {
+      "id": "imported-nct-05253820",
+      "trial": {
+        "nct_id": "NCT05253820",
+        "title": "Long-term Radial Artery Occlusion in Coronary Diagnosis and Intervention Via Distal Radial Approach (CONDITION)",
+        "protocol_version": "imported-20250630",
+        "last_amended": "2025-06-30",
+        "category": "Cardiology",
+        "description": "This study compares long-term radial artery occlusion in coronary diagnosis and intervention using distal versus conventional radial approaches.",
+        "phase": "NA",
+        "sponsor": "Unknown"
+      },
+      "overview": {
+        "purpose": "To investigate the long-term effects of radial artery occlusion after coronary procedures using different access methods.",
+        "participant_commitment": "Participants will be involved for approximately 3 months with follow-up visits.",
+        "key_procedures": [
+          "Ultrasound examination of the radial artery",
+          "Assessment of puncture success rate",
+          "Monitoring of hemostasis duration",
+          "Evaluation of radial artery trauma"
+        ]
+      },
+      "contact_info": "Study conducted at various locations. Enrolling 801 participants (completed). Contact details not provided. Study ran from March 2022 to March 2023.",
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age 18 years and older",
+          "question": "Can you confirm that you are at least 18 years old?",
+          "expected_response": "Yes, I am 18 or older",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Palpable unilateral distal radial and radial artery",
+          "question": "Do you have a palpable radial artery in your arm?",
+          "expected_response": "Yes, I can feel it",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "EXC001",
+          "text": "Age 90 years and older",
+          "question": "Are you 90 years old or older?",
+          "expected_response": "No, I am younger than 90",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "EXC002",
+          "text": "Height 185 cm or taller",
+          "question": "Are you taller than 185 cm?",
+          "expected_response": "No, I am shorter than 185 cm",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "EXC003",
+          "text": "Cardiogenic shock",
+          "question": "Do you currently have any condition like cardiogenic shock?",
+          "expected_response": "No, I do not have that condition",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "EXC004",
+          "text": "Contraindications to puncture at the puncture site",
+          "question": "Do you have any issues that would prevent a puncture at the site?",
+          "expected_response": "No, I have no contraindications",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "EXC005",
+          "text": "Inability to obtain written informed consent",
+          "question": "Are you able to provide written informed consent for this study?",
+          "expected_response": "Yes, I can provide consent",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "EXC006",
+          "text": "Previous right radial or distal artery intervention",
+          "question": "Have you had any previous interventions on your right radial or distal artery?",
+          "expected_response": "No, I have not had any previous interventions",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
+      "id": "imported-nct-02168920",
+      "trial": {
+        "nct_id": "NCT02168920",
+        "title": "Aripiprazole for the Treatment of Patients With Agitation Associated With Dementia of the Alzheimer's Type",
+        "protocol_version": "imported-20250630",
+        "last_amended": "2025-06-30",
+        "category": "Neurology",
+        "description": "This study evaluates the efficacy and safety of aripiprazole in treating agitation in patients with Alzheimer's type dementia.",
+        "phase": "Phase 3",
+        "sponsor": "Multicenter Research Group"
+      },
+      "overview": {
+        "purpose": "To determine if aripiprazole can effectively reduce agitation in patients with Alzheimer's disease.",
+        "participant_commitment": "Approximately 10 weeks of treatment and 30 days of post-treatment observation.",
+        "key_procedures": [
+          "Cohen-Mansfield Agitation Inventory assessments",
+          "Randomized treatment assignment",
+          "Monitoring of vital signs",
+          "Regular follow-up visits"
+        ]
+      },
+      "contact_info": "Conducted at multiple centers. Enrolling 150 participants (currently terminated). For more information, contact the research team.",
+      "criteria": [
+        {
+          "id": "INC001",
+          "text": "Age between 55 and 89 years",
+          "question": "Can you tell me your age?",
+          "expected_response": "55-89 years",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC002",
+          "text": "Diagnosis of major neurocognitive disorder due to Alzheimer's disease",
+          "question": "Have you been diagnosed with Alzheimer's disease or a related disorder?",
+          "expected_response": "Yes, diagnosed with Alzheimer's",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC003",
+          "text": "Mini-Mental State Examination (MMSE) score between 1 and 22",
+          "question": "What was your most recent Mini-Mental State Examination score?",
+          "expected_response": "MMSE score between 1 and 22",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "INC004",
+          "text": "Legal representative can provide informed consent",
+          "question": "Is there someone who can help provide informed consent for your participation?",
+          "expected_response": "Yes, I have a legal representative",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC005",
+          "text": "Hospitalized or residing in a care facility",
+          "question": "Are you currently hospitalized or living in a care facility?",
+          "expected_response": "Yes, I am in a care facility",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC006",
+          "text": "No history of severe complications related to dementia",
+          "question": "Do you have any complications from dementia that are not related to Alzheimer's?",
+          "expected_response": "No complications from other types of dementia",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "INC007",
+          "text": "Available for all study visits over 10 weeks",
+          "question": "Will you be able to attend all required visits over the next 10 weeks?",
+          "expected_response": "Yes, available for all visits",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "INC008",
+          "text": "No participation in another clinical trial within the last 30 days",
+          "question": "Have you participated in any other clinical trials in the past month?",
+          "expected_response": "No recent trial participation",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
       "id": "imported-nct-02824120",
       "trial": {
         "nct_id": "NCT02824120",
@@ -22,6 +202,7 @@
           "Assessment of oxygen saturation"
         ]
       },
+      "contact_info": "Study conducted at Hospital de Clínicas de Porto Alegre, Brazil. Enrolling 40 participants (currently recruiting). Contact: Cardiology Research Department, +55-51-3359-8000. Principal Investigator: Dr. Silva. Study runs Jan 2024 - Dec 2024.",
       "criteria": [
         {
           "id": "INC001",
@@ -392,7 +573,7 @@
   "meta": {
     "schema_version": "eligibility-json/2.0-multi-study",
     "author": "clinical-trial-agent",
-    "generated_utc": "2025-06-29T23:37:16Z",
-    "total_studies": 5
+    "generated_utc": "2025-06-30T04:55:18Z",
+    "total_studies": 7
   }
 }

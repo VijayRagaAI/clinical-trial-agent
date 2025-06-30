@@ -158,7 +158,8 @@ Do you consent to proceed with the screening questions, or do you have any quest
                 "procedures": overview.get("key_procedures", ["Standard procedures"]),
                 "phase": trial.get("phase", "Not specified"),
                 "sponsor": trial.get("sponsor", "Research institution"),
-                "category": trial.get("category", "Medical research")
+                "category": trial.get("category", "Medical research"),
+                "contact_info": self.trial_info.get("contact_info", "Contact information not available")
             }
 
             prompt = f"""
@@ -174,6 +175,7 @@ Do you consent to proceed with the screening questions, or do you have any quest
             - Sponsor: {study_context['sponsor']}
             - Time Commitment: {study_context['commitment']}
             - Key Procedures: {', '.join(study_context['procedures'])}
+            - Location & Contact: {study_context['contact_info']}
 
             PARTICIPANT'S QUESTION/CONCERN: "{user_message}"
 
@@ -601,7 +603,8 @@ Do you consent to proceed with the screening questions?"""
                 "procedures": overview.get("key_procedures", ["Standard procedures"]),
                 "phase": trial.get("phase", "Not specified"),
                 "sponsor": trial.get("sponsor", "Research institution"),
-                "category": trial.get("category", "Medical research")
+                "category": trial.get("category", "Medical research"),
+                "contact_info": self.trial_info.get("contact_info", "Contact information not available")
             }
 
             prompt = f"""
@@ -616,6 +619,7 @@ Do you consent to proceed with the screening questions?"""
             - Sponsor: {study_context['sponsor']}
             - Time Commitment: {study_context['commitment']}
             - Key Procedures: {', '.join(study_context['procedures'])}
+            - Location & Contact: {study_context['contact_info']}
 
             SUBMISSION PHASE CONTEXT:
             - Participant has answered all {len(self.trial_criteria)} screening questions
