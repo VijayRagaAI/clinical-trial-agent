@@ -1482,7 +1482,7 @@
         {
           "id": "user-1751210401729",
           "type": "user",
-          "content": "एस प्रोसे।",
+          "content": "\u090f\u0938 \u092a\u094d\u0930\u094b\u0938\u0947\u0964",
           "timestamp": "2025-06-29T20:50:01.727632"
         },
         {
@@ -1494,7 +1494,7 @@
         {
           "id": "user-1751210415621",
           "type": "user",
-          "content": "25।",
+          "content": "25\u0964",
           "timestamp": "2025-06-29T20:50:15.620807"
         },
         {
@@ -1506,7 +1506,7 @@
         {
           "id": "user-1751210423642",
           "type": "user",
-          "content": "ए डॉन'टी नो!",
+          "content": "\u090f \u0921\u0949\u0928'\u091f\u0940 \u0928\u094b!",
           "timestamp": "2025-06-29T20:50:23.640921"
         },
         {
@@ -3549,7 +3549,7 @@
         {
           "id": "agent-1751230629196",
           "type": "agent",
-          "content": "It seems there might have been a misunderstanding. I’d like to clarify the question: Have you been diagnosed with hepatocellular carcinoma, confirmed by pathology? Your response will help us better understand your situation.",
+          "content": "It seems there might have been a misunderstanding. I\u2019d like to clarify the question: Have you been diagnosed with hepatocellular carcinoma, confirmed by pathology? Your response will help us better understand your situation.",
           "timestamp": "2025-06-30T02:27:09.187735"
         }
       ],
@@ -3652,7 +3652,7 @@
         {
           "id": "agent-1751230754102",
           "type": "agent",
-          "content": "I appreciate your interest in the study! Just to clarify, I’d like to know how old you are. Could you please provide your age? Thank you!",
+          "content": "I appreciate your interest in the study! Just to clarify, I\u2019d like to know how old you are. Could you please provide your age? Thank you!",
           "timestamp": "2025-06-30T02:29:14.094262"
         },
         {
@@ -3700,7 +3700,7 @@
         {
           "id": "agent-1751230885803",
           "type": "agent",
-          "content": "It sounds like you might be feeling uncertain, but there's no reason to worry! I'm here to help you with any questions you have about the study. The purpose of this study is to evaluate the safety and efficacy of PF-05212377 in individuals with Alzheimer's Disease who are already on Donepezil. If you’re ready to submit your responses, you can choose from the options below: Submit Response, Repeat Last Question, or Hear Instruction Again.",
+          "content": "It sounds like you might be feeling uncertain, but there's no reason to worry! I'm here to help you with any questions you have about the study. The purpose of this study is to evaluate the safety and efficacy of PF-05212377 in individuals with Alzheimer's Disease who are already on Donepezil. If you\u2019re ready to submit your responses, you can choose from the options below: Submit Response, Repeat Last Question, or Hear Instruction Again.",
           "timestamp": "2025-06-30T02:31:25.789065"
         },
         {
@@ -3981,7 +3981,7 @@
         {
           "id": "agent-1751231855872",
           "type": "agent",
-          "content": "I understand you might be hesitant about submitting your responses. If you choose not to participate, that's completely okay! You can take your time to think it over, and there’s no pressure to proceed if you’re not comfortable. If you’re ready to submit your responses, you can go ahead, or if you’d like to repeat the last question or hear instructions again, just let me know! Your options are: Submit Response, Repeat Last Question, or Hear Instruction Again.",
+          "content": "I understand you might be hesitant about submitting your responses. If you choose not to participate, that's completely okay! You can take your time to think it over, and there\u2019s no pressure to proceed if you\u2019re not comfortable. If you\u2019re ready to submit your responses, you can go ahead, or if you\u2019d like to repeat the last question or hear instructions again, just let me know! Your options are: Submit Response, Repeat Last Question, or Hear Instruction Again.",
           "timestamp": "2025-06-30T02:47:35.851441"
         }
       ],
@@ -4163,7 +4163,7 @@
         {
           "id": "agent-1751232114752",
           "type": "agent",
-          "content": "It sounds like you might have some concerns about submitting your responses. If you have questions about the study, such as its purpose or what to expect, I'm here to help clarify! Just let me know what you’d like to know. \n\nIf you're ready to proceed, you can choose to submit your response, repeat the last question, or hear the instructions again.",
+          "content": "It sounds like you might have some concerns about submitting your responses. If you have questions about the study, such as its purpose or what to expect, I'm here to help clarify! Just let me know what you\u2019d like to know. \n\nIf you're ready to proceed, you can choose to submit your response, repeat the last question, or hear the instructions again.",
           "timestamp": "2025-06-30T02:51:54.735321"
         },
         {
@@ -4364,7 +4364,7 @@
         {
           "id": "agent-10",
           "type": "agent",
-          "content": "It sounds like you’re asking about the criteria for participation in the study. While I don’t have the exact number of criteria available, the study focuses on individuals with Alzheimer's Disease who are already on Donepezil and have existing neuropsychiatric symptoms. If you have any other questions or need clarification, feel free to ask! Would you like to submit your responses now?",
+          "content": "It sounds like you\u2019re asking about the criteria for participation in the study. While I don\u2019t have the exact number of criteria available, the study focuses on individuals with Alzheimer's Disease who are already on Donepezil and have existing neuropsychiatric symptoms. If you have any other questions or need clarification, feel free to ask! Would you like to submit your responses now?",
           "timestamp": "2025-06-30T03:33:35.262637"
         },
         {
@@ -4680,7 +4680,7 @@
         {
           "id": "agent-1751234854954",
           "type": "agent",
-          "content": "I understand that there might be some confusion. Just to clarify, I’m asking how old you are. Could you please provide your age? Thank you!",
+          "content": "I understand that there might be some confusion. Just to clarify, I\u2019m asking how old you are. Could you please provide your age? Thank you!",
           "timestamp": "2025-06-30T03:37:34.947669"
         }
       ],
@@ -4960,7 +4960,7 @@
         {
           "id": "agent-1751235539461",
           "type": "agent",
-          "content": "It seems there might have been a misunderstanding. I’d like to clarify: how old are you? Please provide your age in years, as we're looking for a response between 18 and 75. Thank you!",
+          "content": "It seems there might have been a misunderstanding. I\u2019d like to clarify: how old are you? Please provide your age in years, as we're looking for a response between 18 and 75. Thank you!",
           "timestamp": "2025-06-30T03:48:59.451571"
         },
         {
@@ -5130,7 +5130,7 @@
         {
           "id": "agent-1751235728897",
           "type": "agent",
-          "content": "I understand that there might be some confusion. Just to clarify, I’m asking, \"How old are you?\" Please provide your age in years, ideally between 18 and 75. Thank you!",
+          "content": "I understand that there might be some confusion. Just to clarify, I\u2019m asking, \"How old are you?\" Please provide your age in years, ideally between 18 and 75. Thank you!",
           "timestamp": "2025-06-30T03:52:08.888501"
         }
       ],
@@ -6352,6 +6352,159 @@
       ],
       "summary": {
         "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-6C567A88": {
+    "session_id": "858c1472-30bd-4a93-ae5e-bfbb03283626",
+    "participant_id": "P-6C567A88",
+    "saved_at": "2025-06-30T05:21:08.905869",
+    "data": {
+      "metadata": {
+        "participant_id": "P-6C567A88",
+        "session_id": "858c1472-30bd-4a93-ae5e-bfbb03283626",
+        "study_id": "imported-nct-02824120",
+        "export_timestamp": "2025-06-30T05:21:08.902799",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751240999773",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to determine if laugh therapy can improve the quality of life and physiological parameters in patients with ischemic heart disease..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:19:59.759945"
+        },
+        {
+          "id": "user-1751241001708",
+          "type": "user",
+          "content": "Could you please repeat that question?",
+          "timestamp": "2025-06-30T05:20:01.689196"
+        },
+        {
+          "id": "agent-1751241005435",
+          "type": "agent",
+          "content": "It seems like you might be asking for clarification about the study or a specific question related to it. To summarize, this study is looking at how laugh therapy can improve the quality of life and physiological parameters in patients with ischemic heart disease over approximately six months, with bi-weekly therapy sessions. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:20:05.423092"
+        },
+        {
+          "id": "user-1751241045034",
+          "type": "user",
+          "content": "Yes, I want to Pro.",
+          "timestamp": "2025-06-30T05:20:45.033600"
+        },
+        {
+          "id": "agent-1751241046707",
+          "type": "agent",
+          "content": "Can you tell me your age?",
+          "timestamp": "2025-06-30T05:20:46.704619"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-BA37624C": {
+    "session_id": "b4dddd45-8aae-4f58-94f0-40aa730e89af",
+    "participant_id": "P-BA37624C",
+    "saved_at": "2025-06-30T05:24:16.820859",
+    "data": {
+      "metadata": {
+        "participant_id": "P-BA37624C",
+        "session_id": "b4dddd45-8aae-4f58-94f0-40aa730e89af",
+        "study_id": "imported-nct-02824120",
+        "export_timestamp": "2025-06-30T05:24:16.816516",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751241075159",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to determine if laugh therapy can improve the quality of life and physiological parameters in patients with ischemic heart disease..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:21:15.139815"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-1FEF6905": {
+    "session_id": "479a5822-89bc-4b32-9d94-d8dc22090c49",
+    "participant_id": "P-1FEF6905",
+    "saved_at": "2025-06-30T05:24:33.305476",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1FEF6905",
+        "session_id": "479a5822-89bc-4b32-9d94-d8dc22090c49",
+        "study_id": "imported-nct-02824120",
+        "export_timestamp": "2025-06-30T05:24:33.301134",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751241261716",
+          "type": "agent",
+          "content": "Hello! I'm MedBot, your clinical trial assistant. \n\nThis study aims to to determine if laugh therapy can improve the quality of life and physiological parameters in patients with ischemic heart disease..\n\nYou will be asked a few screening questions to see if you might be eligible.\n\nDo you consent to proceed with the screening questions?",
+          "timestamp": "2025-06-30T05:24:21.697538"
+        },
+        {
+          "id": "user-1751241269938",
+          "type": "user",
+          "content": "Is proceed.",
+          "timestamp": "2025-06-30T05:24:29.937876"
+        },
+        {
+          "id": "agent-1751241271171",
+          "type": "agent",
+          "content": "Can you tell me your age?",
+          "timestamp": "2025-06-30T05:24:31.169421"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-EA17A6AF": {
+    "session_id": "58a580c6-5322-4daf-bc18-60b4226396aa",
+    "participant_id": "P-EA17A6AF",
+    "saved_at": "2025-06-30T05:24:38.025508",
+    "data": {
+      "metadata": {
+        "participant_id": "P-EA17A6AF",
+        "session_id": "58a580c6-5322-4daf-bc18-60b4226396aa",
+        "study_id": "imported-nct-02824120",
+        "export_timestamp": "2025-06-30T05:24:38.022639",
+        "total_messages": 0,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [],
+      "summary": {
+        "agent_messages": 0,
         "user_messages": 0,
         "conversation_duration": "0 minutes"
       }
