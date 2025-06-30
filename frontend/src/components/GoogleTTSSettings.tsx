@@ -1043,12 +1043,6 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
                               }`}>
                                 {voice.humanName}
                               </h6>
-                              {/* Show sample rate without model info */}
-                              <div className="mt-2">
-                                <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                                  {voice.natural_sample_rate ? `${Math.round(voice.natural_sample_rate / 1000)}kHz Quality` : 'Standard Quality'}
-                                </p>
-                              </div>
                             </div>
                           </div>
                           
@@ -1198,12 +1192,6 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
                               }`}>
                                 {voice.humanName}
                               </h6>
-                              {/* Show sample rate without model info */}
-                              <div className="mt-2">
-                                <p className={`text-sm font-medium ${isDarkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                                  {voice.natural_sample_rate ? `${Math.round(voice.natural_sample_rate / 1000)}kHz Quality` : 'Standard Quality'}
-                                </p>
-                              </div>
                             </div>
                           </div>
                           
