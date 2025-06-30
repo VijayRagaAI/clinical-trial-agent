@@ -6,21 +6,19 @@ services:
     region: oregon
     plan: free
     buildCommand: "cd backend && pip install -r requirements.txt"
-    startCommand: "cd backend && python -m uvicorn api_server:app --host 0.0.0.0 --port $PORT"
+    startCommand: "cd backend && python start_backend.py --host 0.0.0.0 --port $PORT --reload false"
     healthCheckPath: /health
     envVars:
       - key: OPENAI_API_KEY
         sync: false
-      - key: ASSEMBLYAI_API_KEY
+      - key: GOOGLE_APPLICATION_CREDENTIALS_JSON
         sync: false
-      - key: ELEVENLABS_API_KEY
-        sync: false
-      - key: ELEVENLABS_VOICE_ID
-        value: "21m00Tcm4TlvDq8ikWAM"
       - key: CORS_ORIGINS
-        value: "https://clinical-trial-agent.onrender.com,http://localhost:5173"
+        value: "https://clinical-trial-frontend.onrender.com,http://localhost:5173,http://localhost:3000"
       - key: LOG_LEVEL
         value: "INFO"
+      - key: PYTHONPATH
+        value: "/opt/render/project/src/backend"
 
   # Frontend Service  
   - type: web
@@ -28,11 +26,13 @@ services:
     env: node
     region: oregon
     plan: free
-    buildCommand: "cd frontend && npm install && npm run build"
-    startCommand: "cd frontend && npm run preview -- --host 0.0.0.0 --port $PORT"
+    buildCommand: "cd frontend && npm ci && npm run build"
+    startCommand: "cd frontend && npx serve -s dist -l $PORT"
     envVars:
       - key: VITE_API_URL
         fromService:
           type: web
           name: clinical-trial-backend
-          property: host 
+          property: host
+      - key: NODE_ENV
+        value: "production" 

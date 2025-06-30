@@ -1400,5 +1400,60 @@
         "conversation_duration": "5 minutes"
       }
     }
+  },
+  "P-A36703AF": {
+    "session_id": "930a7cd1-23be-4c30-8359-53acc78d5975",
+    "participant_id": "P-A36703AF",
+    "saved_at": "2025-06-30T13:11:05.333632",
+    "data": {
+      "metadata": {
+        "participant_id": "P-A36703AF",
+        "session_id": "930a7cd1-23be-4c30-8359-53acc78d5975",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-06-30T13:11:05.332324",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751269197441",
+          "type": "agent",
+          "content": "Hello! We're inviting you to join our study on how different methods of coronary procedures might affect the radial artery over time. Your participation would last about 3 months with follow-up visits. Are you ready to proceed with the screening questions, or would you like to know more about the study first?",
+          "timestamp": "2025-06-30T13:09:57.431243"
+        },
+        {
+          "id": "user-1751269246570",
+          "type": "user",
+          "content": "Speak again.",
+          "timestamp": "2025-06-30T13:10:46.570350"
+        },
+        {
+          "id": "agent-1751269250734",
+          "type": "agent",
+          "content": "It seems like you might want more information about the study. This research focuses on the long-term effects of radial artery occlusion after coronary procedures, and it involves procedures like ultrasound examinations and monitoring of hemostasis duration. If you're ready, I can proceed with the screening questions to see if you qualify for the study. Would you like to continue?",
+          "timestamp": "2025-06-30T13:10:50.720945"
+        },
+        {
+          "id": "user-1751269263875",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-06-30T13:11:03.875100"
+        },
+        {
+          "id": "agent-1751269264825",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-06-30T13:11:04.820187"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "1 minutes"
+      }
+    }
   }
 }

@@ -270,20 +270,21 @@
         "protocol_version": "imported-20250630",
         "last_amended": "2025-06-30",
         "category": "Cardiology",
-        "description": "This study investigates the effects of different resistance training methods on biological markers in patients with heart failure and coronary artery disease during cardiac rehabilitation.",
+        "description": "This study investigates the effects of two resistance training methods on biological markers in patients with heart failure and coronary artery disease.",
         "phase": "NA",
         "sponsor": "Cardiac Rehabilitation Research Institute"
       },
       "overview": {
-        "purpose": "To determine how different resistance training methods impact muscle growth markers in individuals with heart conditions.",
-        "participant_commitment": "Participation involves two testing days spaced between 2 to 10 days apart, with a total commitment of about 1 day for each visit.",
+        "purpose": "To compare the effects of different resistance training methods on metabolic stress in patients undergoing cardiac rehabilitation.",
+        "participant_commitment": "Participants will attend two testing sessions, spaced 2 to 10 days apart.",
         "key_procedures": [
-          "Blood sample collection before and after exercise",
-          "High-intensity interval training (HIIT)",
           "Resistance training sessions",
-          "Monitoring of heart rate and exertion levels"
+          "High-intensity interval training (HIIT)",
+          "Blood sample collection before and after exercises",
+          "Monitoring of exercise responses"
         ]
       },
+      "contact_info": "Study conducted at Cardiac Rehabilitation Research Institute. Enrolling 25 male participants. Contact: Dr. Smith, (555) 123-4567. Study runs Feb 2022 - Jun 2022.",
       "criteria": [
         {
           "id": "INC001",
@@ -295,9 +296,9 @@
         },
         {
           "id": "INC002",
-          "text": "Clinical coronary artery diseases",
-          "question": "Have you been diagnosed with any coronary artery diseases?",
-          "expected_response": "Yes, I have coronary artery disease",
+          "text": "Clinical diagnosis of coronary artery disease",
+          "question": "Have you been diagnosed with coronary artery disease?",
+          "expected_response": "Yes, I have a diagnosis",
           "response": "",
           "priority": "high"
         },
@@ -311,49 +312,41 @@
         },
         {
           "id": "EXC001",
-          "text": "No angina",
-          "question": "Do you experience angina or chest pain?",
-          "expected_response": "No, I do not experience angina",
+          "text": "No history of angina",
+          "question": "Have you experienced angina or chest pain?",
+          "expected_response": "No, I have not experienced angina",
           "response": "",
           "priority": "medium"
         },
         {
           "id": "EXC002",
           "text": "No acutely decompensated heart failure",
-          "question": "Have you had any recent episodes of severe heart failure?",
-          "expected_response": "No, I have not had recent severe episodes",
+          "question": "Have you had any recent episodes of worsening heart failure?",
+          "expected_response": "No, I have not had recent episodes",
           "response": "",
           "priority": "medium"
         },
         {
           "id": "EXC003",
-          "text": "No significant valvular disease",
-          "question": "Have you been diagnosed with any significant valvular heart disease?",
-          "expected_response": "No, I do not have significant valvular disease",
-          "response": "",
-          "priority": "medium"
-        },
-        {
-          "id": "EXC004",
-          "text": "No orthopedic or neurologic disorders limiting exercise",
-          "question": "Do you have any orthopedic or neurologic conditions that would limit your ability to exercise?",
-          "expected_response": "No, I do not have such conditions",
+          "text": "No significant orthopedic or neurologic disorders that limit exercise",
+          "question": "Do you have any orthopedic or neurologic issues that would limit your ability to exercise?",
+          "expected_response": "No, I do not have such issues",
           "response": "",
           "priority": "medium"
         },
         {
           "id": "LOW001",
           "text": "Available for all study visits",
-          "question": "Will you be able to attend all required study visits?",
+          "question": "Are you available to attend all required study visits?",
           "expected_response": "Yes, I can attend all visits",
           "response": "",
           "priority": "low"
         },
         {
           "id": "LOW002",
-          "text": "Willing to provide blood samples",
-          "question": "Are you comfortable with providing blood samples during the study?",
-          "expected_response": "Yes, I am comfortable with that",
+          "text": "Willing to provide informed consent",
+          "question": "Are you willing to sign the informed consent form to participate in this study?",
+          "expected_response": "Yes, I am willing to sign",
           "response": "",
           "priority": "low"
         }
@@ -573,7 +566,7 @@
   "meta": {
     "schema_version": "eligibility-json/2.0-multi-study",
     "author": "clinical-trial-agent",
-    "generated_utc": "2025-06-30T04:55:18Z",
+    "generated_utc": "2025-06-30T07:39:05Z",
     "total_studies": 7
   }
 }
