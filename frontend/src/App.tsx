@@ -640,8 +640,10 @@ Score: ${result.score}%
 Detailed Criteria Assessment:
 ${result.criteria_met.map((criterion: any, index: number) => `
 ${index + 1}. ${criterion.criteria_text}
-   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
+   Question: ${criterion.criteria_question || 'N/A'}
+   Expected Response: ${criterion.expected_response || 'N/A'}
    Your Response: "${criterion.participant_response}"
+   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
    Assessment: ${criterion.reasoning}
    Confidence: ${Math.round(criterion.confidence * 100)}%
 `).join('')}
@@ -673,8 +675,10 @@ Score: ${interview.eligibilityResult.score}%
 Detailed Criteria Assessment:
 ${interview.eligibilityResult.criteria_met.map((criterion: any, index: number) => `
 ${index + 1}. ${criterion.criteria_text}
-   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
+   Question: ${criterion.criteria_question || 'N/A'}
+   Expected Response: ${criterion.expected_response || 'N/A'}
    Your Response: "${criterion.participant_response}"
+   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
    Assessment: ${criterion.reasoning}
    Confidence: ${Math.round(criterion.confidence * 100)}%
 `).join('')}`;
@@ -702,8 +706,10 @@ Score: ${interview.eligibilityResult.score}%
 Detailed Criteria Assessment:
 ${interview.eligibilityResult.criteria_met.map((criterion: any, index: number) => `
 ${index + 1}. ${criterion.criteria_text}
-   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
+   Question: ${criterion.criteria_question || 'N/A'}
+   Expected Response: ${criterion.expected_response || 'N/A'}
    Your Response: "${criterion.participant_response}"
+   Result: ${criterion.meets_criteria ? 'MET' : 'NOT MET'}
    Assessment: ${criterion.reasoning}
    Confidence: ${Math.round(criterion.confidence * 100)}%
 `).join('')}`;

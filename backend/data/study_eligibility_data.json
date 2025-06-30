@@ -39,54 +39,6 @@
           "expected_response": "Yes, I can feel it",
           "response": "",
           "priority": "high"
-        },
-        {
-          "id": "EXC001",
-          "text": "Age 90 years and older",
-          "question": "Are you 90 years old or older?",
-          "expected_response": "No, I am younger than 90",
-          "response": "",
-          "priority": "high"
-        },
-        {
-          "id": "EXC002",
-          "text": "Height 185 cm or taller",
-          "question": "Are you taller than 185 cm?",
-          "expected_response": "No, I am shorter than 185 cm",
-          "response": "",
-          "priority": "medium"
-        },
-        {
-          "id": "EXC003",
-          "text": "Cardiogenic shock",
-          "question": "Do you currently have any condition like cardiogenic shock?",
-          "expected_response": "No, I do not have that condition",
-          "response": "",
-          "priority": "medium"
-        },
-        {
-          "id": "EXC004",
-          "text": "Contraindications to puncture at the puncture site",
-          "question": "Do you have any issues that would prevent a puncture at the site?",
-          "expected_response": "No, I have no contraindications",
-          "response": "",
-          "priority": "medium"
-        },
-        {
-          "id": "EXC005",
-          "text": "Inability to obtain written informed consent",
-          "question": "Are you able to provide written informed consent for this study?",
-          "expected_response": "Yes, I can provide consent",
-          "response": "",
-          "priority": "low"
-        },
-        {
-          "id": "EXC006",
-          "text": "Previous right radial or distal artery intervention",
-          "question": "Have you had any previous interventions on your right radial or distal artery?",
-          "expected_response": "No, I have not had any previous interventions",
-          "response": "",
-          "priority": "low"
         }
       ]
     },
