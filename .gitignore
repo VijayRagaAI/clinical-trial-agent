@@ -168,7 +168,7 @@ public
 *.p8
 secrets.json
 config.json
-backend/google-credentials.json
+google-credentials.json
 
 # Database
 *.db
