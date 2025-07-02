@@ -1,36 +1,20 @@
-import asyncio
-import base64
-import io
 import logging
-import os
-import tempfile
-from typing import Optional, Dict, Any
+from typing import Dict, List, Optional
+from .tts_service import TTSService
+from .language_manager import LanguageManager
+from .translation_service import TranslationService
 
 logger = logging.getLogger(__name__)
 
-class GoogleTTS:
-    def __init__(self):
-        # Initialize Google TTS credentials
-        self.google_credentials = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-        if self.google_credentials:
-            logger.info("Google Cloud TTS credentials configured")
-        else:
-            logger.warning("Google TTS credentials not found")
+class VoiceManager:
+    """Service for managing voices, previews, and voice-related operations"""
+    
+    def __init__(self, tts_service: TTSService, language_manager: LanguageManager, translation_service: TranslationService):
+        self.tts_service = tts_service
+        self.language_manager = language_manager
+        self.translation_service = translation_service
         
-        # TTS Settings
-        self.selected_model = os.getenv("GOOGLE_TTS_MODEL", "neural2")
-        self.selected_voice = os.getenv("GOOGLE_TTS_VOICE", "en-US-Neural2-F")
-        self.selected_speed = float(os.getenv("GOOGLE_TTS_SPEED", "1.0"))
-        self.output_language = os.getenv("OUTPUT_LANGUAGE", "english").lower()
-        
-        # Google TTS model mapping
-        self.model_mapping = {
-            "neural2": "Neural2",
-            "wavenet": "WaveNet", 
-            "standard": "Standard"
-        }
-        
-        # Google TTS language to voice mapping
+        # Google TTS voice mapping (moved from TTSService)
         self.voice_mapping = {
             "english": {
                 "neural2": {"male": "en-US-Neural2-D", "female": "en-US-Neural2-F"},
@@ -154,168 +138,50 @@ class GoogleTTS:
             }
         }
         
-        # Supported languages for Google TTS
-        self.supported_languages = list(self.voice_mapping.keys())
+        # Voice name mappings for friendly names
+        self.voice_names = {
+            # English voices
+            "en-US-Neural2-D": "Marcus", "en-US-Neural2-F": "Emma",
+            "en-US-Neural2-A": "Alice", "en-US-Neural2-C": "Charlotte",
+            "en-US-Neural2-E": "Elizabeth", "en-US-Neural2-G": "Grace",
+            "en-US-Neural2-H": "Henry", "en-US-Neural2-I": "Isabella",
+            "en-US-Neural2-J": "James",
+            # Hindi voices  
+            "hi-IN-Neural2-A": "Priya", "hi-IN-Neural2-B": "Arjun",
+            "hi-IN-Neural2-C": "Chandra", "hi-IN-Neural2-D": "Deepak",
+            # Spanish voices
+            "es-ES-Neural2-A": "Sofia", "es-ES-Neural2-B": "Diego",
+            "es-ES-Neural2-C": "Carmen", "es-ES-Neural2-F": "Fernando",
+            # French voices
+            "fr-FR-Neural2-A": "Amélie", "fr-FR-Neural2-B": "Bernard",
+            "fr-FR-Neural2-C": "Céline", "fr-FR-Neural2-D": "Didier",
+            # German voices
+            "de-DE-Neural2-A": "Anna", "de-DE-Neural2-B": "Bernd", 
+            "de-DE-Neural2-C": "Claudia", "de-DE-Neural2-F": "Friedrich",
+            # Italian voices
+            "it-IT-Neural2-A": "Alessandra", "it-IT-Neural2-C": "Carlo",
+            # Arabic voices
+            "ar-XA-Neural2-A": "Layla", "ar-XA-Neural2-B": "Omar",
+            "ar-XA-Neural2-C": "Zahra", "ar-XA-Neural2-D": "Hassan",
+        }
         
-        logger.info(f"Google TTS initialized - Model: {self.selected_model}, Voice: {self.selected_voice}")
-
-    def translate_text(self, text: str, target_language: str) -> str:
-        """Translate text using OpenAI for languages not supported by Google TTS"""
-        import openai
-        
-        openai_api_key = os.getenv("OPENAI_API_KEY")
-        if not openai_api_key:
-            logger.error("OpenAI API key not configured for translation")
-            return text
-            
-        try:
-            openai.api_key = openai_api_key
-            
-            response = openai.chat.completions.create(
-                model="gpt-4o-mini",
-                messages=[
-                    {"role": "system", "content": f"Translate to {target_language}. Return ONLY the translated text."},
-                    {"role": "user", "content": text}
-                ],
-                temperature=0
-            )
-            
-            translated_text = response.choices[0].message.content.strip()
-            logger.info(f"Translated to {target_language}")
-            return translated_text
-            
-        except Exception as e:
-            logger.error(f"Translation error: {e}")
-            return text
-
-    async def text_to_speech(self, text: str, speed: float = None, gender_aware_translator=None) -> str:
-        """Convert text to speech using Google Cloud TTS"""
-        if not self.google_credentials:
-            logger.error("Google Cloud TTS credentials not configured")
-            return ""
-            
-        try:
-            # Use provided speed or default
-            speech_speed = speed if speed is not None else self.selected_speed
-            logger.info(f"🎛️ TTS Speed Debug: provided_speed={speed}, saved_speed={self.selected_speed}, using_speed={speech_speed}")
-            
-            # Translate if needed with gender awareness
-            if self.output_language != "english":
-                if gender_aware_translator:
-                    # Detect gender from selected voice
-                    gender = self._detect_gender_from_voice(self.selected_voice)
-                    translated_text = gender_aware_translator(text, self.output_language, gender)
-                    logger.info(f"🎭 Interview TTS: Using gender-aware translation ({gender}) for {self.output_language}")
-                else:
-                    translated_text = self.translate_text(text, self.output_language)
-            else:
-                translated_text = text
-            
-            # Import Google TTS
-            from google.cloud import texttospeech
-            
-            client = texttospeech.TextToSpeechClient()
-            synthesis_input = texttospeech.SynthesisInput(text=translated_text)
-            
-            # Get voice based on current settings
-            voice_name = self.selected_voice
-            
-            voice = texttospeech.VoiceSelectionParams(
-                name=voice_name,
-                language_code='-'.join(voice_name.split('-')[:2])
-            )
-            
-            audio_config = texttospeech.AudioConfig(
-                audio_encoding=texttospeech.AudioEncoding.MP3,
-                speaking_rate=speech_speed,
-                effects_profile_id=["telephony-class-application"]
-            )
-            
-            response = client.synthesize_speech(
-                input=synthesis_input, 
-                voice=voice, 
-                audio_config=audio_config
-            )
-            
-            audio_base64 = base64.b64encode(response.audio_content).decode('utf-8')
-            logger.info(f"Generated Google TTS: {voice_name} at {speech_speed}x speed")
-            return audio_base64
-            
-        except Exception as e:
-            logger.error(f"Google TTS error: {e}")
-            return ""
-
-    def update_settings(self, settings: Dict[str, Any]) -> bool:
-        """Update Google TTS settings"""
-        try:
-            old_speed = self.selected_speed
-            if "model" in settings:
-                self.selected_model = settings["model"]
-            if "voice" in settings:
-                self.selected_voice = settings["voice"]
-            if "speed" in settings:
-                self.selected_speed = max(0.25, min(4.0, float(settings["speed"])))
-            if "language" in settings:
-                self.output_language = settings["language"].lower()
-            
-            logger.info(f"🔧 Google TTS settings updated: speed {old_speed} → {self.selected_speed}, voice: {self.selected_voice}, model: {self.selected_model}")
-            return True
-        except Exception as e:
-            logger.error(f"Error updating settings: {e}")
-            return False
-
-    async def play_voice_preview(self, voice_id: str, text: str = "Hello, this is a voice preview", speed: float = None) -> str:
-        """Generate a preview audio for a specific voice"""
-        if not self.google_credentials:
-            return ""
-            
-        try:
-            from google.cloud import texttospeech
-            
-            # Use provided speed or fall back to selected speed
-            speaking_rate = speed if speed is not None else self.selected_speed
-            
-            client = texttospeech.TextToSpeechClient()
-            synthesis_input = texttospeech.SynthesisInput(text=text)
-            
-            voice = texttospeech.VoiceSelectionParams(
-                name=voice_id,
-                language_code='-'.join(voice_id.split('-')[:2])
-            )
-            
-            audio_config = texttospeech.AudioConfig(
-                audio_encoding=texttospeech.AudioEncoding.MP3,
-                speaking_rate=speaking_rate
-            )
-            
-            response = client.synthesize_speech(
-                input=synthesis_input, 
-                voice=voice, 
-                audio_config=audio_config
-            )
-            
-            audio_base64 = base64.b64encode(response.audio_content).decode('utf-8')
-            logger.info(f"Generated voice preview for {voice_id} at {speaking_rate}x speed")
-            return audio_base64
-            
-        except Exception as e:
-            logger.error(f"Voice preview error: {e}")
-            return ""
-
-    def get_available_models(self) -> list:
-        """Get available Google TTS models"""
-        return [
-            {"id": "neural2", "name": "Optimal", "speed": "Fastest", "quality": "High"},
-            {"id": "wavenet", "name": "Best Quality", "speed": "Slower", "quality": "Premium"},
-            {"id": "standard", "name": "Best Speed", "speed": "Ultra Fast", "quality": "Basic"}
-        ]
+        logger.info("Voice Manager initialized")
     
-    def get_available_voices(self, language: str = None) -> dict:
-        """Get available voices for a language using Google Cloud TTS API"""
-        target_lang = language or self.output_language
+    def get_available_voices(self, language: Optional[str] = None) -> Dict[str, List[Dict]]:
+        """
+        Get available voices for a language using Google Cloud TTS API
         
-        if not self.google_credentials:
-            logger.error("Google Cloud TTS credentials not configured")
+        Args:
+            language: Language code, uses TTS service default if not provided
+            
+        Returns:
+            dict: Voices grouped by gender {"male": [...], "female": [...]}
+        """
+        target_language = language or self.tts_service.output_language
+        
+        # Validate language
+        if not self.language_manager.is_language_supported(target_language):
+            logger.warning(f"Language {target_language} not supported for voice listing")
             return {"male": [], "female": []}
         
         try:
@@ -324,35 +190,8 @@ class GoogleTTS:
             # Initialize client
             client = texttospeech.TextToSpeechClient()
             
-            # Map language to Google TTS language code
-            language_code_mapping = {
-                "english": "en-US",
-                "hindi": "hi-IN", 
-                "spanish": "es-ES",
-                "french": "fr-FR",
-                "german": "de-DE",
-                "italian": "it-IT",
-                "portuguese": "pt-BR",
-                "russian": "ru-RU",
-                "japanese": "ja-JP",
-                "korean": "ko-KR",
-                "mandarin": "zh-CN",
-                "arabic": "ar-XA",
-                "dutch": "nl-NL",
-                "turkish": "tr-TR",
-                "vietnamese": "vi-VN",
-                "thai": "th-TH",
-                "indonesian": "id-ID",
-                "bengali": "bn-IN",
-                "telugu": "te-IN",
-                "marathi": "mr-IN",
-                "tamil": "ta-IN",
-                "gujarati": "gu-IN",
-                "urdu": "ur-IN",
-                "kannada": "kn-IN"
-            }
-            
-            language_code = language_code_mapping.get(target_lang, "en-US")
+            # Get Google language code using LanguageManager
+            language_code = self.language_manager.get_google_language_code(target_language)
             
             # List all available voices from Google Cloud TTS
             voices_request = texttospeech.ListVoicesRequest(language_code=language_code)
@@ -381,10 +220,10 @@ class GoogleTTS:
                 
                 voice_data = {
                     "id": voice_name,
-                    "name": voice_name,  # Use actual voice ID as name
+                    "name": self.get_voice_friendly_name(voice_name),
                     "model": model,
                     "gender": gender,
-                    "language": target_lang,
+                    "language": target_language,
                     "language_code": language_code,
                     "natural_sample_rate": voice.natural_sample_rate_hertz
                 }
@@ -405,7 +244,7 @@ class GoogleTTS:
                         selected_voices = self._select_variant_voices(model_voices, max_count=2)
                         result[gender].extend(selected_voices)
             
-            logger.info(f"Filtered to {len(result['male']) + len(result['female'])} voices for {target_lang}")
+            logger.info(f"Filtered to {len(result['male']) + len(result['female'])} voices for {target_language}")
             logger.info(f"Voice counts by model: neural2={len([v for v in result['male'] + result['female'] if v['model'] == 'neural2'])}, "
                        f"wavenet={len([v for v in result['male'] + result['female'] if v['model'] == 'wavenet'])}, "
                        f"standard={len([v for v in result['male'] + result['female'] if v['model'] == 'standard'])}")
@@ -414,12 +253,222 @@ class GoogleTTS:
             
         except Exception as e:
             logger.error(f"Error getting voices from Google Cloud TTS: {e}")
-            # Fallback to hardcoded mapping only on error
-            if target_lang in self.voice_mapping:
-                logger.warning(f"Using fallback hardcoded voices for {target_lang}")
-                return self._get_fallback_voices(target_lang)
+            # Use hardcoded mapping as backup
+            if target_language in self.voice_mapping:
+                logger.warning(f"Using fallback hardcoded voices for {target_language}")
+                return self._get_fallback_voices(target_language)
             else:
                 return {"male": [], "female": []}
+    
+    def get_available_models(self) -> List[Dict]:
+        """Get available TTS models"""
+        return self.tts_service.get_available_models()
+    
+    async def generate_voice_preview(self, voice_id: str, text: Optional[str] = None, 
+                                   language: Optional[str] = None, speed: float = 1.0) -> str:
+        """
+        Generate a preview audio for a specific voice
+        
+        Args:
+            voice_id: Voice ID to preview
+            text: Preview text, uses default if not provided
+            language: Language for preview, uses TTS service default if not provided
+            speed: Speaking speed for preview
+            
+        Returns:
+            str: Base64 encoded audio or empty string on error
+        """
+        target_language = language or self.tts_service.output_language
+        preview_text = text or "Hello, this is a preview of my voice. How does this sound to you?"
+        
+        try:
+            # Translate preview text if needed
+            if target_language != "english":
+                # Detect gender from voice for gender-aware translation
+                gender = self.translation_service.detect_gender_from_voice_id(voice_id)
+                preview_text = self.translation_service.translate_text(preview_text, target_language, gender)
+                logger.info(f"Translated preview text for {target_language} with gender {gender}")
+            
+            # Generate preview using TTS service
+            audio_base64 = await self.tts_service.play_voice_preview(voice_id, preview_text, speed)
+            
+            if audio_base64:
+                logger.info(f"Generated voice preview for {voice_id} in {target_language}")
+            else:
+                logger.warning(f"Failed to generate voice preview for {voice_id}")
+            
+            return audio_base64
+            
+        except Exception as e:
+            logger.error(f"Error generating voice preview for {voice_id}: {e}")
+            return ""
+    
+    def validate_voice(self, voice_id: str, language: Optional[str] = None) -> bool:
+        """
+        Validate if a voice is available for a language
+        
+        Args:
+            voice_id: Voice ID to validate
+            language: Language to check against, uses TTS service default if not provided
+            
+        Returns:
+            bool: True if voice is valid for the language
+        """
+        target_language = language or self.tts_service.output_language
+        
+        try:
+            available_voices = self.get_available_voices(target_language)
+            all_voices = available_voices.get("male", []) + available_voices.get("female", [])
+            
+            # Check if voice ID exists in available voices
+            voice_ids = [voice.get("id") for voice in all_voices]
+            is_valid = voice_id in voice_ids
+            
+            if not is_valid:
+                logger.warning(f"Voice {voice_id} not available for language {target_language}")
+            
+            return is_valid
+            
+        except Exception as e:
+            logger.error(f"Error validating voice {voice_id}: {e}")
+            return False
+    
+    def get_voice_info(self, voice_id: str) -> Optional[Dict]:
+        """
+        Get detailed information about a specific voice
+        
+        Args:
+            voice_id: Voice ID to get info for
+            
+        Returns:
+            dict: Voice information or None if not found
+        """
+        try:
+            # Search across all supported languages
+            for language in self.language_manager.supported_languages:
+                voices = self.get_available_voices(language)
+                all_voices = voices.get("male", []) + voices.get("female", [])
+                
+                for voice in all_voices:
+                    if voice.get("id") == voice_id:
+                        # Add language info to voice data
+                        voice_info = voice.copy()
+                        voice_info["supported_language"] = language
+                        voice_info["language_display_name"] = self.language_manager.get_language_display_name(language)
+                        return voice_info
+            
+            logger.warning(f"Voice {voice_id} not found in any language")
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error getting voice info for {voice_id}: {e}")
+            return None
+    
+    def get_voices_by_gender(self, gender: str, language: Optional[str] = None) -> List[Dict]:
+        """
+        Get voices filtered by gender
+        
+        Args:
+            gender: 'male' or 'female'
+            language: Language to filter by, uses TTS service default if not provided
+            
+        Returns:
+            list: List of voices for the specified gender
+        """
+        target_language = language or self.tts_service.output_language
+        
+        if gender.lower() not in ["male", "female"]:
+            logger.warning(f"Invalid gender filter: {gender}")
+            return []
+        
+        try:
+            voices = self.get_available_voices(target_language)
+            return voices.get(gender.lower(), [])
+            
+        except Exception as e:
+            logger.error(f"Error getting {gender} voices for {target_language}: {e}")
+            return []
+    
+    def get_voices_by_model(self, model: str, language: Optional[str] = None) -> List[Dict]:
+        """
+        Get voices filtered by TTS model
+        
+        Args:
+            model: TTS model name (e.g., 'neural2', 'wavenet', 'standard')
+            language: Language to filter by, uses TTS service default if not provided
+            
+        Returns:
+            list: List of voices for the specified model
+        """
+        target_language = language or self.tts_service.output_language
+        
+        try:
+            voices = self.get_available_voices(target_language)
+            all_voices = voices.get("male", []) + voices.get("female", [])
+            
+            # Filter by model
+            model_voices = [voice for voice in all_voices if voice.get("model") == model]
+            
+            logger.info(f"Found {len(model_voices)} voices for model {model} in {target_language}")
+            return model_voices
+            
+        except Exception as e:
+            logger.error(f"Error getting {model} voices for {target_language}: {e}")
+            return []
+    
+    def get_default_voice(self, language: Optional[str] = None, gender: str = "female") -> Optional[str]:
+        """
+        Get a default voice ID for a language and gender
+        
+        Args:
+            language: Language to get default voice for, uses TTS service default if not provided
+            gender: Preferred gender ('male' or 'female')
+            
+        Returns:
+            str: Voice ID or None if no suitable voice found
+        """
+        target_language = language or self.tts_service.output_language
+        
+        try:
+            voices = self.get_voices_by_gender(gender, target_language)
+            
+            if not voices:
+                # Fallback to opposite gender if preferred gender not available
+                fallback_gender = "male" if gender == "female" else "female"
+                voices = self.get_voices_by_gender(fallback_gender, target_language)
+                logger.info(f"No {gender} voices found, using {fallback_gender} voices as fallback")
+            
+            if voices:
+                # Prefer neural2 model, fallback to first available
+                neural2_voices = [v for v in voices if v.get("model") == "neural2"]
+                default_voice = neural2_voices[0] if neural2_voices else voices[0]
+                
+                voice_id = default_voice.get("id")
+                logger.info(f"Selected default voice {voice_id} for {target_language} ({gender})")
+                return voice_id
+            
+            logger.warning(f"No voices available for {target_language}")
+            return None
+            
+        except Exception as e:
+            logger.error(f"Error getting default voice for {target_language}: {e}")
+            return None
+    
+    def get_voice_friendly_name(self, voice_id: str) -> str:
+        """Extract a friendly name from voice ID"""
+        # If we have a friendly name, use it
+        if voice_id in self.voice_names:
+            return self.voice_names[voice_id]
+        
+        # Otherwise, extract a meaningful name from the voice ID
+        # Format is usually: xx-XX-Model-Letter (e.g., en-US-Neural2-D)
+        parts = voice_id.split('-')
+        if len(parts) >= 4:
+            model = parts[2]  # Neural2, Wavenet, Standard
+            letter = parts[3]  # A, B, C, D, etc.
+            return f"{model}-{letter}"
+        else:
+            return voice_id.split('-')[-1]
     
     def _select_variant_voices(self, voices, max_count=2):
         """Select most variant voices from a list using smart criteria"""
@@ -491,8 +540,11 @@ class GoogleTTS:
         step = len(voices) // max_count
         return [voices[i * step] for i in range(max_count)]
 
-    def _get_fallback_voices(self, target_lang: str) -> dict:
+    def _get_fallback_voices(self, target_lang: str) -> Dict[str, List[Dict]]:
         """Fallback method using hardcoded voices when API fails"""
+        if target_lang not in self.voice_mapping:
+            return {"male": [], "female": []}
+            
         lang_voices = self.voice_mapping[target_lang]
         result = {"male": [], "female": []}
         
@@ -504,114 +556,10 @@ class GoogleTTS:
                         
                         result[gender].append({
                             "id": voice_id,
-                            "name": voice_id,  # Use actual voice ID
+                            "name": self.get_voice_friendly_name(voice_id),
                             "model": model,
                             "gender": gender,
                             "language": target_lang
                         })
         
-        return result
-
-    def _detect_gender_from_voice(self, voice_id: str) -> str:
-        """Detect gender from Google TTS voice ID"""
-        try:
-            # Google TTS voice naming pattern: xx-XX-Model-Letter
-            # Generally: A = Female, B/C/D/E/F/G/H/I/J... = Male
-            if not voice_id:
-                return "neutral"
-            
-            # Extract the last character/identifier from voice ID
-            parts = voice_id.split('-')
-            if len(parts) >= 4:
-                last_part = parts[-1]  # e.g., "A", "B", "F", etc.
-                # Handle complex suffixes like "Algenib", "HD", etc.
-                if len(last_part) > 1:
-                    # Extract first letter for complex names
-                    letter = last_part[0].upper()
-                else:
-                    letter = last_part.upper()
-                
-                # A = Female, everything else = Male (B, C, D, F, etc.)
-                return "female" if letter == 'A' else "male"
-            
-            return "neutral"
-        except Exception as e:
-            logger.warning(f"Could not detect gender from voice {voice_id}: {e}")
-            return "neutral"
-    
-    def _get_voice_name(self, voice_id: str) -> str:
-        """Extract a friendly name from voice ID"""
-        voice_names = {
-            # English voices
-            "en-US-Neural2-D": "Marcus",
-            "en-US-Neural2-F": "Emma",
-            "en-US-Neural2-A": "Alice", 
-            "en-US-Neural2-C": "Charlotte",
-            "en-US-Neural2-E": "Elizabeth",
-            "en-US-Neural2-G": "Grace",
-            "en-US-Neural2-H": "Henry",
-            "en-US-Neural2-I": "Isabella",
-            "en-US-Neural2-J": "James",
-            
-            # Hindi voices  
-            "hi-IN-Neural2-A": "Priya",
-            "hi-IN-Neural2-B": "Arjun",
-            "hi-IN-Neural2-C": "Chandra",
-            "hi-IN-Neural2-D": "Deepak",
-            
-            # Spanish voices
-            "es-ES-Neural2-A": "Sofia",
-            "es-ES-Neural2-B": "Diego",
-            "es-ES-Neural2-C": "Carmen",
-            "es-ES-Neural2-F": "Fernando",
-            
-            # French voices
-            "fr-FR-Neural2-A": "Amélie", 
-            "fr-FR-Neural2-B": "Bernard",
-            "fr-FR-Neural2-C": "Céline",
-            "fr-FR-Neural2-D": "Didier",
-            
-            # German voices
-            "de-DE-Neural2-A": "Anna",
-            "de-DE-Neural2-B": "Bernd", 
-            "de-DE-Neural2-C": "Claudia",
-            "de-DE-Neural2-F": "Friedrich",
-            
-            # Italian voices
-            "it-IT-Neural2-A": "Alessandra",
-            "it-IT-Neural2-C": "Carlo",
-            
-            # Arabic voices
-            "ar-XA-Neural2-A": "Layla",
-            "ar-XA-Neural2-B": "Omar",
-            "ar-XA-Neural2-C": "Zahra",
-            "ar-XA-Neural2-D": "Hassan",
-            
-            # Add more languages as needed...
-        }
-        
-        # If we have a friendly name, use it
-        if voice_id in voice_names:
-            return voice_names[voice_id]
-        
-        # Otherwise, extract a meaningful name from the voice ID
-        # Format is usually: xx-XX-Model-Letter (e.g., en-US-Neural2-D)
-        parts = voice_id.split('-')
-        if len(parts) >= 4:
-            model = parts[2]  # Neural2, Wavenet, Standard
-            letter = parts[3]  # A, B, C, D, etc.
-            return f"{model}-{letter}"
-        else:
-            return voice_id.split('-')[-1]
-
-    def get_supported_languages(self) -> list:
-        """Get list of supported languages for Google TTS"""
-        return [
-            {"code": "english", "name": "English"},
-            {"code": "hindi", "name": "Hindi"},
-            # Add other supported languages...
-        ]
-
-    def is_language_supported(self, language: str) -> bool:
-        """Check if a language is supported by Google TTS"""
-        return language.lower() in self.supported_languages 
+        return result 

@@ -4,10 +4,13 @@ import re
 import asyncio
 from typing import Dict, List, Tuple
 from datetime import datetime, timedelta
-
-from tools.llm_provider import get_llm_response
+import os
+from openai import OpenAI
+from dotenv import load_dotenv
 
 from models import ParticipantSession, TrialCriteria, load_trial_criteria
+
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +18,9 @@ class EligibilityEvaluator:
     def __init__(self, study_id: str):
         self.study_id = study_id
         self.trial_criteria = load_trial_criteria(study_id)
+        
+        # Initialize OpenAI client
+        self.openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         
         # Decision algorithm constants
         self.HIGH_PRIORITY_CONFIDENCE_THRESHOLD = 0.8
@@ -58,6 +64,18 @@ class EligibilityEvaluator:
         # 3. Final threshold check
         return 'Accept' if total >= self.DECISION_THRESHOLD else 'Reject'
     
+    def _get_llm_response(self, system_prompt: str, user_prompt: str, model: str = "gpt-4o-mini") -> str:
+        """Get LLM response using OpenAI API"""
+        response = self.openai_client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_prompt}
+            ],
+            response_format={"type": "json_object"}
+        )
+        return response.choices[0].message.content
+    
     async def evaluate_eligibility(self, session: ParticipantSession) -> Dict:
         """Evaluate participant eligibility based on their responses"""
         try:
@@ -85,8 +103,19 @@ class EligibilityEvaluator:
                 for i, result in enumerate(criteria_results):
                     if isinstance(result, Exception):
                         logger.error(f"Error evaluating criteria {criteria_with_responses[i].id}: {result}")
-                        # Fallback to synchronous evaluation for failed criteria
-                        criteria_results[i] = self._evaluate_single_criteria_sync(criteria_with_responses[i], session.responses.get(criteria_with_responses[i].id, ""))
+                        # Use fallback error result
+                        criteria_results[i] = {
+                            "criteria_id": criteria_with_responses[i].id,
+                            "criteria_text": criteria_with_responses[i].text,
+                            "criteria_question": criteria_with_responses[i].question,
+                            "expected_response": criteria_with_responses[i].expected_response,
+                            "priority": criteria_with_responses[i].priority,
+                            "participant_response": session.responses.get(criteria_with_responses[i].id, ""),
+                            "meets_criteria": False,
+                            "confidence": 0.0,
+                            "reasoning": f"Evaluation error: {str(result)}",
+                            "extracted_value": None
+                        }
             else:
                 criteria_results = []
             
@@ -185,6 +214,7 @@ class EligibilityEvaluator:
             - Consider common speech patterns: "yeah"="yes", "nah"="no", partial numbers, etc.
 
             Evaluate if the participant's response meets the criteria, accounting for speech-to-text imperfections.
+            If the response is not very clear(even after deciding based on the context/intent and ignoring punctuations etc.), return true with a confidence of 0.1.
 
             Respond with a JSON object:
             {{
@@ -195,8 +225,8 @@ class EligibilityEvaluator:
             }}
             """
             
-            # Note: get_llm_response is synchronous, but we can run it in parallel
-            evaluation_text = get_llm_response(system_prompt="You are a clinical trial eligibility evaluator. Provide accurate JSON responses.", user_prompt=evaluation_prompt, model="gpt-4o")
+            # Note: _get_llm_response is synchronous, but we can run it in parallel
+            evaluation_text = self._get_llm_response(system_prompt="You are a clinical trial eligibility evaluator. Provide accurate JSON responses.", user_prompt=evaluation_prompt, model="gpt-4o")
 
             # Parse JSON response
             evaluation = json.loads(evaluation_text)
@@ -228,71 +258,6 @@ class EligibilityEvaluator:
                 "extracted_value": None
             }
 
-    def _evaluate_single_criteria_sync(self, criteria: TrialCriteria, response: str, model: str = "gpt-4o") -> Dict:
-        """Evaluate a single criteria against the response"""
-       
-        try:
-            # Use LLM to evaluate the response
-            evaluation_prompt = f"""
-            You are evaluating a clinical trial participant's spoken response against eligibility criteria. 
-            The response came from speech-to-text conversion and may contain transcription errors.
-
-            CRITERIA: {criteria.text}
-            QUESTION: {criteria.question}
-            EXPECTED: {criteria.expected_response}
-            PARTICIPANT'S RESPONSE: "{response}"
-
-            IMPORTANT - Speech-to-Text Considerations:
-            - The response may have transcription errors, incomplete words, or mixed-up similar-sounding words
-            - Focus on understanding the participant's INTENT rather than exact wording
-            - Look for key information even if grammar/wording is imperfect
-            - If response seems completely unrelated, it might be a transcription error - be more lenient
-            - Partial responses (e.g., "yeah, I think I..." cut off) should be interpreted based on available context
-            - Consider common speech patterns: "yeah"="yes", "nah"="no", partial numbers, etc.
-
-            Evaluate if the participant's response meets the criteria, accounting for speech-to-text imperfections.
-
-            Respond with a JSON object:
-            {{
-                "meets_criteria": true/false,
-                "confidence": 0.0-1.0, # Lower confidence for unclear/incomplete responses due to STT issues
-                "reasoning": "brief explanation including any STT considerations",
-                "extracted_value": "key value from response if applicable"
-            }}
-            """
-            
-            evaluation_text = get_llm_response(system_prompt="You are a clinical trial eligibility evaluator. Provide accurate JSON responses.", user_prompt=evaluation_prompt)
-
-            # Parse JSON response
-            evaluation = json.loads(evaluation_text)
-        
-            # Add metadata
-            evaluation.update({
-                "criteria_id": criteria.id,
-                "criteria_text": criteria.text,
-                "criteria_question": criteria.question,
-                "expected_response": criteria.expected_response,
-                "priority": criteria.priority,
-                "participant_response": response
-            })
-            
-            return evaluation
-            
-        except Exception as e:
-            logger.error(f"Error evaluating criteria {criteria.id}: {e}")
-            return {
-                "criteria_id": criteria.id,
-                "criteria_text": criteria.text,
-                "criteria_question": criteria.question,
-                "expected_response": criteria.expected_response,
-                "priority": criteria.priority,
-                "participant_response": response,
-                "meets_criteria": False,
-                "confidence": 0.0,
-                "reasoning": f"Evaluation error: {str(e)}",
-                "extracted_value": None
-            }
-    
     
 
     def _generate_eligibility_summary(self, eligible: bool, score: float, 

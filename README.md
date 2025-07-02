@@ -103,7 +103,12 @@ npm run dev
 clinical-trial-agent/
 ├── backend/                  # Python FastAPI backend
 │   ├── api_server.py        # Main FastAPI application
-│   ├── conversation_agent.py # AI conversation logic
+│   ├── agents/               # Modular agent system
+│   │   ├── base_agent.py     # Abstract base agent class
+│   │   ├── consent_agent.py  # Handles consent flow
+│   │   ├── questioning_agent.py # Handles Q&A logic
+│   │   ├── submission_agent.py # Handles final submission
+│   │   └── coordinator.py    # Routes between agents
 │   ├── audio_processor.py   # Speech processing
 │   ├── clinical_trials_api.py # ClinicalTrials.gov integration
 │   ├── start_backend.py     # Server startup script
