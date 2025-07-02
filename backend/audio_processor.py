@@ -264,8 +264,13 @@ class AudioProcessor:
             audio_bytes = base64.b64decode(audio_data)
             
             # Check audio duration - reject very short clips
-            if len(audio_bytes) < 2000:  # Less than ~0.1 seconds of audio
+            if len(audio_bytes) < 1000:  # Less than ~0.1 seconds of audio
+                logger.info("Audio too short.")
                 return "Ambiguous sound."
+            
+            # Check if audio is too long
+            if len(audio_bytes) > 1000000:  # 1MB
+                return "Audio too long."
             
             # Google STT setup
             from google.cloud import speech
@@ -276,9 +281,13 @@ class AudioProcessor:
             target_language_code = self.google_language_mapping[current_language]
             
             if current_language == "english":
-                # When English is selected, use English as primary
+                # When English is selected, use US English as primary for speed, Indian English as alternative
                 primary_language = "en-US"
-                alternative_languages = []
+                alternative_languages = ["en-IN"]  # Indian English for accent recognition
+            elif current_language == "hindi":
+                # When Hindi is selected, use Hindi as primary for speed, Indian English as alternative
+                primary_language = "hi-IN"
+                alternative_languages = ["en-IN"]  # Indian English for accent recognition
             elif current_language == "urdu":
                 # Special handling for Urdu: use Hindi as alternative since they share phonetics
                 primary_language = target_language_code  # ur-IN
@@ -286,7 +295,7 @@ class AudioProcessor:
             else:
                 # When non-English is selected, use that language as primary and English as fallback
                 primary_language = target_language_code
-                alternative_languages = ["en-US"]
+                alternative_languages = ["en-US"]  # Both US and Indian English
             
             # Languages that support latest_short model (limited set)
             latest_short_supported = [
@@ -306,12 +315,12 @@ class AudioProcessor:
                 language_code=primary_language,
                 alternative_language_codes=alternative_languages,
                 
-                # Free tier optimizations
-                use_enhanced=False,  # Stay in free tier
+                # Optimized for speed + Indian accent recognition
+                use_enhanced=True,  # Better for accented speech
                 enable_automatic_punctuation=True,
                 enable_word_confidence=True,
                 model=model_to_use,  # Use language-appropriate model
-                max_alternatives=1,
+                max_alternatives=3,  # Get backup for Indian accents, but keep it fast
                 profanity_filter=False,
             )
             
@@ -321,6 +330,7 @@ class AudioProcessor:
             
             # Handle results
             if not response.results:
+                logger.info("No results from Google Speech-to-Text.")
                 return "Ambiguous sound."
                 
             result = response.results[0]
@@ -329,7 +339,10 @@ class AudioProcessor:
             
             # Language-specific confidence thresholds
             # Some languages need higher confidence to avoid random text
+            # Indian accents often get lower confidence, so we're more lenient for English
             confidence_thresholds = {
+                "en-US": 0.20,  # More lenient for Indian accents in English
+                "en-IN": 0.20,  # Indian English baseline
                 "ur-IN": 0.4,  # Urdu needs higher confidence
                 "ar-XA": 0.35,  # Arabic needs higher confidence  
                 "bn-IN": 0.35,  # Bengali needs higher confidence
@@ -342,6 +355,49 @@ class AudioProcessor:
             
             min_confidence = confidence_thresholds.get(primary_language, 0.25)  # Default 0.25
             
+            # Special fallback for English: if en-US has low confidence, retry with en-IN as primary
+            if (current_language == "english" and primary_language == "en-US" and 
+                (not transcript or confidence < 0.25)):  # Higher threshold for fallback trigger
+                
+                logger.info(f"en-US low confidence ({confidence:.2f}), transcript: {transcript}, retrying with en-IN as primary")
+                
+                # Retry with en-IN as primary
+                fallback_config = speech.RecognitionConfig(
+                    encoding=speech.RecognitionConfig.AudioEncoding.WEBM_OPUS,
+                    sample_rate_hertz=48000,
+                    language_code="en-IN",  # Indian English as primary
+                    alternative_language_codes=["en-US"],  # US English as fallback
+                    
+                    use_enhanced=True,
+                    enable_automatic_punctuation=True,
+                    enable_word_confidence=True,
+                    model="latest_short",  # en-IN supports latest_short
+                    max_alternatives=2,
+                    profanity_filter=True,
+                )
+                
+                try:
+                    fallback_response = client.recognize(config=fallback_config, audio=audio)
+                    
+                    if fallback_response.results:
+                        fallback_result = fallback_response.results[0]
+                        fallback_transcript = fallback_result.alternatives[0].transcript.strip()
+                        fallback_confidence = fallback_result.alternatives[0].confidence
+                        
+                        logger.info(f"en-IN fallback: confidence={fallback_confidence:.2f}, transcript='{fallback_transcript}'")
+                        
+                        # Use fallback result if it's better or original was too poor
+                        if fallback_confidence > confidence:
+                            logger.info(f"Using en-IN result (better confidence: {fallback_confidence:.2f} > {confidence:.2f})")
+                            return fallback_transcript
+                        elif not transcript and fallback_confidence >= 0.20:
+                            logger.info(f"Using en-IN result (original failed, fallback confidence: {fallback_confidence:.2f})")
+                            return fallback_transcript
+                            
+                except Exception as e:
+                    logger.error(f"en-IN fallback failed: {e}")
+            
+            # Check confidence against thresholds
             if not transcript or confidence < min_confidence:
                 logger.info(f"Low confidence for {primary_language}: {confidence:.2f} < {min_confidence} - '{transcript}'")
                 return "Ambiguous sound."
@@ -355,6 +411,7 @@ class AudioProcessor:
                 return english_text
             else:
                 # User spoke in English or output language is English
+                logger.info(f"confidence: {confidence}, transcript: {transcript}")
                 return transcript
                 
         except Exception as e:
