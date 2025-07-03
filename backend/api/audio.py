@@ -315,25 +315,3 @@ async def translate_text(request: Request):
         logger.error(f"Error translating text: {e}")
         raise HTTPException(status_code=500, detail="Failed to translate text")
 
-@router.post("/translate")
-async def translate_text(request: Request):
-    """Translate text to specified language"""
-    try:
-        data = await request.json()
-        text = data.get("text")
-        target_language = data.get("target_language", "english").lower()
-        gender = data.get("gender", "neutral").lower()
-        
-        if not text:
-            raise HTTPException(status_code=400, detail="text is required")
-        
-        # Use audio processor's translation method with gender awareness
-        translated_text = audio_processor.translate_text(text, target_language, gender)
-        
-        return {"translated_text": translated_text}
-        
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.error(f"Error translating text: {e}")
-        raise HTTPException(status_code=500, detail="Failed to translate text") 

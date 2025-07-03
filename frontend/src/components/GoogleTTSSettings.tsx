@@ -502,7 +502,7 @@ export const GoogleTTSSettings: React.FC<GoogleTTSSettingsProps> = ({
 
       // Call backend to translate the text with gender awareness
       const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-      const response = await fetch(`${API_BASE_URL}/api/translate`, {
+      const response = await fetch(`${API_BASE_URL}/api/audio/translate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

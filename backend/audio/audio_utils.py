@@ -18,10 +18,29 @@ class AudioUtils:
             bool: True if valid, False otherwise
         """
         try:
+            if not audio_data or len(audio_data) == 0:
+                return False
+                
             audio_bytes = base64.b64decode(audio_data)
-            # Basic validation - check if it's not empty and has reasonable size
-            return len(audio_bytes) > 1000  # At least 1KB
-        except Exception:
+            
+            # Check if audio data is reasonable size
+            if len(audio_bytes) < 1000:  # At least 1KB
+                return False
+                
+            # Check if audio data is not too large (10MB limit)
+            if len(audio_bytes) > 10 * 1024 * 1024:
+                return False
+                
+            # Basic WebM/Opus header check
+            if audio_bytes[:4] == b'\x1a\x45\xdf\xa3':  # WebM header
+                return True
+            elif audio_bytes[:4] == b'OggS':  # Ogg header (Opus can be in Ogg container)
+                return True
+            else:
+                return True  # Allow other formats, let Google STT handle validation
+                
+        except Exception as e:
+            logger.error(f"Audio format validation error: {e}")
             return False
     
     @staticmethod
@@ -35,7 +54,11 @@ class AudioUtils:
         Returns:
             bytes: Decoded audio bytes
         """
-        return base64.b64decode(audio_data)
+        try:
+            return base64.b64decode(audio_data)
+        except Exception as e:
+            logger.error(f"Base64 decode error: {e}")
+            raise
     
     @staticmethod
     def bytes_to_base64(audio_bytes: bytes) -> str:
@@ -63,11 +86,10 @@ class AudioUtils:
         """
         # Check audio duration - reject very short clips
         if len(audio_bytes) < 1000:  # Less than ~0.1 seconds of audio
-            logger.info("Audio too short.")
             return False, "Audio too short."
         
-        # Check if audio is too long
-        if len(audio_bytes) > 1000000:  # 1MB
+        # Check if audio is too long (increased limit for better user experience)
+        if len(audio_bytes) > 10 * 1024 * 1024:  # 10MB limit
             return False, "Audio too long."
         
         return True, ""

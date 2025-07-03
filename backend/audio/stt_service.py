@@ -76,87 +76,98 @@ class STTService:
             # Get language configuration from language manager
             lang_config = self.language_manager.get_stt_language_config(current_language)
             
-            config = speech.RecognitionConfig(
-                encoding=speech.RecognitionConfig.AudioEncoding.WEBM_OPUS,
-                sample_rate_hertz=48000,
-                language_code=lang_config["primary_language"],
-                alternative_language_codes=lang_config["alternative_languages"],
-                
-                # Optimized for speed + accent recognition
-                use_enhanced=True,  # Better for accented speech
-                enable_automatic_punctuation=False,
-                enable_word_confidence=True,
-                model=lang_config["model"],  # Use language-appropriate model
-                max_alternatives=3,  # Get backup for accents
-                profanity_filter=False,
-            )
+            # Try multiple sample rates if first attempt fails
+            sample_rates = [48000, 16000, 24000, 44100]  # Common rates, prioritize 48kHz
             
-            # Perform recognition
-            audio = speech.RecognitionAudio(content=audio_bytes)
-            response = client.recognize(config=config, audio=audio)
-            
-            # Handle results
-            if not response.results:
-                logger.info("No results from Google Speech-to-Text.")
-                return "Ambiguous sound."
-                
-            result = response.results[0]
-            transcript = result.alternatives[0].transcript.strip()
-            confidence = result.alternatives[0].confidence
-            
-            # Check confidence against language-specific thresholds
-            min_confidence = lang_config["confidence_threshold"]
-            
-            # Special fallback for English: if en-US has low confidence, retry with en-IN as primary
-            if (current_language == "english" and lang_config["primary_language"] == "en-US" and 
-                (not transcript or confidence < 0.25)):  # Higher threshold for fallback trigger
-                
-                logger.info(f"en-US low confidence ({confidence:.2f}), transcript: {transcript}, retrying with en-IN as primary")
-                
-                # Retry with en-IN as primary
-                fallback_config = speech.RecognitionConfig(
-                    encoding=speech.RecognitionConfig.AudioEncoding.WEBM_OPUS,
-                    sample_rate_hertz=48000,
-                    language_code="en-IN",  # Indian English as primary
-                    alternative_language_codes=["en-US"],  # US English as fallback
-                    
-                    use_enhanced=True,
-                    enable_automatic_punctuation=False,
-                    enable_word_confidence=True,
-                    model="latest_short",  # en-IN supports latest_short
-                    max_alternatives=2,
-                    profanity_filter=True,
-                )
-                
+            for sample_rate in sample_rates:
                 try:
-                    fallback_response = client.recognize(config=fallback_config, audio=audio)
+                    config = speech.RecognitionConfig(
+                        encoding=speech.RecognitionConfig.AudioEncoding.WEBM_OPUS,
+                        sample_rate_hertz=sample_rate,
+                        language_code=lang_config["primary_language"],
+                        alternative_language_codes=lang_config["alternative_languages"],
+                        
+                        # Optimized for speed + accent recognition
+                        use_enhanced=True,  # Better for accented speech
+                        enable_automatic_punctuation=False,
+                        enable_word_confidence=True,
+                        model=lang_config["model"],  # Use language-appropriate model
+                        max_alternatives=3,  # Get backup for accents
+                        profanity_filter=False,
+                    )
                     
-                    if fallback_response.results:
-                        fallback_result = fallback_response.results[0]
-                        fallback_transcript = fallback_result.alternatives[0].transcript.strip()
-                        fallback_confidence = fallback_result.alternatives[0].confidence
+                    # Perform recognition
+                    audio = speech.RecognitionAudio(content=audio_bytes)
+                    response = client.recognize(config=config, audio=audio)
+                    
+                    # Handle results
+                    if not response.results:
+                        if sample_rate == sample_rates[-1]:  # Last attempt
+                            return "Ambiguous sound."
+                        continue  # Try next sample rate
                         
-                        logger.info(f"en-IN fallback: confidence={fallback_confidence:.2f}, transcript='{fallback_transcript}'")
+                    result = response.results[0]
+                    transcript = result.alternatives[0].transcript.strip()
+                    confidence = result.alternatives[0].confidence
+                    
+                    # Check confidence against language-specific thresholds
+                    min_confidence = lang_config["confidence_threshold"]
+                    
+                    # Special fallback for English: if en-US has low confidence, retry with en-IN as primary
+                    if (current_language == "english" and lang_config["primary_language"] == "en-US" and 
+                        (not transcript or confidence < 0.25)):  # Higher threshold for fallback trigger
                         
-                        # Use fallback result if it's better or original was too poor
-                        if fallback_confidence > confidence:
-                            logger.info(f"Using en-IN result (better confidence: {fallback_confidence:.2f} > {confidence:.2f})")
-                            return fallback_transcript
-                        elif not transcript and fallback_confidence >= 0.20:
-                            logger.info(f"Using en-IN result (original failed, fallback confidence: {fallback_confidence:.2f})")
-                            return fallback_transcript
+                        logger.info(f"en-US low confidence ({confidence:.2f}), transcript: {transcript}, retrying with en-IN as primary")
+                        
+                        # Retry with en-IN as primary
+                        fallback_config = speech.RecognitionConfig(
+                            encoding=speech.RecognitionConfig.AudioEncoding.WEBM_OPUS,
+                            sample_rate_hertz=sample_rate,  # Use the working sample rate
+                            language_code="en-IN",  # Indian English as primary
+                            alternative_language_codes=["en-US"],  # US English as fallback
                             
-                except Exception as e:
-                    logger.error(f"en-IN fallback failed: {e}")
-            
-            # Check confidence against thresholds
-            if not transcript or confidence < min_confidence:
-                logger.info(f"Low confidence for {lang_config['primary_language']}: {confidence:.2f} < {min_confidence} - '{transcript}'")
-                return "Ambiguous sound."
-            
-            # Success - return transcript
-            logger.info(f"STT success: confidence={confidence:.2f}, transcript='{transcript}'")
-            return transcript
+                            use_enhanced=True,
+                            enable_automatic_punctuation=False,
+                            enable_word_confidence=True,
+                            model="latest_short",  # en-IN supports latest_short
+                            max_alternatives=2,
+                            profanity_filter=True,
+                        )
+                        
+                        try:
+                            fallback_response = client.recognize(config=fallback_config, audio=audio)
+                            
+                            if fallback_response.results:
+                                fallback_result = fallback_response.results[0]
+                                fallback_transcript = fallback_result.alternatives[0].transcript.strip()
+                                fallback_confidence = fallback_result.alternatives[0].confidence
+                                
+                                logger.info(f"en-IN fallback: confidence={fallback_confidence:.2f}, transcript='{fallback_transcript}'")
+                                
+                                # Use fallback result if it's better or original was too poor
+                                if fallback_confidence > confidence:
+                                    logger.info(f"Using en-IN result (better confidence: {fallback_confidence:.2f} > {confidence:.2f})")
+                                    return fallback_transcript
+                                elif not transcript and fallback_confidence >= 0.20:
+                                    logger.info(f"Using en-IN result (original failed, fallback confidence: {fallback_confidence:.2f})")
+                                    return fallback_transcript
+                                    
+                        except Exception as e:
+                            logger.error(f"en-IN fallback failed: {e}")
+                    
+                    # Check confidence against thresholds
+                    if not transcript or confidence < min_confidence:
+                        logger.info(f"Low confidence for {lang_config['primary_language']}: {confidence:.2f} < {min_confidence} - '{transcript}'")
+                        return "Ambiguous sound."
+                    
+                    # Success - return transcript
+                    logger.info(f"STT success: confidence={confidence:.2f}, transcript='{transcript}'")
+                    return transcript
+                    
+                except Exception as sample_rate_error:
+                    if sample_rate == sample_rates[-1]:  # Last attempt
+                        raise sample_rate_error
+                    continue  # Try next sample rate
                 
         except Exception as e:
             logger.error(f"Google Speech-to-text error: {e}")

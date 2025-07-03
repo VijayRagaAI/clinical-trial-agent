@@ -1878,5 +1878,321 @@
         "conversation_duration": "2 minutes"
       }
     }
+  },
+  "P-FCD51873": {
+    "session_id": "72d96988-a09a-40e4-9a25-92f310a6d966",
+    "participant_id": "P-FCD51873",
+    "saved_at": "2025-07-03T18:07:30.372402",
+    "data": {
+      "metadata": {
+        "participant_id": "P-FCD51873",
+        "session_id": "72d96988-a09a-40e4-9a25-92f310a6d966",
+        "study_id": "imported-nct-04717648",
+        "export_timestamp": "2025-07-03T18:07:30.370082",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751545362719",
+          "type": "agent",
+          "content": "Hello! We're conducting a study to see if certain blood levels can help predict complications after colorectal cancer surgery. We appreciate your interest. Would you like to proceed with a few screening questions, or do you have any questions before we start?",
+          "timestamp": "2025-07-03T17:52:42.706281"
+        },
+        {
+          "id": "user-1751545377827",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-03T17:52:57.826771"
+        },
+        {
+          "id": "agent-1751545378896",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-03T17:52:58.893273"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-8CB38434": {
+    "session_id": "5a9c24df-b444-4ba8-be95-d4039f625ca5",
+    "participant_id": "P-8CB38434",
+    "saved_at": "2025-07-03T18:27:59.647625",
+    "data": {
+      "metadata": {
+        "participant_id": "P-8CB38434",
+        "session_id": "5a9c24df-b444-4ba8-be95-d4039f625ca5",
+        "study_id": "imported-nct-04717648",
+        "export_timestamp": "2025-07-03T18:27:59.646314",
+        "total_messages": 7,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751546563401",
+          "type": "agent",
+          "content": "Hello! Thank you for considering participating in our study aimed at understanding how certain blood markers can predict complications after colorectal cancer surgery. Are you ready to proceed with a few screening questions, or would you like more information before deciding?",
+          "timestamp": "2025-07-03T18:12:43.389538"
+        },
+        {
+          "id": "user-1751546568959",
+          "type": "user",
+          "content": "can you repeat this again",
+          "timestamp": "2025-07-03T18:12:48.956809"
+        },
+        {
+          "id": "agent-1751546573447",
+          "type": "agent",
+          "content": "It sounds like you'd like me to repeat the study information. The study is titled \"C-Reactive Protein and Sodium in Predicting Anastomotic Leakage,\" and its purpose is to determine if these levels can predict complications after colorectal cancer surgery. It involves blood tests and postoperative monitoring on specific days. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T18:12:53.424800"
+        },
+        {
+          "id": "user-1751546590459",
+          "type": "user",
+          "content": "tell me more about the timeline and number of questions",
+          "timestamp": "2025-07-03T18:13:10.458980"
+        },
+        {
+          "id": "agent-1751546594644",
+          "type": "agent",
+          "content": "It sounds like you're interested in the timeline of the study and the number of questions involved. The study involves postoperative monitoring on days 1, 3, and 5 after surgery, and there are a total of 9 questions related to the screening process. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T18:13:14.636462"
+        },
+        {
+          "id": "user-1751546608534",
+          "type": "user",
+          "content": "what other languages do you support",
+          "timestamp": "2025-07-03T18:13:28.534362"
+        },
+        {
+          "id": "agent-1751546612299",
+          "type": "agent",
+          "content": "It seems like you're asking about language support for the study. Unfortunately, the study information provided does not specify any languages other than English. However, I'm here to help with any questions you may have about the study itself. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T18:13:32.290557"
+        }
+      ],
+      "summary": {
+        "agent_messages": 4,
+        "user_messages": 3,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-987805C5": {
+    "session_id": "eb311a7d-ad03-4967-8011-80e7092bf077",
+    "participant_id": "P-987805C5",
+    "saved_at": "2025-07-03T18:29:34.889264",
+    "data": {
+      "metadata": {
+        "participant_id": "P-987805C5",
+        "session_id": "eb311a7d-ad03-4967-8011-80e7092bf077",
+        "study_id": "imported-nct-04717648",
+        "export_timestamp": "2025-07-03T18:29:34.884928",
+        "total_messages": 5,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751547487452",
+          "type": "agent",
+          "content": "Hello! We're conducting a study to see if certain markers in your blood, like C-reactive protein and sodium, can help predict healing complications after colorectal cancer surgery. Are you ready to begin the screening questions, or would you like more information about the study first?",
+          "timestamp": "2025-07-03T18:28:07.427134"
+        },
+        {
+          "id": "user-1751547497761",
+          "type": "user",
+          "content": "can you tell me more about the stud",
+          "timestamp": "2025-07-03T18:28:17.761041"
+        },
+        {
+          "id": "agent-1751547503515",
+          "type": "agent",
+          "content": "Sure! This study, titled \"C-Reactive Protein and Sodium in Predicting Anastomotic Leakage,\" aims to see if levels of C-reactive protein and sodium can help predict complications after colorectal cancer surgery. It involves monitoring participants post-surgery with blood tests and reviewing medical information. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T18:28:23.490849"
+        },
+        {
+          "id": "user-1751547517770",
+          "type": "user",
+          "content": "can you repeat this again",
+          "timestamp": "2025-07-03T18:28:37.770066"
+        },
+        {
+          "id": "agent-1751547522923",
+          "type": "agent",
+          "content": "It sounds like you\u2019d like me to repeat the study information. The study is titled \"C-Reactive Protein and Sodium in Predicting Anastomotic Leakage,\" and its purpose is to see if these levels can predict complications after colorectal cancer surgery. It involves blood tests and monitoring on specific postoperative days. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T18:28:42.911467"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-F194D6E1": {
+    "session_id": "ef1ad5e5-62d5-4af6-8f28-7c8b27b684e4",
+    "participant_id": "P-F194D6E1",
+    "saved_at": "2025-07-03T19:26:09.300312",
+    "data": {
+      "metadata": {
+        "participant_id": "P-F194D6E1",
+        "session_id": "ef1ad5e5-62d5-4af6-8f28-7c8b27b684e4",
+        "study_id": "imported-nct-04717648",
+        "export_timestamp": "2025-07-03T19:26:09.294323",
+        "total_messages": 21,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751550786472",
+          "type": "agent",
+          "content": "Hello! We are exploring if certain blood markers can help predict recovery issues after colorectal surgery. Your involvement would include brief check-ins on a few days after your procedure. Are you ready to begin the screening questions, or would you like to know more before deciding?",
+          "timestamp": "2025-07-03T19:23:06.456637"
+        },
+        {
+          "id": "user-1751550795706",
+          "type": "user",
+          "content": "What can you say?",
+          "timestamp": "2025-07-03T19:23:15.706331"
+        },
+        {
+          "id": "agent-1751550806104",
+          "type": "agent",
+          "content": "It sounds like you're looking for more information about the study. This research is focused on understanding whether C-reactive protein and sodium levels can help predict anastomotic leakage after colorectal cancer surgery. It involves some blood tests and monitoring after surgery, but I can assure you that your participation would contribute to important findings in oncology. \n\nWould you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T19:23:26.080917"
+        },
+        {
+          "id": "user-1751550830387",
+          "type": "user",
+          "content": "It will tell you about free online resources.",
+          "timestamp": "2025-07-03T19:23:50.386817"
+        },
+        {
+          "id": "agent-1751550837221",
+          "type": "agent",
+          "content": "It seems like you might be asking about resources related to the study, but the information I have doesn't include any online resources. This study focuses on monitoring C-reactive protein and sodium levels to predict anastomotic leakage after colorectal cancer surgery. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T19:23:57.204089"
+        },
+        {
+          "id": "user-1751550861780",
+          "type": "user",
+          "content": "can you repeat this song",
+          "timestamp": "2025-07-03T19:24:21.779271"
+        },
+        {
+          "id": "agent-1751550864963",
+          "type": "agent",
+          "content": "It seems like there might have been a mix-up in your message. If you're asking for more information about the study, I can tell you that it focuses on how C-reactive protein and sodium levels might help predict anastomotic leakage after colorectal cancer surgery. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T19:24:24.946858"
+        },
+        {
+          "id": "user-1751550891313",
+          "type": "user",
+          "content": "tell me more about the timeline and let me think a number of questions",
+          "timestamp": "2025-07-03T19:24:51.312872"
+        },
+        {
+          "id": "agent-1751550895172",
+          "type": "agent",
+          "content": "I understand you're interested in the timeline of the study. The key procedures involve postoperative monitoring on days 1, 3, and 5 after surgery, along with blood tests and reviews of imaging and surgical notes. If you have more questions or need clarification, feel free to ask! Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-03T19:24:55.159371"
+        },
+        {
+          "id": "user-1751550907393",
+          "type": "user",
+          "content": "okay I'm ready just go ahead",
+          "timestamp": "2025-07-03T19:25:07.391678"
+        },
+        {
+          "id": "agent-1751550908952",
+          "type": "agent",
+          "content": "Have you undergone elective surgery for colorectal cancer and are you over 18 years old?",
+          "timestamp": "2025-07-03T19:25:08.947064"
+        },
+        {
+          "id": "user-1751550916968",
+          "type": "user",
+          "content": "I don't think that I might have been",
+          "timestamp": "2025-07-03T19:25:16.967326"
+        },
+        {
+          "id": "agent-1751550919957",
+          "type": "agent",
+          "content": "Did your preoperative imaging show no solid organ metastases?",
+          "timestamp": "2025-07-03T19:25:19.953369"
+        },
+        {
+          "id": "user-1751550929202",
+          "type": "user",
+          "content": "no yes yes yes yes yes it might be",
+          "timestamp": "2025-07-03T19:25:29.201688"
+        },
+        {
+          "id": "agent-1751550931583",
+          "type": "agent",
+          "content": "Did you have an ileocolic, colocolic, or colorectal anastomosis during your surgery?",
+          "timestamp": "2025-07-03T19:25:31.577357"
+        },
+        {
+          "id": "user-1751550940056",
+          "type": "user",
+          "content": "no I don't think so maybe yes",
+          "timestamp": "2025-07-03T19:25:40.055810"
+        },
+        {
+          "id": "agent-1751550942039",
+          "type": "agent",
+          "content": "Were your C-Reactive protein and sodium levels measured on the 1st, 3rd, and 5th days after surgery?",
+          "timestamp": "2025-07-03T19:25:42.031341"
+        },
+        {
+          "id": "user-1751550948782",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-03T19:25:48.781554"
+        },
+        {
+          "id": "agent-1751550949167",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-03T19:25:49.160457"
+        },
+        {
+          "id": "user-1751550963814",
+          "type": "user",
+          "content": "if it was my",
+          "timestamp": "2025-07-03T19:26:03.813727"
+        },
+        {
+          "id": "agent-1751550968786",
+          "type": "agent",
+          "content": "I understand there might have been some confusion or a technical issue. Could you please confirm if your C-Reactive protein and sodium levels were measured on the 1st, 3rd, and 5th days after your surgery? Your response will help us proceed with the screening process.",
+          "timestamp": "2025-07-03T19:26:08.776611"
+        }
+      ],
+      "summary": {
+        "agent_messages": 11,
+        "user_messages": 10,
+        "conversation_duration": "3 minutes"
+      }
+    }
   }
 }
