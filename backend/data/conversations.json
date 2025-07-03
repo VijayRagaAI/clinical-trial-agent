@@ -516,5 +516,1367 @@
         "conversation_duration": "0 minutes"
       }
     }
+  },
+  "P-EB9E39CF": {
+    "session_id": "f6a0d2cd-7a39-4651-8342-9a770cdd7071",
+    "participant_id": "P-EB9E39CF",
+    "saved_at": "2025-07-02T12:30:44.339980",
+    "data": {
+      "metadata": {
+        "participant_id": "P-EB9E39CF",
+        "session_id": "f6a0d2cd-7a39-4651-8342-9a770cdd7071",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T12:30:44.339790",
+        "total_messages": 11,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751438816479",
+          "type": "agent",
+          "content": "Hello! We're exploring how different methods of accessing the radial artery can affect it in the long run after coronary procedures. Your participation would last about 3 months. Are you ready to begin with the screening questions, or would you like to know more before making your decision?",
+          "timestamp": "2025-07-02T12:16:56.466361"
+        },
+        {
+          "id": "user-1751438821973",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T12:17:01.972013"
+        },
+        {
+          "id": "agent-1751438822820",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T12:17:02.812108"
+        },
+        {
+          "id": "user-1751438834369",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T12:17:14.367801"
+        },
+        {
+          "id": "agent-1751438835406",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T12:17:15.403788"
+        },
+        {
+          "id": "user-1751438992777",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T12:19:52.776420"
+        },
+        {
+          "id": "agent-1751438993685",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T12:19:53.679881"
+        },
+        {
+          "id": "user-1751439004730",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T12:20:04.729582"
+        },
+        {
+          "id": "agent-1751439005711",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T12:20:05.707454"
+        },
+        {
+          "id": "user-1751439024489",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T12:20:24.488672"
+        },
+        {
+          "id": "agent-1751439025534",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T12:20:25.529332"
+        }
+      ],
+      "summary": {
+        "agent_messages": 6,
+        "user_messages": 5,
+        "conversation_duration": "3 minutes"
+      }
+    }
+  },
+  "P-E951FA72": {
+    "session_id": "54a947ef-32ee-4cd3-8024-b1dfaae5df8a",
+    "participant_id": "P-E951FA72",
+    "saved_at": "2025-07-02T12:43:22.428474",
+    "data": {
+      "metadata": {
+        "participant_id": "P-E951FA72",
+        "session_id": "54a947ef-32ee-4cd3-8024-b1dfaae5df8a",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T12:43:22.427513",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751439961086",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to participate in our study on how different methods of coronary procedures affect the radial artery over time. Are you ready to proceed with a couple of screening questions, or would you like to learn more about the study first?",
+          "timestamp": "2025-07-02T12:36:01.075070"
+        },
+        {
+          "id": "user-1751439967925",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T12:36:07.924723"
+        },
+        {
+          "id": "agent-1751439968744",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T12:36:08.738933"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-69731D60": {
+    "session_id": "643569c1-f83b-4cda-89be-1b548ff8df39",
+    "participant_id": "P-69731D60",
+    "saved_at": "2025-07-02T12:44:27.038684",
+    "data": {
+      "metadata": {
+        "participant_id": "P-69731D60",
+        "session_id": "643569c1-f83b-4cda-89be-1b548ff8df39",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T12:44:27.037360",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751440424495",
+          "type": "agent",
+          "content": "Hello! Thank you for considering joining our study on understanding the long-term effects of different methods used in coronary procedures. Are you ready to answer a couple of quick questions, or is there anything you'd like to know before we begin?",
+          "timestamp": "2025-07-02T12:43:44.482669"
+        },
+        {
+          "id": "user-1751440430235",
+          "type": "user",
+          "content": "Can you video?",
+          "timestamp": "2025-07-02T12:43:50.234585"
+        },
+        {
+          "id": "agent-1751440440822",
+          "type": "agent",
+          "content": "It sounds like you might be asking about whether video recordings are involved in the study. However, the information provided doesn't specify anything about video recordings. If you have any other questions or concerns, I'm here to help! Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T12:44:00.808552"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-6BA12C5A": {
+    "session_id": "b248ccd0-5fa1-4a5c-bf7a-8c28f300c213",
+    "participant_id": "P-6BA12C5A",
+    "saved_at": "2025-07-02T12:46:13.870710",
+    "data": {
+      "metadata": {
+        "participant_id": "P-6BA12C5A",
+        "session_id": "b248ccd0-5fa1-4a5c-bf7a-8c28f300c213",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T12:46:13.869509",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751440473787",
+          "type": "agent",
+          "content": "Hello! We're exploring how different methods in coronary procedures affect the radial artery over time. Your involvement would last around 3 months. Would you like to proceed with the screening questions, or do you have any questions about the study before we continue?",
+          "timestamp": "2025-07-02T12:44:33.776340"
+        },
+        {
+          "id": "user-1751440478624",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T12:44:38.624284"
+        },
+        {
+          "id": "agent-1751440479633",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T12:44:39.627369"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-8D9C7612": {
+    "session_id": "a351179a-7454-47e0-8db9-f455deb9f076",
+    "participant_id": "P-8D9C7612",
+    "saved_at": "2025-07-02T12:57:16.272772",
+    "data": {
+      "metadata": {
+        "participant_id": "P-8D9C7612",
+        "session_id": "a351179a-7454-47e0-8db9-f455deb9f076",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T12:57:16.270131",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751440586666",
+          "type": "agent",
+          "content": "Hello! Thank you for considering our study on how different methods of coronary procedures may impact the radial artery over time. Are you ready to answer a couple of screening questions, or would you like to know more about the study first?",
+          "timestamp": "2025-07-02T12:46:26.653633"
+        },
+        {
+          "id": "user-1751440598551",
+          "type": "user",
+          "content": "Kennedy video question, please.",
+          "timestamp": "2025-07-02T12:46:38.550158"
+        },
+        {
+          "id": "agent-1751440602127",
+          "type": "agent",
+          "content": "It seems like there might have been a misunderstanding with your question. If you're looking for information about the study or have specific concerns, I'm here to help! This study focuses on the long-term effects of radial artery occlusion after coronary procedures and involves follow-up visits over three months. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T12:46:42.113262"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-E0D7AD78": {
+    "session_id": "d1fe7965-2ca2-4ae0-b05f-58d68e2f9954",
+    "participant_id": "P-E0D7AD78",
+    "saved_at": "2025-07-02T12:59:15.977331",
+    "data": {
+      "metadata": {
+        "participant_id": "P-E0D7AD78",
+        "session_id": "d1fe7965-2ca2-4ae0-b05f-58d68e2f9954",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T12:59:15.975462",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751441248882",
+          "type": "agent",
+          "content": "Hello! We're excited about your interest in our study exploring how different methods of coronary procedures affect the radial artery over time. Are you ready to start with the screening questions, or is there anything you'd like to know before we begin?",
+          "timestamp": "2025-07-02T12:57:28.869841"
+        },
+        {
+          "id": "user-1751441261067",
+          "type": "user",
+          "content": "Can you repeat the question?",
+          "timestamp": "2025-07-02T12:57:41.066694"
+        },
+        {
+          "id": "agent-1751441264815",
+          "type": "agent",
+          "content": "It seems like you might be asking for clarification on the study or its details. The study investigates the long-term effects of radial artery occlusion after coronary procedures using different access methods, and it involves participants for about 3 months with follow-up visits. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T12:57:44.790681"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-36AECE51": {
+    "session_id": "26ce2f5d-ae3f-4d7a-9b1a-62891b3662e6",
+    "participant_id": "P-36AECE51",
+    "saved_at": "2025-07-02T13:00:12.089543",
+    "data": {
+      "metadata": {
+        "participant_id": "P-36AECE51",
+        "session_id": "26ce2f5d-ae3f-4d7a-9b1a-62891b3662e6",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T13:00:12.087937",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751441364481",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to participate in a study exploring how different methods of coronary procedures affect the radial artery over time. Are you ready to answer a couple of questions to see if you're eligible, or is there anything you'd like to know first?",
+          "timestamp": "2025-07-02T12:59:24.466832"
+        },
+        {
+          "id": "user-1751441371909",
+          "type": "user",
+          "content": "What is the time in Connecticut?",
+          "timestamp": "2025-07-02T12:59:31.909031"
+        },
+        {
+          "id": "agent-1751441375208",
+          "type": "agent",
+          "content": "It seems like you're asking about the current time in Connecticut, which isn't something I can provide. However, I'm here to help you with any questions about the study. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T12:59:35.198285"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-2A9658CD": {
+    "session_id": "1ca0e371-8983-43e1-b053-4720c2f9f554",
+    "participant_id": "P-2A9658CD",
+    "saved_at": "2025-07-02T13:09:12.758130",
+    "data": {
+      "metadata": {
+        "participant_id": "P-2A9658CD",
+        "session_id": "1ca0e371-8983-43e1-b053-4720c2f9f554",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T13:09:12.756682",
+        "total_messages": 9,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751441423831",
+          "type": "agent",
+          "content": "Hello! We\u2019re exploring how different methods of coronary procedures might affect the radial artery over time. Your involvement would last about 3 months. Are you ready to answer a couple of screening questions, or would you like to know more before making a decision?",
+          "timestamp": "2025-07-02T13:00:23.819053"
+        },
+        {
+          "id": "user-1751441430808",
+          "type": "user",
+          "content": "Can you tell me the timeline again?",
+          "timestamp": "2025-07-02T13:00:30.806876"
+        },
+        {
+          "id": "agent-1751441435862",
+          "type": "agent",
+          "content": "Sure! The study involves a time commitment of approximately 3 months, during which you will have follow-up visits. The study itself ran from March 2022 to March 2023, and we are currently not enrolling new participants as it has completed. \n\nWould you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T13:00:35.847478"
+        },
+        {
+          "id": "user-1751441449633",
+          "type": "user",
+          "content": "How many questions are there?",
+          "timestamp": "2025-07-02T13:00:49.632796"
+        },
+        {
+          "id": "agent-1751441453092",
+          "type": "agent",
+          "content": "It sounds like you're asking about the number of questions in the screening process. There are a total of 2 questions that you'll need to answer. If you're ready, I can guide you through those screening questions. Would you like to proceed?",
+          "timestamp": "2025-07-02T13:00:53.084134"
+        },
+        {
+          "id": "user-1751441465507",
+          "type": "user",
+          "content": "Tell me more about that today. Where is it being?",
+          "timestamp": "2025-07-02T13:01:05.506784"
+        },
+        {
+          "id": "agent-1751441468886",
+          "type": "agent",
+          "content": "It sounds like you're asking about the location of the study. The research is being conducted at various locations, but specific details about those sites aren't provided. If you're ready, we can proceed with the screening questions to see if you qualify for the study. Would you like to continue?",
+          "timestamp": "2025-07-02T13:01:08.873551"
+        },
+        {
+          "id": "user-1751441489640",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T13:01:29.639270"
+        },
+        {
+          "id": "agent-1751441490757",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T13:01:30.754164"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 4,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-3BFE6471": {
+    "session_id": "c30f3d5f-4b53-4e4c-ba32-56e5a7d7db53",
+    "participant_id": "P-3BFE6471",
+    "saved_at": "2025-07-02T13:19:08.369165",
+    "data": {
+      "metadata": {
+        "participant_id": "P-3BFE6471",
+        "session_id": "c30f3d5f-4b53-4e4c-ba32-56e5a7d7db53",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T13:19:08.368310",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751442530814",
+          "type": "agent",
+          "content": "Hello there! We're exploring how different methods in heart procedures affect the wrist artery over time. Your involvement would last around 3 months with some follow-up visits. Would you like to proceed with the screening questions, or do you have any questions before deciding?",
+          "timestamp": "2025-07-02T13:18:50.802903"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-043C98B4": {
+    "session_id": "114e085f-0504-4e18-8f77-749067b86233",
+    "participant_id": "P-043C98B4",
+    "saved_at": "2025-07-02T13:21:58.705647",
+    "data": {
+      "metadata": {
+        "participant_id": "P-043C98B4",
+        "session_id": "114e085f-0504-4e18-8f77-749067b86233",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T13:21:58.703560",
+        "total_messages": 7,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751442566996",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to join a study exploring how different methods of accessing the radial artery affect its long-term health after coronary procedures. Are you ready to answer a couple of screening questions, or is there anything else you'd like to know before we begin?",
+          "timestamp": "2025-07-02T13:19:26.986784"
+        },
+        {
+          "id": "user-1751442580107",
+          "type": "user",
+          "content": "Kennedy video questions.",
+          "timestamp": "2025-07-02T13:19:40.105113"
+        },
+        {
+          "id": "agent-1751442584553",
+          "type": "agent",
+          "content": "It seems like you might be asking about video questions related to the study, but I don't have specific information on that aspect. The study focuses on the long-term effects of radial artery occlusion after coronary procedures. If you're ready, I can guide you through the screening questions to see if you qualify for participation. Would you like to proceed?",
+          "timestamp": "2025-07-02T13:19:44.529979"
+        },
+        {
+          "id": "user-1751442616385",
+          "type": "user",
+          "content": "Tell me more about the time.",
+          "timestamp": "2025-07-02T13:20:16.384464"
+        },
+        {
+          "id": "agent-1751442620647",
+          "type": "agent",
+          "content": "It sounds like you're asking about the time commitment for the study. Participants will be involved for approximately 3 months, which includes follow-up visits. If you\u2019re ready, I can proceed with the screening questions to see if you qualify for the study. Would you like to continue?",
+          "timestamp": "2025-07-02T13:20:20.628335"
+        },
+        {
+          "id": "user-1751442676707",
+          "type": "user",
+          "content": "coaching centre",
+          "timestamp": "2025-07-02T13:21:16.706813"
+        },
+        {
+          "id": "agent-1751442680225",
+          "type": "agent",
+          "content": "It seems like there might have been a misunderstanding with your message. If you meant to ask about something specific related to the study, please let me know! This study focuses on the long-term effects of radial artery occlusion after coronary procedures, and participants are involved for about 3 months. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T13:21:20.217202"
+        }
+      ],
+      "summary": {
+        "agent_messages": 4,
+        "user_messages": 3,
+        "conversation_duration": "2 minutes"
+      }
+    }
+  },
+  "P-6209BF49": {
+    "session_id": "5b765d2e-2410-47a4-b8c1-bba6d02a2ef4",
+    "participant_id": "P-6209BF49",
+    "saved_at": "2025-07-02T13:25:34.902684",
+    "data": {
+      "metadata": {
+        "participant_id": "P-6209BF49",
+        "session_id": "5b765d2e-2410-47a4-b8c1-bba6d02a2ef4",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T13:25:34.901394",
+        "total_messages": 11,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751442726293",
+          "type": "agent",
+          "content": "Hello! We're exploring the long-term effects of different methods used in coronary procedures. Your involvement would help us greatly over the next three months. Would you like to proceed with the screening questions, or is there anything you'd like to know before deciding?",
+          "timestamp": "2025-07-02T13:22:06.275749"
+        },
+        {
+          "id": "user-1751442730804",
+          "type": "user",
+          "content": "Tell me more about.",
+          "timestamp": "2025-07-02T13:22:10.803991"
+        },
+        {
+          "id": "agent-1751442735433",
+          "type": "agent",
+          "content": "It sounds like you\u2019re looking for more details about the study. This research focuses on the long-term effects of radial artery occlusion after coronary procedures, specifically using different access methods. Participants will be involved for about three months, including follow-up visits, and will undergo procedures like ultrasound examinations and assessments of the radial artery. \n\nAre you ready to proceed with the screening questions?",
+          "timestamp": "2025-07-02T13:22:15.404509"
+        },
+        {
+          "id": "user-1751442750872",
+          "type": "user",
+          "content": "How many questions are you there?",
+          "timestamp": "2025-07-02T13:22:30.871304"
+        },
+        {
+          "id": "agent-1751442754460",
+          "type": "agent",
+          "content": "It sounds like you're asking about the number of questions involved in the screening process. There are a total of 2 questions that we will go through as part of the screening. Would you like to proceed with those screening questions?",
+          "timestamp": "2025-07-02T13:22:34.454703"
+        },
+        {
+          "id": "user-1751442768144",
+          "type": "user",
+          "content": "Put on the PlayStation game conducted.",
+          "timestamp": "2025-07-02T13:22:48.144018"
+        },
+        {
+          "id": "agent-1751442771988",
+          "type": "agent",
+          "content": "It seems like there might have been a misunderstanding in your question. This study is focused on investigating the long-term effects of radial artery occlusion after coronary procedures, rather than anything related to gaming or entertainment. If you're interested, we can proceed with the screening questions to see if you qualify for the study. Would you like to continue?",
+          "timestamp": "2025-07-02T13:22:51.976953"
+        },
+        {
+          "id": "user-1751442797018",
+          "type": "user",
+          "content": "Let me think about it.",
+          "timestamp": "2025-07-02T13:23:17.017814"
+        },
+        {
+          "id": "agent-1751442801989",
+          "type": "agent",
+          "content": "I understand that you\u2019d like some time to think about participating in the study. It's completely normal to have questions or need time to consider your options. If you're ready, we can proceed with some screening questions to see if you qualify for the study. Would you like to continue?",
+          "timestamp": "2025-07-02T13:23:21.970107"
+        },
+        {
+          "id": "user-1751442817602",
+          "type": "user",
+          "content": "hot pussy girls, having sex",
+          "timestamp": "2025-07-02T13:23:37.600717"
+        },
+        {
+          "id": "agent-1751442821448",
+          "type": "agent",
+          "content": "It seems like there may have been a misunderstanding in your message. If you have questions about the study or its procedures, I'm here to help clarify. This study focuses on the long-term effects of radial artery occlusion after coronary procedures, and involves assessments like ultrasound examinations and monitoring. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T13:23:41.433739"
+        }
+      ],
+      "summary": {
+        "agent_messages": 6,
+        "user_messages": 5,
+        "conversation_duration": "2 minutes"
+      }
+    }
+  },
+  "P-F060505D": {
+    "session_id": "d0005caa-ec0f-426e-aa6f-b7549aaed4ea",
+    "participant_id": "P-F060505D",
+    "saved_at": "2025-07-02T13:26:46.509549",
+    "data": {
+      "metadata": {
+        "participant_id": "P-F060505D",
+        "session_id": "d0005caa-ec0f-426e-aa6f-b7549aaed4ea",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T13:26:46.508731",
+        "total_messages": 9,
+        "conversation_state": "consent",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751442946064",
+          "type": "agent",
+          "content": "Hello there! We're conducting a study to better understand the long-term effects on the radial artery after coronary procedures. Participation involves a few visits over three months. Are you ready to answer a couple of screening questions, or do you have any questions about the study before we begin?",
+          "timestamp": "2025-07-02T13:25:46.051415"
+        },
+        {
+          "id": "user-1751442953180",
+          "type": "user",
+          "content": "Can you repeat once again?",
+          "timestamp": "2025-07-02T13:25:53.180096"
+        },
+        {
+          "id": "agent-1751442963865",
+          "type": "agent",
+          "content": "It seems like you\u2019d like me to repeat some information about the study. The study, titled \"Long-term Radial Artery Occlusion in Coronary Diagnosis and Intervention Via Distal Radial Approach,\" aims to investigate the long-term effects of radial artery occlusion after coronary procedures. Participants will be involved for about 3 months, with follow-up visits to monitor various aspects of the procedure. \n\nWould you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T13:26:03.850692"
+        },
+        {
+          "id": "user-1751442971086",
+          "type": "user",
+          "content": "Can you repeat your question again?",
+          "timestamp": "2025-07-02T13:26:11.086166"
+        },
+        {
+          "id": "agent-1751442974952",
+          "type": "agent",
+          "content": "It seems like you might want clarification on a specific question related to the study. Just to recap, this study is focused on the long-term effects of radial artery occlusion after coronary procedures. Participants will be involved for about 3 months, with follow-up visits to assess various factors related to the radial artery. \n\nWould you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T13:26:14.936872"
+        },
+        {
+          "id": "user-1751442991190",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T13:26:31.189585"
+        },
+        {
+          "id": "agent-1751442991945",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T13:26:31.939464"
+        },
+        {
+          "id": "user-1751443001330",
+          "type": "user",
+          "content": "Can you tell me the timeline once again?",
+          "timestamp": "2025-07-02T13:26:41.330120"
+        },
+        {
+          "id": "agent-1751443005981",
+          "type": "agent",
+          "content": "Sure! The study involves a time commitment of approximately 3 months, during which you'll have follow-up visits. The study ran from March 2022 to March 2023, and we are currently not enrolling new participants. Would you like to proceed with the screening questions?",
+          "timestamp": "2025-07-02T13:26:45.961668"
+        }
+      ],
+      "summary": {
+        "agent_messages": 5,
+        "user_messages": 4,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-3A996878": {
+    "session_id": "6632129e-37d5-43bd-b80a-45561bbafb29",
+    "participant_id": "P-3A996878",
+    "saved_at": "2025-07-02T13:42:30.615114",
+    "data": {
+      "metadata": {
+        "participant_id": "P-3A996878",
+        "session_id": "6632129e-37d5-43bd-b80a-45561bbafb29",
+        "study_id": "imported-nct-02168920",
+        "export_timestamp": "2025-07-02T13:42:30.614024",
+        "total_messages": 1,
+        "conversation_state": "questioning",
+        "exit_reason": "back_to_dashboard",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751443935429",
+          "type": "agent",
+          "content": "Hello! We're inviting you to participate in a study exploring how well aripiprazole helps reduce agitation in individuals with Alzheimer's. Are you ready to start the screening questions, or would you like to know more about the study first?",
+          "timestamp": "2025-07-02T13:42:15.418014"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-1DBAC062": {
+    "session_id": "ab75b55e-1a84-4a5b-abf5-75a180f95a61",
+    "participant_id": "P-1DBAC062",
+    "saved_at": "2025-07-02T13:45:41.006388",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1DBAC062",
+        "session_id": "ab75b55e-1a84-4a5b-abf5-75a180f95a61",
+        "study_id": "imported-nct-02168920",
+        "export_timestamp": "2025-07-02T13:45:41.004612",
+        "total_messages": 3,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751444017583",
+          "type": "agent",
+          "content": "Hello! We're exploring whether aripiprazole can help reduce agitation in individuals with Alzheimer's. Your participation would involve about 10 weeks of treatment and some follow-up. Are you ready to start the screening questions, or would you like to know more about the study first?",
+          "timestamp": "2025-07-02T13:43:37.569004"
+        },
+        {
+          "id": "user-1751444024190",
+          "type": "user",
+          "content": "I am speaking.",
+          "timestamp": "2025-07-02T13:43:44.189463"
+        },
+        {
+          "id": "agent-1751444031067",
+          "type": "agent",
+          "content": "It sounds like you might be expressing something about your current state or feelings. If you have specific questions or concerns about the study, I'm here to help clarify! Would you like to proceed with the screening questions to see if you qualify for the study?",
+          "timestamp": "2025-07-02T13:43:51.053917"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-1DE4A939": {
+    "session_id": "ef3c761c-5c48-4f6b-ae46-7967add11268",
+    "participant_id": "P-1DE4A939",
+    "saved_at": "2025-07-02T14:41:38.767225",
+    "data": {
+      "metadata": {
+        "participant_id": "P-1DE4A939",
+        "session_id": "ef3c761c-5c48-4f6b-ae46-7967add11268",
+        "study_id": "imported-nct-02168920",
+        "export_timestamp": "2025-07-02T14:41:38.765280",
+        "total_messages": 1,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751447201804",
+          "type": "agent",
+          "content": "Hello! We are conducting a study to see if aripiprazole can help reduce agitation in individuals with Alzheimer's. Your participation would involve about 10 weeks of treatment. Would you like to proceed with the screening questions, or is there anything you'd like to know before making a decision?",
+          "timestamp": "2025-07-02T14:36:41.791583"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-A4A243D1": {
+    "session_id": "70c0d30f-53c2-46a6-bb62-ce3e0dfa95e8",
+    "participant_id": "P-A4A243D1",
+    "saved_at": "2025-07-02T14:42:30.115129",
+    "data": {
+      "metadata": {
+        "participant_id": "P-A4A243D1",
+        "session_id": "70c0d30f-53c2-46a6-bb62-ce3e0dfa95e8",
+        "study_id": "imported-nct-02168920",
+        "export_timestamp": "2025-07-02T14:42:30.112264",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751447523431",
+          "type": "agent",
+          "content": "Hello! We're exploring how aripiprazole might help ease agitation in Alzheimer's patients. Your participation would involve about 10 weeks of treatment and a follow-up period. Would you like to proceed with the screening questions, or do you have any questions before we begin?",
+          "timestamp": "2025-07-02T14:42:03.416514"
+        },
+        {
+          "id": "user-1751447547820",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T14:42:27.819865"
+        },
+        {
+          "id": "agent-1751447549594",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T14:42:29.588190"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-7D2D3296": {
+    "session_id": "4e7477c2-f888-417c-bfc3-6381446d5c6f",
+    "participant_id": "P-7D2D3296",
+    "saved_at": "2025-07-02T15:32:41.223181",
+    "data": {
+      "metadata": {
+        "participant_id": "P-7D2D3296",
+        "session_id": "4e7477c2-f888-417c-bfc3-6381446d5c6f",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T15:32:41.222164",
+        "total_messages": 12,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! We're conducting a study to explore how different methods of accessing the radial artery for coronary procedures affect it in the long term. Would you like to proceed with a couple of screening questions, or do you have any questions before we begin?",
+          "timestamp": "2025-07-02T15:31:44.508010"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes, please.",
+          "timestamp": "2025-07-02T15:31:53.730316"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "Can you confirm that you are at least 18 years old?",
+          "timestamp": "2025-07-02T15:31:55.426176"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "Yes, I am.",
+          "timestamp": "2025-07-02T15:32:04.135003"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Do you have a palpable radial artery in your arm?",
+          "timestamp": "2025-07-02T15:32:05.771001"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T15:32:11.829725"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T15:32:12.624969"
+        },
+        {
+          "id": "user-7",
+          "type": "user",
+          "content": "No, I don't have.",
+          "timestamp": "2025-07-02T15:32:17.890478"
+        },
+        {
+          "id": "agent-8",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-07-02T15:32:19.521202"
+        },
+        {
+          "id": "user-9",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-07-02T15:32:30.707016"
+        },
+        {
+          "id": "agent-10",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-07-02T15:32:32.421890"
+        },
+        {
+          "id": "agent-11",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-07-02T15:32:41.215400"
+        }
+      ],
+      "summary": {
+        "agent_messages": 7,
+        "user_messages": 5,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-02F46F4C": {
+    "session_id": "b9eff214-aead-4e54-bc6b-2ff7c3cd7ab7",
+    "participant_id": "P-02F46F4C",
+    "saved_at": "2025-07-02T16:33:44.152144",
+    "data": {
+      "metadata": {
+        "participant_id": "P-02F46F4C",
+        "session_id": "b9eff214-aead-4e54-bc6b-2ff7c3cd7ab7",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T16:33:44.150368",
+        "total_messages": 1,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751454208973",
+          "type": "agent",
+          "content": "Hello there! We're exploring how different methods in coronary procedures affect the radial artery over time. Your participation would be for about 3 months. Would you like to answer a couple of screening questions, or do you have any questions before we begin?",
+          "timestamp": "2025-07-02T16:33:28.963477"
+        }
+      ],
+      "summary": {
+        "agent_messages": 1,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-CA9B8837": {
+    "session_id": "771aeb60-70f3-4494-9ad9-988356c2294d",
+    "participant_id": "P-CA9B8837",
+    "saved_at": "2025-07-02T16:34:56.198231",
+    "data": {
+      "metadata": {
+        "participant_id": "P-CA9B8837",
+        "session_id": "771aeb60-70f3-4494-9ad9-988356c2294d",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T16:34:56.196064",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751454232386",
+          "type": "agent",
+          "content": "Hello! We\u2019re exploring the long-term impact of different methods used in coronary procedures. Your involvement would span about 3 months. Would you like to proceed with the screening questions, or is there anything you'd like to know before deciding?",
+          "timestamp": "2025-07-02T16:33:52.369885"
+        },
+        {
+          "id": "user-1751454253456",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T16:34:13.456183"
+        },
+        {
+          "id": "agent-1751454260861",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T16:34:20.855645"
+        },
+        {
+          "id": "user-1751454275809",
+          "type": "user",
+          "content": "Yes, please.",
+          "timestamp": "2025-07-02T16:34:35.808950"
+        },
+        {
+          "id": "agent-1751454279204",
+          "type": "agent",
+          "content": "Can you confirm that you are at least 18 years old?",
+          "timestamp": "2025-07-02T16:34:39.200013"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-2B3A3E5E": {
+    "session_id": "af58b81e-e79a-4515-8032-f8fde0803413",
+    "participant_id": "P-2B3A3E5E",
+    "saved_at": "2025-07-02T16:37:07.898777",
+    "data": {
+      "metadata": {
+        "participant_id": "P-2B3A3E5E",
+        "session_id": "af58b81e-e79a-4515-8032-f8fde0803413",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T16:37:07.897563",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751454334929",
+          "type": "agent",
+          "content": "Hello! Thank you for considering joining our study on understanding how different methods of accessing the radial artery might affect it after coronary procedures. Are you ready to proceed with the screening questions, or would you like to know more before making your decision?",
+          "timestamp": "2025-07-02T16:35:34.917350"
+        },
+        {
+          "id": "user-1751454347423",
+          "type": "user",
+          "content": "Yes. Proceed.",
+          "timestamp": "2025-07-02T16:35:47.423454"
+        },
+        {
+          "id": "agent-1751454349717",
+          "type": "agent",
+          "content": "Can you confirm that you are at least 18 years old?",
+          "timestamp": "2025-07-02T16:35:49.713151"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-2CD12BF4": {
+    "session_id": "bc27f46a-f97f-4b99-9106-4df3bdce778c",
+    "participant_id": "P-2CD12BF4",
+    "saved_at": "2025-07-02T17:00:23.027032",
+    "data": {
+      "metadata": {
+        "participant_id": "P-2CD12BF4",
+        "session_id": "bc27f46a-f97f-4b99-9106-4df3bdce778c",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T17:00:23.026130",
+        "total_messages": 5,
+        "conversation_state": "questioning",
+        "exit_reason": "page_refresh",
+        "interview_status": "Interrupted",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751454443475",
+          "type": "agent",
+          "content": "Hello! We're exploring the long-term effects of artery health after heart procedures, and we\u2019d love your help. The study lasts about 3 months, and involves just a couple of questions to start. Would you like to proceed with the screening questions, or do you have any questions before deciding?",
+          "timestamp": "2025-07-02T16:37:23.459144"
+        },
+        {
+          "id": "user-1751454472306",
+          "type": "user",
+          "content": "I don't know, I can't understand.",
+          "timestamp": "2025-07-02T16:37:52.305631"
+        },
+        {
+          "id": "agent-1751454480877",
+          "type": "agent",
+          "content": "I understand that you might be feeling a bit confused about the study. Essentially, this research is looking at how the radial artery behaves after certain heart procedures, and it involves some tests like ultrasound and monitoring. If you're ready, we can proceed with the screening questions to see if you qualify for the study. Would you like to continue?",
+          "timestamp": "2025-07-02T16:38:00.848403"
+        },
+        {
+          "id": "user-1751454487064",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T16:38:07.063671"
+        },
+        {
+          "id": "agent-1751454488749",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T16:38:08.744558"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-AB34B2DE": {
+    "session_id": "dc86373b-8c3c-4658-b869-98cbe1245d33",
+    "participant_id": "P-AB34B2DE",
+    "saved_at": "2025-07-02T17:17:44.555450",
+    "data": {
+      "metadata": {
+        "participant_id": "P-AB34B2DE",
+        "session_id": "dc86373b-8c3c-4658-b869-98cbe1245d33",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T17:17:44.554472",
+        "total_messages": 5,
+        "conversation_state": "consent",
+        "exit_reason": "consent_abandoned",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751455949258",
+          "type": "agent",
+          "content": "Hello! Thank you for considering joining our study on how different methods of coronary procedures might affect the radial artery over time. Are you ready to answer a couple of screening questions, or would you like to know more about the study before you decide?",
+          "timestamp": "2025-07-02T17:02:29.241360"
+        },
+        {
+          "id": "user-1751455955117",
+          "type": "user",
+          "content": "Yes, please.",
+          "timestamp": "2025-07-02T17:02:35.117067"
+        },
+        {
+          "id": "agent-1751455957304",
+          "type": "agent",
+          "content": "Can you confirm that you are at least 18 years old?",
+          "timestamp": "2025-07-02T17:02:37.300141"
+        },
+        {
+          "id": "user-1751455974403",
+          "type": "user",
+          "content": "I don't want to tell you something.",
+          "timestamp": "2025-07-02T17:02:54.403230"
+        },
+        {
+          "id": "agent-1751455982850",
+          "type": "agent",
+          "content": "I understand there might have been a mix-up. Could you please confirm if you are at least 18 years old? Your response will help us proceed with the screening process.",
+          "timestamp": "2025-07-02T17:03:02.843418"
+        }
+      ],
+      "summary": {
+        "agent_messages": 3,
+        "user_messages": 2,
+        "conversation_duration": "1 minutes"
+      }
+    }
+  },
+  "P-46E8B4E5": {
+    "session_id": "6ee76e88-5693-4646-978c-e569cc23b6f2",
+    "participant_id": "P-46E8B4E5",
+    "saved_at": "2025-07-02T17:18:54.759416",
+    "data": {
+      "metadata": {
+        "participant_id": "P-46E8B4E5",
+        "session_id": "6ee76e88-5693-4646-978c-e569cc23b6f2",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T17:18:54.757506",
+        "total_messages": 3,
+        "conversation_state": "questioning",
+        "exit_reason": "interview_started",
+        "interview_status": "In Progress",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-1751456910277",
+          "type": "agent",
+          "content": "Hello! We're exploring how different methods used in coronary procedures affect the radial artery over time. Your involvement would be around 3 months with some follow-up visits. Are you ready to proceed with the screening questions, or would you like to know more before deciding?",
+          "timestamp": "2025-07-02T17:18:30.266036"
+        },
+        {
+          "id": "user-1751456932048",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T17:18:52.048158"
+        },
+        {
+          "id": "agent-1751456933675",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T17:18:53.670253"
+        }
+      ],
+      "summary": {
+        "agent_messages": 2,
+        "user_messages": 1,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "test": {
+    "session_id": "test",
+    "participant_id": "test",
+    "saved_at": "2025-07-02T18:25:34.772696",
+    "data": {
+      "metadata": {
+        "participant_id": "test",
+        "session_id": "test",
+        "study_id": "test",
+        "export_timestamp": "2025-07-02T18:25:34.770388",
+        "total_messages": 0,
+        "conversation_state": "unknown",
+        "exit_reason": "user_initiated",
+        "interview_status": "Paused",
+        "saved_incomplete": true
+      },
+      "conversation": [],
+      "summary": {
+        "agent_messages": 0,
+        "user_messages": 0,
+        "conversation_duration": "0 minutes"
+      }
+    }
+  },
+  "P-B2D9138F": {
+    "session_id": "080744fe-d2a8-4ad2-aeee-6d363e2cadfe",
+    "participant_id": "P-B2D9138F",
+    "saved_at": "2025-07-02T18:55:03.515602",
+    "data": {
+      "metadata": {
+        "participant_id": "P-B2D9138F",
+        "session_id": "080744fe-d2a8-4ad2-aeee-6d363e2cadfe",
+        "study_id": "imported-nct-05253820",
+        "export_timestamp": "2025-07-02T18:55:03.514898",
+        "total_messages": 16,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! We're exploring how different techniques in coronary procedures affect the radial artery over time. If you're interested, may I proceed with a couple of quick screening questions, or would you like to know more before deciding?",
+          "timestamp": "2025-07-02T18:52:47.952645"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "Yes, that's fine.",
+          "timestamp": "2025-07-02T18:53:01.099894"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "Can you confirm that you are at least 18 years old?",
+          "timestamp": "2025-07-02T18:53:04.463164"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "Yes.",
+          "timestamp": "2025-07-02T18:53:24.530412"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Do you have a palpable radial artery in your arm?",
+          "timestamp": "2025-07-02T18:53:27.201087"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "Oh!",
+          "timestamp": "2025-07-02T18:53:34.505631"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "It seems there might have been a little mix-up with the response. No worries! Could you please let us know if you can feel a pulse in your radial artery in your arm? Your answer will help us with the screening process.",
+          "timestamp": "2025-07-02T18:53:40.116641"
+        },
+        {
+          "id": "user-7",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T18:54:00.257181"
+        },
+        {
+          "id": "agent-8",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T18:54:02.338401"
+        },
+        {
+          "id": "user-9",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2025-07-02T18:54:12.086090"
+        },
+        {
+          "id": "agent-10",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2025-07-02T18:54:13.866296"
+        },
+        {
+          "id": "user-11",
+          "type": "user",
+          "content": "I can?",
+          "timestamp": "2025-07-02T18:54:47.246699"
+        },
+        {
+          "id": "agent-12",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
+          "timestamp": "2025-07-02T18:54:50.892556"
+        },
+        {
+          "id": "user-13",
+          "type": "user",
+          "content": "Submit my response and complete the interview.",
+          "timestamp": "2025-07-02T18:54:55.257303"
+        },
+        {
+          "id": "agent-14",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2025-07-02T18:54:57.320260"
+        },
+        {
+          "id": "agent-15",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2025-07-02T18:55:03.508895"
+        }
+      ],
+      "summary": {
+        "agent_messages": 9,
+        "user_messages": 7,
+        "conversation_duration": "2 minutes"
+      }
+    }
   }
 }

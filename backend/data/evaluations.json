@@ -674,5 +674,99 @@
       },
       "export_timestamp": "2025-06-30T18:00:24.108283"
     }
+  },
+  "P-7D2D3296": {
+    "session_id": "4e7477c2-f888-417c-bfc3-6381446d5c6f",
+    "participant_id": "P-7D2D3296",
+    "saved_at": "2025-07-02T15:32:41.227917",
+    "data": {
+      "participant_id": "P-7D2D3296",
+      "session_id": "4e7477c2-f888-417c-bfc3-6381446d5c6f",
+      "study_id": "imported-nct-05253820",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 50.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 0.8,
+            "reasoning": "The participant's response 'Yes, I am.' aligns with confirming that they are at least 18 years old. While the response is concise, the affirmative 'Yes' strongly indicates compliance with the age requirement. The speech-to-text conversion shows no evident errors that would suggest misunderstanding the intent.",
+            "extracted_value": "Yes, I am.",
+            "criteria_id": "INC001",
+            "criteria_text": "Age 18 years and older",
+            "criteria_question": "Can you confirm that you are at least 18 years old?",
+            "expected_response": "Yes, I am 18 or older",
+            "priority": "high",
+            "participant_response": "Yes, I am."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'No, I don't have.' indicates that they do not have a palpable radial artery. While there could be transcription errors, the use of 'no' suggests they are denying the presence of a palpable radial artery. Given the clarity of the statement and typical speech patterns, the response seems aligned with the intent to deny.",
+            "extracted_value": "no",
+            "criteria_id": "INC002",
+            "criteria_text": "Palpable unilateral distal radial and radial artery",
+            "criteria_question": "Do you have a palpable radial artery in your arm?",
+            "expected_response": "Yes, I can feel it",
+            "priority": "high",
+            "participant_response": "No, I don't have."
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Decision Algorithm: Reject\n\n**Confidence-Weighted Score**: -0.50 (< 0.0)\n**Legacy Score**: 50.0%\n\n**Immediate Rejection**: High-priority criterion failed with confidence \u2265 0.8\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 years and older\n   Response: \"Yes, I am.\"\n   Confidence: 0.80 | Weight: 5.0\n   Assessment: The participant's response 'Yes, I am.' aligns with confirming that they are at least 18 years old. While the response is concise, the affirmative 'Yes' strongly indicates compliance with the age requirement. The speech-to-text conversion shows no evident errors that would suggest misunderstanding the intent.\n\n\u274c \ud83d\udd34 Palpable unilateral distal radial and radial artery\n   Response: \"No, I don't have.\"\n   Confidence: 0.90 | Weight: 5.0\n   Assessment: The participant's response 'No, I don't have.' indicates that they do not have a palpable radial artery. While there could be transcription errors, the use of 'no' suggests they are denying the presence of a palpable radial artery. Given the clarity of the statement and typical speech patterns, the response seems aligned with the intent to deny.\n\n",
+        "high_priority_criteria_met": "1/2",
+        "decision_algorithm_score": -0.5,
+        "decision_algorithm_result": "Reject",
+        "evaluation_timestamp": "2025-07-02T15:32:40.284551",
+        "participant_id": "P-7D2D3296"
+      },
+      "export_timestamp": "2025-07-02T15:32:41.226589"
+    }
+  },
+  "P-B2D9138F": {
+    "session_id": "080744fe-d2a8-4ad2-aeee-6d363e2cadfe",
+    "participant_id": "P-B2D9138F",
+    "saved_at": "2025-07-02T18:55:03.519662",
+    "data": {
+      "participant_id": "P-B2D9138F",
+      "session_id": "080744fe-d2a8-4ad2-aeee-6d363e2cadfe",
+      "study_id": "imported-nct-05253820",
+      "eligibility_result": {
+        "eligible": true,
+        "score": 50.0,
+        "criteria_met": [
+          {
+            "meets_criteria": true,
+            "confidence": 0.8,
+            "reasoning": "The participant's response 'Yes' directly answers the question about being at least 18 years old. While brief, this is a common positive affirmation indicating the participant meets the age requirement, despite potential speech-to-text issues.",
+            "extracted_value": "Yes",
+            "criteria_id": "INC001",
+            "criteria_text": "Age 18 years and older",
+            "criteria_question": "Can you confirm that you are at least 18 years old?",
+            "expected_response": "Yes, I am 18 or older",
+            "priority": "high",
+            "participant_response": "Yes."
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.3,
+            "reasoning": "The participant's response 'I can?' is not clear enough in confirming the intent and does not explicitly indicate whether they can feel the radial artery. The phrasing suggests uncertainty or confusion, possibly due to a transcription error.",
+            "extracted_value": "uncertain/confused response",
+            "criteria_id": "INC002",
+            "criteria_text": "Palpable unilateral distal radial and radial artery",
+            "criteria_question": "Do you have a palpable radial artery in your arm?",
+            "expected_response": "Yes, I can feel it",
+            "priority": "high",
+            "participant_response": "I can?"
+          }
+        ],
+        "summary": "\u2705 **ELIGIBLE** - Decision Algorithm: Accept\n\n**Confidence-Weighted Score**: 2.50 (\u2265 0.0)\n**Legacy Score**: 50.0%\n\nThe participant appears to meet the eligibility criteria for this clinical trial. Our research team will contact them for the next steps.\n\n**Criteria Assessment:**\n\u2705 \ud83d\udd34 Age 18 years and older\n   Response: \"Yes.\"\n   Confidence: 0.80 | Weight: 5.0\n   Assessment: The participant's response 'Yes' directly answers the question about being at least 18 years old. While brief, this is a common positive affirmation indicating the participant meets the age requirement, despite potential speech-to-text issues.\n\n\u274c \ud83d\udd34 Palpable unilateral distal radial and radial artery\n   Response: \"I can?\"\n   Confidence: 0.30 | Weight: 5.0\n   Assessment: The participant's response 'I can?' is not clear enough in confirming the intent and does not explicitly indicate whether they can feel the radial artery. The phrasing suggests uncertainty or confusion, possibly due to a transcription error.\n\n",
+        "high_priority_criteria_met": "1/2",
+        "decision_algorithm_score": 2.5,
+        "decision_algorithm_result": "Accept",
+        "evaluation_timestamp": "2025-07-02T18:55:01.718467",
+        "participant_id": "P-B2D9138F"
+      },
+      "export_timestamp": "2025-07-02T18:55:03.519208"
+    }
   }
 }

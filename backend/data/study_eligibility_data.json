@@ -1,6 +1,104 @@
 {
   "studies": [
     {
+      "id": "imported-nct-04717648",
+      "trial": {
+        "nct_id": "NCT04717648",
+        "title": "C-Reactive Protein and Sodium in Predicting Anastomotic Leakage",
+        "protocol_version": "imported-20250702",
+        "last_amended": "2025-07-02",
+        "category": "Oncology",
+        "description": "This study investigates the effectiveness of postoperative C-reactive protein and sodium values in predicting anastomotic leakage in colorectal cancer patients.",
+        "phase": "N/A",
+        "sponsor": "Not specified"
+      },
+      "overview": {
+        "purpose": "To determine whether C-reactive protein and sodium levels can predict anastomotic leakage after colorectal cancer surgery.",
+        "participant_commitment": "Postoperative monitoring on days 1, 3, and 5.",
+        "key_procedures": [
+          "Blood tests for C-reactive protein and sodium levels",
+          "Postoperative monitoring",
+          "Review of preoperative imaging",
+          "Assessment of surgical notes"
+        ]
+      },
+      "contact_info": "Study conducted at a medical facility. Enrollment of 2 participants completed. Study ran from January 2014 to January 2019.",
+      "criteria": [
+        {
+          "id": "IMP001",
+          "text": "Patients over the age of 18 who were operated due to elective colorectal cancer",
+          "question": "Have you undergone elective surgery for colorectal cancer and are you over 18 years old?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP002",
+          "text": "Patients who are known to have no solid organ metastases in preoperative imaging methods",
+          "question": "Did your preoperative imaging show no solid organ metastases?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP003",
+          "text": "Patients with ileocolic, colocolic, colorectal anastomosis during the operation",
+          "question": "Did you have an ileocolic, colocolic, or colorectal anastomosis during your surgery?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP004",
+          "text": "Patients whose postoperative 1,3,5th day C-Reactive protein and sodium values were measured",
+          "question": "Were your C-Reactive protein and sodium levels measured on the 1st, 3rd, and 5th days after surgery?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP005",
+          "text": "Emergency operated patients",
+          "question": "Was your surgery an emergency procedure?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP006",
+          "text": "Patients on a routine dialysis program due to Chronic renal failure",
+          "question": "Are you currently on a routine dialysis program due to chronic renal failure?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP007",
+          "text": "Patients with a known diagnosis of liver cirrhosis",
+          "question": "Do you have a known diagnosis of liver cirrhosis?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP008",
+          "text": "Patients who are irresectable during the operation and therefore have undergone palliative surgery",
+          "question": "Was your surgery palliative because the tumor was irresectable?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP009",
+          "text": "Patients undergoing concurrent hyperthermic intraperitoneal chemotherapy (HIPEC) and / or cytoreductive surgery",
+          "question": "Did you undergo hyperthermic intraperitoneal chemotherapy (HIPEC) or cytoreductive surgery during your operation?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "low"
+        }
+      ]
+    },
+    {
       "id": "imported-nct-05253820",
       "trial": {
         "nct_id": "NCT05253820",
@@ -518,7 +616,7 @@
   "meta": {
     "schema_version": "eligibility-json/2.0-multi-study",
     "author": "clinical-trial-agent",
-    "generated_utc": "2025-06-30T07:39:05Z",
-    "total_studies": 7
+    "generated_utc": "2025-07-02T13:22:10Z",
+    "total_studies": 8
   }
 }
