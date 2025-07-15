@@ -14,7 +14,7 @@ services:
       - key: GOOGLE_APPLICATION_CREDENTIALS_JSON
         sync: false
       - key: CORS_ORIGINS
-        value: "https://clinical-trial-frontend.vercel.app,http://localhost:5173,http://localhost:3000"
+        value: "https://clinical-trial-agent-7h65-git-verc-87bf33-vjs-projects-df08cc2e.vercel.app,http://localhost:5173,http://localhost:3000"
       - key: LOG_LEVEL
         value: "INFO"
       - key: PYTHONPATH
