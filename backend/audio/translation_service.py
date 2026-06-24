@@ -179,34 +179,32 @@ class TranslationService:
     
     def detect_gender_from_voice_id(self, voice_id: str) -> str:
         """
-        Detect gender from Google TTS voice ID for gender-aware translation
-        
-        Args:
-            voice_id: Google TTS voice ID (e.g., 'en-US-Neural2-F')
-            
+        Detect gender from a voice ID (Deepgram Aura or Google TTS format)
+
         Returns:
             str: 'male', 'female', or 'neutral'
         """
         try:
-            # Google TTS voice naming pattern: xx-XX-Model-Letter
-            # Generally: A = Female, B/C/D/E/F/G/H/I/J... = Male
             if not voice_id:
                 return "neutral"
-            
-            # Extract the last character/identifier from voice ID
-            parts = voice_id.split('-')
+
+            # Deepgram Aura format: aura-{name}-en
+            FEMALE_VOICES = {"asteria", "luna", "stella", "athena", "hera"}
+            MALE_VOICES = {"orion", "arcas", "perseus", "angus", "orpheus", "helios", "zeus"}
+            parts = voice_id.split("-")
+            if len(parts) >= 2:
+                name = parts[1].lower()
+                if name in FEMALE_VOICES:
+                    return "female"
+                if name in MALE_VOICES:
+                    return "male"
+
+            # Legacy Google TTS format: xx-XX-Model-Letter (A=female, else male)
             if len(parts) >= 4:
-                last_part = parts[-1]  # e.g., "A", "B", "F", etc.
-                # Handle complex suffixes like "Algenib", "HD", etc.
-                if len(last_part) > 1:
-                    # Extract first letter for complex names
-                    letter = last_part[0].upper()
-                else:
-                    letter = last_part.upper()
-                
-                # A = Female, everything else = Male (B, C, D, F, etc.)
-                return "female" if letter == 'A' else "male"
-            
+                last_part = parts[-1]
+                letter = last_part[0].upper() if len(last_part) > 1 else last_part.upper()
+                return "female" if letter == "A" else "male"
+
             return "neutral"
         except Exception as e:
             logger.warning(f"Could not detect gender from voice {voice_id}: {e}")

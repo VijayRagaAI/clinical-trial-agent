@@ -768,5 +768,148 @@
       },
       "export_timestamp": "2025-07-02T18:55:03.519208"
     }
+  },
+  "P-627F386E": {
+    "session_id": "6aad7548-c7ef-471a-93a8-0fbac013b611",
+    "participant_id": "P-627F386E",
+    "saved_at": "2026-06-24T14:48:23.229385",
+    "data": {
+      "participant_id": "P-627F386E",
+      "session_id": "6aad7548-c7ef-471a-93a8-0fbac013b611",
+      "study_id": "imported-nct-02941367",
+      "eligibility_result": {
+        "eligible": false,
+        "score": 73.5,
+        "criteria_met": [
+          {
+            "meets_criteria": false,
+            "confidence": 0.8,
+            "reasoning": "The response 'one month two months' strongly indicates a recent diagnosis, much shorter than the required 1 year. Although STT errors could exist, the response distinctly estimated a time frame, suggesting the participant's intent was to convey the diagnosis period was recent.",
+            "extracted_value": "one month two months",
+            "criteria_id": "IMP001",
+            "criteria_text": "Patients with type 2 diabetes mellitus, diagnosed for at least 1 year at the time of the screening visit.",
+            "criteria_question": "How long have you been diagnosed with Type 2 diabetes?",
+            "expected_response": "At least 1 year",
+            "priority": "high",
+            "participant_response": "one month two months"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.7,
+            "reasoning": "The participant's response indicates a lack of planning to fast, as they state 'I don't plan' twice and 'I stopped going away,' which could suggest they are not participating in activities that involve fasting or traveling during Ramadan. The repeated phrase suggests a firm decision not to plan, thus indicating they do not intend to fast.",
+            "extracted_value": "I don't plan",
+            "criteria_id": "IMP002",
+            "criteria_text": "Patients who express the intention to fast during Ramadan.",
+            "criteria_question": "Do you plan to fast during Ramadan?",
+            "expected_response": "Yes",
+            "priority": "medium",
+            "participant_response": "i don't plan i don't plan it i stopped going away"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'yes' aligns with the expected response for providing informed consent. Despite potential for STT errors, the intent is clear.",
+            "extracted_value": "yes",
+            "criteria_id": "IMP003",
+            "criteria_text": "Signed informed consent.",
+            "criteria_question": "Are you willing to provide informed consent to participate in this study?",
+            "expected_response": "Yes",
+            "priority": "low",
+            "participant_response": "yes"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The participant explicitly mentions being eighteen years old, and despite potential speech-to-text errors, such as 'list' instead of 'at least', the intent is clear in stating their age is at least 18.",
+            "extracted_value": "eighteen",
+            "criteria_id": "IMP004",
+            "criteria_text": "Age at screening must be the legal age of majority or older.",
+            "criteria_question": "Are you at least 18 years old?",
+            "expected_response": "Yes",
+            "priority": "high",
+            "participant_response": "list eighteen yes i'm eighteen year olds"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The participant mentioned their HbA1c level as 'eight point five percent', which is numerically between 7.5% and 10%. The speech-to-text conversion accurately captured the key numeric value despite informal language, providing high confidence.",
+            "extracted_value": "8.5%",
+            "criteria_id": "IMP005",
+            "criteria_text": "Glycated hemoglobin (HbA1c) at screening visit: 7.5% to 10%.",
+            "criteria_question": "Do you know your recent HbA1c levels? Are they between 7.5% and 10%?",
+            "expected_response": "Between 7.5% and 10%",
+            "priority": "medium",
+            "participant_response": "yeah it was about eight point five percent"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.9,
+            "reasoning": "The participant mentioned their BMI as 'a bit higher like twenty one kilogram milli square', which suggests they believe their BMI is 21 kg/m^2. This meets the required criteria of being 20 kg/m^2 or higher. The term 'kilogram milli square' is likely a transcription error for 'kilogram per square meter', which is the correct unit for BMI.",
+            "extracted_value": "21 kg/m^2",
+            "criteria_id": "IMP006",
+            "criteria_text": "Body mass index (BMI) must be 20 kg/m^2 or higher.",
+            "criteria_question": "Do you know your BMI? Is it 20 kg/m^2 or higher?",
+            "expected_response": "20 kg/m^2 or higher",
+            "priority": "medium",
+            "participant_response": "it's a bit higher like twenty one kilogram milli square"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.8,
+            "reasoning": "The participant confirms having been on basal insulin for at least six months. Despite minor transcription errors, such as repeated words and an awkward phrase structure ('for since six months'), the intent and key information are clear.",
+            "extracted_value": "6 months",
+            "criteria_id": "IMP007",
+            "criteria_text": "Treatment with basal insulin for at least 6 months prior to screening.",
+            "criteria_question": "Have you been on basal insulin for at least 6 months?",
+            "expected_response": "Yes",
+            "priority": "high",
+            "participant_response": "yes i i was on basal insulin for since six months"
+          },
+          {
+            "meets_criteria": false,
+            "confidence": 0.9,
+            "reasoning": "The participant's response 'of course yes' suggests affirmation to the question asked. Despite the possibility of transcription errors, the phrase 'of course yes' strongly indicates that the participant believes they have used short or rapid acting insulin for more than 10 days in the past 6 months. The response contains a clear affirmation in context, making it less likely a transcription error.",
+            "extracted_value": "yes",
+            "criteria_id": "IMP008",
+            "criteria_text": "No prior treatment with short or rapid acting insulin other than for short term use (\u226410 days) in the last 6 months.",
+            "criteria_question": "Have you used short or rapid acting insulin for more than 10 days in the past 6 months?",
+            "expected_response": "No",
+            "priority": "medium",
+            "participant_response": "of course yes"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 0.1,
+            "reasoning": "The participant's response 'i don't know about that' may imply uncertainty or lack of knowledge about experiencing diabetic ketoacidosis. This suggests they might not have a history of it, but the ambiguity and potential transcription errors lead to a low confidence assessment.",
+            "extracted_value": "uncertain",
+            "criteria_id": "IMP009",
+            "criteria_text": "No history of diabetic ketoacidosis.",
+            "criteria_question": "Have you ever experienced diabetic ketoacidosis?",
+            "expected_response": "No",
+            "priority": "high",
+            "participant_response": "i don't know about that"
+          },
+          {
+            "meets_criteria": true,
+            "confidence": 1.0,
+            "reasoning": "The response 'no' clearly indicates that the participant is neither pregnant nor breast-feeding, adhering to the criteria. The word is simple and less prone to significant transcription errors.",
+            "extracted_value": "no",
+            "criteria_id": "IMP010",
+            "criteria_text": "Not pregnant or breast-feeding.",
+            "criteria_question": "Are you currently pregnant or breast-feeding?",
+            "expected_response": "No",
+            "priority": "high",
+            "participant_response": "no"
+          }
+        ],
+        "summary": "\u274c **NOT ELIGIBLE** - Decision Algorithm: Reject\n\n**Confidence-Weighted Score**: 11.40 (< 0.0)\n**Legacy Score**: 73.5%\n\n**Immediate Rejection**: High-priority criterion failed with confidence \u2265 0.8\n\n**Criteria Assessment:**\n\u274c \ud83d\udd34 Patients with type 2 diabetes mellitus, diagnosed for at least 1 year at the time of the screening visit.\n   Response: \"one month two months\"\n   Confidence: 0.80 | Weight: 5.0\n   Assessment: The response 'one month two months' strongly indicates a recent diagnosis, much shorter than the required 1 year. Although STT errors could exist, the response distinctly estimated a time frame, suggesting the participant's intent was to convey the diagnosis period was recent.\n\n\u274c \ud83d\udfe1 Patients who express the intention to fast during Ramadan.\n   Response: \"i don't plan i don't plan it i stopped going away\"\n   Confidence: 0.70 | Weight: 2.5\n   Assessment: The participant's response indicates a lack of planning to fast, as they state 'I don't plan' twice and 'I stopped going away,' which could suggest they are not participating in activities that involve fasting or traveling during Ramadan. The repeated phrase suggests a firm decision not to plan, thus indicating they do not intend to fast.\n\n\u2705 \ud83d\udfe2 Signed informed consent.\n   Response: \"yes\"\n   Confidence: 0.90 | Weight: 1.0\n   Assessment: The participant's response 'yes' aligns with the expected response for providing informed consent. Despite potential for STT errors, the intent is clear.\n\n\u2705 \ud83d\udd34 Age at screening must be the legal age of majority or older.\n   Response: \"list eighteen yes i'm eighteen year olds\"\n   Confidence: 0.90 | Weight: 5.0\n   Assessment: The participant explicitly mentions being eighteen years old, and despite potential speech-to-text errors, such as 'list' instead of 'at least', the intent is clear in stating their age is at least 18.\n\n\u2705 \ud83d\udfe1 Glycated hemoglobin (HbA1c) at screening visit: 7.5% to 10%.\n   Response: \"yeah it was about eight point five percent\"\n   Confidence: 0.90 | Weight: 2.5\n   Assessment: The participant mentioned their HbA1c level as 'eight point five percent', which is numerically between 7.5% and 10%. The speech-to-text conversion accurately captured the key numeric value despite informal language, providing high confidence.\n\n\u2705 \ud83d\udfe1 Body mass index (BMI) must be 20 kg/m^2 or higher.\n   Response: \"it's a bit higher like twenty one kilogram milli square\"\n   Confidence: 0.90 | Weight: 2.5\n   Assessment: The participant mentioned their BMI as 'a bit higher like twenty one kilogram milli square', which suggests they believe their BMI is 21 kg/m^2. This meets the required criteria of being 20 kg/m^2 or higher. The term 'kilogram milli square' is likely a transcription error for 'kilogram per square meter', which is the correct unit for BMI.\n\n\u2705 \ud83d\udd34 Treatment with basal insulin for at least 6 months prior to screening.\n   Response: \"yes i i was on basal insulin for since six months\"\n   Confidence: 0.80 | Weight: 5.0\n   Assessment: The participant confirms having been on basal insulin for at least six months. Despite minor transcription errors, such as repeated words and an awkward phrase structure ('for since six months'), the intent and key information are clear.\n\n\u274c \ud83d\udfe1 No prior treatment with short or rapid acting insulin other than for short term use (\u226410 days) in the last 6 months.\n   Response: \"of course yes\"\n   Confidence: 0.90 | Weight: 2.5\n   Assessment: The participant's response 'of course yes' suggests affirmation to the question asked. Despite the possibility of transcription errors, the phrase 'of course yes' strongly indicates that the participant believes they have used short or rapid acting insulin for more than 10 days in the past 6 months. The response contains a clear affirmation in context, making it less likely a transcription error.\n\n\u2705 \ud83d\udd34 No history of diabetic ketoacidosis.\n   Response: \"i don't know about that\"\n   Confidence: 0.10 | Weight: 5.0\n   Assessment: The participant's response 'i don't know about that' may imply uncertainty or lack of knowledge about experiencing diabetic ketoacidosis. This suggests they might not have a history of it, but the ambiguity and potential transcription errors lead to a low confidence assessment.\n\n\u2705 \ud83d\udd34 Not pregnant or breast-feeding.\n   Response: \"no\"\n   Confidence: 1.00 | Weight: 5.0\n   Assessment: The response 'no' clearly indicates that the participant is neither pregnant nor breast-feeding, adhering to the criteria. The word is simple and less prone to significant transcription errors.\n\n",
+        "high_priority_criteria_met": "4/5",
+        "decision_algorithm_score": 11.4,
+        "decision_algorithm_result": "Reject",
+        "evaluation_timestamp": "2026-06-24T14:48:21.796970",
+        "participant_id": "P-627F386E"
+      },
+      "export_timestamp": "2026-06-24T14:48:23.228751"
+    }
   }
 }

@@ -40,6 +40,15 @@ export const useVoiceInterview = () => {
   const audioRecorderRef = useRef<AudioRecorder | null>(null);
   const audioPlayerRef = useRef<AudioPlayer | null>(null);
 
+  // Refs for VAD (Voice Activity Detection)
+  const isRecordingRef = useRef(false);
+  const vadAudioContextRef = useRef<AudioContext | null>(null);
+
+  // Keep recording ref in sync with state
+  useEffect(() => {
+    isRecordingRef.current = isRecording;
+  }, [isRecording]);
+
   // Timer for recording
   useEffect(() => {
     let interval: number;
@@ -65,6 +74,7 @@ export const useVoiceInterview = () => {
       audioRecorderRef.current?.cleanup();
       audioPlayerRef.current?.stop();
       wsRef.current?.close();
+      vadAudioContextRef.current?.close().catch(() => {});
     };
   }, []);
 
@@ -275,9 +285,97 @@ export const useVoiceInterview = () => {
     }
   };
 
+  // VAD: auto-stop recording after sustained silence
+  const startVAD = () => {
+    const stream = audioRecorderRef.current?.getStream();
+    if (!stream) return;
+
+    if (vadAudioContextRef.current) {
+      vadAudioContextRef.current.close().catch(() => {});
+    }
+
+    try {
+      const audioContext = new AudioContext();
+      vadAudioContextRef.current = audioContext;
+      const analyser = audioContext.createAnalyser();
+      analyser.fftSize = 512;
+      const source = audioContext.createMediaStreamSource(stream);
+      source.connect(analyser);
+
+      const bufferLength = analyser.frequencyBinCount;
+      const dataArray = new Uint8Array(bufferLength);
+
+      let silenceStart: number | null = null;
+      const recordingStart = Date.now();
+      const SILENCE_THRESHOLD = 8;   // RMS level (0-100)
+      const SILENCE_DURATION = 1800; // ms of silence before auto-stop
+      const MIN_SPEECH_TIME = 1000;  // ms minimum before auto-stop allowed
+      const MAX_RECORDING_TIME = 30000;
+
+      const tick = () => {
+        if (!isRecordingRef.current) {
+          audioContext.close().catch(() => {});
+          vadAudioContextRef.current = null;
+          return;
+        }
+
+        const elapsed = Date.now() - recordingStart;
+        if (elapsed > MAX_RECORDING_TIME) {
+          stopRecording();
+          return;
+        }
+
+        analyser.getByteTimeDomainData(dataArray);
+        let sum = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const v = (dataArray[i] - 128) / 128;
+          sum += v * v;
+        }
+        const rms = Math.sqrt(sum / bufferLength) * 100;
+
+        if (rms < SILENCE_THRESHOLD) {
+          if (silenceStart === null) silenceStart = Date.now();
+          else if (Date.now() - silenceStart > SILENCE_DURATION && elapsed > MIN_SPEECH_TIME) {
+            stopRecording();
+            return;
+          }
+        } else {
+          silenceStart = null;
+        }
+
+        requestAnimationFrame(tick);
+      };
+
+      requestAnimationFrame(tick);
+    } catch (e) {
+      console.error('VAD setup failed:', e);
+    }
+  };
+
+  // Auto-start recording when it's the user's turn
+  useEffect(() => {
+    if (
+      waitingForUser &&
+      !isRecordingRef.current &&
+      !isAgentSpeaking &&
+      !isProcessing &&
+      !isEvaluating &&
+      conversationState !== 'not_started' &&
+      conversationState !== 'completed' &&
+      conversationState !== 'starting'
+    ) {
+      const timerId = window.setTimeout(() => {
+        if (!isRecordingRef.current && audioRecorderRef.current && wsRef.current) {
+          startRecording();
+        }
+      }, 600);
+      return () => window.clearTimeout(timerId);
+    }
+  }, [waitingForUser, isAgentSpeaking, isProcessing, isEvaluating, conversationState]);
+
   const startRecording = async () => {
-    if (!audioRecorderRef.current || !wsRef.current) return;
-    
+    if (isRecordingRef.current || !audioRecorderRef.current || !wsRef.current) return;
+
     try {
       // Stop any ongoing audio playback first
       if (isAgentSpeaking && audioPlayerRef.current) {
@@ -285,15 +383,18 @@ export const useVoiceInterview = () => {
         setIsAgentSpeaking(false);
         setCanInterruptSpeech(false);
       }
-      
+
       await audioRecorderRef.current.startRecording();
+      isRecordingRef.current = true;
       setIsRecording(true);
       setShowTranscriptionConfirm(false);
-      
+
       wsRef.current.send(JSON.stringify({
         type: 'start_recording'
       }));
-      
+
+      startVAD();
+
     } catch (error) {
       console.error('Failed to start recording:', error);
       setConnectionError('Failed to start recording. Please check microphone permissions.');
@@ -301,20 +402,29 @@ export const useVoiceInterview = () => {
   };
 
   const stopRecording = async () => {
-    if (!isRecording || !audioRecorderRef.current || !wsRef.current) return;
-    
+    if (!isRecordingRef.current || !audioRecorderRef.current || !wsRef.current) return;
+
+    // Mark stopped immediately so VAD and double-calls bail out
+    isRecordingRef.current = false;
+    setIsRecording(false);
+
+    // Clean up VAD audio context
+    if (vadAudioContextRef.current) {
+      vadAudioContextRef.current.close().catch(() => {});
+      vadAudioContextRef.current = null;
+    }
+
     try {
       const audioBase64 = await audioRecorderRef.current.stopRecording();
-      setIsRecording(false);
-      
+
       // Set processing state immediately after recording stops
       setIsProcessing(true);
-      
+
       wsRef.current.send(JSON.stringify({
         type: 'audio_data',
         audio: audioBase64
       }));
-      
+
     } catch (error) {
       console.error('Failed to stop recording:', error);
       setConnectionError('Failed to process recording. Please try again.');
