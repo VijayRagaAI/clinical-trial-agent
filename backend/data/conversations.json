@@ -2194,5 +2194,418 @@
         "conversation_duration": "3 minutes"
       }
     }
+  },
+  "P-627F386E": {
+    "session_id": "6aad7548-c7ef-471a-93a8-0fbac013b611",
+    "participant_id": "P-627F386E",
+    "saved_at": "2026-06-24T14:48:23.226851",
+    "data": {
+      "metadata": {
+        "participant_id": "P-627F386E",
+        "session_id": "6aad7548-c7ef-471a-93a8-0fbac013b611",
+        "study_id": "imported-nct-02941367",
+        "export_timestamp": "2026-06-24T14:48:23.225161",
+        "total_messages": 30,
+        "conversation_state": "completed"
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! We're excited to invite you to a study assessing the safety and effectiveness of Lixisenatide and Sulfonylurea for managing blood sugar in individuals with Type 2 Diabetes during Ramadan. Would you like to proceed with the screening questions, or do you have any questions about the study first?",
+          "timestamp": "2026-06-24T14:43:17.486371"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "can you repeat your question",
+          "timestamp": "2026-06-24T14:43:46.860982"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "It seems like there might have been a misunderstanding, as I didn't ask a question. However, I can provide more information about the study if you'd like! We're evaluating the safety and effectiveness of Lixisenatide versus Sulfonylurea for managing blood sugar levels in patients with Type 2 Diabetes who fast during Ramadan. Would you like to proceed with the screening questions?",
+          "timestamp": "2026-06-24T14:43:52.952165"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "yes sure",
+          "timestamp": "2026-06-24T14:44:27.462692"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "How long have you been diagnosed with Type 2 diabetes?",
+          "timestamp": "2026-06-24T14:44:30.461006"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "one month two months",
+          "timestamp": "2026-06-24T14:44:52.223519"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Do you plan to fast during Ramadan?",
+          "timestamp": "2026-06-24T14:44:55.226537"
+        },
+        {
+          "id": "user-7",
+          "type": "user",
+          "content": "i don't plan i don't plan it i stopped going away",
+          "timestamp": "2026-06-24T14:45:10.601191"
+        },
+        {
+          "id": "agent-8",
+          "type": "agent",
+          "content": "Are you willing to provide informed consent to participate in this study?",
+          "timestamp": "2026-06-24T14:45:13.940179"
+        },
+        {
+          "id": "user-9",
+          "type": "user",
+          "content": "yes",
+          "timestamp": "2026-06-24T14:45:23.372364"
+        },
+        {
+          "id": "agent-10",
+          "type": "agent",
+          "content": "Are you at least 18 years old?",
+          "timestamp": "2026-06-24T14:45:26.472105"
+        },
+        {
+          "id": "user-11",
+          "type": "user",
+          "content": "list eighteen yes i'm eighteen year olds",
+          "timestamp": "2026-06-24T14:45:43.607572"
+        },
+        {
+          "id": "agent-12",
+          "type": "agent",
+          "content": "Do you know your recent HbA1c levels? Are they between 7.5% and 10%?",
+          "timestamp": "2026-06-24T14:45:46.386412"
+        },
+        {
+          "id": "user-13",
+          "type": "user",
+          "content": "yeah it was about eight point five percent",
+          "timestamp": "2026-06-24T14:45:59.844530"
+        },
+        {
+          "id": "agent-14",
+          "type": "agent",
+          "content": "Do you know your BMI? Is it 20 kg/m^2 or higher?",
+          "timestamp": "2026-06-24T14:46:02.813809"
+        },
+        {
+          "id": "user-15",
+          "type": "user",
+          "content": "it's a bit higher like twenty one kilogram milli square",
+          "timestamp": "2026-06-24T14:46:17.178519"
+        },
+        {
+          "id": "agent-16",
+          "type": "agent",
+          "content": "Have you been on basal insulin for at least 6 months?",
+          "timestamp": "2026-06-24T14:46:19.759578"
+        },
+        {
+          "id": "user-17",
+          "type": "user",
+          "content": "that's on teams",
+          "timestamp": "2026-06-24T14:46:30.397420"
+        },
+        {
+          "id": "agent-18",
+          "type": "agent",
+          "content": "I understand there might have been a mix-up with the transcription. Let's revisit the question: Have you been on basal insulin for at least 6 months? Your clear response will help us proceed accurately.",
+          "timestamp": "2026-06-24T14:46:35.451455"
+        },
+        {
+          "id": "user-19",
+          "type": "user",
+          "content": "yes i i was on basal insulin for since six months",
+          "timestamp": "2026-06-24T14:46:56.885377"
+        },
+        {
+          "id": "agent-20",
+          "type": "agent",
+          "content": "Have you used short or rapid acting insulin for more than 10 days in the past 6 months?",
+          "timestamp": "2026-06-24T14:46:59.905173"
+        },
+        {
+          "id": "user-21",
+          "type": "user",
+          "content": "of course yes",
+          "timestamp": "2026-06-24T14:47:14.843101"
+        },
+        {
+          "id": "agent-22",
+          "type": "agent",
+          "content": "Have you ever experienced diabetic ketoacidosis?",
+          "timestamp": "2026-06-24T14:47:18.260801"
+        },
+        {
+          "id": "user-23",
+          "type": "user",
+          "content": "i don't know about that",
+          "timestamp": "2026-06-24T14:47:29.015872"
+        },
+        {
+          "id": "agent-24",
+          "type": "agent",
+          "content": "Are you currently pregnant or breast-feeding?",
+          "timestamp": "2026-06-24T14:47:32.741998"
+        },
+        {
+          "id": "user-25",
+          "type": "user",
+          "content": "no",
+          "timestamp": "2026-06-24T14:47:41.496026"
+        },
+        {
+          "id": "agent-26",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
+          "timestamp": "2026-06-24T14:47:44.519844"
+        },
+        {
+          "id": "user-27",
+          "type": "user",
+          "content": "submit answer",
+          "timestamp": "2026-06-24T14:48:01.029166"
+        },
+        {
+          "id": "agent-28",
+          "type": "agent",
+          "content": "Evaluating your responses...",
+          "timestamp": "2026-06-24T14:48:03.926324"
+        },
+        {
+          "id": "agent-29",
+          "type": "agent",
+          "content": "Thank you for completing the screening interview! Your responses have been recorded and evaluated.",
+          "timestamp": "2026-06-24T14:48:23.223381"
+        }
+      ],
+      "summary": {
+        "agent_messages": 16,
+        "user_messages": 14,
+        "conversation_duration": "5 minutes"
+      }
+    }
+  },
+  "P-68193B66": {
+    "session_id": "71390b85-7e23-4465-85ad-20eca032e0b3",
+    "participant_id": "P-68193B66",
+    "saved_at": "2026-06-24T15:46:05.130273",
+    "data": {
+      "metadata": {
+        "participant_id": "P-68193B66",
+        "session_id": "71390b85-7e23-4465-85ad-20eca032e0b3",
+        "study_id": "imported-nct-04717648",
+        "export_timestamp": "2026-06-24T15:46:05.127737",
+        "total_messages": 31,
+        "conversation_state": "completed",
+        "exit_reason": "consent_rejected",
+        "interview_status": "Incomplete",
+        "saved_incomplete": true
+      },
+      "conversation": [
+        {
+          "id": "agent-0",
+          "type": "agent",
+          "content": "Hello! We're inviting you to participate in a study to see if certain blood markers can help predict complications after colorectal surgery. Would you like to proceed with the screening questions, or is there anything you'd like to know before deciding?",
+          "timestamp": "2026-06-24T15:42:20.204138"
+        },
+        {
+          "id": "user-1",
+          "type": "user",
+          "content": "yeah i will proceed with these questions",
+          "timestamp": "2026-06-24T15:42:42.277678"
+        },
+        {
+          "id": "agent-2",
+          "type": "agent",
+          "content": "Have you undergone elective surgery for colorectal cancer and are you over 18 years old?",
+          "timestamp": "2026-06-24T15:42:45.201417"
+        },
+        {
+          "id": "user-3",
+          "type": "user",
+          "content": "yeah",
+          "timestamp": "2026-06-24T15:42:56.594547"
+        },
+        {
+          "id": "agent-4",
+          "type": "agent",
+          "content": "Did your preoperative imaging show no solid organ metastases?",
+          "timestamp": "2026-06-24T15:43:00.153097"
+        },
+        {
+          "id": "user-5",
+          "type": "user",
+          "content": "not sure about that",
+          "timestamp": "2026-06-24T15:43:09.561572"
+        },
+        {
+          "id": "agent-6",
+          "type": "agent",
+          "content": "Did you have an ileocolic, colocolic, or colorectal anastomosis during your surgery?",
+          "timestamp": "2026-06-24T15:43:12.374403"
+        },
+        {
+          "id": "user-7",
+          "type": "user",
+          "content": "no",
+          "timestamp": "2026-06-24T15:43:25.202019"
+        },
+        {
+          "id": "agent-8",
+          "type": "agent",
+          "content": "Were your C-Reactive protein and sodium levels measured on the 1st, 3rd, and 5th days after surgery?",
+          "timestamp": "2026-06-24T15:43:28.447039"
+        },
+        {
+          "id": "user-9",
+          "type": "user",
+          "content": "can you repeat the questions",
+          "timestamp": "2026-06-24T15:43:39.926460"
+        },
+        {
+          "id": "agent-10",
+          "type": "agent",
+          "content": "Were your C-Reactive protein and sodium levels measured on the 1st, 3rd, and 5th days after surgery?",
+          "timestamp": "2026-06-24T15:43:42.562056"
+        },
+        {
+          "id": "user-11",
+          "type": "user",
+          "content": "yeah",
+          "timestamp": "2026-06-24T15:43:53.755134"
+        },
+        {
+          "id": "agent-12",
+          "type": "agent",
+          "content": "Was your surgery an emergency procedure?",
+          "timestamp": "2026-06-24T15:43:56.722156"
+        },
+        {
+          "id": "user-13",
+          "type": "user",
+          "content": "not an emergency procedure",
+          "timestamp": "2026-06-24T15:44:05.565596"
+        },
+        {
+          "id": "agent-14",
+          "type": "agent",
+          "content": "Are you currently on a routine dialysis program due to chronic renal failure?",
+          "timestamp": "2026-06-24T15:44:08.806781"
+        },
+        {
+          "id": "user-15",
+          "type": "user",
+          "content": "what is this program can you tell me about this",
+          "timestamp": "2026-06-24T15:44:20.486944"
+        },
+        {
+          "id": "agent-16",
+          "type": "agent",
+          "content": "Are you currently on a routine dialysis program due to chronic renal failure?",
+          "timestamp": "2026-06-24T15:44:23.119479"
+        },
+        {
+          "id": "user-17",
+          "type": "user",
+          "content": "i'm not familiar with this program can you tell me help me know about this",
+          "timestamp": "2026-06-24T15:44:38.992818"
+        },
+        {
+          "id": "agent-18",
+          "type": "agent",
+          "content": "Are you currently on a routine dialysis program due to chronic renal failure?",
+          "timestamp": "2026-06-24T15:44:41.509419"
+        },
+        {
+          "id": "user-19",
+          "type": "user",
+          "content": "no",
+          "timestamp": "2026-06-24T15:44:50.581171"
+        },
+        {
+          "id": "agent-20",
+          "type": "agent",
+          "content": "Do you have a known diagnosis of liver cirrhosis?",
+          "timestamp": "2026-06-24T15:44:53.622125"
+        },
+        {
+          "id": "user-21",
+          "type": "user",
+          "content": "Ambiguous sound.",
+          "timestamp": "2026-06-24T15:45:00.734480"
+        },
+        {
+          "id": "agent-22",
+          "type": "agent",
+          "content": "I didn't catch that clearly. Please speak more clearly, or speak in the language you selected.",
+          "timestamp": "2026-06-24T15:45:02.277802"
+        },
+        {
+          "id": "user-23",
+          "type": "user",
+          "content": "no i don't have a liver chiaroscis",
+          "timestamp": "2026-06-24T15:45:14.986591"
+        },
+        {
+          "id": "agent-24",
+          "type": "agent",
+          "content": "Was your surgery palliative because the tumor was irresectable?",
+          "timestamp": "2026-06-24T15:45:17.896129"
+        },
+        {
+          "id": "user-25",
+          "type": "user",
+          "content": "yeah",
+          "timestamp": "2026-06-24T15:45:26.662234"
+        },
+        {
+          "id": "agent-26",
+          "type": "agent",
+          "content": "Did you undergo hyperthermic intraperitoneal chemotherapy (HIPEC) or cytoreductive surgery during your operation?",
+          "timestamp": "2026-06-24T15:45:29.816490"
+        },
+        {
+          "id": "user-27",
+          "type": "user",
+          "content": "no",
+          "timestamp": "2026-06-24T15:45:41.659812"
+        },
+        {
+          "id": "agent-28",
+          "type": "agent",
+          "content": "Thank you for answering all the screening questions. Would you like to submit your responses for evaluation, or do you have any questions about the study before deciding?",
+          "timestamp": "2026-06-24T15:45:45.097162"
+        },
+        {
+          "id": "user-29",
+          "type": "user",
+          "content": "no submit answer",
+          "timestamp": "2026-06-24T15:45:59.488097"
+        },
+        {
+          "id": "agent-30",
+          "type": "agent",
+          "content": "I understand. Thank you for taking the time to answer the screening questions. If you change your mind and would like to participate in the future, feel free to try again.",
+          "timestamp": "2026-06-24T15:46:05.123830"
+        }
+      ],
+      "summary": {
+        "agent_messages": 16,
+        "user_messages": 15,
+        "conversation_duration": "0 minutes"
+      }
+    }
   }
 }

@@ -11,6 +11,8 @@ import argparse
 import json
 import tempfile
 from pathlib import Path
+from dotenv import load_dotenv
+load_dotenv()
 
 def setup_google_credentials():
     """Setup Google Cloud credentials from environment variable"""

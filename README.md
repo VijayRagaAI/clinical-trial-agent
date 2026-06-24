@@ -2,7 +2,18 @@
 
 > AI-powered voice interview platform for clinical trial participant screening with real-time conversation, multi-language support, and ClinicalTrials.gov integration
 
+
+# Quick start
+## Terminal 1
+```python 
+ cd /Users/ragaai_user/Desktop/clinical-trials-vijay/clinical-trial-agent/backend && venv/bin/python3 start_backend.py
+ ```
+## Terminal 2
+```python 
+cd /Users/ragaai_user/Desktop/clinical-trials-vijay/clinical-trial-agent/frontend && npm run dev
+```
 <div align="center">
+
 
 ![Voice Interview](https://img.shields.io/badge/Voice-Interview-blue?style=for-the-badge&logo=microphone)
 ![AI Powered](https://img.shields.io/badge/AI-Powered-green?style=for-the-badge&logo=robot)

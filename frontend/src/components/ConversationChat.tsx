@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { Volume2, Download } from 'lucide-react';
 import { Message, SessionData } from '../types/interview';
 
@@ -18,11 +18,20 @@ interface ConversationChatProps {
 }
 
 export const ConversationChat: React.FC<ConversationChatProps> = ({ messages, session, isDarkMode, onDownload }) => {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
   return (
     <div className="relative h-full">
       <style>{breathingStyles}</style>
       {/* Independent Scrollable Chat Area */}
-      <div 
+      <div
+        ref={scrollRef}
         className={`p-4 space-y-2 ${
           messages.length === 0 ? 'flex items-center justify-center' : ''
         }`}

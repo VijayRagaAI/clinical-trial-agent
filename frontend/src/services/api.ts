@@ -315,6 +315,10 @@ export class AudioRecorder {
     });
   }
 
+  getStream(): MediaStream | null {
+    return this.stream;
+  }
+
   cleanup(): void {
     if (this.stream) {
       this.stream.getTracks().forEach(track => track.stop());

@@ -1,6 +1,113 @@
 {
   "studies": [
     {
+      "id": "imported-nct-02941367",
+      "trial": {
+        "nct_id": "NCT02941367",
+        "title": "Safety Assessment of Lyxumia (Lixisenatide) and Sulfonylurea as Add-on Treatment to Basal Insulin in Uncontrolled Patients With Type 2 Diabetes Mellitus Who Elect to Fast During Ramadan",
+        "protocol_version": "imported-20260624",
+        "last_amended": "2026-06-24",
+        "category": "Endocrinology",
+        "description": "This study assesses the safety and efficacy of Lixisenatide compared to Sulfonylurea as an add-on treatment for patients with Type 2 Diabetes Mellitus who fast during Ramadan.",
+        "phase": "Phase 4",
+        "sponsor": "Sanofi"
+      },
+      "overview": {
+        "purpose": "To evaluate the safety and effectiveness of Lixisenatide versus Sulfonylurea in managing blood sugar levels in patients with Type 2 Diabetes who fast during Ramadan.",
+        "participant_commitment": "Participation involves a minimum of 12 weeks and up to 22 weeks, including screening, pre-Ramadan, Ramadan, and post-Ramadan periods.",
+        "key_procedures": [
+          "Screening for eligibility",
+          "Regular blood sugar monitoring",
+          "Weight checks",
+          "Medication administration",
+          "Follow-up visits post-Ramadan"
+        ]
+      },
+      "contact_info": "Study conducted in Kingdom of Saudi Arabia and Bangladesh. Enrolled 184 participants. Study ran from February 2017 to August 2017.",
+      "criteria": [
+        {
+          "id": "IMP001",
+          "text": "Patients with type 2 diabetes mellitus, diagnosed for at least 1 year at the time of the screening visit.",
+          "question": "How long have you been diagnosed with Type 2 diabetes?",
+          "expected_response": "At least 1 year",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP002",
+          "text": "Patients who express the intention to fast during Ramadan.",
+          "question": "Do you plan to fast during Ramadan?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP003",
+          "text": "Signed informed consent.",
+          "question": "Are you willing to provide informed consent to participate in this study?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "low"
+        },
+        {
+          "id": "IMP004",
+          "text": "Age at screening must be the legal age of majority or older.",
+          "question": "Are you at least 18 years old?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP005",
+          "text": "Glycated hemoglobin (HbA1c) at screening visit: 7.5% to 10%.",
+          "question": "Do you know your recent HbA1c levels? Are they between 7.5% and 10%?",
+          "expected_response": "Between 7.5% and 10%",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP006",
+          "text": "Body mass index (BMI) must be 20 kg/m^2 or higher.",
+          "question": "Do you know your BMI? Is it 20 kg/m^2 or higher?",
+          "expected_response": "20 kg/m^2 or higher",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP007",
+          "text": "Treatment with basal insulin for at least 6 months prior to screening.",
+          "question": "Have you been on basal insulin for at least 6 months?",
+          "expected_response": "Yes",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP008",
+          "text": "No prior treatment with short or rapid acting insulin other than for short term use (≤10 days) in the last 6 months.",
+          "question": "Have you used short or rapid acting insulin for more than 10 days in the past 6 months?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "medium"
+        },
+        {
+          "id": "IMP009",
+          "text": "No history of diabetic ketoacidosis.",
+          "question": "Have you ever experienced diabetic ketoacidosis?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "high"
+        },
+        {
+          "id": "IMP010",
+          "text": "Not pregnant or breast-feeding.",
+          "question": "Are you currently pregnant or breast-feeding?",
+          "expected_response": "No",
+          "response": "",
+          "priority": "high"
+        }
+      ]
+    },
+    {
       "id": "imported-nct-04717648",
       "trial": {
         "nct_id": "NCT04717648",
@@ -616,7 +723,7 @@
   "meta": {
     "schema_version": "eligibility-json/2.0-multi-study",
     "author": "clinical-trial-agent",
-    "generated_utc": "2025-07-02T13:22:10Z",
-    "total_studies": 8
+    "generated_utc": "2026-06-24T08:49:26Z",
+    "total_studies": 9
   }
 }
